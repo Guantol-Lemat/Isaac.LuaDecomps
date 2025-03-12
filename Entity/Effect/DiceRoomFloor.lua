@@ -1,4 +1,4 @@
----@class Datamines.Entity.Effect.DiceRoomFloor
+---@class Decomp.Entity.Effect.DiceRoomFloor
 local DiceRoomFloor = {}
 
 local g_Game = Game()

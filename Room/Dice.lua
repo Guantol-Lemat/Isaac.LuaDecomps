@@ -1,4 +1,4 @@
----@class Datamines.Room.DiceRoom
+---@class Decomp.Room.DiceRoom
 local DiceRoom = {}
 
 local g_Game = Game()
