@@ -18,14 +18,19 @@ local Lib = {
 
 ---@param player EntityPlayer
 ---@param slot ActiveSlot
+local function should_update_bag_of_crafting_control(player, slot)
+    return slot == ActiveSlot.SLOT_POCKET and not player:HasEntityFlags(EntityFlag.FLAG_INTERPOLATION_UPDATE)
+end
+
+---@param player EntityPlayer
 ---@param controllingActiveItem boolean
 ---@return boolean craftingItem
-local function is_crafting_item(player, slot, controllingActiveItem)
-    if player:GetItemState() ~= CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING or slot ~= ActiveSlot.SLOT_POCKET then
+local function is_crafting_item(player, controllingActiveItem)
+    if player:GetItemState() ~= CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING then
         return false
     end
 
-    if player:HasEntityFlags(EntityFlag.FLAG_APPLY_GRAVITY) or not player:AreControlsEnabled() or not controllingActiveItem then
+    if not player:AreControlsEnabled() or not controllingActiveItem then
         return false
     end
 
@@ -107,7 +112,11 @@ end
 ---@param slot ActiveSlot
 ---@param controllingActiveItem boolean
 function BagOfCrafting.ControlActiveItem(player, slot, controllingActiveItem)
-    if not is_crafting_item(player, slot, controllingActiveItem) then
+    if not should_update_bag_of_crafting_control(player, slot) then
+        return
+    end
+
+    if not is_crafting_item(player, controllingActiveItem) then
         set_crafting_timer(player, 0)
         return
     end
