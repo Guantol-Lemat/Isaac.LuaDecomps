@@ -1,5 +1,6 @@
 ---@class Decomp.Trinket.MatchStick
 local MatchStick = {}
+Decomp.Item.Trinket.MatchStick = MatchStick
 
 MatchStick.TRINKET_ID = TrinketType.TRINKET_MATCH_STICK
 
@@ -10,5 +11,3 @@ function MatchStick.TryGetExtraPickup(rng)
         return PickupVariant.PICKUP_BOMB
     end
 end
-
-return MatchStick

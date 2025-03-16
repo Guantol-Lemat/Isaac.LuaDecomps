@@ -1,20 +1,21 @@
-local Class = {}
 ---@class Decomp.Class.EntityPlayer
-Class.EntityPlayer = {}
+local Class_EntityPlayer = {}
+Decomp.Class.EntityPlayer = Class_EntityPlayer
 
-local Lib = {
-    Math = require("Lib.Math"),
-    EntityPlayer = require("Lib.EntityPlayer"),
-    EntityPickup = require("Lib.EntityPickup")
-}
+require("Lib.Math")
+require("Lib.EntityPlayer")
+require("Lib.EntityPickup")
 
-local LuckyToe = require("Items.Trinket.Lucky_Toe")
-local Birthright = require("Items.Collectible.Birthright")
-local BookOfBelial = require("Items.Collectible.Book_of_Belial")
+require("Items.Collectible.Birthright")
+require("Items.Collectible.Book_of_Belial")
+require("Items.Trinket.Lucky_Toe")
 
 local g_Game = Game()
 local g_ItemPool = g_Game:GetItemPool()
-local g_SFXManager = SFXManager()
+
+local Lib = Decomp.Lib
+local Collectible = Decomp.Item.Collectible
+local Trinket = Decomp.Item.Trinket
 
 --#region SalvageCollectible
 
@@ -159,7 +160,7 @@ end
 ---@param collectible CollectibleType | integer
 ---@param seed integer
 ---@param pool ItemPoolType | integer
-function Class.EntityPlayer.SalvageCollectible(player, position, collectible, seed, pool)
+function Class_EntityPlayer.SalvageCollectible(player, position, collectible, seed, pool)
     local rng = RNG()
     rng:SetSeed(seed, 13)
 
@@ -174,12 +175,12 @@ function Class.EntityPlayer.SalvageCollectible(player, position, collectible, se
         end
 
         if player:GetTrinketMultiplier(TrinketType.TRINKET_LUCKY_TOE) > 0 then
-            numPickups = LuckyToe.ApplyLootCountModifier(numPickups)
+            numPickups = Trinket.LuckyToe.ApplyLootCountModifier(numPickups)
         end
     end
 
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT, false) then
-        numPickups = Birthright.ApplySalvageCountModifier(player, numPickups)
+        numPickups = Collectible.Birthright.ApplySalvageCountModifier(player, numPickups)
     end
 
     local i = 1
@@ -193,7 +194,7 @@ end
 
 --#region ControlActiveItem
 
-function Class.EntityPlayer.control_active_item(player, slot)
+function Class_EntityPlayer.control_active_item(player, slot)
     local playerType = player:GetPlayerType()
     if player.Variant == 1 or player:IsCoopGhost() or player:IsHologram() or playerType == PlayerType.PLAYER_THESOUL_B then
         return
@@ -221,7 +222,7 @@ end
 ---@param player EntityPlayer
 ---@param collectible CollectibleType | integer
 ---@param charge integer
-function Class.EntityPlayer.TriggerBookOfBelial(player, collectible, charge)
+function Class_EntityPlayer.TriggerBookOfBelial(player, collectible, charge)
     if not player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE, false) then
         return
     end
@@ -230,7 +231,7 @@ function Class.EntityPlayer.TriggerBookOfBelial(player, collectible, charge)
         return
     end
 
-    BookOfBelial.PostTriggerBookOfBelial(player, charge)
+    Collectible.BookOfBelial.PostTriggerBookOfBelial(player, charge)
 end
 
 --#endregion

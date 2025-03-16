@@ -1,6 +1,6 @@
-local Class = {}
 ---@class Decomp.Class.RNG
-Class.RNG = {}
+local Class_RNG = {}
+Decomp.Class.RNG = Class_RNG
 
 --#region Vector
 
@@ -21,7 +21,7 @@ end
 
 ---@param rng RNG
 ---@return Vector vector
-function Class.RNG.RandomVector(rng)
+function Class_RNG.RandomVector(rng)
     local vector = random_vector(rng:GetSeed())
     rng:Next();
     return vector;
@@ -29,7 +29,7 @@ end
 
 ---@param rng RNG
 ---@return Vector vector
-function Class.RNG.PhantomVector(rng)
+function Class_RNG.PhantomVector(rng)
     return random_vector(rng:GetSeed())
 end
 

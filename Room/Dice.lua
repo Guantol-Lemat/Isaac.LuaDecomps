@@ -1,5 +1,6 @@
 ---@class Decomp.Room.DiceRoom
 local DiceRoom = {}
+Decomp.Room.DiceRoom = DiceRoom
 
 local g_Game = Game()
 local DiceRoomFloor = require("Entity.Effect.DiceRoomFloor")

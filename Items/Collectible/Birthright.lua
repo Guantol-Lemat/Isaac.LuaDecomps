@@ -1,5 +1,6 @@
 ---@class Decomp.Collectible.Birthright
 local Birthright = {}
+Decomp.Item.Collectible.Birthright = Birthright
 
 Birthright.COLLECTIBLE_ID = CollectibleType.COLLECTIBLE_BIRTHRIGHT
 
@@ -20,5 +21,3 @@ function Birthright.ApplySalvageCountModifier(player, lootCount)
 
     return lootCount * 2
 end
-
-return Birthright

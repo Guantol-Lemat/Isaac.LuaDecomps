@@ -1,9 +1,11 @@
-local Class = {}
 ---@class Decomp.Class.EntityPickup
-Class.EntityPickup = {}
+local Class_EntityPickup = {}
+Decomp.Class.EntityPickup = Class_EntityPickup
+
+require("General.Enums")
 
 local g_Game = Game()
-local Enums = require("General.Enums")
+local Enums = Decomp.Enums
 
 --#region RandomVelocity
 
@@ -51,7 +53,7 @@ end
 ---@param position Vector
 ---@param rng RNG?
 ---@param velType Decomp.Enum.ePickVelType?
-function Class.EntityPickup.GetRandomPickupVelocity(position, rng, velType)
+function Class_EntityPickup.GetRandomPickupVelocity(position, rng, velType)
     local result = Vector(0, 0)
     if not velType then
         velType = Enums.ePickVelType.DEFAULT

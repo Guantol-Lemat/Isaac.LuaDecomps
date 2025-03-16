@@ -1,10 +1,10 @@
-local Lib = {}
 ---@class Decomp.Lib.Table
-Lib.Table = {}
+local Lib_Table = {}
+Decomp.Lib.Table = Lib_Table
 
 ---@param tbl table
 ---@return table dictionary
-function Lib.Table.CreateDictionary(tbl)
+function Lib_Table.CreateDictionary(tbl)
     local dictionary = {}
     for _, value in ipairs(tbl) do
         dictionary[value] = true
@@ -17,7 +17,7 @@ end
 
 ---@param tbl table
 ---@param schema Decomp.Lib.Table.SchemaEntry[]
-function Lib.Table.ValidateSchema(tbl, schema)
+function Lib_Table.ValidateSchema(tbl, schema)
     for key, valueValidator in pairs(schema) do
         local value = tbl[key]
         local typeValidator = valueValidator[type(value)]
@@ -33,7 +33,3 @@ function Lib.Table.ValidateSchema(tbl, schema)
 
     return true
 end
-
-
-
-return Lib.Table

@@ -1,5 +1,6 @@
 ---@class Decomp.Trinket.SafetyCap
 local SafetyCap = {}
+Decomp.Item.Trinket.SafetyCap = SafetyCap
 
 SafetyCap.TRINKET_ID = TrinketType.TRINKET_SAFETY_CAP
 
@@ -10,5 +11,3 @@ function SafetyCap.TryGetExtraPickup(rng)
         return PickupVariant.PICKUP_PILL
     end
 end
-
-return SafetyCap

@@ -1,5 +1,6 @@
 ---@class Decomp.Entity.Effect.DiceRoomFloor
 local DiceRoomFloor = {}
+Decomp.Entity.Effect.DiceRoomFloor = DiceRoomFloor
 
 local g_Game = Game()
 local g_Level = g_Game:GetLevel()
@@ -170,5 +171,3 @@ end
 function DiceRoomFloor.GetRandomSubType(rng)
     return rng:RandomInt(6)
 end
-
-return DiceRoomFloor

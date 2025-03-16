@@ -1,5 +1,6 @@
 ---@class Decomp.Collectible.BagOfCrafting
 local BagOfCrafting = {}
+Decomp.Item.Collectible.BagOfCrafting = BagOfCrafting
 
 BagOfCrafting.COLLECTIBLE_ID = CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING
 
@@ -120,5 +121,3 @@ function BagOfCrafting.ControlActiveItem(player, slot, controllingActiveItem)
 end
 
 --#endregion
-
-return BagOfCrafting

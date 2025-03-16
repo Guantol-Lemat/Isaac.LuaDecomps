@@ -1,5 +1,6 @@
 ---@class Decomp.Trinket.AceOfSpades
 local AceOfSpades = {}
+Decomp.Item.Trinket.AceOfSpades = AceOfSpades
 
 AceOfSpades.TRINKET_ID = TrinketType.TRINKET_ACE_SPADES
 
@@ -10,5 +11,3 @@ function AceOfSpades.TryGetExtraPickup(rng)
         return PickupVariant.PICKUP_TAROTCARD
     end
 end
-
-return AceOfSpades

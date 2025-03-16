@@ -1,13 +1,15 @@
-local Lib = {}
 ---@class Decomp.Lib.EntityPickup
-Lib.EntityPickup = {}
+local Lib_EntityPickup = {}
+Decomp.Lib.EntityPickup = Lib_EntityPickup
 
-local DaemonsTail = require("Items.Trinket.Daemons_Tail")
-local AceOfSpades = require("Items.Trinket.Ace_Of_Spades")
-local SafetyCap = require("Items.Trinket.Safety_Cap")
-local MatchStick = require("Items.Trinket.Match_Stick")
-local ChildsHeart = require("Items.Trinket.Childs_Heart")
-local RustedKey = require("Items.Trinket.Rusted_Key")
+require("Items.Trinket.Daemons_Tail")
+require("Items.Trinket.Ace_Of_Spades")
+require("Items.Trinket.Safety_Cap")
+require("Items.Trinket.Match_Stick")
+require("Items.Trinket.Childs_Heart")
+require("Items.Trinket.Rusted_Key")
+
+local Trinket = Decomp.Item.Trinket
 
 local g_Game = Game()
 local g_ItemPool = g_Game:GetItemPool()
@@ -20,7 +22,7 @@ local IsAfterbirthPlus = not REPENTANCE and not REPENTANCE_PLUS
 
 local s_VariantBlockers = {
     [PickupVariant.PICKUP_HEART] = {
-        {DaemonsTail.TRINKET_ID, DaemonsTail.TryBlockHeart}
+        {Trinket.DaemonsTail.TRINKET_ID, Trinket.DaemonsTail.TryBlockHeart}
     }
 }
 
@@ -35,7 +37,7 @@ end
 ---@param player EntityPlayer
 ---@param variant PickupVariant | integer
 ---@return boolean block
-function Lib.EntityPickup.TryBlockPickupVariant(player, variant)
+function Lib_EntityPickup.TryBlockPickupVariant(player, variant)
     local variantBlockers = s_VariantBlockers[variant]
     if not variantBlockers then
         return false
@@ -55,18 +57,18 @@ end
 --#region ExtraPickups
 
 local s_ExtraPickupTrinkets = {
-    [TrinketType.TRINKET_ACE_SPADES] = AceOfSpades.TryGetExtraPickup,
-    [TrinketType.TRINKET_SAFETY_CAP] = SafetyCap.TryGetExtraPickup,
-    [TrinketType.TRINKET_MATCH_STICK] = MatchStick.TryGetExtraPickup,
-    [TrinketType.TRINKET_CHILDS_HEART] = ChildsHeart.TryGetExtraPickup,
-    [TrinketType.TRINKET_RUSTED_KEY] = RustedKey.TryGetExtraPickup
+    [TrinketType.TRINKET_ACE_SPADES] = Trinket.AceOfSpades.TryGetExtraPickup,
+    [TrinketType.TRINKET_SAFETY_CAP] = Trinket.SafetyCap.TryGetExtraPickup,
+    [TrinketType.TRINKET_MATCH_STICK] = Trinket.MatchStick.TryGetExtraPickup,
+    [TrinketType.TRINKET_CHILDS_HEART] = Trinket.ChildsHeart.TryGetExtraPickup,
+    [TrinketType.TRINKET_RUSTED_KEY] = Trinket.RustedKey.TryGetExtraPickup
 }
 
 ---@param player EntityPlayer
 ---@param trinket TrinketType | integer
 ---@return integer? pickupVariant
 ---@return RNG? rng
-function Lib.EntityPickup.TryGetExtraTrinketPickup(player, trinket)
+function Lib_EntityPickup.TryGetExtraTrinketPickup(player, trinket)
     assert(s_ExtraPickupTrinkets[trinket], "trinket does not give an extra pickup reward")
 
     if player:GetTrinketMultiplier(trinket) > 0 then
@@ -76,7 +78,7 @@ function Lib.EntityPickup.TryGetExtraTrinketPickup(player, trinket)
     local trinketRNG = player:GetTrinketRNG(trinket)
     local pickupVariant = s_ExtraPickupTrinkets[trinket](trinketRNG)
 
-    if not pickupVariant or Lib.EntityPickup.TryBlockPickupVariant(player, pickupVariant) then
+    if not pickupVariant or Lib_EntityPickup.TryBlockPickupVariant(player, pickupVariant) then
         return nil
     end
 
@@ -87,7 +89,7 @@ end
 
 --#region GetCard
 
-function Lib.EntityPickup.GetCard(seed, specialChance, runeChance, suitChance, allowNonCards)
+function Lib_EntityPickup.GetCard(seed, specialChance, runeChance, suitChance, allowNonCards)
     local card = g_ItemPool:GetCardEx(seed, specialChance, runeChance, suitChance, allowNonCards)
 
     local rng = RNG()
@@ -99,8 +101,8 @@ function Lib.EntityPickup.GetCard(seed, specialChance, runeChance, suitChance, a
     return Isaac.RunCallback(ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
 end
 
-function Lib.EntityPickup.GetRune(seed)
-    return Lib.EntityPickup.GetCard(seed, 0, -1, 0, 0)
+function Lib_EntityPickup.GetRune(seed)
+    return Lib_EntityPickup.GetCard(seed, 0, -1, 0, 0)
 end
 
 --#endregion
@@ -183,11 +185,9 @@ local switch_IsVariantAvailable = {
     default = is_pickup_available
 }
 
-function Lib.EntityPickup.IsAvailable(variant, subType)
+function Lib_EntityPickup.IsAvailable(variant, subType)
     local is_available = switch_IsVariantAvailable[variant] or switch_IsVariantAvailable.default
     return is_available(variant, subType)
 end
 
 --#endregion
-
-return Lib.EntityPickup

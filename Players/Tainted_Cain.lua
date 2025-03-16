@@ -1,5 +1,6 @@
 ---@class Decomp.Player.TaintedCain
 local TaintedCain = {}
+Decomp.Player.TaintedCain = TaintedCain
 
 local g_Game = Game()
 local g_Level = g_Game:GetLevel()

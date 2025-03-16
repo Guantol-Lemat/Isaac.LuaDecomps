@@ -1,5 +1,6 @@
 ---@class Decomp.Collectible.BookOfBelial
 local BookOfBelial = {}
+Decomp.Item.Collectible.BookOfBelial = BookOfBelial
 
 BookOfBelial.COLLECTIBLE_ID = CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL
 
@@ -124,5 +125,3 @@ function BookOfBelial.PostTriggerBookOfBelial(player, charge)
 end
 
 --#endregion
-
-return BookOfBelial

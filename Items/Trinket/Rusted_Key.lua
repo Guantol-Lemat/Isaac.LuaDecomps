@@ -1,5 +1,6 @@
 ---@class Decomp.Trinket.RustedKey
 local RustedKey = {}
+Decomp.Item.Trinket.RustedKey = RustedKey
 
 RustedKey.TRINKET_ID = TrinketType.TRINKET_RUSTED_KEY
 
@@ -10,5 +11,3 @@ function RustedKey.TryGetExtraPickup(rng)
         return PickupVariant.PICKUP_KEY
     end
 end
-
-return RustedKey

@@ -1,5 +1,6 @@
 ---@class Decomp.Trinket.ChildsHeart
 local ChildsHeart = {}
+Decomp.Item.Trinket.ChildsHeart = ChildsHeart
 
 ChildsHeart.TRINKET_ID = TrinketType.TRINKET_CHILDS_HEART
 
@@ -10,5 +11,3 @@ function ChildsHeart.TryGetExtraPickup(rng)
         return PickupVariant.PICKUP_HEART
     end
 end
-
-return ChildsHeart
