@@ -16,11 +16,11 @@ local g_SFXManager = SFXManager()
 ---@return SoundEffect | integer sound
 local function get_belial_sound(player)
     local temporaryEffects = player:GetEffects()
-    if temporaryEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL) and temporaryEffects:HasNullEffect(NullItemID.ID_JUDAS_BIRTHRIGHT) then
-        return SoundEffect.SOUND_DEVIL_CARD
+    if temporaryEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL) or temporaryEffects:HasNullEffect(NullItemID.ID_JUDAS_BIRTHRIGHT) then
+        return SoundEffect.SOUND_CANDLE_LIGHT
     end
 
-    return SoundEffect.SOUND_CANDLE_LIGHT
+    return SoundEffect.SOUND_DEVIL_CARD
 end
 
 ---@return Color newColor
