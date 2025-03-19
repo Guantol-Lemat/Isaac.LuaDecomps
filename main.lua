@@ -4,6 +4,8 @@ Decomp = {}
 Decomp.Lib = {}
 ---@class Decomp.Class
 Decomp.Class = {}
+---@class Decomp.Data
+Decomp.Data = {}
 ---@class Decomp.Entity
 Decomp.Entity = {
     Pickup = {},
@@ -19,6 +21,11 @@ Decomp.Item = {
     Collectible = {},
     Trinket = {},
     Card = {}
+}
+---@class Decomp.UniqueRuns
+Decomp.UniqueRuns = {
+    Challenge = {},
+    Seed = {},
 }
 ---@class Decomp.Enums
 Decomp.Enums = {}

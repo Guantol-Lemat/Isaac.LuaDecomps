@@ -2,90 +2,12 @@
 local Lib_EntityPickup = {}
 Decomp.Lib.EntityPickup = Lib_EntityPickup
 
-require("Items.Trinket.Daemons_Tail")
-require("Items.Trinket.Ace_Of_Spades")
-require("Items.Trinket.Safety_Cap")
-require("Items.Trinket.Match_Stick")
-require("Items.Trinket.Childs_Heart")
-require("Items.Trinket.Rusted_Key")
-
-local Trinket = Decomp.Item.Trinket
-
 local g_Game = Game()
 local g_ItemPool = g_Game:GetItemPool()
 local g_ItemConfig = Isaac.GetItemConfig()
 local g_PersistentGameData = Isaac.GetPersistentGameData()
 
 local IsAfterbirthPlus = not REPENTANCE and not REPENTANCE_PLUS
-
---#region BlockVariant
-
-local s_VariantBlockers = {
-    [PickupVariant.PICKUP_HEART] = {
-        {Trinket.DaemonsTail.TRINKET_ID, Trinket.DaemonsTail.TryBlockHeart}
-    }
-}
-
-local function try_trinket_block(player, trinket, blockFunction)
-    if player:GetTrinketMultiplier(trinket) <= 0 then
-        return false
-    end
-
-    return blockFunction(player:GetTrinketRNG(trinket))
-end
-
----@param player EntityPlayer
----@param variant PickupVariant | integer
----@return boolean block
-function Lib_EntityPickup.TryBlockPickupVariant(player, variant)
-    local variantBlockers = s_VariantBlockers[variant]
-    if not variantBlockers then
-        return false
-    end
-
-    for index, value in ipairs(variantBlockers) do
-        if try_trinket_block(player, value[1], value[2]) then
-            return true
-        end
-    end
-
-    return false
-end
-
---#endregion
-
---#region ExtraPickups
-
-local s_ExtraPickupTrinkets = {
-    [TrinketType.TRINKET_ACE_SPADES] = Trinket.AceOfSpades.TryGetExtraPickup,
-    [TrinketType.TRINKET_SAFETY_CAP] = Trinket.SafetyCap.TryGetExtraPickup,
-    [TrinketType.TRINKET_MATCH_STICK] = Trinket.MatchStick.TryGetExtraPickup,
-    [TrinketType.TRINKET_CHILDS_HEART] = Trinket.ChildsHeart.TryGetExtraPickup,
-    [TrinketType.TRINKET_RUSTED_KEY] = Trinket.RustedKey.TryGetExtraPickup
-}
-
----@param player EntityPlayer
----@param trinket TrinketType | integer
----@return integer? pickupVariant
----@return RNG? rng
-function Lib_EntityPickup.TryGetExtraTrinketPickup(player, trinket)
-    assert(s_ExtraPickupTrinkets[trinket], "trinket does not give an extra pickup reward")
-
-    if player:GetTrinketMultiplier(trinket) > 0 then
-        return nil
-    end
-
-    local trinketRNG = player:GetTrinketRNG(trinket)
-    local pickupVariant = s_ExtraPickupTrinkets[trinket](trinketRNG)
-
-    if not pickupVariant or Lib_EntityPickup.TryBlockPickupVariant(player, pickupVariant) then
-        return nil
-    end
-
-    return pickupVariant, trinketRNG
-end
-
---#endregion
 
 --#region GetCard
 

@@ -9,10 +9,13 @@ local g_HUD = g_Game:GetHUD()
 local g_ItemConfig = Isaac.GetItemConfig()
 local g_SFXManager = SFXManager()
 
-local Lib = {
-    ItemConfig = require("Lib.ItemConfig"),
-    EntityPlayer = require("Lib.EntityPlayer")
-}
+require("Lib.ItemConfig")
+require("Lib.EntityPlayer")
+
+require("Data.EntityPlayer")
+
+local Lib = Decomp.Lib
+local Data = Decomp.Data
 
 --#region ControlActiveItem
 
@@ -37,28 +40,10 @@ local function is_crafting_item(player, controllingActiveItem)
     return player:GetBagOfCraftingOutput() ~= CollectibleType.COLLECTIBLE_NULL
 end
 
----@param player EntityPlayer
----@return integer craftingTimer
-local function get_crafting_timer(player)
-    local playerData = player:GetData()
-
-    if not playerData.craftingTimer then
-        playerData.craftingTimer = 0
-    end
-
-    return playerData.craftingTimer
-end
-
----@param player EntityPlayer
----@param value integer
-local function set_crafting_timer(player, value)
-    player:GetData().craftingTimer = value
-end
-
----@param player EntityPlayer
+---@param playerData Decomp.Data.Player
 ---@return boolean craftItem
-local function should_craft_item(player)
-    return get_crafting_timer(player) >= 30
+local function should_craft_item(playerData)
+    return playerData.m_BagOfCraftingHeldTimer >= 30
 end
 
 ---@param player EntityPlayer
@@ -101,7 +86,8 @@ local function craft_item(player)
 
     queue_crafting_item(player, player:GetBagOfCraftingOutput())
 
-    set_crafting_timer(player, 0)
+    local playerData = Data.Player.GetData(player)
+    playerData.m_BagOfCraftingHeldTimer = 0
     player:SetBagOfCraftingOutput(CollectibleType.COLLECTIBLE_NULL, ItemPoolType.POOL_NULL)
     player:SetBagOfCraftingContent({0, 0, 0, 0, 0, 0, 0, 0})
     g_HUD:InvalidateCraftingItem(player)
@@ -116,15 +102,16 @@ function BagOfCrafting.ControlActiveItem(player, slot, controllingActiveItem)
         return
     end
 
+    local playerData = Data.Player.GetData(player)
+
     if not is_crafting_item(player, controllingActiveItem) then
-        set_crafting_timer(player, 0)
+        playerData.m_BagOfCraftingHeldTimer = 0
         return
     end
 
-    local craftingTimer = get_crafting_timer(player) + 1
-    set_crafting_timer(player, craftingTimer)
+    playerData.m_BagOfCraftingHeldTimer = playerData.m_BagOfCraftingHeldTimer + 1
 
-    if should_craft_item(player) then
+    if should_craft_item(playerData) then
         craft_item(player)
     end
 end

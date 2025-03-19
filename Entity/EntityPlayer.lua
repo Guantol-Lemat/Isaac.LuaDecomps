@@ -6,16 +6,28 @@ require("Lib.Math")
 require("Lib.EntityPlayer")
 require("Lib.EntityPickup")
 
+require("General.Enums")
+
 require("Items.Collectible.Birthright")
 require("Items.Collectible.Book_of_Belial")
+require("Items.Collectible.Binge_Eater")
+require("Items.Collectible.Candy_Heart")
+require("Items.Collectible.Soul_Locket")
+
 require("Items.Trinket.Lucky_Toe")
+require("Items.Trinket.Cracked_Crown")
+
+require("Players.Tainted_Bethany")
 
 local g_Game = Game()
+local g_Level = g_Game:GetLevel()
 local g_ItemPool = g_Game:GetItemPool()
 
 local Lib = Decomp.Lib
-local Collectible = Decomp.Item.Collectible
-local Trinket = Decomp.Item.Trinket
+local Enums = Decomp.Enums
+local Player = Decomp.Player
+local Item = Decomp.Item
+local Collectible = Item.Collectible
 
 --#region SalvageCollectible
 
@@ -30,7 +42,7 @@ local s_ExtraPickupTrinkets = {
 ---@return integer? seed
 local function try_get_extra_trinket_reward(player)
     for index, trinket in ipairs(s_ExtraPickupTrinkets) do
-        local pickupVariant, rng = Lib.EntityPickup.TryGetExtraTrinketPickup(player, trinket)
+        local pickupVariant, rng = Item.LootModifiers.TryGetExtraTrinketPickup(player, trinket)
         if pickupVariant and rng then
             return pickupVariant, rng:Next()
         end
@@ -77,7 +89,7 @@ local s_SalvageOutcomes = {
 local function get_first_salvage_pickup(player, rng)
     local wop = WeightedOutcomePicker()
 
-    if not Lib.EntityPickup.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
+    if not Item.LootModifiers.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
         wop:AddOutcomeWeight(0, 10)
     end
     wop:AddOutcomeWeight(1, 10)
@@ -141,7 +153,7 @@ local function spawn_salvage_pickup(player, rng, pool, position, isFirst)
 
     if randomFloat < 0.35 then
         spawn_salvage_coins(rng, position)
-    elseif randomFloat < 0.55 and not Lib.EntityPickup.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
+    elseif randomFloat < 0.55 and not Item.LootModifiers.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
         g_Game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, EntityPickup.GetRandomPickupVelocity(position, nil, 0), nil, 0, rng:Next())
         if rng:RandomInt(2) == 0 then
             numPickupsReduction = 1 -- reduce the total amount of pickups to spawn by one
@@ -175,7 +187,7 @@ function Class_EntityPlayer.SalvageCollectible(player, position, collectible, se
         end
 
         if player:GetTrinketMultiplier(TrinketType.TRINKET_LUCKY_TOE) > 0 then
-            numPickups = Trinket.LuckyToe.ApplyLootCountModifier(numPickups)
+            numPickups = Decomp.Item.LootModifiers.ApplyLootCountModifier_LuckyToe(numPickups)
         end
     end
 
@@ -232,6 +244,106 @@ function Class_EntityPlayer.TriggerBookOfBelial(player, collectible, charge)
     end
 
     Collectible.BookOfBelial.PostTriggerBookOfBelial(player, charge)
+end
+
+--#endregion
+
+--#region EvaluateItems
+
+---@param player EntityPlayer
+---@param cacheFlags CacheFlag
+---@return CacheFlag newCacheFlags
+local function force_enable_cache_flags(player, cacheFlags)
+    if cacheFlags & CacheFlag.CACHE_SHOTSPEED then
+        cacheFlags = cacheFlags | CacheFlag.CACHE_RANGE
+    end
+
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_LIBRA, false) or player:GetZodiacEffect() == CollectibleType.COLLECTIBLE_LIBRA then
+        local libraStats = CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_RANGE | CacheFlag.CACHE_SPEED
+        if cacheFlags & libraStats then
+            cacheFlags = cacheFlags | libraStats
+        end
+    end
+
+    return cacheFlags
+end
+
+---@param player EntityPlayer
+---@param cacheFlags CacheFlag -- cacheFlags are not actually passed, but we cannot read the player's flag from lua
+function Class_EntityPlayer.EvaluateItems(player, cacheFlags)
+    local statModifiers = Decomp.StatEvaluation.GetStatModifiers(player)
+    local statGainMultiplier = Decomp.StatEvaluation.GetStatGainMultiplier(player)
+
+    if cacheFlags & CacheFlag.CACHE_WEAPON then
+        evaluate_weapon()
+    end
+
+    cacheFlags = force_enable_cache_flags(player, cacheFlags)
+
+    if cacheFlags & CacheFlag.CACHE_FIREDELAY then
+        Decomp.StatEvaluation.EvaluateFireDelay(player, statModifiers[Enums.eStatModifiers.TEARS], statGainMultiplier)
+    end
+
+    if cacheFlags & CacheFlag.CACHE_DAMAGE then
+        evaluate_damage()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_SHOTSPEED then
+        evaluate_shot_speed()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_RANGE then
+        evaluate_range()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_SPEED then
+        evaluate_speed()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_TEARFLAG then
+        evaluate_tear_flags()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_TEARCOLOR then
+        evaluate_tear_color()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_FLYING then
+        evaluate_flying()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_FAMILIARS and player.Variant == 0 then
+        evaluate_familiars()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_LUCK then
+        evaluate_luck()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_SIZE and player.Variant == 0 then
+        evaluate_size()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_COLOR then
+        evaluate_color()
+    end
+
+    apply_libra_stats()
+    apply_rock_bottom_stats()
+    apply_dogma_stats()
+
+    if cacheFlags & CacheFlag.CACHE_TWIN_SYNC == 0x10 then
+        sync_twin_stats()
+    end
+
+    if cacheFlags & CacheFlag.CACHE_PICKUP_VISION then
+        evaluate_pickup_vision()
+    end
+
+    normalize_stats()
+    apply_gfuel_stats()
+
+    cacheFlags = 0
 end
 
 --#endregion
