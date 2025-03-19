@@ -1,4 +1,5 @@
 ---@class Decomp.Data.Player
+---@field m_PillEffectUses integer[]
 ---@field m_CandyHeartStatUps number[]
 ---@field m_SoulLocketStatUps number[]
 ---@field m_BagOfCraftingHeldTimer integer
@@ -19,6 +20,7 @@ Decomp.Data.Player = PlayerData
 local function init_player_data()
     ---@type Decomp.Data.Player
     local data = {
+        m_PillEffectUses = {},
         m_CandyHeartStatUps = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
         m_SoulLocketStatUps = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
         m_BagOfCraftingHeldTimer = 0,
@@ -29,8 +31,12 @@ local function init_player_data()
         m_EpiphoraCharge = 0,
         m_PeeBurstCooldown = 0,
         m_MaxPeeBurtsCooldown = 0,
-        m_BloodyGustHits = 0
+        m_BloodyGustHits = 0,
     }
+
+    for i = 0, PillEffect.NUM_PILL_EFFECTS - 1, 1 do
+        data.m_PillEffectUses[i] = 0
+    end
 
     return data
 end
@@ -38,6 +44,7 @@ end
 ---@param data Decomp.Data.Player
 ---@param storedData Decomp.Data.Player
 local function store_player_data(data, storedData)
+    storedData.m_PillEffectUses = data.m_PillEffectUses
     storedData.m_CandyHeartStatUps = data.m_CandyHeartStatUps
     storedData.m_SoulLocketStatUps = data.m_SoulLocketStatUps
 end

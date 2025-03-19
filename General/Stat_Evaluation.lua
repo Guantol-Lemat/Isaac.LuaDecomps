@@ -185,9 +185,10 @@ local function post_process_tears_up_modifier(player, statModifier)
 end
 
 ---this function aims to do the following things (aside from converting the raw tears up stat into the final fire delay)
----1. It makes positive tears up have diminishing returns, making subsequent increases less effective
----2. It makes negative tears up have much more of an impact over positive tears up stat.
----3. It makes small negative values (-1.0, 0.0) have an even stronger impact on the final fire delay
+---1. It applies the base fire delay of 10 (if tearsUp is 0 the result of this function is 10)
+---2. It makes positive tears up have diminishing returns, making subsequent increases less effective
+---3. It makes negative tears up have much more of an impact over positive tears up stat.
+---4. It makes small negative values (-1.0, 0.0) have an even stronger impact on the final fire delay
 ---@param tearsUp number
 ---@return number fireDelay
 local function scale_raw_tears_up_into_fire_delay(tearsUp)
@@ -231,6 +232,11 @@ function StatEvaluation.EvaluateFireDelay(player, statModifier, statGainMultipli
     local playerData = Data.Player.GetData(player)
 
     local tearsUp = 0.0
+
+    if not player:HasCurseMistEffect() and not player:IsCoopGhost() then
+        tearsUp = (playerData.m_PillEffectUses[PillEffect.PILLEFFECT_TEARS_UP]) * 0.5 - (playerData.m_PillEffectUses[PillEffect.PILLEFFECT_TEARS_DOWN] * 0.4)
+        tearsUp = tearsUp * 0.7
+    end
 
     tearsUp = tearsUp + player:GetCollectibleNum(CollectibleType.COLLECTIBLE_WIRE_COAT_HANGER, false) * 0.7
     tearsUp = tearsUp + player:GetCollectibleNum(CollectibleType.COLLECTIBLE_PACT, false) * 0.7
