@@ -1,4 +1,4 @@
----@class Decomp.UniqueRuns.GFuel
+---@class Decomp.UniqueRuns.Seed.GFuel
 local GFuel = {}
 Decomp.UniqueRuns.Seed.GFuel = GFuel
 

@@ -59,4 +59,3 @@ function PlayerData.GetData(player)
 
     return data.PlayerData
 end
-

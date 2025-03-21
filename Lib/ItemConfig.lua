@@ -18,3 +18,10 @@ function Lib_ItemConfig.IsValidCollectible(collectible)
 
     return not s_UnusedCollectibles[collectible] and g_ItemConfig:GetCollectible(collectible) ~= nil
 end
+
+---@param collectible CollectibleType | integer
+---@return boolean itemConfig
+function Lib_ItemConfig.IsQuestItem(collectible)
+    local collectibleConfig = g_ItemConfig:GetCollectible(collectible)
+    return (not not collectibleConfig) and collectibleConfig:HasTags(ItemConfig.TAG_QUEST)
+end

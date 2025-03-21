@@ -89,7 +89,7 @@ local s_SalvageOutcomes = {
 local function get_first_salvage_pickup(player, rng)
     local wop = WeightedOutcomePicker()
 
-    if not Item.LootModifiers.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
+    if not Item.LootModifiers.TryBlockPickupVariant_Player(player, PickupVariant.PICKUP_HEART) then
         wop:AddOutcomeWeight(0, 10)
     end
     wop:AddOutcomeWeight(1, 10)
@@ -153,7 +153,7 @@ local function spawn_salvage_pickup(player, rng, pool, position, isFirst)
 
     if randomFloat < 0.35 then
         spawn_salvage_coins(rng, position)
-    elseif randomFloat < 0.55 and not Item.LootModifiers.TryBlockPickupVariant(player, PickupVariant.PICKUP_HEART) then
+    elseif randomFloat < 0.55 and not Item.LootModifiers.TryBlockPickupVariant_Player(player, PickupVariant.PICKUP_HEART) then
         g_Game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, EntityPickup.GetRandomPickupVelocity(position, nil, 0), nil, 0, rng:Next())
         if rng:RandomInt(2) == 0 then
             numPickupsReduction = 1 -- reduce the total amount of pickups to spawn by one

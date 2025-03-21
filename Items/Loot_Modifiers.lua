@@ -14,7 +14,7 @@ local s_VariantBlockers = {
     }
 }
 
-local function try_trinket_block(player, trinket, blockFunction)
+local function try_trinket_block_player(player, trinket, blockFunction)
     if player:GetTrinketMultiplier(trinket) <= 0 then
         return false
     end
@@ -22,17 +22,43 @@ local function try_trinket_block(player, trinket, blockFunction)
     return blockFunction(player:GetTrinketRNG(trinket))
 end
 
+local function try_trinket_block_global(trinket, blockFunction, rng)
+    if not PlayerManager.AnyoneHasTrinket(trinket) then
+        return false
+    end
+
+    return blockFunction(rng)
+end
+
 ---@param player EntityPlayer
 ---@param variant PickupVariant | integer
 ---@return boolean block
-function LootModifiers.TryBlockPickupVariant(player, variant)
+function LootModifiers.TryBlockPickupVariant_Player(player, variant)
     local variantBlockers = s_VariantBlockers[variant]
     if not variantBlockers then
         return false
     end
 
     for index, value in ipairs(variantBlockers) do
-        if try_trinket_block(player, value[1], value[2]) then
+        if try_trinket_block_player(player, value[1], value[2]) then
+            return true
+        end
+    end
+
+    return false
+end
+
+---@param variant PickupVariant | integer
+---@param rng RNG
+---@return boolean block
+function LootModifiers.TryBlockPickupVariant_Global(variant, rng)
+    local variantBlockers = s_VariantBlockers[variant]
+    if not variantBlockers then
+        return false
+    end
+
+    for index, value in ipairs(variantBlockers) do
+        if try_trinket_block_global(value[1], value[2], rng) then
             return true
         end
     end
@@ -70,7 +96,7 @@ function LootModifiers.TryGetExtraTrinketPickup(player, trinket)
         pickupVariant = s_ExtraPickupTrinkets[trinket]
     end
 
-    if not pickupVariant or LootModifiers.TryBlockPickupVariant(player, pickupVariant) then
+    if not pickupVariant or LootModifiers.TryBlockPickupVariant_Player(player, pickupVariant) then
         return nil
     end
 
