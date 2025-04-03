@@ -8,7 +8,7 @@ require("Lib.ItemConfig")
 require("Lib.WeightedOutcomePicker")
 require("Lib.PlayerManager")
 require("Items.Loot_Modifiers")
-require("Room.Super_Secret")
+require("Room.RoomTypes.Super_Secret")
 
 local Lib = Decomp.Lib
 local Item = Decomp.Item
@@ -304,7 +304,7 @@ local function select_heart(io)
     end
 
     if g_Game:GetRoom():GetType() == RoomType.ROOM_SUPERSECRET then
-        heartType = Rooms.SuperSecret.GetHeartType() or heartType
+        heartType = Rooms.Type.SuperSecret.GetHeartType() or heartType
     elseif heartType == HeartSubType.HEART_HALF and PlayerManager.AnyoneHasTrinket(TrinketType.TRINKET_MOMS_LOCKET) then
         heartType = HeartSubType.HEART_FULL
     end

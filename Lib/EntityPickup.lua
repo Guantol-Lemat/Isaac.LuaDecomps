@@ -2,15 +2,25 @@
 local Lib_EntityPickup = {}
 Decomp.Lib.EntityPickup = Lib_EntityPickup
 
+require("Lib.Table")
+
 local g_Game = Game()
 local g_ItemPool = g_Game:GetItemPool()
 local g_ItemConfig = Isaac.GetItemConfig()
 local g_PersistentGameData = Isaac.GetPersistentGameData()
 
+local Lib = Decomp.Lib
+
 local IsAfterbirthPlus = not REPENTANCE and not REPENTANCE_PLUS
 
 --#region GetCard
 
+---@param seed integer
+---@param specialChance integer
+---@param runeChance integer
+---@param suitChance integer
+---@param allowNonCards boolean
+---@return Card | integer card
 function Lib_EntityPickup.GetCard(seed, specialChance, runeChance, suitChance, allowNonCards)
     local card = g_ItemPool:GetCardEx(seed, specialChance, runeChance, suitChance, allowNonCards)
 
@@ -23,8 +33,10 @@ function Lib_EntityPickup.GetCard(seed, specialChance, runeChance, suitChance, a
     return Isaac.RunCallback(ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
 end
 
+---@param seed integer
+---@return Card | integer card
 function Lib_EntityPickup.GetRune(seed)
-    return Lib_EntityPickup.GetCard(seed, 0, -1, 0, 0)
+    return Lib_EntityPickup.GetCard(seed, 0, -1, 0, false)
 end
 
 --#endregion
@@ -110,6 +122,22 @@ local switch_IsVariantAvailable = {
 function Lib_EntityPickup.IsAvailable(variant, subType)
     local is_available = switch_IsVariantAvailable[variant] or switch_IsVariantAvailable.default
     return is_available(variant, subType)
+end
+
+--#endregion
+
+--#region TypeChecks
+
+local s_Chests = Lib.Table.CreateDictionary({
+    PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST, PickupVariant.PICKUP_REDCHEST, PickupVariant.PICKUP_BOMBCHEST,
+    PickupVariant.PICKUP_ETERNALCHEST, PickupVariant.PICKUP_SPIKEDCHEST, PickupVariant.PICKUP_MIMICCHEST, PickupVariant.PICKUP_MOMSCHEST,
+    PickupVariant.PICKUP_OLDCHEST, PickupVariant.PICKUP_WOODENCHEST, PickupVariant.PICKUP_MEGACHEST, PickupVariant.PICKUP_HAUNTEDCHEST,
+})
+
+---@param variant PickupVariant | integer
+---@return boolean isChest
+function Lib_EntityPickup.IsChest(variant)
+    return not not s_Chests[variant]
 end
 
 --#endregion

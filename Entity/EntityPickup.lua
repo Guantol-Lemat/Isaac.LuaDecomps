@@ -137,3 +137,8 @@ function Class_EntityPickup.SelectPickupType(seed, variant, subType, advanceRNG,
 end
 
 --#endregion
+
+---@param pickup EntityPickup
+function Class_EntityPickup.InitFlipState(pickup)
+    -- TODO
+end

@@ -1,6 +1,6 @@
----@class Decomp.Room.SuperSecret
+---@class Decomp.Room.Type.SuperSecret
 local SuperSecretRoom = {}
-Decomp.Room.SuperSecret = SuperSecretRoom
+Decomp.Room.Type.SuperSecret = SuperSecretRoom
 
 require("Lib.EntityPickup")
 

@@ -10,12 +10,16 @@ Decomp.Data = {}
 Decomp.Entity = {
     Pickup = {},
     Effect = {},
-    NPC = {}
+    NPC = {},
+    Tear = {},
 }
 ---@class Decomp.Player
 Decomp.Player = {}
 ---@class Decomp.Room
-Decomp.Room = {}
+Decomp.Room = {
+    SubSystem = {},
+    Type = {}
+}
 ---@class Decomp.Item
 Decomp.Item = {
     Collectible = {},
