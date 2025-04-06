@@ -33,3 +33,35 @@ function Lib_Table.ValidateSchema(tbl, schema)
 
     return true
 end
+
+---@generic T: table, V
+---@param t T
+---@param start integer
+---@return fun(table: V[], i?: integer):integer, V
+---@return T
+---@return integer i
+function Lib_Table.CircularIterator(t, start)
+    if not (start > 0) then
+        error(string.format("Invalid index for circular iterator '%s'", tostring(start)), 2)
+    end
+
+    local len = #t
+    if len == 0 then
+        return function() end, t, 0
+    end
+
+    start = ((start - 1) % len)
+    local count = 0
+
+    return function(t, i)
+        local n = #t
+        if count >= len then
+            return i
+        end
+
+        i = (i % n) + 1
+        local value = t[i]
+        count = count + 1
+        return i, value
+    end, t, start
+end

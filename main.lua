@@ -31,5 +31,11 @@ Decomp.UniqueRuns = {
     Challenge = {},
     Seed = {},
 }
+---@class Decomp.Pools
+Decomp.Pools = {
+    BossPool = {},
+    ItemPool = {},
+}
+
 ---@class Decomp.Enums
 Decomp.Enums = {}
