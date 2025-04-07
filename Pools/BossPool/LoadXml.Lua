@@ -65,7 +65,7 @@ local function parse_boss_node(pool, bossNode)
     poolBoss.m_InitialWeight = weight
     poolBoss.m_Weight = weight
     poolBoss.m_Achievement = achievement
-    poolBoss.m_Room = room
+    poolBoss.m_RoomVariantStart = room
 
     table.insert(pool.m_Bosses, poolBoss)
     pool.m_TotalWeight = pool.m_TotalWeight + weight
@@ -87,7 +87,7 @@ local function parse_pool_node(bossPool, poolNode)
     pool.m_Name = name
     pool.m_Bosses = {}
     pool.m_TotalWeight = 0.0
-    pool.m_DoubleTrouble = doubleTrouble
+    pool.m_DoubleTroubleVariantStart = doubleTrouble
 
     for index, bossNode in ipairs(poolNode) do
         parse_boss_node(pool, bossNode)
@@ -97,7 +97,7 @@ end
 ---@param bossPool Decomp.Class.BossPool.Data
 ---@param filePath string
 ---@param modEntry Decomp.ModManager.ModEntry?
-function BossPoolXml.LoadPools(bossPool, filePath, modEntry)
+local function LoadPools(bossPool, filePath, modEntry)
     if modEntry then
         return
     end
@@ -116,5 +116,15 @@ function BossPoolXml.LoadPools(bossPool, filePath, modEntry)
     for index, poolNode in ipairs(root) do
         parse_pool_node(bossPool, poolNode)
     end
-
 end
+
+--#region Module
+
+---@param bossPool Decomp.Class.BossPool.Data
+---@param filePath string
+---@param modEntry Decomp.ModManager.ModEntry?
+function BossPoolXml.LoadPools(bossPool, filePath, modEntry) -- BossPool::LoadPools
+    LoadPools(bossPool, filePath, modEntry)
+end
+
+--#endregion

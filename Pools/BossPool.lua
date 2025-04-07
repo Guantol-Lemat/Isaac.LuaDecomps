@@ -30,14 +30,14 @@ local BossSelection = Decomp.Pools.BossPool.BossSelection
 ---@field m_Bosses Decomp.Pools.BossPool.Boss.Data[]
 ---@field m_TotalWeight number
 ---@field m_RNG RNG
----@field m_DoubleTrouble integer
+---@field m_DoubleTroubleVariantStart integer -- If double trouble is triggered, the game picks a boss room in the variant range [value, value + 49]
 
 ---@class Decomp.Pools.BossPool.Boss.Data
 ---@field m_BossId BossType | integer
 ---@field m_InitialWeight number
 ---@field m_Weight number
 ---@field m_Achievement Achievement | integer
----@field m_Room integer
+---@field m_RoomVariantStart integer -- If not 0, the game picks a boss room in the variant range [value, value + 49]
 
 ---@class Decomp.Pools.BossPool.GameState.Data
 ---@field m_PoolSeeds integer[]
@@ -67,7 +67,7 @@ function Class_BossPool.Pool.new()
         m_Bosses = {},
         m_TotalWeight = 0.0,
         m_RNG = RNG(),
-        m_DoubleTrouble = 0,
+        m_DoubleTroubleVariantStart = 0,
     }
 
     return pool
@@ -81,7 +81,7 @@ function Class_BossPool.Boss.new()
         m_InitialWeight = 0.0,
         m_Weight = 0.0,
         m_Achievement = 0,
-        m_Room = 0,
+        m_RoomVariantStart = 0,
     }
 
     return boss
@@ -137,7 +137,7 @@ local function shuffle_pool(pool)
 end
 
 ---@param seed integer
-function Class_BossPool.Init(seed)
+local function Init(seed)
     local rng = RNG(); rng:SetSeed(seed, 26)
 
     for index, pool in ipairs(m_BossPoolData.m_Pools) do
@@ -156,13 +156,7 @@ function Class_BossPool.Init(seed)
     end
 end
 
----@param filePath string
----@param modEntry Decomp.ModManager.ModEntry?
-function Class_BossPool.LoadPools(filePath, modEntry)
-    BossPoolXml.LoadPools(m_BossPoolData, filePath, modEntry)
-end
-
-function Class_BossPool.CommitLevelBlacklist()
+local function CommitLevelBlacklist()
     for i = 1, #m_BossPoolData.m_RemovedBosses, 1 do
         if (m_BossPoolData.m_RemovedBosses[i] or m_BossPoolData.m_LevelBlacklist[i]) then
             m_BossPoolData.m_RemovedBosses[i] = true
@@ -172,6 +166,49 @@ function Class_BossPool.CommitLevelBlacklist()
     for i = 1, #m_BossPoolData.m_LevelBlacklist, 1 do
         m_BossPoolData.m_LevelBlacklist[i] = false
     end
+end
+
+---@param gameState Decomp.Pools.BossPool.GameState.Data
+local function StoreGameState(gameState)
+    for i = 1, 37, 1 do
+        gameState.m_PoolSeeds[i] = m_BossPoolData.m_Pools[i].m_RNG:GetSeed()
+    end
+
+    gameState.m_RemovedBosses = {}
+    for i = 1, 104, 1 do
+        gameState.m_RemovedBosses[i] = m_BossPoolData.m_RemovedBosses[i]
+    end
+end
+
+---@param gameState Decomp.Pools.BossPool.GameState.Data
+local function RestoreGameState(gameState)
+    for index, pool in ipairs(m_BossPoolData.m_Pools) do
+        pool.m_RNG:SetSeed(gameState.m_PoolSeeds[index], 17)
+    end
+
+    m_BossPoolData.m_RemovedBosses = {}
+    m_BossPoolData.m_LevelBlacklist = {}
+    for i = 1, 104, 1 do
+        m_BossPoolData.m_RemovedBosses[i] = gameState.m_RemovedBosses[i]
+        m_BossPoolData.m_LevelBlacklist[i] = false
+    end
+end
+
+--#region Module
+
+---@param seed integer
+function Class_BossPool.Init(seed)
+    Init(seed)
+end
+
+---@param filePath string
+---@param modEntry Decomp.ModManager.ModEntry?
+function Class_BossPool.LoadPools(filePath, modEntry)
+    BossPoolXml.LoadPools(m_BossPoolData, filePath, modEntry)
+end
+
+function Class_BossPool.CommitLevelBlacklist()
+    CommitLevelBlacklist()
 end
 
 ---@param boss BossType
@@ -196,26 +233,12 @@ end
 
 ---@param gameState Decomp.Pools.BossPool.GameState.Data
 function Class_BossPool.StoreGameState(gameState)
-    for i = 1, 37, 1 do
-        gameState.m_PoolSeeds[i] = m_BossPoolData.m_Pools[i].m_RNG:GetSeed()
-    end
-
-    gameState.m_RemovedBosses = {}
-    for i = 1, 104, 1 do
-        gameState.m_RemovedBosses[i] = m_BossPoolData.m_RemovedBosses[i]
-    end
+    StoreGameState(gameState)
 end
 
 ---@param gameState Decomp.Pools.BossPool.GameState.Data
 function Class_BossPool.RestoreGameState(gameState)
-    for index, pool in ipairs(m_BossPoolData.m_Pools) do
-        pool.m_RNG:SetSeed(gameState.m_PoolSeeds[index], 17)
-    end
-
-    m_BossPoolData.m_RemovedBosses = {}
-    m_BossPoolData.m_LevelBlacklist = {}
-    for i = 1, 104, 1 do
-        m_BossPoolData.m_RemovedBosses[i] = gameState.m_RemovedBosses[i]
-        m_BossPoolData.m_LevelBlacklist[i] = false
-    end
+    RestoreGameState(gameState)
 end
+
+--#endregion

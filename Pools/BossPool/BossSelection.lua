@@ -212,7 +212,7 @@ end
 ---@param stage LevelStage
 ---@param seed integer
 local function get_double_trouble_boss(pool, stage, seed)
-    local doubleTrouble = pool.m_DoubleTrouble
+    local doubleTrouble = pool.m_DoubleTroubleVariantStart
     if not doubleTrouble then
         return
     end
@@ -279,7 +279,7 @@ end
 
 ---@param bossEntry Decomp.Pools.BossPool.Boss.Data
 ---@return boolean
-local function is_boss_available(bossEntry)
+local function is_boss_entry_available(bossEntry)
     if bossEntry.m_BossId == BossType.REAP_CREEP and g_Game.Challenge == Challenge.CHALLENGE_SCAT_MAN then
         return false
     end
@@ -289,12 +289,12 @@ end
 
 ---@param bossEntry Decomp.Pools.BossPool.Boss.Data
 ---@return boolean
-local function is_valid_boss_entry(bossEntry)
+local function can_pick_boss_entry(bossEntry)
     if bossEntry.m_Weight <= 0.0 then
         return false
     end
 
-    if not is_boss_available(bossEntry) or Class.BossPool.WasBossRemoved(bossEntry.m_BossId) then
+    if not is_boss_entry_available(bossEntry) or Class.BossPool.WasBossRemoved(bossEntry.m_BossId) then
         return false
     end
 
@@ -305,8 +305,8 @@ end
 ---@param totalWeight number
 ---@param targetWeight number
 ---@return boolean
-local function can_pick_boss(bossEntry, totalWeight, targetWeight)
-    return bossEntry.m_Weight + totalWeight > targetWeight and is_valid_boss_entry(bossEntry)
+local function should_pick_boss_entry(bossEntry, totalWeight, targetWeight)
+    return bossEntry.m_Weight + totalWeight > targetWeight and can_pick_boss_entry(bossEntry)
 end
 
 ---@param oldTargetWeight number
@@ -331,7 +331,7 @@ local function pick_boss(pool, targetWeight)
             lastIndex = index
 
             if bossEntry.m_InitialWeight + totalWeight > targetWeight then
-                if not can_pick_boss(bossEntry, totalWeight, targetWeight) then
+                if not should_pick_boss_entry(bossEntry, totalWeight, targetWeight) then
                     targetWeight = get_new_target_weight(targetWeight, totalWeight, pool, bossEntry)
                     break
                 end
@@ -346,7 +346,7 @@ local function pick_boss(pool, targetWeight)
     Isaac.DebugString("boss pool ran out of repicks")
 
     for index, bossEntry in Lib.Table.CircularIterator(pool.m_Bosses, lastIndex + 1) do
-        if is_valid_boss_entry(bossEntry) then
+        if can_pick_boss_entry(bossEntry) then
             return bossEntry
         end
     end
@@ -358,7 +358,7 @@ end
 ---@param pool Decomp.Pools.BossPool.Pool.Data
 ---@param targetWeight number
 ---@return Decomp.Pools.BossPool.Boss.Data? boss
-function BossSelection.PickBoss(bossPool, pool, targetWeight)
+local function PickBoss(bossPool, pool, targetWeight)
     if #pool.m_Bosses == 0 then
         return
     end
@@ -394,12 +394,12 @@ local function try_get_random_boss(bossPool, pool, rng)
         return
     end
 
-    if not is_boss_available(bossEntry) then
+    if not is_boss_entry_available(bossEntry) then
         return
     end
 
-    if bossEntry.m_Room ~= 0 then
-        return -bossEntry.m_Room
+    if bossEntry.m_RoomVariantStart ~= 0 then
+        return -bossEntry.m_RoomVariantStart
     end
 
     return bossEntry.m_BossId
@@ -418,14 +418,12 @@ local function get_random_boss(bossPool, pool, rng)
     end
 end
 
---#endregion
-
 ---@param bossPool Decomp.Class.BossPool.Data
 ---@param stage LevelStage
 ---@param stageType StageType
 ---@param rng RNG? -- unused in Rep+
 ---@return integer BossType
-function BossSelection.GetBossId(bossPool, stage, stageType, rng)
+local function GetBossId(bossPool, stage, stageType, rng)
     local stageId = Class.RoomConfig.GetStageID(stage, stageType, -1)
     local pool = bossPool.m_Pools[stageId + 1]
     rng = pool.m_RNG
@@ -449,3 +447,26 @@ function BossSelection.GetBossId(bossPool, stage, stageType, rng)
     Isaac.DebugString("Failed to pick a boss room variant, defaulting to Monstro")
     return BossType.MONSTRO
 end
+
+--#endregion
+
+--#region Module
+
+---@param bossPool Decomp.Class.BossPool.Data
+---@param pool Decomp.Pools.BossPool.Pool.Data
+---@param targetWeight number
+---@return Decomp.Pools.BossPool.Boss.Data? boss
+function BossSelection.PickBoss(bossPool, pool, targetWeight) -- BossPool::PickBoss
+    PickBoss(bossPool, pool, targetWeight)
+end
+
+---@param bossPool Decomp.Class.BossPool.Data
+---@param stage LevelStage
+---@param stageType StageType
+---@param rng RNG? -- unused in Rep+
+---@return integer BossType
+function BossSelection.GetBossId(bossPool, stage, stageType, rng) -- BossPool::GetBossId
+    return GetBossId(bossPool, stage, stageType, rng)
+end
+
+--#endregion
