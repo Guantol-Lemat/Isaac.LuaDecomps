@@ -4,7 +4,7 @@ Decomp.Lib.Table = Lib_Table
 
 ---@param tbl table
 ---@return table dictionary
-function Lib_Table.CreateDictionary(tbl)
+local function CreateDictionary(tbl)
     local dictionary = {}
     for _, value in ipairs(tbl) do
         dictionary[value] = true
@@ -17,7 +17,7 @@ end
 
 ---@param tbl table
 ---@param schema Decomp.Lib.Table.SchemaEntry[]
-function Lib_Table.ValidateSchema(tbl, schema)
+local function ValidateSchema(tbl, schema)
     for key, valueValidator in pairs(schema) do
         local value = tbl[key]
         local typeValidator = valueValidator[type(value)]
@@ -35,19 +35,19 @@ function Lib_Table.ValidateSchema(tbl, schema)
 end
 
 ---@generic T: table, V
----@param t T
+---@param tbl T
 ---@param start integer
 ---@return fun(table: V[], i?: integer):integer, V
 ---@return T
 ---@return integer i
-function Lib_Table.CircularIterator(t, start)
+local function CircularIterator(tbl, start)
     if not (start > 0) then
         error(string.format("Invalid index for circular iterator '%s'", tostring(start)), 2)
     end
 
-    local len = #t
+    local len = #tbl
     if len == 0 then
-        return function() end, t, 0
+        return function() end, tbl, 0
     end
 
     start = ((start - 1) % len)
@@ -63,5 +63,34 @@ function Lib_Table.CircularIterator(t, start)
         local value = t[i]
         count = count + 1
         return i, value
-    end, t, start
+    end, tbl, start
 end
+
+---@param array table
+---@param newSize integer
+---@param initFn function
+---@param ... unknown
+local function ResizeArray(array, newSize, initFn, ...)
+    local size = #array
+    if size >= newSize + 1 then
+        for i = size, newSize + 1, -1 do
+            array[i] = nil
+        end
+        return
+    end
+
+    if size < newSize then
+        for i = size, newSize, 1 do
+            array[i] = initFn(...)
+        end
+    end
+end
+
+--#region Module
+
+Lib_Table.CreateDictionary = CreateDictionary
+Lib_Table.ValidateSchema = ValidateSchema
+Lib_Table.CircularIterator = CircularIterator
+Lib_Table.ResizeArray = ResizeArray
+
+--#endregion

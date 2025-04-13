@@ -25,3 +25,18 @@ Enums.eStatModifiers = {
     SPEED = 5,
     LUCK = 6,
 }
+
+---@enum Decomp.Enum.eWeaponModifiers
+Enums.eWeaponModifiers = {
+    CHOCOLATE_MILK = 0,
+    CURSED_EYE = 1,
+    BRIMSTONE = 2,
+    MONSTROS_LUNG = 3,
+    LUDOVICO_TECHNIQUE = 4,
+    ANTI_GRAVITY = 5,
+    TRACTOR_BEAM = 6,
+    SOY_MILK = 7,
+    NEPTUNUS = 8,
+    AZAZELS_SNEEZE = 9,
+    C_SECTION = 11,
+}

@@ -15,6 +15,8 @@ Decomp.Entity = {
 }
 ---@class Decomp.Player
 Decomp.Player = {}
+---@class Decomp.Weapon
+Decomp.Weapon = {}
 ---@class Decomp.Room
 Decomp.Room = {
     SubSystem = {},
