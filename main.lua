@@ -12,11 +12,16 @@ Decomp.Entity = {
     Effect = {},
     NPC = {},
     Tear = {},
+    Projectile = {},
 }
 ---@class Decomp.Player
 Decomp.Player = {}
 ---@class Decomp.Weapon
 Decomp.Weapon = {}
+---@class Decomp.Level
+Decomp.Level = {
+    SubSystem = {},
+}
 ---@class Decomp.Room
 Decomp.Room = {
     SubSystem = {},
