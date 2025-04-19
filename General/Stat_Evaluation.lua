@@ -171,6 +171,7 @@ local playerTearDelay = {
 
 ---@param player EntityPlayer
 ---@param statModifier number
+---@return number
 local function post_process_tears_up_modifier(player, statModifier)
     statModifier = statModifier * 0.5
 
@@ -182,6 +183,8 @@ local function post_process_tears_up_modifier(player, statModifier)
     if statModifier < 0.0 then
         statModifier = statModifier * 0.68665498 -- reduce effectiveness of negative modifier
     end
+
+    return statModifier
 end
 
 ---this function aims to do the following things (aside from converting the raw tears up stat into the final fire delay)

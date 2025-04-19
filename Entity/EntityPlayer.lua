@@ -17,7 +17,7 @@ require("Items.Collectible.Soul_Locket")
 require("Items.Trinket.Lucky_Toe")
 require("Items.Trinket.Cracked_Crown")
 
-require("Players.Tainted_Bethany")
+require("Unique_Runs.Seeds.G-Fuel")
 
 local g_Game = Game()
 local g_Level = g_Game:GetLevel()
@@ -26,6 +26,7 @@ local g_ItemPool = g_Game:GetItemPool()
 local Lib = Decomp.Lib
 local Enums = Decomp.Enums
 local Player = Decomp.Player
+local UniqueRuns = Decomp.UniqueRuns
 local Item = Decomp.Item
 local Collectible = Item.Collectible
 
@@ -344,6 +345,16 @@ function Class_EntityPlayer.EvaluateItems(player, cacheFlags)
     apply_gfuel_stats()
 
     cacheFlags = 0
+end
+
+--#endregion
+
+--#region Module
+
+---@param player EntityPlayer
+---@return integer weaponType
+function Class_EntityPlayer.GetGFuelWeaponType(player)
+    return UniqueRuns.Seed.GFuel.GetGFuelWeaponType(player)
 end
 
 --#endregion
