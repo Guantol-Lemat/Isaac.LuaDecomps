@@ -2,12 +2,11 @@
 local BossSelection = {}
 Decomp.Pools.BossPool.BossSelection = BossSelection
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 require("Room.RoomConfig")
 require("Pools.BossPool")
 
 local Class = Decomp.Class
-local Lib = Decomp.Lib
 
 local g_Game = Game()
 local g_PersistentGameData = Isaac.GetPersistentGameData()
@@ -345,7 +344,7 @@ local function pick_boss(pool, targetWeight)
 
     Isaac.DebugString("boss pool ran out of repicks")
 
-    for index, bossEntry in Lib.Table.CircularIterator(pool.m_Bosses, lastIndex + 1) do
+    for index, bossEntry in Table.CircularIterator(pool.m_Bosses, lastIndex + 1) do
         if can_pick_boss_entry(bossEntry) then
             return bossEntry
         end

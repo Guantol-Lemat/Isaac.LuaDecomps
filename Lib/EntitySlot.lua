@@ -1,14 +1,9 @@
 ---@class Decomp.Lib.EntitySlot
 local Lib_EntitySlot = {}
-Decomp.Lib.EntitySlot = Lib_EntitySlot
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 
 local g_PersistentGameData = Isaac.GetPersistentGameData()
-
-local Lib = Decomp.Lib
-
---#region CheckAvailable
 
 local s_LockedSlots = {
     [SlotVariant.HELL_GAME] = Achievement.HELL_GAME,
@@ -17,11 +12,38 @@ local s_LockedSlots = {
     [SlotVariant.ROTTEN_BEGGAR] = Achievement.ROTTEN_BEGGAR,
 }
 
+local s_BeggarSlot = Table.CreateDictionary({
+    SlotVariant.BEGGAR, SlotVariant.DEVIL_BEGGAR, SlotVariant.KEY_MASTER,
+    SlotVariant.BOMB_BUM, SlotVariant.BATTERY_BUM, SlotVariant.ROTTEN_BEGGAR,
+})
+
 ---@param variant SlotVariant | integer
 ---@return boolean isAvailable
-function Lib_EntitySlot.IsAvailable(variant)
+local function IsAvailable(variant)
     local achievement = s_LockedSlots[variant]
     return not achievement or g_PersistentGameData:Unlocked(achievement)
 end
 
+---@param variant SlotVariant | integer
+---@return boolean isBeggar
+local function IsBeggar(variant)
+    return s_BeggarSlot[variant] ~= nil
+end
+
+--#region Module
+
+---@param variant SlotVariant | integer
+---@return boolean isAvailable
+function Lib_EntitySlot.IsAvailable(variant)
+    return IsAvailable(variant)
+end
+
+---@param variant SlotVariant | integer
+---@return boolean isBeggar
+function Lib_EntitySlot.IsBeggar(variant)
+    return IsBeggar(variant)
+end
+
 --#endregion
+
+return Lib_EntitySlot

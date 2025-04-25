@@ -2,8 +2,9 @@
 local StatEvaluation = {}
 Decomp.StatEvaluation = StatEvaluation
 
-require("Lib.Table")
-require("Lib.Math")
+local Math = require("Lib.Math")
+local Table = require("Lib.Table")
+
 require("Data.EntityPlayer")
 require("Unique_Runs.Seeds.G-Fuel")
 
@@ -281,7 +282,7 @@ function StatEvaluation.EvaluateFireDelay(player, statModifier, statGainMultipli
 
     tearsUp = tearsUp + (playerTearDelay[playerType] or playerTearDelay.default)
 
-    local cannotTriggerAzazelStumpBuff = Lib.Table.CreateDictionary{PlayerType.PLAYER_AZAZEL, PlayerType.PLAYER_SAMSON, PlayerType.PLAYER_SAMSON_B, PlayerType.PLAYER_BLUEBABY_B, PlayerType.PLAYER_APOLLYON_B, PlayerType.PLAYER_EVE_B}
+    local cannotTriggerAzazelStumpBuff = Table.CreateDictionary({PlayerType.PLAYER_AZAZEL, PlayerType.PLAYER_SAMSON, PlayerType.PLAYER_SAMSON_B, PlayerType.PLAYER_BLUEBABY_B, PlayerType.PLAYER_APOLLYON_B, PlayerType.PLAYER_EVE_B})
     if not cannotTriggerAzazelStumpBuff[playerType] and effects:HasTrinketEffect(TrinketType.TRINKET_AZAZELS_STUMP) then
         tearsUp = tearsUp + playerTearDelay[PlayerType.PLAYER_AZAZEL]
     end
@@ -449,7 +450,7 @@ function StatEvaluation.EvaluateFireDelay(player, statModifier, statGainMultipli
     end
 
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BLOODY_GUST, false) and true then -- Check if TemporaryEffects are not Disabled
-        local hits = Lib.Math.Clamp(playerData.m_BloodyGustHits, 0, 6)
+        local hits = Math.Clamp(playerData.m_BloodyGustHits, 0, 6)
         tearsUp = tearsUp + (hits * 0.05 * hits + hits * 0.2)
     end
 

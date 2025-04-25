@@ -2,7 +2,7 @@
 local EntityConfigXml = {}
 Decomp.Data.EntityConfigXml = EntityConfigXml
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 require("Data.XmlData")
 require("Entity.EntityConfig")
 
@@ -51,7 +51,7 @@ local function LoadBosses(entityConfig) -- No mods can load bosses
         return
     end
 
-    Lib.Table.ResizeArray(entityConfig.m_Bosses, 104, Class.BossPool.Boss.new)
+    Table.ResizeArray(entityConfig.m_Bosses, 104, Class.BossPool.Boss.new)
 
     for _, boss in ipairs(root.bosses) do
         init_boss_from_xml(entityConfig, root.gfxRootDirectory or "", boss)

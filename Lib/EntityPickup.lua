@@ -2,7 +2,7 @@
 local Lib_EntityPickup = {}
 Decomp.Lib.EntityPickup = Lib_EntityPickup
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 
 local g_Game = Game()
 local g_ItemPool = g_Game:GetItemPool()
@@ -128,7 +128,7 @@ end
 
 --#region TypeChecks
 
-local s_Chests = Lib.Table.CreateDictionary({
+local s_Chests = Table.CreateDictionary({
     PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST, PickupVariant.PICKUP_REDCHEST, PickupVariant.PICKUP_BOMBCHEST,
     PickupVariant.PICKUP_ETERNALCHEST, PickupVariant.PICKUP_SPIKEDCHEST, PickupVariant.PICKUP_MIMICCHEST, PickupVariant.PICKUP_MOMSCHEST,
     PickupVariant.PICKUP_OLDCHEST, PickupVariant.PICKUP_WOODENCHEST, PickupVariant.PICKUP_MEGACHEST, PickupVariant.PICKUP_HAUNTEDCHEST,

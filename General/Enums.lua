@@ -2,6 +2,23 @@
 local Enums = {}
 Decomp.Enums = Enums
 
+---@enum Decomp.Enum.eBasicEntityType
+Enums.eBasicEntityType = {
+    ENTITY = 1,
+    PLAYER = 2,
+    TEAR = 3,
+    FAMILIAR = 4,
+    BOMB = 5,
+    PICKUP = 6,
+    SLOT = 7,
+    LASER = 8,
+    KNIFE = 9,
+    PROJECTILE = 10,
+    NPC = 11,
+    EFFECT = 12,
+    TEXT = 13,
+}
+
 ---@enum Decomp.Enum.ePickVelType
 Enums.ePickVelType = {
     DEFAULT = 0,
@@ -40,3 +57,5 @@ Enums.eWeaponModifiers = {
     AZAZELS_SNEEZE = 9,
     C_SECTION = 11,
 }
+
+return Enums

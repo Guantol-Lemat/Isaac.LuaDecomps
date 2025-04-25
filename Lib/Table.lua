@@ -1,6 +1,15 @@
 ---@class Decomp.Lib.Table
 local Lib_Table = {}
-Decomp.Lib.Table = Lib_Table
+
+---@param tbl table
+---@return table inverted
+local function InvertKeyValuePairs(tbl)
+    local inverted = {}
+    for key, value in pairs(tbl) do
+        inverted[value] = key
+    end
+    return inverted
+end
 
 ---@param tbl table
 ---@return table dictionary
@@ -17,6 +26,7 @@ end
 
 ---@param tbl table
 ---@param schema Decomp.Lib.Table.SchemaEntry[]
+---@return boolean isValid
 local function ValidateSchema(tbl, schema)
     for key, valueValidator in pairs(schema) do
         local value = tbl[key]
@@ -88,9 +98,42 @@ end
 
 --#region Module
 
-Lib_Table.CreateDictionary = CreateDictionary
-Lib_Table.ValidateSchema = ValidateSchema
-Lib_Table.CircularIterator = CircularIterator
-Lib_Table.ResizeArray = ResizeArray
+---@param tbl table
+---@return table inverted
+function Lib_Table.InvertKeyValuePairs(tbl)
+    return InvertKeyValuePairs(tbl)
+end
+
+---@param tbl table
+---@return table dictionary
+function Lib_Table.CreateDictionary(tbl)
+    return CreateDictionary(tbl)
+end
+
+---@param tbl table
+---@param schema Decomp.Lib.Table.SchemaEntry[]
+function Lib_Table.ValidateSchema(tbl, schema)
+    return ValidateSchema(tbl, schema)
+end
+
+---@generic T: table, V
+---@param tbl T
+---@param start integer
+---@return fun(table: V[], i?: integer):integer, V
+---@return T
+---@return integer i
+function Lib_Table.CircularIterator(tbl, start)
+    return CircularIterator(tbl, start)
+end
+
+---@param array table
+---@param newSize integer
+---@param initFn function
+---@param ... unknown
+function Lib_Table.ResizeArray(array, newSize, initFn, ...)
+    return ResizeArray(array, newSize, initFn, ...)
+end
 
 --#endregion
+
+return Lib_Table

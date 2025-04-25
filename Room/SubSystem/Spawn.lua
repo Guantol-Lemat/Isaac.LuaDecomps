@@ -2,7 +2,7 @@
 local RoomSpawn = {}
 Decomp.Room.SubSystem.Spawn = RoomSpawn
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 require("Lib.Level")
 require("Lib.EntityPickup")
 require("Lib.EntitySlot")
@@ -786,7 +786,7 @@ local function try_stage_npc_variant(room, spawnEntry, gridIdx, rng)
     return TryStageSpawnModifiers(switchIO)
 end
 
-local s_HasHardRareSpawnVariant = Lib.Table.CreateDictionary({
+local s_HasHardRareSpawnVariant = Table.CreateDictionary({
     EntityType.ENTITY_CLOTTY, EntityType.ENTITY_MULLIGAN, EntityType.ENTITY_MAW,
     EntityType.ENTITY_BOIL, EntityType.ENTITY_VIS, EntityType.ENTITY_LEECH,
     EntityType.ENTITY_WALKINGBOIL

@@ -2,7 +2,6 @@
 local Class_EntityPlayer = {}
 Decomp.Class.EntityPlayer = Class_EntityPlayer
 
-require("Lib.Math")
 require("Lib.EntityPlayer")
 require("Lib.EntityPickup")
 
@@ -29,6 +28,12 @@ local Player = Decomp.Player
 local UniqueRuns = Decomp.UniqueRuns
 local Item = Decomp.Item
 local Collectible = Item.Collectible
+
+---@class Decomp.Object.EntityPlayer : Decomp.Class.EntityPlayer.Data, Decomp.Class.EntityPlayer.API
+
+---@class Decomp.Class.EntityPlayer.Data : Decomp.Class.Entity.Data
+---@field object EntityPlayer
+---@field m_CacheFlags CacheFlag
 
 --#region SalvageCollectible
 
@@ -269,63 +274,62 @@ local function force_enable_cache_flags(player, cacheFlags)
     return cacheFlags
 end
 
----@param player EntityPlayer
----@param cacheFlags CacheFlag -- cacheFlags are not actually passed, but we cannot read the player's flag from lua
-function Class_EntityPlayer.EvaluateItems(player, cacheFlags)
+---@param player Decomp.Object.EntityPlayer
+local function EvaluateItems(player, cacheFlags)
     local statModifiers = Decomp.StatEvaluation.GetStatModifiers(player)
     local statGainMultiplier = Decomp.StatEvaluation.GetStatGainMultiplier(player)
 
-    if cacheFlags & CacheFlag.CACHE_WEAPON then
+    if cacheFlags & CacheFlag.CACHE_WEAPON ~= 0 then
         evaluate_weapon()
     end
 
     cacheFlags = force_enable_cache_flags(player, cacheFlags)
 
-    if cacheFlags & CacheFlag.CACHE_FIREDELAY then
+    if cacheFlags & CacheFlag.CACHE_FIREDELAY ~= 0 then
         Decomp.StatEvaluation.EvaluateFireDelay(player, statModifiers[Enums.eStatModifiers.TEARS], statGainMultiplier)
     end
 
-    if cacheFlags & CacheFlag.CACHE_DAMAGE then
+    if cacheFlags & CacheFlag.CACHE_DAMAGE ~= 0 then
         evaluate_damage()
     end
 
-    if cacheFlags & CacheFlag.CACHE_SHOTSPEED then
+    if cacheFlags & CacheFlag.CACHE_SHOTSPEED ~= 0 then
         evaluate_shot_speed()
     end
 
-    if cacheFlags & CacheFlag.CACHE_RANGE then
+    if cacheFlags & CacheFlag.CACHE_RANGE ~= 0 then
         evaluate_range()
     end
 
-    if cacheFlags & CacheFlag.CACHE_SPEED then
+    if cacheFlags & CacheFlag.CACHE_SPEED ~= 0 then
         evaluate_speed()
     end
 
-    if cacheFlags & CacheFlag.CACHE_TEARFLAG then
+    if cacheFlags & CacheFlag.CACHE_TEARFLAG ~= 0 then
         evaluate_tear_flags()
     end
 
-    if cacheFlags & CacheFlag.CACHE_TEARCOLOR then
+    if cacheFlags & CacheFlag.CACHE_TEARCOLOR ~= 0 then
         evaluate_tear_color()
     end
 
-    if cacheFlags & CacheFlag.CACHE_FLYING then
+    if cacheFlags & CacheFlag.CACHE_FLYING ~= 0 then
         evaluate_flying()
     end
 
-    if cacheFlags & CacheFlag.CACHE_FAMILIARS and player.Variant == 0 then
+    if cacheFlags & CacheFlag.CACHE_FAMILIARS ~= 0 and player.Variant == 0 then
         evaluate_familiars()
     end
 
-    if cacheFlags & CacheFlag.CACHE_LUCK then
+    if cacheFlags & CacheFlag.CACHE_LUCK ~= 0 then
         evaluate_luck()
     end
 
-    if cacheFlags & CacheFlag.CACHE_SIZE and player.Variant == 0 then
+    if cacheFlags & CacheFlag.CACHE_SIZE ~= 0 and player.Variant == 0 then
         evaluate_size()
     end
 
-    if cacheFlags & CacheFlag.CACHE_COLOR then
+    if cacheFlags & CacheFlag.CACHE_COLOR ~= 0 then
         evaluate_color()
     end
 
@@ -337,7 +341,7 @@ function Class_EntityPlayer.EvaluateItems(player, cacheFlags)
         sync_twin_stats()
     end
 
-    if cacheFlags & CacheFlag.CACHE_PICKUP_VISION then
+    if cacheFlags & CacheFlag.CACHE_PICKUP_VISION ~= 0 then
         evaluate_pickup_vision()
     end
 
@@ -351,9 +355,17 @@ end
 
 --#region Module
 
+---@class Decomp.Class.EntityPlayer.API
+local API = {}
+
+---@param player Decomp.Object.EntityPlayer
+function API.EvaluateItems(player, cacheFlags)
+    EvaluateItems(player, cacheFlags)
+end
+
 ---@param player EntityPlayer
 ---@return integer weaponType
-function Class_EntityPlayer.GetGFuelWeaponType(player)
+function API.GetGFuelWeaponType(player)
     return UniqueRuns.Seed.GFuel.GetGFuelWeaponType(player)
 end
 

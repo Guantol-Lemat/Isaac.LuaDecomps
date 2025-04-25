@@ -2,7 +2,7 @@
 local Tears = {}
 Decomp.Weapon.Tears = Tears
 
-require("Lib.Math")
+local Math = require("Lib.Math")
 require("General.Enums")
 require("Weapon.Weapon")
 require("Entity.EntityPlayer")
@@ -71,15 +71,15 @@ local eFireEye = {
 ---@class Decomp.Weapon.Tears.FireData
 ---@field sourcePlayer EntityPlayer?
 ---@field ownerPlayer EntityPlayer?
----@field isShootingActionPressed boolean
+---@field isShooting boolean
 ---@field hasActiveCharge boolean
 ---@field eye integer
 ---@field loops integer
 
 ---@param tears Decomp.Weapon.Tears.Data
----@param isShootingActionPressed boolean
+---@param isShooting boolean
 ---@return boolean isShooting
-local function is_shooting_action_pressed(tears, isShootingActionPressed)
+local function is_shooting(tears, isShooting)
     -- TODO
 end
 
@@ -157,7 +157,7 @@ local function prepare_fire_data(tears, shootingActionPressed)
     local fireData = {
         sourcePlayer = sourcePlayer,
         ownerPlayer = ownerPlayer,
-        isShootingActionPressed = is_shooting_action_pressed(tears, shootingActionPressed),
+        isShooting = is_shooting(tears, shootingActionPressed),
         hasActiveCharge = hasActiveCharge,
         eye = eye,
         loops = get_fire_loops(sourcePlayer, hasActiveCharge, eye)
@@ -173,7 +173,7 @@ local function get_effective_max_fire_delay(tears, evaluatingBothEyes, iteration
     local weapon = tears.Weapon
 
     if super.HasWeaponModifier(weapon, eWeaponModifiers.NEPTUNUS) then
-        local remappedCharge = Lib.Math.MapToRange(weapon.m_Charge, {0.0, weapon.m_MaxFireDelay * 12.0}, {1.0, 2.4495}, true)
+        local remappedCharge = Math.MapToRange(weapon.m_Charge, {0.0, weapon.m_MaxFireDelay * 12.0}, {1.0, 2.4495}, true)
         local neptunusFireDelay = (weapon.m_MaxFireDelay + 1.0) / (remappedCharge ^ 2)
         neptunusFireDelay = math.max(neptunusFireDelay, 0.25)
 
@@ -228,18 +228,18 @@ end
 ---@return boolean earlyReturn
 local function handle_interpolation_update_fire(tears, fireData)
     if fireData.hasActiveCharge then
-        if not fireData.isShootingActionPressed and can_active_charge_shoot(tears) then
+        if not fireData.isShooting and can_active_charge_shoot(tears) then
             super.SetBlinkTime(tears.Weapon, 1, false)
         end
 
         return true
     end
 
-    return fireData.isShootingActionPressed
+    return fireData.isShooting
 end
 
 -- This is implemented as a loop in the original game, but I find this to be cleaner
-local function get_fire_count_from_fire_delay(maxFireDelay, fireDelay)
+local function get_fire_amount_from_fire_delay(maxFireDelay, fireDelay)
     if fireDelay >= 0.0 then
         return 0
     end
@@ -253,15 +253,12 @@ end
 ---@param iteration integer
 ---@param fireData Decomp.Weapon.Tears.FireData
 ---@return integer fireCount
-local function get_fire_count(tears, iteration, fireData)
-    local weapon = tears.Weapon
-    local local_dc = 0.0
-
+local function get_fire_amount(tears, iteration, fireData)
     if fireData.hasActiveCharge then
-        return (not fireData.isShootingActionPressed and can_active_charge_shoot(tears)) and 1 or 0
+        return (not fireData.isShooting and can_active_charge_shoot(tears)) and 1 or 0
     end
 
-    if not fireData.isShootingActionPressed then
+    if not fireData.isShooting then
         return 0
     end
 
@@ -269,25 +266,25 @@ local function get_fire_count(tears, iteration, fireData)
 
     local currentEyeDelay = get_current_eye_delay(tears, iteration)
     local effectiveMaxFireDelay = get_effective_max_fire_delay(tears, fireData.loops == 2, iteration)
-    local fireCount = get_fire_count_from_fire_delay(effectiveMaxFireDelay, currentEyeDelay)
+    local fireAmount = get_fire_amount_from_fire_delay(effectiveMaxFireDelay, currentEyeDelay)
 
-    set_current_eye_delay(tears, iteration, currentEyeDelay + (effectiveMaxFireDelay + 1.0) * fireCount) -- Increase fire delay
-    return fireCount
+    set_current_eye_delay(tears, iteration, currentEyeDelay + (effectiveMaxFireDelay + 1.0) * fireAmount) -- Increase fire delay
+    return fireAmount
 end
 
 ---@param tears Decomp.Weapon.Tears.Data
----@param param2 Vector
----@param shootingActionPressed boolean
+---@param direction Vector
+---@param isShooting boolean
 ---@param interpolationUpdate boolean
-local function Fire(tears, param2, shootingActionPressed, interpolationUpdate)
-    local fireData = prepare_fire_data(tears, shootingActionPressed)
+local function Fire(tears, direction, isShooting, interpolationUpdate)
+    local fireData = prepare_fire_data(tears, isShooting)
 
     if interpolationUpdate and handle_interpolation_update_fire(tears, fireData) then
         return -- This early return is handled inside of the loop in the game, but it doesn't change much, aside from evaluating some conditions twice
     end
 
     for i = 1, fireData.loops, 1 do
-        local fireCount = get_fire_count(tears, i, fireData)
+        local fireCount = get_fire_amount(tears, i, fireData)
         for j = 1, fireCount, 1 do
             -- TODO
         end
@@ -305,11 +302,11 @@ function Tears.Update(tears, interpolationUpdate)
 end
 
 ---@param tears Decomp.Weapon.Tears.Data
----@param param2 Vector
----@param shootingActionPressed boolean
+---@param direction Vector
+---@param isShooting boolean
 ---@param interpolationUpdate boolean
-function Tears.Fire(tears, param2, shootingActionPressed, interpolationUpdate)
-    Fire(tears, param2, shootingActionPressed, interpolationUpdate)
+function Tears.Fire(tears, direction, isShooting, interpolationUpdate)
+    Fire(tears, direction, isShooting, interpolationUpdate)
 end
 
 --#endregion

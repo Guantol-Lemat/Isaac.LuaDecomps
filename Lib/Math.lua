@@ -1,6 +1,5 @@
 ---@class Decomp.Lib.Math
 local Lib_Math = {}
-Decomp.Lib.Math = Lib_Math
 
 ---@class Decomp.Math.Circle
 local Circle = {}
@@ -70,3 +69,5 @@ end
 function Lib_Math.VectorCopy(vector)
     return Vector(vector.X, vector.Y)
 end
+
+return Lib_Math

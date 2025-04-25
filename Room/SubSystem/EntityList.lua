@@ -8,7 +8,6 @@ EntityList.EL = EL
 
 require("Entity.Entity")
 require("Room.SubSystem.CellSpace")
-require("Lib.Table")
 require("Lib.EntityPlayer")
 
 local CellSpace = Decomp.Class.CellSpace

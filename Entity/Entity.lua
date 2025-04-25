@@ -1,47 +1,26 @@
----@class Decomp.Class.Entity
-local Class_Entity = {}
-Decomp.Class.Entity = Class_Entity
+local Enums = require("General.Enums")
+local Math = require("Lib.Math")
+local Table = require("Lib.Table")
+local RNG = require("Lib.RNG")
 
 require("General.Manager")
-require("Lib.Math")
-require("Lib.Table")
 require("Room.Room")
 
-local Lib = Decomp.Lib
 local Class = Decomp.Class
-local Math = Lib.Math
 
 local g_Game = Game()
 
----@class Decomp.Class.Entity.Data
----@field vtable Decomp.Class.Entity.Vtable
+---@class Decomp.Object.Entity : Decomp.Class.Entity.Data, Decomp.Class.Entity.API
+
+---@class Decomp.Class.Entity.Data : Decomp.Data.EntityBase
+---@field object Entity
 ---@field m_CollisionIndex integer
 ---@field m_CollidesWithNonTearEntity boolean
 
----@class Decomp.Class.Entity.Vtable
----@field handle_collision fun(entity: Entity, collider: Entity, low: boolean):boolean
-
----@return Decomp.Class.Entity.Data
-local function new()
-    ---@type Decomp.Class.Entity.Data
-    local data = {
-        vtable = Class_Entity.vtable,
-        m_CollisionIndex = 0,
-        m_CollidesWithNonTearEntity = false,
-    }
-
-    return data
-end
-
----@param entity Entity
----@return Decomp.Class.Entity.Data
-local function GetData(entity)
-    local data = entity:GetData() -- It is highly suggested to replace this with your own data getter, GetData is only used here for demonstration purposes
-    if not data.EntityData then
-        data.EntityData = new()
-    end
-
-    return data.Entity
+---@param data Decomp.Class.Entity.Data
+local function constructor(data)
+    data.m_CollisionIndex = 0
+    data.m_CollidesWithNonTearEntity = false
 end
 
 --#region Collision
@@ -53,36 +32,36 @@ local function IsForcedCollision()
     return s_ForcedCollision ~= 0
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param offset Vector
 ---@return Decomp.Math.Circle.Data
 local function GetCollisionCircle(entity, offset)
-    return Math.Circle.new(entity.Position + offset, entity.Size)
+    local object = entity.object
+    return Math.Circle.new(object.Position + offset, object.Size)
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param offset Vector
 ---@return Capsule
 local function GetCollisionCapsule(entity, offset)
-    return Capsule(entity.Position + offset, entity.SizeMulti, entity.SpriteRotation)
+    local object = entity.object
+    return Capsule(object.Position + offset, object.SizeMulti, object.SpriteRotation)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@param force boolean
 ---@return boolean skipCollisionLogic
 local function ForceCollide(entity, collider, force)
-    local entityData = Class_Entity.GetData(entity)
-    local colliderData = Class_Entity.GetData(collider)
     s_ForcedCollision = s_ForcedCollision + 1
 
     local skipCollisionLogic = false
 
     if not force then
-        skipCollisionLogic = Class_Entity.handle_collisions(entity, collider)
+        skipCollisionLogic = entity:handle_collisions(collider)
     else
-        local skipEntity = entityData.vtable.handle_collision(entity, collider, true)
-        local skipCollider = colliderData.vtable.handle_collision(collider, entity, false)
+        local skipEntity = entity:handle_collision(collider, true)
+        local skipCollider = collider:handle_collision(entity, false)
         skipCollisionLogic = skipEntity or skipCollider
     end
 
@@ -101,46 +80,50 @@ local function should_collide_with_all(entity, collisionClass)
     return entity:IsEnemy() and entity:HasEntityFlags(EntityFlag.FLAG_CHARM | EntityFlag.FLAG_FRIENDLY)
 end
 
-local s_PlayerObjects = Lib.Table.CreateDictionary({
+local s_PlayerObjects = Table.CreateDictionary({
     EntityType.ENTITY_PLAYER, EntityType.ENTITY_TEAR, EntityType.ENTITY_FAMILIAR,
     EntityType.ENTITY_KNIFE, EntityType.ENTITY_BOMB, EntityType.ENTITY_BLOOD_PUPPY,
     EntityType.ENTITY_DARK_ESAU, EntityType.ENTITY_POOP
 })
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@return boolean
 local function is_player_object(entity)
-    if not not s_PlayerObjects[entity.Type] then
+    local object = entity.object
+    if not not s_PlayerObjects[object.Type] then
         return true
     end
 
-    local projectile = entity:ToProjectile()
-    if entity.Type == EntityType.ENTITY_PROJECTILE and projectile and projectile:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
+    ---@cast object EntityProjectile
+    if object.Type == EntityType.ENTITY_PROJECTILE and entity.entityType == Enums.eBasicEntityType.PROJECTILE and object:HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then
         return true
     end
 
-    if entity:IsEnemy() and entity:HasEntityFlags(EntityFlag.FLAG_CHARM | EntityFlag.FLAG_FRIENDLY) then
+    ---@cast object Entity
+    if object:IsEnemy() and object:HasEntityFlags(EntityFlag.FLAG_CHARM | EntityFlag.FLAG_FRIENDLY) then
         return true
     end
 
     return false
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean skipCollisionLogic
 local function HandleCollisions(entity, collider)
-    if entity:IsDead() or collider:IsDead() then
+    local object = entity.object
+    local colliderObject = collider.object
+    if object:IsDead() or colliderObject:IsDead() then
         return true
     end
 
-    local entityCollisionClass = entity.EntityCollisionClass
-    local colliderCollisionClass = collider.EntityCollisionClass
+    local entityCollisionClass = object.EntityCollisionClass
+    local colliderCollisionClass = colliderObject.EntityCollisionClass
 
-    if should_collide_with_all(entity, entityCollisionClass) then
+    if should_collide_with_all(object, entityCollisionClass) then
         entityCollisionClass = EntityCollisionClass.ENTCOLL_ALL
     end
-    if should_collide_with_all(collider, colliderCollisionClass) then
+    if should_collide_with_all(colliderObject, colliderCollisionClass) then
         colliderCollisionClass = EntityCollisionClass.ENTCOLL_ALL
     end
 
@@ -154,31 +137,46 @@ local function HandleCollisions(entity, collider)
     end
 
     if entityCollisionClass == EntityCollisionClass.ENTCOLL_PLAYERONLY or -- Bug?
-       (colliderCollisionClass == EntityCollisionClass.ENTCOLL_PLAYERONLY and entity.Type ~= EntityType.ENTITY_PLAYER) then
+       (colliderCollisionClass == EntityCollisionClass.ENTCOLL_PLAYERONLY and object.Type ~= EntityType.ENTITY_PLAYER) then
         return true
     end
 
-    if (entityCollisionClass == EntityCollisionClass.ENTCOLL_ENEMIES and not collider:IsEnemy()) or
-       (colliderCollisionClass == EntityCollisionClass.ENTCOLL_ENEMIES and not entity:IsEnemy()) then
+    if (entityCollisionClass == EntityCollisionClass.ENTCOLL_ENEMIES and not colliderObject:IsEnemy()) or
+       (colliderCollisionClass == EntityCollisionClass.ENTCOLL_ENEMIES and not object:IsEnemy()) then
         return true
     end
 
-    local entityData = Class_Entity.GetData(entity)
-    local colliderData = Class_Entity.GetData(collider)
-
-    local skipEntity = entityData.vtable.handle_collision(entity, collider, true)
-    local skipCollider = colliderData.vtable.handle_collision(collider, entity, false)
+    local skipEntity = entity:handle_collision(collider, true)
+    local skipCollider = collider:handle_collision(entity, false)
     return skipEntity or skipCollider
 end
 
----@param entity Entity
----@param other Entity
----@return Entity first
----@return Entity second
+---@class Decomp.Entity.Collision
+---@field impulse Vector
+---@field entityImpulseRatio number
+---@field colliderImpulseRatio number
+---@field collisionPoint Vector
+
+---@class Decomp.Entity.CircleCollision : Decomp.Entity.Collision
+---@field radiiSum number
+---@field direction Vector
+---@field distance number
+---@field relativeVelocity Vector
+---@field relativeSpeed number
+
+---@class Decomp.Entity.CapsuleCollision : Decomp.Entity.Collision
+---@field relativeSpeed number
+
+---@param entity Decomp.Object.Entity
+---@param other Decomp.Object.Entity
+---@return Decomp.Object.Entity first
+---@return Decomp.Object.Entity second
 local function sort_collision_order(entity, other)
     local first, second = entity, other
-    if (true or entity.Type ~= EntityType.ENTITY_TEAR or entity.Type ~= EntityType.ENTITY_PLAYER) and
-       other.Type < entity.Type then
+    local object, colliderObject = entity.object, other.object
+
+    if (true or object.Type ~= EntityType.ENTITY_TEAR or object.Type ~= EntityType.ENTITY_PLAYER) and
+       colliderObject.Type < object.Type then
         first = other
         second = entity
     end
@@ -186,186 +184,180 @@ local function sort_collision_order(entity, other)
     return first, second
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return number entityImpulseRatio
 ---@return number colliderImpulseRatio
 local function get_collision_impulse_ratios(entity, collider)
-    local entityMass = Class_Entity.get_collision_mass(entity, collider)
-    local colliderMass = Class_Entity.get_collision_mass(collider, entity)
+    local entityMass = entity:get_collision_mass(collider)
+    local colliderMass = collider:get_collision_mass(entity)
 
     local totalMass = entityMass + colliderMass
     return entityMass / totalMass, colliderMass / totalMass
 end
 
----@param entity Entity
----@param collider Entity
+---@param collisionData Decomp.Entity.CircleCollision
+local function get_circle_collision_point(collisionData)
+    local penetrationDepth = (collisionData.radiiSum - collisionData.distance) / collisionData.distance
+    return collisionData.direction * penetrationDepth
+end
+
+---@param collisionData Decomp.Entity.CircleCollision
 ---@return boolean
-local function does_collision_bounce(entity, collider)
-    local relativeVelocity = entity.Velocity - collider.Velocity
-    if not (relativeVelocity:Length() > 0.5 * (entity.Size + collider.Size)) then -- Not fast enough
+local function does_collision_bounce(collisionData)
+    if not (collisionData.relativeSpeed > 0.5 * collisionData.radiiSum) then -- Not fast enough
         return false
     end
 
-    local direction = collider.Position - entity.Position
-    if not (relativeVelocity:Dot(direction) < 0.0) then -- Not moving towards each other
+    if not (collisionData.relativeVelocity:Dot(collisionData.direction) < 0.0) then -- Not moving towards each other
         return false
     end
 
     return true
 end
 
----@param entity Entity
----@param collider Entity
+---@param collisionData Decomp.Entity.CircleCollision
 ---@return Vector direction
-local function collision_bounce(entity, collider)
-    local relativeVelocity = entity.Velocity - collider.Velocity
-    local direction = collider.Position - entity.Position
-
-    local project = direction:Normalized():Dot(relativeVelocity:Normalized())
-    direction = direction + 2 * project * direction
-    return direction
+local function collision_bounce(collisionData)
+    local project = collisionData.direction:Normalized():Dot(collisionData.relativeVelocity:Normalized())
+    return collisionData.direction + 2 * project * collisionData.direction
 end
 
----@param entity Entity
----@param collider Entity
----@param direction Vector
----@param distance number
----@return Vector
-local function get_circle_collision_impulse(entity, collider, direction, distance)
-    local relativeSpeed = (collider.Velocity - entity.Velocity):Length()
-    return (direction / distance) * relativeSpeed
-end
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
+---@return Decomp.Entity.CircleCollision
+local function prepare_circle_collision_data(entity, collider)
+    local object, colliderObject = entity.object, collider.object
+    ---@type Decomp.Entity.CircleCollision
+---@diagnostic disable-next-line: missing-fields
+    local collisionData = {}
 
----@param entity Entity
----@param collider Entity
----@param collisionPoint Vector
----@return Vector
-local function get_capsule_collision_impulse(entity, collider, collisionPoint)
-    local relativeSpeed = (collider.Velocity - entity.Velocity):Length()
-    return collisionPoint:Normalized() * relativeSpeed
-end
+    collisionData.radiiSum = object.Size + colliderObject.Size
+    collisionData.direction = colliderObject.Position - object.Position
+    collisionData.distance = collisionData.direction:Length()
+    collisionData.relativeVelocity = colliderObject.Velocity - object.Velocity
+    collisionData.relativeSpeed = collisionData.relativeVelocity:Length()
 
----@param entity Entity
----@param impulse Vector
----@param receivingImpulseRatio number
----@param direction Vector
----@param penetrationDepth number
----@param isCollider boolean
-local function apply_circle_physic_knockback(entity, impulse, receivingImpulseRatio, direction, penetrationDepth, isCollider)
-    if entity:HasEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK) then
-        return
+    if does_collision_bounce(collisionData) then
+        collisionData.direction = collision_bounce(collisionData)
+        collisionData.distance = collisionData.direction:Length()
     end
 
-    local knockbackScale = 1.0
-    local directionMultiplier = isCollider and 1.0 or -1.0
+    collisionData.entityImpulseRatio, collisionData.colliderImpulseRatio = get_collision_impulse_ratios(entity, collider)
+    collisionData.collisionPoint = get_circle_collision_point(collisionData)
 
-    if entity.Type == EntityType.ENTITY_PLAYER and Class.Room.IsBeastDungeon(g_Game:GetRoom()) then
-        knockbackScale = 0.25
-    else
-        entity.Position = entity.Position + (direction * penetrationDepth * receivingImpulseRatio) * directionMultiplier
+    if object.Type == EntityType.ENTITY_PLAYER or (object.Type == EntityType.ENTITY_FAMILIAR and object.Variant == FamiliarVariant.PUNCHING_BAG) then
+        local predictedPositionChange = -1.0 * collisionData.collisionPoint * collisionData.colliderImpulseRatio
+        if entity:WillPlayerCollideWithGrid(predictedPositionChange) then
+            collisionData.colliderImpulseRatio = 0.0
+            collisionData.entityImpulseRatio = 1.0
+        end
     end
 
-    entity.Velocity = entity.Velocity + (impulse * receivingImpulseRatio * knockbackScale) * directionMultiplier
+    if object.Type == EntityType.ENTITY_PLAYER then
+        collisionData.colliderImpulseRatio = collisionData.colliderImpulseRatio * 0.5
+    end
+
+    collisionData.impulse = (collisionData.direction / collisionData.distance) * collisionData.relativeSpeed
+    return collisionData
+end
+
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
+---@param collisionPoint Vector
+---@return Decomp.Entity.CapsuleCollision
+local function prepare_capsule_collision_data(entity, collider, collisionPoint)
+    local object, colliderObject = entity.object, collider.object
+    ---@type Decomp.Entity.CapsuleCollision
+---@diagnostic disable-next-line: missing-fields
+    local collisionData = {}
+
+    collisionData.collisionPoint = collisionPoint
+    collisionData.relativeSpeed = (colliderObject.Velocity - object.Velocity):Length()
+
+    collisionData.entityImpulseRatio, collisionData.colliderImpulseRatio = get_collision_impulse_ratios(entity, collider)
+    collisionData.impulse = collisionPoint:Normalized() * collisionData.relativeSpeed
+    return collisionData
+end
+
+---@param collisionData Decomp.Entity.CircleCollision
+local function play_colliding_singe_balls_sound(collisionData)
+    local volume = math.min(collisionData.relativeSpeed * 0.05 + 0.2, 1.2)
+    local pitch = RNG.SeedToFloatInclusive(Random()) * 0.2 + 0.9
+    Class.Manager.PlaySound(SoundEffect.SOUND_STONE_IMPACT, volume, 2, false, pitch)
 end
 
 ---@param entity Entity
----@param impulse Vector
----@param receivingImpulseRatio number
----@param collisionPoint Vector
+---@param collisionData Decomp.Entity.Collision
 ---@param isCollider boolean
-local function apply_capsule_physic_knockback(entity, impulse, receivingImpulseRatio, collisionPoint, isCollider)
+local function apply_physic_knockback(entity, collisionData, isCollider)
     if entity:HasEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK) then
         return
     end
 
     local knockbackScale = 1.0
     local direction = isCollider and 1.0 or -1.0
+    local receivingImpulseRatio = isCollider and collisionData.entityImpulseRatio or collisionData.colliderImpulseRatio
 
     if entity.Type == EntityType.ENTITY_PLAYER and Class.Room.IsBeastDungeon(g_Game:GetRoom()) then
         knockbackScale = 0.25
     else
-        entity.Position = entity.Position + (collisionPoint * receivingImpulseRatio) * direction
+        entity.Position = entity.Position + (collisionData.collisionPoint * receivingImpulseRatio) * direction
     end
 
-    entity.Velocity = entity.Velocity + (impulse * receivingImpulseRatio * knockbackScale) * direction
+    entity.Velocity = entity.Velocity + (collisionData.impulse * receivingImpulseRatio * knockbackScale) * direction
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@param distance number
 local function post_circle_collision(entity, collider, distance)
-    local entityData = Class_Entity.GetData(entity)
-    local colliderData = Class_Entity.GetData(collider)
+    local object, colliderObject = entity.object, collider.object
 
-    entityData.m_CollidesWithNonTearEntity = collider.Type ~= EntityType.ENTITY_TEAR
-    colliderData.m_CollidesWithNonTearEntity = entity.Type ~= EntityType.ENTITY_TEAR
+    entity.m_CollidesWithNonTearEntity = colliderObject.Type ~= EntityType.ENTITY_TEAR
+    collider.m_CollidesWithNonTearEntity = object.Type ~= EntityType.ENTITY_TEAR
 
     if distance < 1e-4 then
         return
     end
 
-    local direction = collider.Position - entity.Position
-    if does_collision_bounce(entity, collider) then
-        direction = collision_bounce(entity, collider)
-        distance = direction:Length()
+    local collisionData = prepare_circle_collision_data(entity, collider)
+
+    if (object.Type == EntityType.ENTITY_SINGE and object.Variant == 1) and (colliderObject.Type == EntityType.ENTITY_SINGE and colliderObject.Variant == 1) then
+        play_colliding_singe_balls_sound(collisionData)
     end
 
-    local entityImpulseRatio, colliderImpulseRatio = get_collision_impulse_ratios(entity, collider)
-    local penetrationDepth = ((entity.Size + collider.Size) - distance) / distance
-
-    if entity.Type == EntityType.ENTITY_PLAYER or (entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.PUNCHING_BAG) then
-        local predictedPositionChange = -direction * colliderImpulseRatio * penetrationDepth
-        if Class_Entity.WillPlayerCollideWithGrid(entity, predictedPositionChange) then
-            colliderImpulseRatio = 0.0
-            entityImpulseRatio = 1.0
-        end
-    end
-
-    if entity.Type == EntityType.ENTITY_PLAYER then
-        colliderImpulseRatio = colliderImpulseRatio * 0.5
-    end
-
-    if (entity.Type == EntityType.ENTITY_SINGE and entity.Variant == 1) and (collider.Type == EntityType.ENTITY_SINGE and collider.Variant == 1) then
-        local relativeSpeed = (collider.Velocity - entity.Velocity):Length()
-        local volume = math.min(relativeSpeed * 0.05 + 0.2, 1.2)
-        local pitch = Lib.RNG.SeedToFloatInclusive(Random()) * 0.2 + 0.9
-        Class.Manager.PlaySound(SoundEffect.SOUND_STONE_IMPACT, volume, 2, false, pitch)
-    end
-
-    local impulse = get_circle_collision_impulse(entity, collider, direction, distance)
-    apply_circle_physic_knockback(entity, impulse, colliderImpulseRatio, direction, penetrationDepth, false)
-    apply_circle_physic_knockback(collider, impulse, entityImpulseRatio, direction, penetrationDepth, true)
+    apply_physic_knockback(object, collisionData, false)
+    apply_physic_knockback(colliderObject, collisionData, true)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@param collisionPoint Vector
 local function post_capsule_collision(entity, collider, collisionPoint)
-    if Lib.Math.IsVectorEqual(collisionPoint, Lib.Math.VectorZero) then
+    if Math.IsVectorEqual(collisionPoint, Math.VectorZero) then
         return
     end
 
-    local entityImpulseRatio, colliderImpulseRatio = get_collision_impulse_ratios(entity, collider)
-    local impulse = get_capsule_collision_impulse(entity, collider, collisionPoint)
-    apply_capsule_physic_knockback(entity, impulse, colliderImpulseRatio, collisionPoint, false)
-    apply_capsule_physic_knockback(collider, impulse, entityImpulseRatio, collisionPoint, true)
+    local collisionData = prepare_capsule_collision_data(entity, collider, collisionPoint)
+    apply_physic_knockback(entity.object, collisionData, false)
+    apply_physic_knockback(collider.object, collisionData, true)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean collided
 local function CollideCircles(entity, collider)
     entity, collider = sort_collision_order(entity, collider)
-    local entityCircle = Class_Entity.GetCollisionCircle(entity, Lib.Math.VectorZero)
-    local colliderCircle = Class_Entity.GetCollisionCircle(collider, Lib.Math.VectorZero)
+    local entityCircle = entity:GetCollisionCircle(Math.VectorZero)
+    local colliderCircle = collider:GetCollisionCircle(Math.VectorZero)
 
     local collided, distance = Math.Circle.Collide(entityCircle, colliderCircle)
     if not collided then
         return false
     end
 
-    if Class_Entity.handle_collisions(entity, collider) then
+    if entity:handle_collisions(collider) then
         return false
     end
 
@@ -373,20 +365,23 @@ local function CollideCircles(entity, collider)
     return true
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean collided
 local function CollideCapsules(entity, collider)
     entity, collider = sort_collision_order(entity, collider)
-    local entityCapsule = entity:GetCollisionCapsule(Lib.Math.VectorZero)
-    local colliderCapsule = collider:GetCollisionCapsule(Lib.Math.VectorZero)
+    local object = entity.object
+    local colliderObject = collider.object
+
+    local entityCapsule = object:GetCollisionCapsule(Math.VectorZero)
+    local colliderCapsule = colliderObject:GetCollisionCapsule(Math.VectorZero)
 
     local collisionPoint = Vector(0, 0)
     if not entityCapsule:Collide(colliderCapsule, collisionPoint) then
         return false
     end
 
-    if Class_Entity.handle_collisions(entity, collider) then
+    if entity:handle_collisions(collider) then
         return false
     end
 
@@ -394,14 +389,14 @@ local function CollideCapsules(entity, collider)
     return true
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 local function Collide(entity, collider)
-    local vectorOne = Vector(1, 1)
-    if Lib.Math.IsVectorEqual(entity.SizeMulti, vectorOne) and Lib.Math.IsVectorEqual(collider.SizeMulti, vectorOne) then
-        Class_Entity.collide_circles(entity, collider)
+    local object = entity.object
+    if Math.IsVectorEqual(object.SizeMulti, Math.VectorOne) and Math.IsVectorEqual(object.SizeMulti, Math.VectorOne) then
+        entity:collide_circles(collider)
     else
-        Class_Entity.collide_capsules(entity, collider)
+        entity:collide_capsules(collider)
     end
 end
 
@@ -422,16 +417,11 @@ local function has_player_reduced_projectile_collision_mass(player)
     return false
 end
 
----@param entity Entity
+---@param player EntityPlayer
 ---@param collider Entity
 ---@param mass number
 ---@return number newMass
-local function get_player_collision_mass(entity, collider, mass)
-    local player = entity:ToPlayer()
-    if not player then -- Game doesn't check
-        return mass
-    end
-
+local function get_player_collision_mass(player, collider, mass)
     local temporaryEffects = player:GetEffects()
 
     if collider.Type == EntityType.ENTITY_FAMILIAR and collider.Variant == FamiliarVariant.CUBE_BABY then
@@ -449,7 +439,7 @@ local function get_player_collision_mass(entity, collider, mass)
     return mass
 end
 
-local s_EnemyReducedCollisionMassSet = Lib.Table.CreateDictionary({
+local s_EnemyReducedCollisionMassSet = Table.CreateDictionary({
     EntityType.ENTITY_BOOMFLY, EntityType.ENTITY_PIN, EntityType.ENTITY_KNIGHT,
     EntityType.ENTITY_FLOATING_KNIGHT, EntityType.ENTITY_SWARMER, EntityType.ENTITY_CHARGER,
     EntityType.ENTITY_MOVABLE_TNT, EntityType.ENTITY_POOP, EntityType.ENTITY_LEECH,
@@ -461,21 +451,25 @@ local function has_enemy_reduced_tear_collision_mass(entity)
     return not not s_EnemyReducedCollisionMassSet[entity.Type]
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return number mass
 local function GetCollisionMass(entity, collider)
-    local mass = entity.Mass
+    local object = entity.object
+    local colliderObject = collider.object
 
-    if entity:HasEntityFlags(EntityFlag.FLAG_MAGNETIZED) and collider:IsEnemy() then
+    local mass = object.Mass
+
+    if object:HasEntityFlags(EntityFlag.FLAG_MAGNETIZED) and colliderObject:IsEnemy() then
         mass = mass * 10.0
     end
 
-    if entity.Type == EntityType.ENTITY_PLAYER then
-        mass = get_player_collision_mass(entity, collider, mass)
+    if object.Type == EntityType.ENTITY_PLAYER and entity.entityType == Enums.eBasicEntityType.PLAYER then
+        ---@cast object EntityPlayer
+        mass = get_player_collision_mass(object, colliderObject, mass)
     end
 
-    if entity:IsEnemy() and (collider.Type == EntityType.ENTITY_TEAR or collider.Type == EntityType.ENTITY_LASER) and has_enemy_reduced_tear_collision_mass(entity) then
+    if object:IsEnemy() and (colliderObject.Type == EntityType.ENTITY_TEAR or colliderObject.Type == EntityType.ENTITY_LASER) and has_enemy_reduced_tear_collision_mass(object) then
         mass = mass * 100.0
     end
 
@@ -486,101 +480,100 @@ end
 
 --#region Module
 
----@param entity Entity
----@param collider Entity
----@return boolean
-function Class_Entity.handle_collision(entity, collider)
-    -- TODO
-end
+---@class Decomp.Class.Entity.API
+local API = {}
 
----@type Decomp.Class.Entity.Vtable
-Class_Entity.vtable = {
-    handle_collision = Class_Entity.handle_collision,
+---@class Decomp.Class.Entity : Decomp.Interface.EntityCreate
+local Class_Entity = {
+    constructor = constructor,
+    API = API
 }
 
----@param entity Entity
----@return Decomp.Class.Entity.Data
-function Class_Entity.GetData(entity)
-    return GetData(entity)
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
+---@param low boolean
+---@return boolean
+function API.handle_collision(entity, collider, low)
+    -- TODO
 end
 
 ---@return boolean forcedCollision
-function Class_Entity.IsForcedCollision()
+function API.IsForcedCollision()
     return IsForcedCollision()
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@param force boolean
 ---@return boolean skipCollisionLogic
-function Class_Entity.ForceCollide(entity, collider, force)
+function API.ForceCollide(entity, collider, force)
     return ForceCollide(entity, collider, force)
 end
 
----@param entity Entity
----@param collider Entity
-function Class_Entity.Collide(entity, collider)
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
+function API.Collide(entity, collider)
     Collide(entity, collider)
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param unk boolean
-function Class_Entity.PlayerCollideWithGrid(entity, unk)
+function API.PlayerCollideWithGrid(entity, unk)
     -- TODO
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param unk boolean
-function Class_Entity.CollideWithGrid(entity, unk)
+function API.CollideWithGrid(entity, unk)
    -- TODO 
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param positionChange Vector
 ---@return boolean
-function Class_Entity.WillPlayerCollideWithGrid(entity, positionChange)
+function API.WillPlayerCollideWithGrid(entity, positionChange)
     -- TODO
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param offset Vector
 ---@return Decomp.Math.Circle.Data
-function Class_Entity.GetCollisionCircle(entity, offset)
+function API.GetCollisionCircle(entity, offset)
     return GetCollisionCircle(entity, offset)
 end
 
----@param entity Entity
+---@param entity Decomp.Object.Entity
 ---@param offset Vector
 ---@return Capsule
-function Class_Entity.GetCollisionCapsule(entity, offset)
+function API.GetCollisionCapsule(entity, offset)
     return GetCollisionCapsule(entity, offset)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean collided
-function Class_Entity.collide_circles(entity, collider)
+function API.collide_circles(entity, collider)
     return CollideCircles(entity, collider)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean collided
-function Class_Entity.collide_capsules(entity, collider)
+function API.collide_capsules(entity, collider)
     return CollideCapsules(entity, collider)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return boolean skipCollisionLogic
-function Class_Entity.handle_collisions(entity, collider)
+function API.handle_collisions(entity, collider)
     return HandleCollisions(entity, collider)
 end
 
----@param entity Entity
----@param collider Entity
+---@param entity Decomp.Object.Entity
+---@param collider Decomp.Object.Entity
 ---@return number mass
-function Class_Entity.get_collision_mass(entity, collider)
+function API.get_collision_mass(entity, collider)
     return GetCollisionMass(entity, collider)
 end
 

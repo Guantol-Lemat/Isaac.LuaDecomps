@@ -2,7 +2,7 @@
 local PickupTypeSelection = {}
 Decomp.Entity.Pickup.TypeSelection = PickupTypeSelection
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 require("Lib.EntityPickup")
 require("Lib.ItemConfig")
 require("Lib.WeightedOutcomePicker")
@@ -47,10 +47,10 @@ local s_RetryVariantWeights = {
 
 local s_VariantFilters = {
     [NullPickupSubType.ANY] = {},
-    [NullPickupSubType.NO_COLLECTIBLE_CHEST] = Lib.Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST}),
-    [NullPickupSubType.NO_COLLECTIBLE] = Lib.Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE}),
-    [NullPickupSubType.NO_COLLECTIBLE_CHEST_COIN] = Lib.Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST, PickupVariant.PICKUP_COIN}),
-    [NullPickupSubType.NO_COLLECTIBLE_TRINKET_CHEST] = Lib.Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_TRINKET, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST}),
+    [NullPickupSubType.NO_COLLECTIBLE_CHEST] = Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST}),
+    [NullPickupSubType.NO_COLLECTIBLE] = Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE}),
+    [NullPickupSubType.NO_COLLECTIBLE_CHEST_COIN] = Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST, PickupVariant.PICKUP_COIN}),
+    [NullPickupSubType.NO_COLLECTIBLE_TRINKET_CHEST] = Table.CreateDictionary({PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_TRINKET, PickupVariant.PICKUP_CHEST, PickupVariant.PICKUP_LOCKEDCHEST}),
 }
 
 ---@param variant PickupVariant
@@ -744,7 +744,7 @@ local function get_double_pack(variant, subType)
     return s_DoublePacks[variant] and s_DoublePacks[variant][subType]
 end
 
-local s_BannedHearts = {Lib.Table.CreateDictionary({HeartSubType.HEART_FULL, HeartSubType.HEART_HALF, HeartSubType.HEART_DOUBLEPACK, HeartSubType.HEART_SCARED, HeartSubType.HEART_BLENDED, HeartSubType.HEART_ROTTEN})}
+local s_BannedHearts = {Table.CreateDictionary({HeartSubType.HEART_FULL, HeartSubType.HEART_HALF, HeartSubType.HEART_DOUBLEPACK, HeartSubType.HEART_SCARED, HeartSubType.HEART_BLENDED, HeartSubType.HEART_ROTTEN})}
 
 ---@param variant PickupVariant
 ---@param subType integer

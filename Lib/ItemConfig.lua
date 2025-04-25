@@ -2,12 +2,11 @@
 local Lib_ItemConfig = {}
 Decomp.Lib.ItemConfig = Lib_ItemConfig
 
-require("Lib.Table")
+local Table = require("Lib.Table")
 
 local g_ItemConfig = Isaac.GetItemConfig()
-local Lib = Decomp.Lib
 
-local s_UnusedCollectibles = Lib.Table.CreateDictionary({43, 61, 235})
+local s_UnusedCollectibles = Table.CreateDictionary({43, 61, 235})
 
 ---@param collectible CollectibleType | integer
 ---@return boolean valid
