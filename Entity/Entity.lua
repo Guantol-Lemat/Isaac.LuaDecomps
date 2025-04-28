@@ -17,10 +17,52 @@ local g_Game = Game()
 ---@field m_CollisionIndex integer
 ---@field m_CollidesWithNonTearEntity boolean
 
+---@class Decomp.Class.Entity.SaveState : Decomp.Interface.EntitySaveState
+---@field m_Type EntityType | integer
+---@field m_Variant integer
+---@field m_SubType integer
+---@field m_Position Vector
+---@field m_InitSeed integer
+---@field m_DropSeed integer
+---@field m_SpawnerType EntityType | integer
+---@field m_SpawnerVariant integer
+---@field m_SpawnGridIdx integer
+
 ---@param data Decomp.Class.Entity.Data
 local function constructor(data)
     data.m_CollisionIndex = 0
     data.m_CollidesWithNonTearEntity = false
+end
+
+---@param entityData Decomp.Class.Entity.Data
+---@return boolean
+local function should_save(entityData)
+    local entity = entityData.object
+
+    if entity:IsDead() then
+        return false
+    end
+
+    if entity:HasEntityFlags(EntityFlag.FLAG_PERSISTENT) then
+        return false
+    end
+
+    return true
+end
+
+---@param entityData Decomp.Class.Entity.Data
+---@param saveState Decomp.Class.Entity.SaveState
+local function store_state(entityData, saveState)
+    local entity = entityData.object
+    saveState.m_Type = entity.Type
+    saveState.m_Variant = entity.Variant
+    saveState.m_SubType = entity.SubType
+    saveState.m_Position = entity.Position
+    saveState.m_InitSeed = entity.InitSeed
+    saveState.m_DropSeed = entity:GetDropRNG():GetSeed()
+    saveState.m_SpawnerType = entity.SpawnerType
+    saveState.m_SpawnerVariant = entity.SpawnerVariant
+    saveState.m_SpawnGridIdx = entity.SpawnGridIndex
 end
 
 --#region Collision
@@ -486,7 +528,9 @@ local API = {}
 ---@class Decomp.Class.Entity : Decomp.Interface.EntityCreate
 local Class_Entity = {
     constructor = constructor,
-    API = API
+    should_save = should_save,
+    store_state = store_state,
+    API = API,
 }
 
 ---@param entity Decomp.Object.Entity
@@ -578,3 +622,5 @@ function API.get_collision_mass(entity, collider)
 end
 
 --#endregion
+
+return Class_Entity

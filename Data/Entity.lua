@@ -4,13 +4,19 @@ local EntityFactory = {}
 ---@class Decomp.Data.Entity
 local EntityData = {}
 
----@class Decomp.Interface.EntityCreate
+---@class Decomp.Interface.EntityCreate : Decomp.Interface.EntitySaveState, Decomp.Interface.EntityState
 ---@field constructor fun(entityData: table)
----@field store_data fun(entityData: table, saveData: table)
----@field restore_data fun(entityData: table, saveData: table)
 ---@field API table<string, function>
 
----@class Decomp.Data.EntityBase
+---@class Decomp.Interface.EntityState
+---@field should_save fun(entityData: table): boolean
+---@field store_state fun(entityData: table, saveData: table)
+---@field restore_state fun(entityData: table, saveData: table)
+
+---@class Decomp.Interface.EntitySaveState
+---@field copy_state fun(saveState: table, other: table)
+
+---@class Decomp.Data.EntityBase : Decomp.Interface.EntitySaveState, Decomp.Interface.EntityState
 ---@field object Entity | EntityFamiliar | EntityBomb | EntityPickup | EntitySlot | EntityLaser | EntityKnife | EntityProjectile | EntityNPC | EntityEffect
 ---@field entityType Decomp.Enum.eBasicEntityType
 ---@field entityPtr EntityPtr
@@ -129,7 +135,17 @@ local function Create(entity)
     local object = Cast and Cast(entity) or entity
     local class = s_BasicTypeToClass[basicType] or s_BasicTypeToClass[Enums.eBasicEntityType.ENTITY]
 
-    local data = {object = object, entityType = basicType, entityPtr = EntityPtr(entity)}
+    ---@type Decomp.Data.EntityBase
+    local data = {
+        object = object,
+        entityType = basicType,
+        entityPtr = EntityPtr(entity),
+        should_save = class.should_save,
+        copy_state = class.copy_state,
+        store_state = class.store_state,
+        restore_state = class.restore_state,
+    }
+
     assert(class.constructor, string.format("[ASSERT] EntityFactory: class constructor for entity type %d is nil", basicType))
     class.constructor(data)
     apply_class_api(data, class)
@@ -161,20 +177,27 @@ end
 
 ---@param entity Entity
 ---@param saveState table
-local function SaveData(entity, saveState)
+local function StoreState(entity, saveState)
     ---@type Decomp.Data.EntityBase
     local data = GetData(entity)
-    local class = s_BasicTypeToClass[data.entityType] or s_BasicTypeToClass[Enums.eBasicEntityType.ENTITY]
-    class.store_data(data, saveState)
+    saveState.copy_state = data.copy_state
+    data:store_state(saveState)
+end
+
+---@param entity Entity
+---@return boolean
+local function ShouldSave(entity)
+    ---@type Decomp.Data.EntityBase
+    local data = GetData(entity)
+    return data:should_save()
 end
 
 ---@param entity Entity
 ---@param saveState table
-local function LoadData(entity, saveState)
+local function RestoreState(entity, saveState)
     ---@type Decomp.Data.EntityBase
     local data = GetData(entity)
-    local class = s_BasicTypeToClass[data.entityType] or s_BasicTypeToClass[Enums.eBasicEntityType.ENTITY]
-    class.restore_data(data, saveState)
+    data:restore_state(saveState)
 end
 
 --#region Module
@@ -186,15 +209,21 @@ function EntityData.GetData(entity)
 end
 
 ---@param entity Entity
----@param saveState table
-function EntityData.SaveData(entity, saveState)
-    SaveData(entity, saveState)
+---@return boolean
+function EntityData.ShouldSave(entity)
+    return ShouldSave(entity)
 end
 
 ---@param entity Entity
 ---@param saveState table
-function EntityData.LoadData(entity, saveState)
-    LoadData(entity, saveState)
+function EntityData.SaveState(entity, saveState)
+    StoreState(entity, saveState)
+end
+
+---@param entity Entity
+---@param saveState table
+function EntityData.RestoreState(entity, saveState)
+    RestoreState(entity, saveState)
 end
 
 --#endregion

@@ -2,16 +2,138 @@
 local Class_EntityPickup = {}
 Decomp.Class.EntityPickup = Class_EntityPickup
 
+local super = require("Entity.Entity")
+
+local Lib = {
+    Math = require("Lib.Math"),
+    Table = require("Lib.Table"),
+    Pickup = require("Lib.EntityPickup")
+}
+
 require("General.Enums")
 require("Data.EntityPickup")
 require("Entity.Pickup.TypeSelection")
 
 local Enums = Decomp.Enums
-local Lib = Decomp.Lib
 local Data = Decomp.Data
 local Pickup = Decomp.Entity.Pickup
 
 local g_Game = Game()
+
+---@class Decomp.Object.EntityPickup : Decomp.Class.EntityPickup.Data, Decomp.Class.EntityPickup.API
+
+---@class Decomp.Class.EntityPickup.Data : Decomp.Class.Entity.Data
+---@field object EntityPickup
+---@field m_VariantRelated integer
+---@field m_UnkInt integer
+---@field m_SourcePool ItemPoolType
+---@field m_FlipSaveState Decomp.Class.EntityPickup.SaveState?
+
+---@class Decomp.Class.EntityPickup.SaveState : Decomp.Class.Entity.SaveState
+---@field m_Charge integer
+---@field m_Price integer
+---@field m_AutoUpdatePrice boolean
+---@field m_ShopItemId integer
+---@field m_Touched boolean
+---@field m_UnkInt integer
+---@field m_OptionsPickupIndex integer
+---@field m_Timeout integer
+---@field m_IsBlind boolean
+---@field m_AlternatePedestal PedestalType
+---@field m_ActiveVarData integer
+---@field m_SourcePool ItemPoolType
+---@field m_SpriteScale number
+---@field m_CycleCollectible CollectibleType[]
+---@field m_FlipSaveState Decomp.Class.EntityPickup.SaveState?
+
+local s_StationaryPickups = Lib.Table.CreateDictionary({
+    PickupVariant.PICKUP_COLLECTIBLE, PickupVariant.PICKUP_BED, PickupVariant.PICKUP_BIGCHEST,
+    PickupVariant.PICKUP_TROPHY, PickupVariant.PICKUP_MOMSCHEST, PickupVariant.PICKUP_MEGACHEST,
+})
+
+---@param variant integer
+---@return boolean
+local function should_pickup_be_stationary(variant)
+    return not not s_StationaryPickups[variant]
+end
+
+--#region Data
+
+---@param entityData Decomp.Class.EntityPickup.Data
+local function get_chest_subtype(entityData)
+    local entity = entityData.object
+    if entity.Variant == PickupVariant.PICKUP_ETERNALCHEST and entityData.m_VariantRelated > 0 then
+        return 1
+    end
+
+    return entity.SubType
+end
+
+---@param entityData Decomp.Class.EntityPickup.Data
+---@return boolean
+local function should_save(entityData)
+    local entity = entityData.object
+
+    if entity.Variant == PickupVariant.PICKUP_COLLECTIBLE and entity.SubType == 0 then
+        return false
+    end
+
+    if Lib.Pickup.IsChest(entity.Variant) and get_chest_subtype(entityData) == 0 then
+        return false
+    end
+
+    if entity.Variant == PickupVariant.PICKUP_HAUNTEDCHEST and entity:HasEntityFlags(EntityFlag.FLAG_THROWN | EntityFlag.FLAG_HELD) then
+        return false
+    end
+
+    if entity.Timeout > -1 then
+        return false
+    end
+
+    return super.should_save(entityData)
+end
+
+---@param entityData Decomp.Class.EntityPickup.Data
+---@param saveState Decomp.Class.EntityPickup.SaveState
+local function store_state(entityData, saveState)
+    super.store_state(entityData, saveState)
+    local entity = entityData.object
+
+    if should_pickup_be_stationary(entity.Variant) and not Lib.Math.IsVectorEqual(entity.TargetPosition, Lib.Math.VectorZero) then
+        saveState.m_Position = entity.TargetPosition
+    end
+
+    if Lib.Pickup.IsChest(entity.Variant) then
+        saveState.m_SubType = get_chest_subtype(entityData)
+    end
+
+    saveState.m_Charge = entity.Charge
+    saveState.m_Price = entity.Price
+    saveState.m_AutoUpdatePrice = entity.AutoUpdatePrice
+    saveState.m_ShopItemId = entity.ShopItemId
+    saveState.m_Touched = entity.Touched
+    saveState.m_UnkInt = entityData.m_UnkInt
+    saveState.m_OptionsPickupIndex = entity.OptionsPickupIndex
+    saveState.m_Timeout = entity.Timeout
+    saveState.m_IsBlind = entity:IsBlind(true)
+    saveState.m_AlternatePedestal = entity:GetAlternatePedestal()
+    saveState.m_ActiveVarData = entity:GetVarData()
+    saveState.m_SourcePool = entityData.m_SourcePool
+    saveState.m_SpriteScale = entity:GetSprite().Scale.X
+
+    saveState.m_CycleCollectible = {}
+    for index, value in ipairs(entity:GetCollectibleCycle()) do
+        saveState.m_CycleCollectible[index] = value
+    end
+
+    if entityData.m_FlipSaveState then
+        ---@diagnostic disable-next-line: missing-fields
+        saveState.m_FlipSaveState = {}
+        entityData.m_FlipSaveState:copy_state(saveState.m_FlipSaveState)
+    end
+end
+
+--#endregion
 
 --#region RandomVelocity
 

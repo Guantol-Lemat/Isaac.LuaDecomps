@@ -20,6 +20,18 @@ local function constructor(data)
     data.m_PrizeSprite = Sprite()
 end
 
+---@param entityData Decomp.Class.EntitySlot.Data
+local function should_save(entityData)
+    local entity = entityData.object
+    local state = entity:GetState()
+
+    if state == 3 or state == 4 and not entity.Variant == SlotVariant.DONATION_MACHINE then
+        return false
+    end
+
+    return super.should_save(entityData)
+end
+
 --#region Update
 
 local s_BeggarSlot = Table.CreateDictionary({
