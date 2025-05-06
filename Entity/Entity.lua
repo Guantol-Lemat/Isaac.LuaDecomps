@@ -10,7 +10,20 @@ local Class = Decomp.Class
 
 local g_Game = Game()
 
----@class Decomp.Object.Entity : Decomp.Class.Entity.Data, Decomp.Class.Entity.API
+---@class Decomp.Object.Entity : Decomp.IEntityObject
+---@field _API Decomp.IGlobalAPI
+---@field _ENV Decomp.IEnvironment
+---@field _Object Entity
+---@field m_Type integer
+---@field m_Variant integer
+---@field m_PositionOffset Vector
+---@field m_Timescale number
+---@field m_EntityFlags EntityFlag
+---@field m_EntityCollisionClass EntityCollisionClass
+---@field m_GridCollisionClass GridCollisionClass
+---@field m_CollisionIndex integer
+---@field m_CollidesWithNonTearEntity boolean
+---@field m_CollidesWithGrid boolean
 
 ---@class Decomp.Class.Entity.Data : Decomp.Data.EntityBase
 ---@field object Entity

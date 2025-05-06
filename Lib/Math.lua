@@ -57,6 +57,18 @@ function Lib_Math.MapToRange(value, previousRange, newRange, clamp)
     return newRange[1] + normalizedForm * (newRange[2] - newRange[1])
 end
 
+---@param friction number
+---@param timeScale number
+---@return number
+local function TimeScaledFriction(friction, timeScale)
+    if timeScale == 1.0 then
+        return friction
+    end
+
+    local normalizationFactor = (friction + timeScale) - friction * timeScale
+    return friction / normalizationFactor
+end
+
 ---@param vector Vector
 ---@param other Vector
 ---@return boolean
@@ -69,5 +81,11 @@ end
 function Lib_Math.VectorCopy(vector)
     return Vector(vector.X, vector.Y)
 end
+
+--#region Module
+
+Lib_Math.TimeScaledFriction = TimeScaledFriction
+
+--#endregion
 
 return Lib_Math
