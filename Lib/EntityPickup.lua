@@ -8,16 +8,17 @@ local IsAfterbirthPlus = not REPENTANCE and not REPENTANCE_PLUS
 
 --#region GetCard
 
----@param API Decomp.IGlobalAPI
----@param itemPool Decomp.IItemPoolObject
+---@param env Decomp.EnvironmentObject
+---@param itemPool Decomp.ItemPoolObject
 ---@param seed integer
 ---@param specialChance integer
 ---@param runeChance integer
 ---@param suitChance integer
 ---@param allowNonCards boolean
 ---@return Card | integer card
-local function GetCard(API, itemPool, seed, specialChance, runeChance, suitChance, allowNonCards)
-    local card = API.ItemPool.GetCardEx(itemPool, seed, specialChance, runeChance, suitChance, allowNonCards)
+local function GetCard(env, itemPool, seed, specialChance, runeChance, suitChance, allowNonCards)
+    local api = env._API
+    local card = api.ItemPool.GetCardEx(itemPool, seed, specialChance, runeChance, suitChance, allowNonCards)
 
     local rng = RNG()
     rng:SetSeed(seed, 35)
@@ -25,15 +26,15 @@ local function GetCard(API, itemPool, seed, specialChance, runeChance, suitChanc
     local includeRunes = runeChance < 0
     local onlyRunes = (runeChance == 1 or runeChance == -1) and specialChance == 0
 
-    return Isaac.RunCallback(ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
+    return api.Environment.RunCallback(env, ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
 end
 
----@param API Decomp.IGlobalAPI
----@param itemPool Decomp.IItemPoolObject
+---@param env Decomp.EnvironmentObject
+---@param itemPool Decomp.ItemPoolObject
 ---@param seed integer
 ---@return Card | integer card
-local function GetRune(API, itemPool, seed)
-    return GetCard(API, itemPool, seed, 0, -1, 0, false)
+local function GetRune(env, itemPool, seed)
+    return GetCard(env, itemPool, seed, 0, -1, 0, false)
 end
 
 --#endregion
@@ -76,41 +77,41 @@ local s_LockedPickupSubTypes = {
 
 ---@class Decomp.Lib.EntityPickup.Switch.IsAvailable
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field variant PickupVariant | integer
 ---@field subType integer
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_collectible_available(io)
-    local itemConfig = io._API.Manager.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
     local collectibleConfig = io._API.ItemConfig.GetCollectible(itemConfig, io.subType)
     return not not (collectibleConfig and collectibleConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_trinket_available(io)
-    local itemConfig = io._API.Manager.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
     local trinketConfig = io._API.ItemConfig.GetTrinket(itemConfig, io.subType)
     return not not (trinketConfig and trinketConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_card_available(io)
-    local itemConfig = io._API.Manager.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
     local cardConfig = io._API.ItemConfig.GetCard(itemConfig, io.subType)
     return not not (cardConfig and cardConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_pill_available(io)
-    local itemConfig = io._API.Manager.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
     local pillConfig = io._API.ItemConfig.GetPillEffect(itemConfig, io.subType)
     return not not (pillConfig and pillConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_pickup_available(io)
-    local persistentGameData = io._API.Manager.GetPersistentGameData(io._ENV)
+    local persistentGameData = io._API.Environment.GetPersistentGameData(io._ENV)
     local variant = io.variant
 
     local achievement = s_LockedPickupVariants[variant]
@@ -134,14 +135,13 @@ local switch_IsVariantAvailable = {
     default = is_pickup_available
 }
 
----@param API Decomp.IGlobalAPI
----@param env Decomp.IEnvironment
+---@param env Decomp.EnvironmentObject
 ---@param variant PickupVariant | integer
 ---@param subType integer
 ---@return boolean
-local function IsAvailable(API, env, variant, subType)
+local function IsAvailable(env, variant, subType)
     ---@type Decomp.Lib.EntityPickup.Switch.IsAvailable
-    local io = {_API = API, _ENV = env, variant = variant, subType = subType}
+    local io = {_API = env._API, _ENV = env, variant = variant, subType = subType}
     local is_available = switch_IsVariantAvailable[variant] or switch_IsVariantAvailable.default
     return is_available(io)
 end

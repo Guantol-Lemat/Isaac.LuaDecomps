@@ -1,25 +1,17 @@
 ---@class Decomp.Room.SubSystem.Spawn
 local RoomSpawn = {}
-Decomp.Room.SubSystem.Spawn = RoomSpawn
 
-local Table = require("Lib.Table")
-require("Lib.Level")
-require("Lib.EntityPickup")
-require("Lib.EntitySlot")
-require("Lib.EntityNPC")
+local Lib = {
+    Table = require("Lib.Table"),
+    Level = require("Lib.Level"),
+    Pickup = require("Lib.EntityPickup"),
+    Slot = require("Lib.EntitySlot"),
+    NPC = require("Lib.EntityNPC"),
+}
+
 require("Lib.PersistentGameData")
 
-require("Room.Room")
-require("Entity.EntityPickup")
-
-local g_Game = Game()
-local g_Level = g_Game:GetLevel()
-local g_Seeds = g_Game:GetSeeds()
-local g_PersistentGameData = Isaac.GetPersistentGameData()
-
-local Lib = Decomp.Lib
-local Class_Room = Decomp.Class.Room
-local Class_EntityPickup = Decomp.Class.EntityPickup
+local Enums = require("General.Enums")
 
 local STB_EFFECT = 999
 local GRID_FIREPLACE = 1400
@@ -29,18 +21,17 @@ local RUNE_VARIANT = 301
 local function switch_break()
 end
 
----@param room Room
 ---@param position Vector
+---@param gridWidth integer
 ---@return integer gridIdx
-local function get_grid_idx(room, position)
-    return position.X + position.Y * room:GetGridWidth()
+local function get_grid_idx(position, gridWidth)
+    return position.X + position.Y * gridWidth
 end
 
----@param room Room
 ---@param gridIdx integer
+---@param gridWidth integer
 ---@return Vector coordinates
-local function get_grid_coordinates(room, gridIdx)
-    local gridWidth = room:GetGridWidth()
+local function get_grid_coordinates(gridIdx, gridWidth)
     local x = gridIdx % gridWidth
     local y = gridIdx / gridWidth
     return Vector(x, y)
@@ -53,12 +44,13 @@ local function manhattan_distance(gridCoords1, gridCoords2)
     return distance.X + distance.Y
 end
 
----@param room Room
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
 ---@param spawn RoomConfig_Spawn
 ---@return Vector spawnPosition
-local function get_spawn_position(room, spawn)
-    local gridIdx = get_grid_idx(room, Vector(spawn.X + 1, spawn.Y + 1))
-    return room:GetGridPosition(gridIdx)
+local function get_spawn_position(api, room, spawn)
+    local gridIdx = get_grid_idx(Vector(spawn.X + 1, spawn.Y + 1), api.Room.GetWidth(room))
+    return api.Room.GetGridPosition(room, gridIdx)
 end
 
 --#region Flags
@@ -72,7 +64,8 @@ end
 ---@field raglichInRoom boolean
 
 ---@class Decomp.Entity.SubSystem.Spawn.Switch.EvaluateRoomFlagsIO
----@field room Room
+---@field _API Decomp.IGlobalAPI
+---@field room Decomp.RoomObject
 ---@field desc RoomDescriptor
 ---@field spawn RoomConfig_Spawn
 ---@field spawnEntry RoomConfig_Entry
@@ -145,7 +138,7 @@ local function handle_water_environment(io)
     end
 
     if subType < 4 then
-        io.room:SetWaterCurrent(waterCurrentVelocity[subType])
+        io._API.Room.SetWaterCurrent(io.room, waterCurrentVelocity[subType])
     end
 end
 
@@ -156,7 +149,7 @@ end
 
 ---@param io Decomp.Entity.SubSystem.Spawn.Switch.EvaluateRoomFlagsIO
 local function mark_death_match_spawn_point(io)
-    local position = get_spawn_position(io.room, io.spawn)
+    local position = get_spawn_position(io._API, io.room, io.spawn)
     ---Can't really do much about this
 end
 
@@ -204,14 +197,16 @@ local function evaluate_spawn_room_flags(spawns, index, rng, io)
     evaluateFlags(io)
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
 ---@param config RoomConfigRoom
 ---@param desc RoomDescriptor
 ---@return Decomp.Room.SubSystem.Spawn.ExtraFlags
-function RoomSpawn.EvaluateRoomFlags(room, config, desc) -- Room::Init
+function RoomSpawn.EvaluateRoomFlags(env, config, desc) -- Room::Init
+    local api = env._API
     ---@type Decomp.Entity.SubSystem.Spawn.Switch.EvaluateRoomFlagsIO
     local switchIO = {
-        room = g_Game:GetRoom(),
+        _API = api,
+        room = api.Environment.GetRoom(env),
         desc = desc,
         ---@diagnostic disable-next-line: assign-type-mismatch  
         spawn = nil,
@@ -245,12 +240,12 @@ end
 
 --#region FixSpawnEntry
 
----@class Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@class Decomp.Room.Spawn.SpawnEntry
 ---@field type EntityType | StbGridType | integer
 ---@field variant integer
 ---@field subType integer
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param gridIdx integer
 ---@param seed integer
 ---@return boolean overridden
@@ -289,16 +284,15 @@ local s_DefaultChests = {
     [PickupVariant.PICKUP_MEGACHEST] = PickupVariant.PICKUP_LOCKEDCHEST
 }
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
-local function fix_pickup_spawns(spawnEntry, rng)
-    if spawnEntry.type ~= EntityType.ENTITY_PICKUP then
-        return
-    end
+local function fix_pickup_spawns(env, spawnEntry, rng)
+    assert(spawnEntry.type ~= EntityType.ENTITY_PICKUP)
 
     local seed = rng:Next()
 
-    if Lib.EntityPickup.IsAvailable(spawnEntry.variant, spawnEntry.subType) then
+    if Lib.EntityPickup.IsAvailable(env, spawnEntry.variant, spawnEntry.subType) then
         return
     end
 
@@ -313,7 +307,8 @@ local function fix_pickup_spawns(spawnEntry, rng)
     end
 
     if spawnEntry.variant == PickupVariant.PICKUP_TAROTCARD and spawnEntry.subType ~= 0 then
-        spawnEntry.subType = Lib.EntityPickup.GetCard(seed, 25, 10, 10, true)
+        local itemPool = env._API.Environment.GetItemPool(env)
+        spawnEntry.subType = Lib.EntityPickup.GetCard(env, itemPool, seed, 25, 10, 10, true)
         return
     end
 
@@ -327,10 +322,13 @@ local s_DefaultSlots = {
     [SlotVariant.ROTTEN_BEGGAR] = {EntityType.ENTITY_SLOT, SlotVariant.KEY_MASTER, nil},
 }
 
----@param player EntityPlayer
+---@param env Decomp.EnvironmentObject
+---@param player Decomp.EntityPlayerObject
 ---@return boolean unlocked
-local function has_unlocked_tainted_character(player)
-    local completionEvents = Lib.PersistentGameData.GetCompletionEventsDef(player:GetType())
+local function has_unlocked_tainted_character(env, player)
+    local api = env._API
+
+    local completionEvents = Lib.PersistentGameData.GetCompletionEventsDef(api.EntityPlayer.GetPlayerType(player))
     if not completionEvents then
         return false
     end
@@ -340,21 +338,23 @@ local function has_unlocked_tainted_character(player)
         return false
     end
 
-    return g_PersistentGameData:Unlocked(taintedCharacterAchievement)
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    return api.PersistentGameData.Unlocked(persistentGameData, taintedCharacterAchievement)
 end
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
-local function fix_slot_spawns(spawnEntry)
-    if spawnEntry.type ~= EntityType.ENTITY_SLOT then
-        return
-    end
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+local function fix_slot_spawns(env, spawnEntry)
+    assert(spawnEntry.type == EntityType.ENTITY_SLOT)
 
+    local api = env._API
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
     if spawnEntry.variant == SlotVariant.HOME_CLOSET_PLAYER then
-        if not has_unlocked_tainted_character(g_Game:GetPlayer(0)) then
+        if not has_unlocked_tainted_character(env, api.Environment.GetPlayer(env, 0)) then
             return
         end
 
-        if g_PersistentGameData:Unlocked(Achievement.INNER_CHILD) then
+        if api.PersistentGameData.Unlocked(persistentGameData, Achievement.INNER_CHILD) then
             spawnEntry.type = EntityType.ENTITY_PICKUP
             spawnEntry.variant = PickupVariant.PICKUP_COLLECTIBLE
             spawnEntry.subType = CollectibleType.COLLECTIBLE_INNER_CHILD
@@ -377,66 +377,85 @@ local function fix_slot_spawns(spawnEntry)
     spawnEntry.subType = defaultEntry[3] or spawnEntry.subType
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
 ---@param rng RNG
-local function is_heavens_trapdoor(room, rng)
-    if room:GetType() == RoomType.ROOM_ANGEL then
+local function is_heavens_trapdoor(env, rng)
+    local api = env._API
+    local room = api.Environment.GetRoom(env)
+
+    if api.Room.GetRoomType(room) == RoomType.ROOM_ANGEL then
         return true
     end
 
-    local absoluteStage = Lib.Level.GetTrueAbsoluteStage(g_Level)
+    local game = api.Environment.GetGame(env)
+    local level = api.Game.GetLevel(game)
+    local absoluteStage = Lib.Level.GetTrueAbsoluteStage(env, level)
     local forcedDevilPath = false
     local forcedAngelPath = false
 
-    if g_Game.Challenge ~= Challenge.CHALLENGE_NULL then
-        forcedAngelPath = g_Game:GetChallengeParams().IsAltPath()
+    local game = api.Environment.GetGame(env)
+    if api.Game.GetChallenge(game) ~= Challenge.CHALLENGE_NULL then
+        local challengeParams = api.Game.GetChallengeParams(game)
+        forcedAngelPath = api.ChallengeParams.IsAltPath(challengeParams)
         forcedDevilPath = not forcedAngelPath
     end
 
-    if room:GetType() == RoomType.ROOM_ERROR and
+    if api.Room.GetRoomType(room) == RoomType.ROOM_ERROR and
        (absoluteStage == LevelStage.STAGE4_2 or absoluteStage == LevelStage.STAGE4_3) and
        ((rng:RandomInt(2) == 0 and not forcedDevilPath) or forcedAngelPath) then
         return true
     end
 
-    if absoluteStage >= LevelStage.STAGE5 and g_Level:GetStageType() ~= StageType.STAGETYPE_ORIGINAL then
+    if absoluteStage >= LevelStage.STAGE5 and api.Level.GetStageType(level) ~= StageType.STAGETYPE_ORIGINAL then
         return true
     end
 
-    if g_Level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
+    if api.Level.GetCurrentRoomIndex(level) == GridRooms.ROOM_GENESIS_IDX then
         return true
     end
 
     return false
 end
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
-local function fix_heavens_trapdoor(spawnEntry)
-    if not g_Level:IsNextStageAvailable() then
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+local function fix_heavens_trapdoor(env, spawnEntry)
+    local api = env._API
+    local level = api.Environment.GetLevel(env)
+
+    if not api.Level.IsNextStageAvailable(level) then
         spawnEntry.type = StbGridType.CRAWLSPACE
         spawnEntry.variant = 3
         return
     end
 
-    if g_Level:IsStageAvailable(LevelStage.STAGE5, StageType.STAGETYPE_WOTL) then
+    if api.Level.IsStageAvailable(level, LevelStage.STAGE5, StageType.STAGETYPE_WOTL) then
         spawnEntry.type = STB_EFFECT
         spawnEntry.variant = EffectVariant.HEAVEN_LIGHT_DOOR
         return
     end
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
-local function fix_error_room_trapdoor_spawn(room, spawnEntry, rng)
-    if room:GetType() ~= RoomType.ROOM_ERROR then
+local function fix_error_room_trapdoor_spawn(env, spawnEntry, rng)
+    local api = env._API
+
+    local room = api.Environment.GetRoom(env)
+    if api.Room.GetRoomType(room) ~= RoomType.ROOM_ERROR then
         return
     end
 
-    local absoluteStage = Lib.Level.GetTrueAbsoluteStage(g_Level)
+    local level = api.Environment.GetLevel(env)
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local absoluteStage = Lib.Level.GetTrueAbsoluteStage(env, level)
+
     if absoluteStage == LevelStage.STAGE6 then
-        local challengeEndStage = g_Game:GetChallengeParams().GetEndStage()
-        local endStage = g_PersistentGameData:Unlocked(Achievement.VOID_FLOOR) and LevelStage.STAGE7 or LevelStage.STAGE6
+        local game = api.Environment.GetGame(env)
+        local challengeParams = api.Game.GetChallengeParams(game)
+        local challengeEndStage = api.ChallengeParams.GetEndStage(challengeParams)
+        local endStage = api.PersistentGameData.Unlocked(persistentGameData, Achievement.VOID_FLOOR) and LevelStage.STAGE7 or LevelStage.STAGE6
         endStage = challengeEndStage ~= LevelStage.STAGE_NULL and challengeEndStage or endStage
 
         if endStage >= LevelStage.STAGE7 then
@@ -445,80 +464,90 @@ local function fix_error_room_trapdoor_spawn(room, spawnEntry, rng)
         end
     end
 
-    if not g_Level:IsNextStageAvailable() then
+    if not api.Level.IsNextStageAvailable(level) then
         spawnEntry.type = StbGridType.CRAWLSPACE
         spawnEntry.variant = 3
         return
     end
 
-    if is_heavens_trapdoor(room, rng) then
-        fix_heavens_trapdoor(spawnEntry)
+    if is_heavens_trapdoor(env, rng) then
+        fix_heavens_trapdoor(env, spawnEntry)
         return
     end
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
-local function fix_trapdoor_spawn(room, spawnEntry, rng)
-    if spawnEntry.type ~= StbGridType.TRAP_DOOR or g_Game:IsGreedMode() then
+local function fix_trapdoor_spawn(env, spawnEntry, rng)
+    local api = env._API
+
+    local game = api.Environment.GetGame(env)
+    if spawnEntry.type ~= StbGridType.TRAP_DOOR or api.Game.IsGreedMode(game) then
         return
     end
 
-    if g_Level:IsAscent() then
+    local level = api.Game.GetLevel(game)
+    if api.Level.IsAscent(level) then
         spawnEntry.type = STB_EFFECT
         spawnEntry.variant = EffectVariant.HEAVEN_LIGHT_DOOR
         return
     end
 
-    if room:GetType() == RoomType.ROOM_ERROR then
-        fix_error_room_trapdoor_spawn(room, spawnEntry, rng)
+    local room = api.Level.GetRoom(level)
+    if api.Room.GetRoomType(room) == RoomType.ROOM_ERROR then
+        fix_error_room_trapdoor_spawn(env, spawnEntry, rng)
         return
     end
 
-    if is_heavens_trapdoor(room, rng) then
-        fix_heavens_trapdoor(spawnEntry)
+    if is_heavens_trapdoor(env, rng) then
+        fix_heavens_trapdoor(env, spawnEntry)
         return
     end
 end
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
-local function morph_pickup_spawn(spawnEntry)
-    if spawnEntry.type ~= EntityType.ENTITY_PICKUP then
-        return
-    end
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+local function morph_pickup_spawn(env, spawnEntry)
+    assert(spawnEntry.type ~= EntityType.ENTITY_PICKUP, "attempted to morph a non pickup")
 
-    if (g_Level:GetCurrentRoomDesc().Flags & RoomDescriptor.FLAG_DEVIL_TREASURE) ~= 0 and spawnEntry.variant == PickupVariant.PICKUP_COLLECTIBLE then
+    local api = env._API
+    local roomDesc = api.Environment.GetCurrentRoomDesc(env)
+
+    if api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_DEVIL_TREASURE) and spawnEntry.variant == PickupVariant.PICKUP_COLLECTIBLE then
         spawnEntry.variant = PickupVariant.PICKUP_SHOPITEM
         return
     end
 end
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param seed integer
-local function morph_slot_spawn(spawnEntry, seed)
-    if spawnEntry.type ~= EntityType.ENTITY_SLOT then
-        return
-    end
+local function morph_slot_spawn(env, spawnEntry, seed)
+    assert(spawnEntry.type ~= EntityType.ENTITY_SLOT, "attempted to morph a non slot")
 
     local rng = RNG(); rng:SetSeed(seed, 68)
 
+    local api = env._API
+    local game = api.Environment.GetGame(env)
+
     if spawnEntry.variant == SlotVariant.SHELL_GAME and Lib.EntitySlot.IsAvailable(SlotVariant.HELL_GAME) and
-    g_Game:GetDevilRoomDeals() > 0 and rng:RandomInt(4) == 0 then
+       api.Game.GetDevilRoomDeals(game) > 0 and rng:RandomInt(4) == 0 then
         spawnEntry.variant = SlotVariant.HELL_GAME
         return
     end
 
     if spawnEntry.variant == SlotVariant.BEGGAR and Lib.EntitySlot.IsAvailable(SlotVariant.ROTTEN_BEGGAR) and
-    rng:RandomInt(15) == 0 then
+       rng:RandomInt(15) == 0 then
         spawnEntry.variant = SlotVariant.ROTTEN_BEGGAR
         return
     end
 end
 
 ---@class Decomp.Entity.SubSystem.Spawn.Switch.TryStageSpawnModifiersIO
----@field room Room
----@field spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@field api Decomp.IGlobalAPI
+---@field room Decomp.RoomObject
+---@field spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@field gridIdx integer
 ---@field rng RNG
 ---@field isBurningBasement boolean
@@ -704,15 +733,17 @@ local function skinny_stage_modifier(io)
     return false
 end
 
----@param room Room
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
 ---@param doorSlot DoorSlot
 ---@param spawnCoordinates Vector
-local function is_nerve_close_to_door_slot(room, doorSlot, spawnCoordinates)
-    if not room:IsDoorSlotAllowed(doorSlot) then
+local function is_nerve_close_to_door_slot(api, room, doorSlot, spawnCoordinates)
+    if not api.Room.IsDoorSlotAllowed(room, doorSlot) then
         return false
     end
 
-    local doorGridCoordinates = get_grid_coordinates(room, room:GetGridIndex(room:GetDoorSlotPosition(doorSlot)))
+    local doorPosition = api.Room.GetDoorSlotPosition(room, doorSlot)
+    local doorGridCoordinates = get_grid_coordinates(api.Room.GetGridIndex(room, doorPosition), api.Room.GetWidth(room))
     return manhattan_distance(doorGridCoordinates, spawnCoordinates) < 4
 end
 
@@ -722,10 +753,10 @@ local function nerve_ending_stage_modifier(io)
         return false
     end
 
-    local spawnCoordinates = get_grid_coordinates(io.room, io.gridIdx)
+    local spawnCoordinates = get_grid_coordinates(io.gridIdx, io.api.Room.GetWidth(io.room))
 
     for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1, 1 do
-        if is_nerve_close_to_door_slot(io.room, i, spawnCoordinates) then
+        if is_nerve_close_to_door_slot(io.api, io.room, i, spawnCoordinates) then
             return false
         end
     end
@@ -757,18 +788,24 @@ local switch_TryStageSpawnModifiers = {
     default = switch_break,
 }
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param gridIdx integer
 ---@param rng RNG
 ---@return boolean appliedModifier
-local function try_stage_npc_variant(room, spawnEntry, gridIdx, rng)
-    local stage = Lib.Level.GetTrueAbsoluteStage(g_Level)
-    local stageType = g_Level:GetStageType()
-    local isAltPath = Lib.Level.IsAltPath(g_Level)
+local function try_stage_npc_variant(env, room, spawnEntry, gridIdx, rng)
+    local api = env._API
+    local level = api.Environment.GetLevel(env)
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+
+    local stage = Lib.Level.GetTrueAbsoluteStage(env, level)
+    local stageType = api.Level.GetStageType(level)
+    local isAltPath = api.Level.IsAltPath(level)
 
     ---@type Decomp.Entity.SubSystem.Spawn.Switch.TryStageSpawnModifiersIO
     local switchIO = {
+        api = api,
         room = room,
         spawnEntry = spawnEntry,
         gridIdx = gridIdx,
@@ -779,20 +816,20 @@ local function try_stage_npc_variant(room, spawnEntry, gridIdx, rng)
         isScarredWomb = stageType == StageType.STAGETYPE_AFTERBIRTH and (stage == LevelStage.STAGE4_1 or stage == LevelStage.STAGE4_2),
         isAltBasement = isAltPath and (stage == LevelStage.STAGE1_1 or stage == LevelStage.STAGE1_2),
         isAltCaves = isAltPath and (stage == LevelStage.STAGE2_1 or stage == LevelStage.STAGE2_2),
-        gateOpen = g_PersistentGameData:Unlocked(Achievement.THE_GATE_IS_OPEN),
+        gateOpen = api.PersistentGameData.Unlocked(persistentGameData, Achievement.THE_GATE_IS_OPEN),
     }
 
     local TryStageSpawnModifiers = switch_TryStageSpawnModifiers[spawnEntry.type] or switch_TryStageSpawnModifiers.default
     return TryStageSpawnModifiers(switchIO)
 end
 
-local s_HasHardRareSpawnVariant = Table.CreateDictionary({
+local s_HasHardRareSpawnVariant = Lib.Table.CreateDictionary({
     EntityType.ENTITY_CLOTTY, EntityType.ENTITY_MULLIGAN, EntityType.ENTITY_MAW,
     EntityType.ENTITY_BOIL, EntityType.ENTITY_VIS, EntityType.ENTITY_LEECH,
     EntityType.ENTITY_WALKINGBOIL
 })
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
 local function try_rare_hard_npc_variant(spawnEntry, rng)
     if s_HasHardRareSpawnVariant[spawnEntry.type] and rng:RandomInt(100) == 0 then
@@ -801,6 +838,9 @@ local function try_rare_hard_npc_variant(spawnEntry, rng)
 end
 
 ---@class Decomp.Entity.SubSystem.Spawn.Switch.TryAltNpcVariantIO
+---@field env Decomp.EnvironmentObject
+---@field api Decomp.IGlobalAPI
+---@field level Decomp.LevelObject
 ---@field has21Chance boolean
 ---@field has25Chance boolean
 
@@ -822,15 +862,15 @@ end
 
 ---@param io Decomp.Entity.SubSystem.Spawn.Switch.TryAltNpcVariantIO
 local function try_boomfly_alt_variant(io)
-    if Lib.Level.GetTrueAbsoluteStage(g_Level) >= LevelStage.STAGE2_1 then
+    if Lib.Level.GetTrueAbsoluteStage(io.env, io.level) >= LevelStage.STAGE2_1 then
         set_all_tries(io)
     end
 end
 
 ---@param io Decomp.Entity.SubSystem.Spawn.Switch.TryAltNpcVariantIO
 local function try_vis_alt_variant(io)
-    local stage = Lib.Level.GetTrueAbsoluteStage(g_Level)
-    if (stage == LevelStage.STAGE4_1 or stage == LevelStage.STAGE4_2) and g_Level:GetStageType() == StageType.STAGETYPE_WOTL then
+    local stage = Lib.Level.GetTrueAbsoluteStage(io.env, io.level)
+    if (stage == LevelStage.STAGE4_1 or stage == LevelStage.STAGE4_2) and io.api.Level.GetStageType(io.level) == StageType.STAGETYPE_WOTL then
         set_21_chance(io)
     end
 end
@@ -856,11 +896,16 @@ local switch_TryAltNpcVariant = {
     default = switch_break,
 }
 
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
-local function try_alt_npc_variant(spawnEntry, rng)
+local function try_alt_npc_variant(env, spawnEntry, rng)
+    local api = env._API
+
     ---@type Decomp.Entity.SubSystem.Spawn.Switch.TryAltNpcVariantIO
     local switchIO = {
+        env = env,
+        api = api,
+        level = api.Environment.GetLevel(env),
         has21Chance = false,
         has25Chance = false,
     }
@@ -877,37 +922,44 @@ local function try_alt_npc_variant(spawnEntry, rng)
     end
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param gridIdx integer
 ---@param rng RNG
-local function apply_spawn_modifiers(room, spawnEntry, gridIdx, rng)
+local function apply_spawn_modifiers(env, room, spawnEntry, gridIdx, rng)
+    local api = env._API
+    local game = api.Environment.GetGame(env)
+
     if spawnEntry.type == EntityType.ENTITY_STONEY then
-        if (g_Game.Challenge == Challenge.CHALLENGE_APRILS_FOOL) and rng:RandomInt(5) == 0 then -- Also checks for April Fools Special Daily
+        local dailyChallenge = api.Game.GetDailyChallenge(game)
+        if (api.Game.GetChallenge(game) == Challenge.CHALLENGE_APRILS_FOOL or api.DailyChallenge.GetSpecialRunID(dailyChallenge) == 7) and rng:RandomInt(5) == 0 then
             spawnEntry.variant = 10
             return
         end
     end
 
-    local modifierApplied = try_stage_npc_variant(room, spawnEntry, gridIdx, rng)
+    local modifierApplied = try_stage_npc_variant(env, room, spawnEntry, gridIdx, rng)
     if modifierApplied then
         return
     end
 
     try_rare_hard_npc_variant(spawnEntry, rng)
-    try_alt_npc_variant(spawnEntry, rng)
+    try_alt_npc_variant(env, spawnEntry, rng)
 
     if spawnEntry.type == EntityType.ENTITY_BOOMFLY and spawnEntry.variant == 3 and spawnEntry.subType == 100 then
         spawnEntry.subType = rng:RandomInt(2)
     end
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
 ---@param spawnEntry RoomConfig_Entry
 ---@param gridIdx integer
 ---@param seed integer
----@return Decomp.Room.SubSystem.Spawn.SpawnEntry fixedSpawnEntry
-function RoomSpawn.FixSpawnEntry(room, spawnEntry, gridIdx, seed) -- Room::FixSpawnEntry
+---@return Decomp.Room.Spawn.SpawnEntry fixedSpawnEntry
+local function FixSpawnEntry(env, room, spawnEntry, gridIdx, seed)
+    local api = env._API
     local rng = RNG(); rng:SetSeed(seed, 7)
     local fixedEntry = {type = spawnEntry.Type, variant = spawnEntry.Variant, subType = spawnEntry.Subtype}
 
@@ -925,7 +977,8 @@ function RoomSpawn.FixSpawnEntry(room, spawnEntry, gridIdx, seed) -- Room::FixSp
 
     if fixedEntry.type == EntityType.ENTITY_PICKUP and fixedEntry.variant == RUNE_VARIANT then
         fixedEntry.variant = PickupVariant.PICKUP_TAROTCARD
-        fixedEntry.subType = Decomp.Lib.EntityPickup.GetRune(rng:Next())
+        local itemPool = api.Environment.GetItemPool(env)
+        fixedEntry.subType = Decomp.Lib.EntityPickup.GetRune(env, itemPool, rng:Next())
     end
 
     if overridden then
@@ -933,78 +986,82 @@ function RoomSpawn.FixSpawnEntry(room, spawnEntry, gridIdx, seed) -- Room::FixSp
     end
 
     if fixedEntry.type == EntityType.ENTITY_PICKUP then
-        fix_pickup_spawns(fixedEntry, rng)
+        fix_pickup_spawns(env, fixedEntry, rng)
     end
 
     if fixedEntry.type == EntityType.ENTITY_SLOT then
-        fix_slot_spawns(fixedEntry)
+        fix_slot_spawns(env, fixedEntry)
     end
 
     if fixedEntry.type == StbGridType.TRAP_DOOR then
-        fix_trapdoor_spawn(room, fixedEntry, rng)
+        fix_trapdoor_spawn(env, fixedEntry, rng)
     end
 
     if fixedEntry.type == EntityType.ENTITY_PICKUP then
-        morph_pickup_spawn(fixedEntry)
+        morph_pickup_spawn(env, fixedEntry)
     end
 
     if fixedEntry.type == EntityType.ENTITY_SLOT then
-        morph_slot_spawn(fixedEntry, seed)
+        morph_slot_spawn(env, fixedEntry, seed)
     end
 
-    if 0 < fixedEntry.type and fixedEntry.type <= 1000 then
-        fixedEntry.type, fixedEntry.variant = Lib.EntityNPC.Redirect(fixedEntry.type, fixedEntry.variant)
+    if 1 <= fixedEntry.type and fixedEntry.type <= 999 then
+        fixedEntry.type, fixedEntry.variant = Lib.NPC.Redirect(env, fixedEntry.type, fixedEntry.variant)
     end
 
-    if room:GetType() == RoomType.ROOM_SECRET_EXIT then -- This should also check if the first flag in RoomConfig_Room is set
+    if api.Room.GetRoomType(room) == RoomType.ROOM_SECRET_EXIT or not api.Room.HasRoomConfigFlag(room, 1) then
         return fixedEntry
     end
 
-    apply_spawn_modifiers(room, fixedEntry, gridIdx, rng)
+    apply_spawn_modifiers(env, room, fixedEntry, gridIdx, rng)
     return fixedEntry
 end
 
 
 --#endregion
 
---#region SpawnEntity
+--#region ReadSpawnEntry
 
----@param roomDescriptor RoomDescriptor
+---@param roomData RoomConfigRoom
 ---@return boolean knifeTreasureRoom
-local function is_knife_treasure_room(roomDescriptor)
-    local roomData = roomDescriptor.Data
+local function is_knife_treasure_room(roomData)
     return roomData.Type == RoomType.ROOM_TREASURE and roomData.Subtype == RoomSubType.TREASURE_KNIFE_PIECE
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param api Decomp.IGlobalAPI
+---@param level Decomp.LevelObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param respawning boolean
-local function try_block_spawn(room, spawnEntry, respawning)
+local function try_block_spawn(api, level, spawnEntry, respawning)
     if spawnEntry.type == EntityType.ENTITY_PICKUP and spawnEntry.variant == PickupVariant.PICKUP_COLLECTIBLE and
-       g_Level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
+       api.Level.GetCurrentRoomIndex(level) == GridRooms.ROOM_GENESIS_IDX then
         return true
     end
 
-    if spawnEntry.type == EntityType.ENTITY_PICKUP and
-       not respawning and
-       g_Level:HasMirrorDimension() and g_Level:GetDimension() == Dimension.KNIFE_PUZZLE and
-       not is_knife_treasure_room(g_Level:GetCurrentRoomDesc()) then
+    local room = api.Level.GetRoom(level)
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+
+    if spawnEntry.type == EntityType.ENTITY_PICKUP and not respawning and
+       api.Level.HasMirrorDimension(level) and api.Level.GetDimension(level) == Dimension.KNIFE_PUZZLE and
+       not is_knife_treasure_room(api.RoomDescriptor.GetRoomData(roomDesc)) then
         return true
     end
 
     if spawnEntry.type == EntityType.ENTITY_SLOT and spawnEntry.variant == SlotVariant.DONATION_MACHINE and
-       room:GetType() == RoomType.ROOM_SHOP and g_Level:GetCurrentRoomDesc().GridIndex < 0 then
+       api.Room.GetRoomType(room) == RoomType.ROOM_SHOP and api.RoomDescriptor.GetGridIdx(roomDesc) < 0 then
         return true
     end
 
     return false
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param api Decomp.IGlobalAPI
+---@param level Decomp.LevelObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
-local function try_rock_dangerous_morph(room, spawnEntry, rng)
-    if g_Level:GetStageType() ~= StageType.STAGETYPE_AFTERBIRTH or room:GetType() ~= RoomType.ROOM_DEFAULT then
+local function try_rock_dangerous_morph(api, level, spawnEntry, rng)
+    local room = api.Level.GetRoom(level)
+    if api.Level.GetStageType(level) ~= StageType.STAGETYPE_AFTERBIRTH or api.Room.GetRoomType(room) ~= RoomType.ROOM_DEFAULT then
         return
     end
 
@@ -1012,7 +1069,7 @@ local function try_rock_dangerous_morph(room, spawnEntry, rng)
         return
     end
 
-    local stage = g_Level:GetStage()
+    local stage = api.Level.GetStage(level)
     if stage == LevelStage.STAGE1_1 or stage == LevelStage.STAGE1_2 then
         spawnEntry.type = EntityType.ENTITY_FIREPLACE
         spawnEntry.variant = rng:RandomInt(40) == 0 and 1 or 0
@@ -1032,23 +1089,26 @@ local function try_rock_dangerous_morph(room, spawnEntry, rng)
     end
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param seed integer
 ---@return boolean morphed
-local function try_dirty_mind_morph(room, spawnEntry, seed)
-    if room:GetType() == RoomType.ROOM_DUNGEON then
+local function try_dirty_mind_morph(env, room, spawnEntry, seed)
+    local api = env._API
+
+    if api.Room.GetRoomType(room) == RoomType.ROOM_DUNGEON then
         return false
     end
 
     local rng = RNG(); rng:SetSeed(seed, 2)
-    ---@type EntityPlayer?, RNG?
-    local randomPlayer, dirtyMindRNG = PlayerManager.GetRandomCollectibleOwner(CollectibleType.COLLECTIBLE_DIRTY_MIND, rng:Next())
+    local playerManager = api.Environment.GetPlayerManager(env)
+    local randomPlayer = api.PlayerManager.GetRandomCollectibleOwner(playerManager, CollectibleType.COLLECTIBLE_DIRTY_MIND, rng:Next())
     if not randomPlayer then
         return false
     end
 
-    local chance = math.min(randomPlayer.Luck * 0.005 + 0.0625, 0.1)
+    local chance = math.min(api.EntityPlayer.GetLuck(randomPlayer) * 0.005 + 0.0625, 0.1)
     if rng:RandomFloat() > chance then
         return false
     end
@@ -1059,42 +1119,66 @@ local function try_dirty_mind_morph(room, spawnEntry, seed)
     return true
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
 ---@return boolean canSpawn
-local function can_spawn_trapdoor(room)
-    if g_Level:IsNextStageAvailable() then
+local function can_spawn_trapdoor(env, room)
+    local api = env._API
+    local level = api.Environment.GetLevel(env)
+
+    if api.Level.IsNextStageAvailable(level) then
         return true
     end
 
-    local roomType = room:GetType()
-    if roomType == RoomType.ROOM_ERROR or roomType == RoomType.ROOM_SECRET_EXIT or
-       g_Level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX or
-       (roomType == RoomType.ROOM_BOSS and g_Level:GetCurrentRoomDesc().Data.Subtype == BossType.MOTHER) then
+    local roomType = api.Room.GetRoomType(room)
+    if roomType == RoomType.ROOM_ERROR or roomType == RoomType.ROOM_SECRET_EXIT then
+        return true
+    end
+
+    if api.Level.GetCurrentRoomIndex(level) == GridRooms.ROOM_GENESIS_IDX then
+        return true
+    end
+
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+    local roomData = api.RoomDescriptor.GetRoomData(roomDesc)
+    if (roomType == RoomType.ROOM_BOSS and roomData.Subtype == BossType.MOTHER) then
         return true
     end
 
     return false
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+---@param gridIdx integer
+---@return boolean
+local function can_morph_rock_entry(api, room, spawnEntry, gridIdx)
+    return ((spawnEntry.type == StbGridType.ROCK and api.Room.GetTintedRockIdx(room) ~= gridIdx)) or spawnEntry.type == StbGridType.BOMB_ROCK or spawnEntry.type == StbGridType.ALT_ROCK
+end
+
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param rng RNG
 ---@param gridIdx integer
----@param respawning boolean
-local function try_morph_spawn(room, spawnEntry, gridIdx, rng, respawning)
-    if spawnEntry.type == StbGridType.ROCK and room:GetTintedRockIdx() == gridIdx then
+local function try_morph_spawn(env, room, spawnEntry, gridIdx, rng)
+    local api = env._API
+
+    if spawnEntry.type == StbGridType.ROCK and api.Room.GetTintedRockIdx(room) == gridIdx then
         return
     end
 
     local rockSeed = rng:GetSeed()
 
-    local dangerousGridMorph = false -- This should check the 4th flag of the RoomConfig_Room
-    if dangerousGridMorph and (spawnEntry.type == StbGridType.ROCK or spawnEntry.type == StbGridType.BOMB_ROCK or spawnEntry.type == StbGridType.ALT_ROCK) then
-        try_rock_dangerous_morph(room, spawnEntry, rng)
+    local level = api.Environment.GetLevel(env)
+    local dangerousGridMorph = api.Room.HasRoomConfigFlag(room, 1 << 3)
+    if dangerousGridMorph and can_morph_rock_entry(api, room, spawnEntry, gridIdx) then
+        try_rock_dangerous_morph(api, level, spawnEntry, rng)
     end
 
-    if spawnEntry.type == StbGridType.ROCK or spawnEntry.type == StbGridType.BOMB_ROCK or spawnEntry.type == StbGridType.ALT_ROCK then
-        if try_dirty_mind_morph(room, spawnEntry, rockSeed) then
+    if can_morph_rock_entry(api, room, spawnEntry, gridIdx) then
+        if try_dirty_mind_morph(env, room, spawnEntry, rockSeed) then
             return
         end
     end
@@ -1107,14 +1191,14 @@ local function try_morph_spawn(room, spawnEntry, gridIdx, rng, respawning)
     end
 
     if (spawnEntry.type == StbGridType.TRAP_DOOR or (spawnEntry.type == STB_EFFECT and spawnEntry.variant == EffectVariant.HEAVEN_LIGHT_DOOR)) then
-        if not can_spawn_trapdoor(room) then
+        if not can_spawn_trapdoor(env, room) then
             spawnEntry.type = StbGridType.COBWEB
             spawnEntry.variant = 0
             spawnEntry.subType = 0
             return
         end
 
-        if g_Level:HasMirrorDimension() and g_Level:GetDimension() == Dimension.KNIFE_PUZZLE then
+        if api.Level.HasMirrorDimension(level) and api.Level.GetDimension(level) == Dimension.KNIFE_PUZZLE then
             spawnEntry.type = StbGridType.DECORATION
             spawnEntry.variant = 0
             spawnEntry.subType = 0
@@ -1122,17 +1206,19 @@ local function try_morph_spawn(room, spawnEntry, gridIdx, rng, respawning)
         end
     end
 
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
     if spawnEntry.type == EntityType.ENTITY_SHOPKEEPER then
-        if spawnEntry.variant == 0 and rng:RandomInt(4) == 0 and g_PersistentGameData:Unlocked(Achievement.SPECIAL_SHOPKEEPERS) then
+        if spawnEntry.variant == 0 and rng:RandomInt(4) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.SPECIAL_SHOPKEEPERS) then
             spawnEntry.variant = 3
         end
 
-        if spawnEntry.variant == 1 and rng:RandomInt(4) == 0 and g_PersistentGameData:Unlocked(Achievement.SPECIAL_HANGING_SHOPKEEPERS) then
+        if spawnEntry.variant == 1 and rng:RandomInt(4) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.SPECIAL_HANGING_SHOPKEEPERS) then
             spawnEntry.variant = 4
         end
     end
 
-    if spawnEntry.type == StbGridType.DEVIL_STATUE and BossPoolManager.GetRemovedBosses()[BossType.SATAN] then
+    local bossPool = api.Environment.GetBossPool(env)
+    if spawnEntry.type == StbGridType.DEVIL_STATUE and api.BossPool.GetRemovedBosses(bossPool)[BossType.SATAN] then
         spawnEntry.type = StbGridType.ROCK
         spawnEntry.variant = 0
         spawnEntry.subType = 1
@@ -1140,60 +1226,83 @@ local function try_morph_spawn(room, spawnEntry, gridIdx, rng, respawning)
     end
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+---@class Decomp.Room.Spawn.SpawnDesc
+---@field spawnType integer 0 for nothing 1 for entities, 2 for gridEntity
+---@field entityDesc Decomp.Room.Spawn.EntityDesc | Decomp.Room.Spawn.GridEntityDesc | nil
+---@field addOutput boolean?
+---@field initRail boolean?
+
+---@class Decomp.Room.Spawn.EntityDesc
+---@field type EntityType | integer
+---@field variant integer
+---@field subType integer
+---@field initSeed integer
+
+---@class Decomp.Room.Spawn.GridEntityDesc
+---@field type GridEntityType | integer
+---@field variant integer
+---@field varData integer
+---@field spawnSeed integer
+---@field spawnFissureSpawner boolean
+---@field fissureSpawnerSeed integer -- Technically unneeded, but just in case
+---@field increasePoopCount boolean
+---@field increasePitCount boolean
+
+--#region ReadEntityDesc
+
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@return boolean cleared
-local function consider_room_cleared(room, spawnEntry)
-    local roomDesc = g_Level:GetCurrentRoomDesc()
-    if (roomDesc.Flags & RoomDescriptor.FLAG_CLEAR) ~= 0 then
+local function consider_room_cleared(api, room, spawnEntry)
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+    if api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_CLEAR) then
         return true
     end
 
-    if room:GetType() == RoomType.ROOM_BOSS and (roomDesc.Flags & RoomDescriptor.FLAG_ROTGUT_CLEARED) ~= 0 then
+    if api.Room.GetRoomType(room) == RoomType.ROOM_BOSS and api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_ROTGUT_CLEARED) then
         return spawnEntry.type ~= EntityType.ENTITY_ROTGUT
     end
 
     return false
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+---@param respawning boolean
 ---@return boolean
-local function has_room_mutually_exclusive_collectibles(room)
-    local roomData = g_Level:GetCurrentRoomDesc().Data
-    local roomType = room:GetType()
-
-    if roomType == RoomType.ROOM_ANGEL or roomType == RoomType.ROOM_BOSSRUSH or roomType == RoomType.ROOM_PLANETARIUM then
+local function can_spawn_entity(env, room, spawnEntry, respawning)
+    local api = env._API
+    if not consider_room_cleared(api, room, spawnEntry) or respawning then
         return true
     end
 
-    if roomType == RoomType.ROOM_TREASURE and
-       ((roomData.Subtype == RoomSubType.TREASURE_OPTIONS or roomData.Subtype == RoomSubType.TREASURE_PAY_TO_PLAY_OPTIONS) or
-       Lib.Level.IsAltPath(g_Level)) then
+    if api.Room.is_persistent_room_entity(room, spawnEntry.type, spawnEntry.variant) then
+        return true
+    end
+
+    if api.Room.ShouldSaveEntity(room, spawnEntry.type, spawnEntry.variant, spawnEntry.subType, EntityType.ENTITY_NULL, true) then
+        return true
+    end
+
+    local seeds = api.Environment.GetSeeds(env)
+    if api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_PACIFIST) or api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_ENEMIES_RESPAWN) then
         return true
     end
 
     return false
 end
 
----@param pickup EntityPickup
-local function init_spawned_pickup(pickup)
-    pickup.Wait = 0
-
-    if pickup.Type == EntityType.ENTITY_PICKUP and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-       (pickup.SubType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_1 or pickup.SubType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_2) then
-        pickup:TryInitOptionCycle(0) -- Negate cycles
-    end
-
-    Class_EntityPickup.InitFlipState(pickup)
-end
-
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
----@param rng RNG
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 ---@param gridIdx integer
+---@param rng RNG
 ---@param respawning boolean
----@return Entity? spawnedEntity
-local function spawn_regular_entity(room, spawnEntry, gridIdx, rng, respawning)
+---@return Decomp.Room.Spawn.SpawnDesc?
+local function build_entity_spawn(env, spawnEntry, gridIdx, rng, respawning)
+    local api = env._API
+
     if spawnEntry.type == STB_EFFECT then
         spawnEntry.type = EntityType.ENTITY_EFFECT
     end
@@ -1203,104 +1312,467 @@ local function spawn_regular_entity(room, spawnEntry, gridIdx, rng, respawning)
     end
 
     if spawnEntry.type == EntityType.ENTITY_TRIGGER_OUTPUT then
-        -- Room::TriggerOutput (Unavailable)
+        ---@type Decomp.Room.Spawn.SpawnDesc
+        return {spawnType = 0, entityDesc = nil, addOutput = true}
+    end
+
+    local level = api.Environment.GetLevel(env)
+    if spawnEntry.type == EntityType.ENTITY_PICKUP and api.Level.IsCorpseEntrance(level) then
         return
     end
 
-    if spawnEntry.type == EntityType.ENTITY_PICKUP and Lib.Level.IsCorpseEntrance(g_Level) then
+    local roomDesc = api.Environment.GetCurrentRoomDesc(env)
+    if spawnEntry.type == EntityType.ENTITY_MINECART and api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_SACRIFICE_DONE) then -- ???
         return
     end
 
-    local roomDesc = g_Level:GetCurrentRoomDesc()
-    if spawnEntry.type == EntityType.ENTITY_MINECART and (roomDesc.Flags & RoomDescriptor.FLAG_SACRIFICE_DONE) ~= 0 then -- ???
+    local room = api.Environment.GetRoom(env)
+    if not can_spawn_entity(env, room, spawnEntry, respawning) then
         return
     end
 
-    if consider_room_cleared(room, spawnEntry) and not respawning and
-       not Class_Room.is_persistent_room_entity(spawnEntry.type, spawnEntry.variant) and
-       not Class_Room.ShouldSaveEntity(spawnEntry.type, spawnEntry.variant, spawnEntry.subType, EntityType.ENTITY_NULL, true) and
-       not g_Seeds:HasSeedEffect(SeedEffect.SEED_PACIFIST) and not g_Seeds:HasSeedEffect(SeedEffect.SEED_ENEMIES_RESPAWN) then
-        return
-    end
+    ---@type Decomp.Room.Spawn.EntityDesc
+    local entityDesc = {type = spawnEntry.type, variant = spawnEntry.variant, subType = spawnEntry.subType, initSeed = rng:Next()}
 
-    local gridEntity = room:GetGridEntity(gridIdx)
-    if gridEntity then
-        gridEntity:Destroy(true)
-    end
-
-    local position = room:GetGridPosition(gridIdx)
-    local entity = g_Game:Spawn(spawnEntry.type, spawnEntry.variant, position, Vector(0, 0), nil, spawnEntry.subType, rng:Next())
-    entity.SpawnGridIndex = gridIdx
-
-    local pickup = entity:ToPickup()
-    if entity.Type == EntityType.ENTITY_PICKUP and pickup then
-        init_spawned_pickup(pickup)
-    end
-
-    if Class_Room.ShouldSaveEntity(spawnEntry.type, spawnEntry.variant, spawnEntry.subType, EntityType.ENTITY_NULL, false) then
-        roomDesc:AddRestrictedGridIndex(gridIdx)
-    end
-
-    if pickup and has_room_mutually_exclusive_collectibles(room) and entity.Type == EntityType.ENTITY_PICKUP and
-       spawnEntry.type == EntityType.ENTITY_PICKUP and spawnEntry.variant == PickupVariant.PICKUP_COLLECTIBLE then
-        pickup.OptionsPickupIndex = 1
-    end
-
-    return entity
+    ---@type Decomp.Room.Spawn.SpawnDesc
+    return {spawnType = 1, entityDesc = entityDesc}
 end
 
----@param room Room
----@param spawnEntry Decomp.Room.SubSystem.Spawn.SpawnEntry
+--#endregion
+
+--#region ReadGridEntityDesc
+
+local s_StbGridConversion = {
+    [StbGridType.ROCK] = {GridEntityType.GRID_ROCK},
+    [StbGridType.BOMB_ROCK] = {GridEntityType.GRID_ROCK_BOMB},
+    [StbGridType.ALT_ROCK] = {GridEntityType.GRID_ROCK_ALT},
+    [StbGridType.TINTED_ROCK] = {GridEntityType.GRID_ROCKT},
+    [StbGridType.MARKED_SKULL] = {GridEntityType.GRID_ROCK_ALT2},
+    [StbGridType.EVENT_ROCK] = {GridEntityType.GRID_ROCK, 10000},
+    [StbGridType.SPIKE_ROCK] = {GridEntityType.GRID_ROCK_SPIKED},
+    [StbGridType.FOOLS_GOLD_ROCK] = {GridEntityType.GRID_ROCK_GOLD},
+    [StbGridType.TNT] = {GridEntityType.GRID_TNT},
+    [1400] = {GridEntityType.GRID_FIREPLACE, 0},
+    [1410] = {GridEntityType.GRID_FIREPLACE, 1},
+    [StbGridType.RED_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.RED},
+    [StbGridType.RAINBOW_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.RAINBOW},
+    [StbGridType.CORN_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.CORN},
+    [StbGridType.GOLDEN_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.GOLDEN},
+    [StbGridType.BLACK_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.BLACK},
+    [StbGridType.HOLY_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.HOLY},
+    [StbGridType.GIANT_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.GIANT_TL},
+    [StbGridType.POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.NORMAL},
+    [StbGridType.CHARMING_POOP] = {GridEntityType.GRID_POOP, GridPoopVariant.CHARMING},
+    [StbGridType.BLOCK] = {GridEntityType.GRID_ROCKB},
+    [StbGridType.PILLAR] = {GridEntityType.GRID_PILLAR},
+    [StbGridType.SPIKES] = {GridEntityType.GRID_SPIKES},
+    [StbGridType.RETRACTING_SPIKES] = {GridEntityType.GRID_SPIKES_ONOFF},
+    [StbGridType.COBWEB] = {GridEntityType.GRID_SPIDERWEB},
+    [StbGridType.INVISIBLE_BLOCK] = {GridEntityType.GRID_WALL},
+    [StbGridType.PIT] = {GridEntityType.GRID_PIT},
+    [3001] = {GridEntityType.GRID_PIT},
+    [StbGridType.EVENT_RAIL] = {GridEntityType.GRID_PIT},
+    [StbGridType.EVENT_PIT] = {GridEntityType.GRID_PIT, 128},
+    [StbGridType.KEY_BLOCK] = {GridEntityType.GRID_LOCK},
+    [StbGridType.PRESSURE_PLATE] = {GridEntityType.GRID_PRESSURE_PLATE},
+    [StbGridType.DEVIL_STATUE] = {GridEntityType.GRID_STATUE, 0},
+    [StbGridType.ANGEL_STATUE] = {GridEntityType.GRID_STATUE, 1},
+    [StbGridType.RAIL_PIT] = {GridEntityType.GRID_PIT},
+    [StbGridType.TELEPORTER] = {GridEntityType.GRID_TELEPORTER},
+    [StbGridType.TRAP_DOOR] = {GridEntityType.GRID_TRAPDOOR, 0},
+    [StbGridType.CRAWLSPACE] = {GridEntityType.GRID_STAIRS},
+    [StbGridType.GRAVITY] = {GridEntityType.GRID_GRAVITY},
+}
+
+---@param env Decomp.EnvironmentObject
+---@param rng RNG
+---@return Vector
+local function get_gold_vein_size(env, rng)
+    local api = env._API
+    local level = api.Environment.GetLevel(env)
+    local stageID = api.Level.GetStageID(level)
+
+    local veinWidthScale = 1.25
+    local veinHeightScale = 0.3
+    if stageID == StbType.MINES or stageID == StbType.ASHPIT then
+        veinWidthScale = 1.80
+        veinHeightScale = 0.5
+    end
+
+    local sizeX = ((rng:RandomFloat() + rng:RandomFloat()) * veinWidthScale) + 0.5
+    local sizeY = ((rng:RandomFloat() + rng:RandomFloat()) * veinHeightScale) + 0.3
+
+    return Vector(sizeX, sizeY)
+end
+
+---@param env Decomp.EnvironmentObject
 ---@param gridIdx integer
+---@param seed integer
+---@return boolean
+local function is_grid_idx_in_gold_vein(env, gridIdx, seed)
+    local rng = RNG(); rng:SetSeed(seed, 19)
+
+    if rng:RandomInt(10) ~= 0 then
+        return false
+    end
+
+    local api = env._API
+    local room = api.Environment.GetRoom(env)
+    local roomWidth = api.Room.GetWidth(room)
+    local roomHeight = api.Room.GetHeight(room)
+
+    local goldVeinPosition = Vector(rng:RandomFloat() * roomHeight, rng:RandomFloat() * roomHeight)
+    local gridToVeinPosition = goldVeinPosition - get_grid_coordinates(gridIdx, roomWidth)
+    local veinSize = get_gold_vein_size(env, rng)
+    gridToVeinPosition = gridToVeinPosition:Rotated(rng:RandomFloat() * 360.0)
+    gridToVeinPosition = gridToVeinPosition / veinSize
+
+    return gridToVeinPosition:LengthSquared() <= 1.0
+end
+
+---@param env Decomp.EnvironmentObject
+---@param rng RNG
+---@return GridEntityType
+local function init_tinted_rock(env, rng)
+    local api = env._API
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+
+    if rng:RandomInt(20) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.SUPER_SPECIAL_ROCKS) then
+        return GridEntityType.GRID_ROCK_SS
+    end
+
+    return GridEntityType.GRID_ROCKT
+end
+
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+---@param gridIdx integer
+---@param rng RNG
+---@return GridEntityType
+local function do_rock_morph(env, spawnEntry, gridIdx, rng)
+    assert(spawnEntry.type == StbGridType.ROCK)
+    local api = env._API
+    local room = api.Environment.GetRoom(env)
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local foolsRockMorph = api.PersistentGameData.Unlocked(persistentGameData, Achievement.FOOLS_GOLD) and is_grid_idx_in_gold_vein(env, gridIdx, api.RoomDescriptor.GetDecorationSeed(roomDesc))
+
+    local randomNumber = rng:RandomInt(1001)
+    if api.Room.GetTintedRockIdx(room) == gridIdx then
+        return init_tinted_rock(env, rng)
+    end
+
+    if randomNumber < 10 then
+        return GridEntityType.GRID_ROCK_BOMB
+    end
+
+    if foolsRockMorph then
+        return GridEntityType.GRID_ROCK_GOLD
+    end
+
+    return randomNumber < 16 and GridEntityType.GRID_ROCK_ALT or GridEntityType.GRID_ROCK
+end
+
+---@param env Decomp.EnvironmentObject
+---@param rng RNG
+---@return GridPoopVariant?
+local function try_normal_poop_morph(env, rng)
+    if rng:RandomInt(40) == 0 then
+        return GridPoopVariant.CORN
+    end
+
+    local api = env._API
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    if rng:RandomInt(100) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.CHARMING_POOP) then
+        return GridPoopVariant.CHARMING
+    end
+end
+
+local s_CornPoopOutcomes = {
+    [1] = GridPoopVariant.GOLDEN,
+    [2] = GridPoopVariant.GOLDEN,
+    [5] = GridPoopVariant.RAINBOW,
+    [6] = GridPoopVariant.RAINBOW,
+    [7] = GridPoopVariant.RAINBOW,
+}
+
+---@param rng RNG
+---@return GridPoopVariant?
+local function try_corn_poop_morph(rng)
+    local randomNumber = rng:RandomInt(40)
+    return s_CornPoopOutcomes[randomNumber]
+end
+
+---@param seed integer
+---@return GridPoopVariant?
+local function try_meconium_morph(seed)
+    local rng = RNG(); rng:SetSeed(seed, 13)
+    local randomNumber = rng:RandomInt(100)
+
+    if randomNumber <= 32 then
+        return GridPoopVariant.BLACK
+    end
+end
+
+---@param env Decomp.EnvironmentObject
+---@param variant GridPoopVariant
+---@param rng RNG
+---@return GridPoopVariant
+local function do_poop_morph(env, variant, rng)
+    if variant == GridPoopVariant.NORMAL then
+        variant = try_normal_poop_morph(env, rng) or variant
+    end
+
+    if variant == GridPoopVariant.CORN then
+        variant = try_corn_poop_morph(rng) or variant
+    end
+
+    local api = env._API
+    local playerManager = api.Environment.GetPlayerManager(env)
+    if api.PlayerManager.AnyoneHasTrinket(playerManager, TrinketType.TRINKET_MECONIUM) then
+        variant = try_meconium_morph(rng:GetSeed()) or variant
+    end
+
+    return variant
+end
+
+---@param env Decomp.EnvironmentObject
+---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
+---@param gridIdx integer
+---@param rng RNG
+---@param seed integer
 ---@param respawning boolean
-local function spawn_stb_grid_entity(room, spawnEntry, gridIdx, respawning)
+---@return Decomp.Room.Spawn.SpawnDesc?
+local function build_grid_entity_spawn(env, spawnEntry, gridIdx, rng, seed, respawning)
     if respawning then
         return
     end
 
     if spawnEntry.type == StbGridType.RAIL then
-        -- Setup Rail
-        return
+        ---@type Decomp.Room.Spawn.SpawnDesc
+        return {spawnType = 0, entityDesc = nil, initRail = true}
     end
 
+    local initRail = false
     if spawnEntry.type == StbGridType.RAIL_PIT then
-        -- Setup Rail
+        initRail = true
         spawnEntry.type = StbGridType.PIT
     end
 
-    if room:GetGridEntity(gridIdx) then
+    ---@type Decomp.Room.Spawn.GridEntityDesc
+    local gridEntityDesc = {
+        type = 0,
+        variant = 0,
+        varData = 0,
+        spawnSeed = 0,
+        spawnFissureSpawner = false,
+        fissureSpawnerSeed = 0,
+        increasePitCount = false,
+        increasePoopCount = false,
+    }
+
+    local api = env._API
+
+    local convertedGrid = s_StbGridConversion[spawnEntry.type] or {GridEntityType.GRID_DECORATION}
+    gridEntityDesc.type = convertedGrid[1]
+    gridEntityDesc.variant = convertedGrid[2] or spawnEntry.variant
+    gridEntityDesc.varData = spawnEntry.type == StbGridType.TRAP_DOOR and spawnEntry.variant or 0
+
+    if spawnEntry.type == 3001 then
+        gridEntityDesc.spawnFissureSpawner = true
+        gridEntityDesc.fissureSpawnerSeed = rng:Next()
+    end
+
+    gridEntityDesc.increasePitCount = gridEntityDesc.type == GridEntityType.GRID_PIT
+    gridEntityDesc.increasePoopCount = gridEntityDesc.type == GridEntityType.GRID_POOP
+
+    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    if gridEntityDesc.type == GridEntityType.GRID_ROCK_GOLD and not api.PersistentGameData.Unlocked(persistentGameData, Achievement.FOOLS_GOLD) then
+        gridEntityDesc.type = GridEntityType.GRID_ROCK
+    end
+
+    local room = api.Environment.GetRoom(env)
+    local mineshaftChase = api.Room.HasRoomConfigFlag(room, Enums.eRoomConfigFlag.MINESHAFT_CHASE)
+
+    if spawnEntry.type == StbGridType.ROCK and not mineshaftChase and spawnEntry.subType == 0 then
+        gridEntityDesc.type = do_rock_morph(env, spawnEntry, gridIdx, rng)
+    end
+
+    if gridEntityDesc.type == GridEntityType.GRID_POOP and not mineshaftChase and spawnEntry.subType == 0 then
+        gridEntityDesc.variant = do_poop_morph(env, gridEntityDesc.variant, rng)
+    end
+
+    gridEntityDesc.spawnSeed = seed
+    ---@type Decomp.Room.Spawn.SpawnDesc
+    return {spawnType = 2, entityDesc = gridEntityDesc, initRail = initRail}
+end
+
+--#endregion
+
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param spawnEntry RoomConfig_Entry
+---@param seed integer
+---@param respawning boolean
+---@return Decomp.Room.Spawn.SpawnDesc?
+local function BuildSpawnDesc(env, room, gridIdx, spawnEntry, seed, respawning)
+    local rng = RNG(); rng:SetSeed(seed, 35)
+    local fixedSpawnEntry = FixSpawnEntry(env, room, spawnEntry, gridIdx, seed)
+
+    local api = env._API
+    local level = api.Environment.GetLevel(env)
+    if try_block_spawn(api, level, fixedSpawnEntry, respawning) then
+        return
+    end
+
+    try_morph_spawn(env, room, fixedSpawnEntry, gridIdx, rng)
+
+    if fixedSpawnEntry.type == EntityType.ENTITY_ENVIRONMENT then
+        return
+    end
+
+    if 1 <= fixedSpawnEntry.type and fixedSpawnEntry.type <= 999 then
+        return build_entity_spawn(env, fixedSpawnEntry, gridIdx, rng, respawning)
+    else
+        return build_grid_entity_spawn(env, fixedSpawnEntry, gridIdx, rng, seed, respawning)
+    end
+end
+
+--#endregion
+
+--#region Spawn Entity
+
+---@param spawnDesc Decomp.Room.Spawn.SpawnDesc
+---@param gridIndex integer
+local function apply_spawn_effects(spawnDesc, gridIndex)
+    if spawnDesc.addOutput then
+        -- AddOutput
+    end
+
+    if spawnDesc.initRail then
+        -- InitRail
+    end
+end
+
+---@param api Decomp.IGlobalAPI
+---@param level Decomp.LevelObject
+---@param room Decomp.RoomObject
+---@return boolean
+local function has_room_mutually_exclusive_collectibles(api, level, room)
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+    local roomData = api.RoomDescriptor.GetRoomData(roomDesc)
+    local roomType = api.Room.GetRoomType(room)
+
+    if roomType == RoomType.ROOM_ANGEL or roomType == RoomType.ROOM_BOSSRUSH or roomType == RoomType.ROOM_PLANETARIUM then
+        return true
+    end
+
+    if roomType == RoomType.ROOM_TREASURE and
+       ((roomData.Subtype == RoomSubType.TREASURE_OPTIONS or roomData.Subtype == RoomSubType.TREASURE_PAY_TO_PLAY_OPTIONS) or
+       api.Level.IsAltPath(level)) then
+        return true
+    end
+
+    return false
+end
+
+---@param api Decomp.IGlobalAPI
+---@param pickup Decomp.EntityPickupObject
+local function init_spawned_pickup(api, pickup)
+    api.EntityPickup.SetWait(pickup, 0)
+    local subType = api.Entity.GetSubType(pickup)
+
+    if api.Entity.GetType(pickup) == EntityType.ENTITY_PICKUP and api.Entity.GetVariant(pickup) == PickupVariant.PICKUP_COLLECTIBLE and
+       (subType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_1 or subType == CollectibleType.COLLECTIBLE_KNIFE_PIECE_2) then
+        api.EntityPickup.SetCycleNum(pickup, 0) -- Negate cycles
+    end
+
+    api.EntityPickup.InitFlipState(pickup)
+end
+
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param entityDesc Decomp.Room.Spawn.EntityDesc
+---@param gridIdx integer
+---@return Decomp.EntityObject spawnedEntity
+local function spawn_regular_entity(env, room, entityDesc, gridIdx)
+    local api = env._API
+
+    local gridEntity = api.Room.GetGridEntity(room, gridIdx)
+    if gridEntity then
+        gridEntity:Destroy(true)
+    end
+
+    local game = api.Environment.GetGame(env)
+    local position = api.Room.GetGridPosition(room, gridIdx)
+
+    local entity = api.Game.Spawn(game, entityDesc.type, entityDesc.variant, position, Vector(0, 0), nil, entityDesc.subType, entityDesc.initSeed)
+    api.Entity.SetSpawnGridIndex(entity, gridIdx)
+
+    local pickup = api.Entity.ToPickup(entity)
+    if api.Entity.GetType(entity) == EntityType.ENTITY_PICKUP and pickup then
+        init_spawned_pickup(api, pickup)
+    end
+
+    if api.Room.ShouldSaveEntity(room, entityDesc.type, entityDesc.variant, entityDesc.subType, EntityType.ENTITY_NULL, false) then
+        local roomDesc = api.Room.GetRoomDescriptor(room)
+        api.RoomDescriptor.AddRestrictedGridIndex(roomDesc, gridIdx)
+    end
+
+    local level = api.Game.GetLevel(game)
+    if pickup and has_room_mutually_exclusive_collectibles(api, level, room) and api.Entity.GetType(entity) == EntityType.ENTITY_PICKUP and
+       entityDesc.type == EntityType.ENTITY_PICKUP and entityDesc.variant == PickupVariant.PICKUP_COLLECTIBLE then
+        api.EntityPickup.SetOptionsPickupIndex(pickup, 1)
+    end
+
+    return entity
+end
+
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param gridEntityDesc Decomp.Room.Spawn.GridEntityDesc
+---@param gridIdx integer
+local function spawn_grid_entity(env, room, gridEntityDesc, gridIdx)
+    local api = env._API
+
+    if api.Room.GetGridEntity(room, gridIdx) then
         return
     end
 
     -- TODO
 end
 
----@param room Room
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
 ---@param gridIdx integer
 ---@param spawnEntry RoomConfig_Entry
 ---@param seed integer
 ---@param respawning boolean
 ---@return Entity? spawnedEntity
-function RoomSpawn.SpawnEntity(room, gridIdx, spawnEntry, seed, respawning) -- Room::spawn_entity
-    local rng = RNG(); rng:SetSeed(seed, 35)
-    local fixedSpawnEntry = Class_Room.FixSpawnEntry(room, spawnEntry, gridIdx, seed)
-
-    if try_block_spawn(room, fixedSpawnEntry, respawning) then
+local function SpawnEntity(env, room, gridIdx, spawnEntry, seed, respawning)
+    local spawnDesc = BuildSpawnDesc(env, room, gridIdx, spawnEntry, seed, respawning)
+    if not spawnDesc then
         return
     end
 
-    try_morph_spawn(room, fixedSpawnEntry, gridIdx, rng, respawning)
-
-    if 1 <= fixedSpawnEntry.type and fixedSpawnEntry.type <= 999 then
-        return spawn_regular_entity(room, fixedSpawnEntry, gridIdx, rng, respawning)
-    else
-        spawn_stb_grid_entity(room, fixedSpawnEntry, gridIdx, respawning)
+    apply_spawn_effects(spawnDesc, gridIdx)
+    if spawnDesc.spawnType == 1 then
+        local entityDesc = spawnDesc.entityDesc
+        ---@cast entityDesc Decomp.Room.Spawn.EntityDesc
+        spawn_regular_entity(env, room, entityDesc, gridIdx)
+    elseif spawnDesc.spawnType == 2 then
+        local gridDesc = spawnDesc.entityDesc
+        ---@cast gridDesc Decomp.Room.Spawn.GridEntityDesc
+        spawn_grid_entity(env, room, gridDesc, gridIdx)
     end
 end
 
----@param desc RoomDescriptor
-local function is_restricted_grid_idx(desc, gridIdx)
-    local restrictedGrids = desc:GetRestrictedGridIndexes()
+---@param api Decomp.IGlobalAPI
+---@param desc Decomp.RoomDescObject
+---@param gridIdx integer
+local function is_restricted_grid_idx(api, desc, gridIdx)
+    local restrictedGrids = api.RoomDescriptor.GetRestrictedGridIndexes(desc)
     for index, value in ipairs(restrictedGrids) do
         if value == gridIdx then
             return true
@@ -1310,12 +1782,15 @@ local function is_restricted_grid_idx(desc, gridIdx)
     return false
 end
 
----@param room Room
----@param desc RoomDescriptor
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param desc Decomp.RoomDescObject
 ---@param spawns CppList_RoomConfigSpawn
 ---@param index integer
 ---@param rng RNG
-local function try_spawn_entry(room, desc, spawns, index, rng)
+local function try_spawn_entry(env, room, desc, spawns, index, rng)
+    local api = env._API
+
     local spawn = spawns:Get(index)
     local randomFloat = rng:RandomFloat()
     if spawn.EntryCount == 0 then
@@ -1323,22 +1798,36 @@ local function try_spawn_entry(room, desc, spawns, index, rng)
     end
 
     local spawnEntry = spawn:PickEntry(randomFloat)
-    local gridIdx = get_grid_idx(room, Vector(spawn.X + 1, spawn.Y + 1))
-    if is_restricted_grid_idx(desc, gridIdx) then
+    local gridIdx = get_grid_idx(Vector(spawn.X + 1, spawn.Y + 1), api.Room.GetWidth(room))
+    if is_restricted_grid_idx(api, desc, gridIdx) then
         return
     end
 
-    Class_Room.spawn_entity(room, gridIdx, spawnEntry, rng:GetSeed(), nil, false)
+    SpawnEntity(env, room, gridIdx, spawnEntry, rng:GetSeed(), false)
 end
 
----@param room Room
----@param desc RoomDescriptor
+---@param env Decomp.EnvironmentObject
+---@param room Decomp.RoomObject
+---@param desc Decomp.RoomDescObject
 ---@param config RoomConfigRoom
-function RoomSpawn.SpawnRoomConfigEntities(room, desc, config) -- Room::Init
-    local spawnRNG = RNG(); spawnRNG:SetSeed(desc.SpawnSeed, 11)
+local function SpawnRoomConfigEntities(env, room, desc, config) -- Room::Init
+    local api = env._API
+
+    local spawnRNG = RNG(); spawnRNG:SetSeed(api.RoomDescriptor.GetSpawnSeed(desc), 11)
     local spawns = config.Spawns
 
     for i = 0, #spawns - 1, 1 do
-        try_spawn_entry(room, desc, spawns, i, spawnRNG)
+        try_spawn_entry(env, room, desc, spawns, i, spawnRNG)
     end
 end
+
+--#endregion
+
+--#region Module
+
+RoomSpawn.FixSpawnEntry = FixSpawnEntry -- Room::FixSpawnEntry
+RoomSpawn.BuildSpawnDesc = BuildSpawnDesc
+RoomSpawn.SpawnEntity = SpawnEntity -- Room::spawn_entity
+RoomSpawn.SpawnRoomConfigEntities = SpawnRoomConfigEntities -- Room::Init
+
+--#endregion

@@ -6,9 +6,9 @@ local Lib = {
     Table = require("Lib.Table")
 }
 
----@class Decomp.Object.EntityTear : Decomp.IEntityTearObject, Decomp.Object.Entity
+---@class Decomp.Object.EntityTear : Decomp.EntityTearObject, Decomp.Object.Entity
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _Object EntityTear
 ---@field m_Variant TearVariant | integer
 ---@field m_Height number
@@ -41,7 +41,7 @@ local function GetRenderHeight(tear, height)
     end
 
     local api = tear._API
-    local game = api.Manager.GetGame(tear._ENV)
+    local game = api.Environment.GetGame(tear._ENV)
     local seeds = api.Game.GetSeeds(game)
 
     if s_GFuelTears[tearVariant] and api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_G_FUEL) and should_calc_render_height(tear) then

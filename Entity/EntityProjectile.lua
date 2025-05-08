@@ -5,9 +5,9 @@ local Lib = {
     Math = require("Lib.Math")
 }
 
----@class Decomp.Object.EntityProjectile : Decomp.IEntityProjectileObject, Decomp.Object.Entity
+---@class Decomp.Object.EntityProjectile : Decomp.EntityProjectileObject, Decomp.Object.Entity
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _Object EntityProjectile
 ---@field m_Height number
 ---@field m_FallingSpeed number
@@ -59,7 +59,7 @@ end
 ---@param projectile Decomp.Object.EntityProjectile
 local function UpdateHeight(projectile)
     local api = projectile._API
-    local game = api.Manager.GetGame(projectile._ENV)
+    local game = api.Environment.GetGame(projectile._ENV)
     local room = api.Game.GetRoom(game)
     local roomType = api.Room.GetRoomType(room)
 

@@ -10,9 +10,9 @@ local Class = Decomp.Class
 
 local g_Game = Game()
 
----@class Decomp.Object.Entity : Decomp.IEntityObject
+---@class Decomp.Object.Entity : Decomp.EntityObject
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _Object Entity
 ---@field m_Type integer
 ---@field m_Variant integer

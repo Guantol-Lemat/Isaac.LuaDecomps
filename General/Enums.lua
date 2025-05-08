@@ -83,4 +83,9 @@ Enums.eShopItemType = {
     HOLY_CARD = 20
 }
 
+---@enum Decomp.Enum.eRoomConfigFlag
+Enums.eRoomConfigFlag = {
+    MINESHAFT_CHASE = 1 << 1,
+}
+
 return Enums

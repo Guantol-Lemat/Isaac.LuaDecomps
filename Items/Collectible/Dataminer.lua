@@ -26,9 +26,9 @@ local function get_messed_up_volume()
 end
 
 ---@param api Decomp.IGlobalAPI
----@param env Decomp.IEnvironment
+---@param env Decomp.EnvironmentObject
 local function MessUpMusic(api, env) -- Room::Update
-    local musicManager = api.Manager.GetMusicManager(env)
+    local musicManager = api.Environment.GetMusicManager(env)
 
     if Lib.RNG.SeedToInt(Random(), 10) ~= 0 then
         api.MusicManager.ResetPitch(musicManager)

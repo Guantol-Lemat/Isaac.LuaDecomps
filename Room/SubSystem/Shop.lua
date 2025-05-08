@@ -11,7 +11,7 @@ local Lib = {
 }
 
 ---@class Decomp.Room.SubSystem.Shop.Data
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _API Decomp.IGlobalAPI
 ---@field m_ShopLevel integer
 ---@field m_NextShopItemIdx integer
@@ -30,7 +30,7 @@ local Lib = {
 ---@field m_TimesRestocked integer[]
 
 ---@param api Decomp.IGlobalAPI
----@param env Decomp.IEnvironment
+---@param env Decomp.EnvironmentObject
 local function new(api, env)
     ---@type Decomp.Room.SubSystem.Shop.Data
     local shop = {
@@ -211,7 +211,7 @@ end
 local function init_shop_service(shop, rng)
     local api = shop._API
 
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local roomDesc = api.Game.GetCurrentRoomDesc(game)
     local roomData = api.RoomDescriptor.GetRoomData(roomDesc)
     local roomType = roomData.Type
@@ -248,7 +248,7 @@ end
 local function InitShop(shop)
     local api = shop._API
 
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local roomDesc = api.Game.GetCurrentRoomDesc(game)
 
     for i = 1, #shop.m_TimesRestocked, 1 do
@@ -289,8 +289,8 @@ end
 --#region GetShopPickup Switch
 
 ---@param api Decomp.IGlobalAPI
----@param game Decomp.IGameObject
----@param itemPool Decomp.IItemPoolObject
+---@param game Decomp.GameObject
+---@param itemPool Decomp.ItemPoolObject
 ---@param poolType ItemPoolType
 ---@param seed integer
 local function get_item_pool_collectible(api, game, itemPool, poolType, seed)
@@ -302,7 +302,7 @@ local function get_item_pool_collectible(api, game, itemPool, poolType, seed)
 end
 
 ---@class Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _API Decomp.IGlobalAPI
 ---@field seed integer
 
@@ -319,7 +319,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_pill(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_PILL, api.ItemPool.GetPill(itemPool, io.seed)}
@@ -343,7 +343,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_card(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_TAROTCARD, api.ItemPool.GetCard(itemPool, io.seed, true, false, false)}
@@ -357,7 +357,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local room = api.Game.GetRoom(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, api.Room.GetSeededCollectible(room, io.seed, true)}
@@ -366,7 +366,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_boss_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_BOSS, io.seed)}
@@ -375,7 +375,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_treasure_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_TREASURE, io.seed)}
@@ -384,7 +384,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_trinket(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_TRINKET, api.ItemPool.GetTrinket(itemPool, false)}
@@ -393,7 +393,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_devil_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_DEVIL, io.seed)}
@@ -402,7 +402,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_angel_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_ANGEL, io.seed)}
@@ -411,7 +411,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_secret_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_SECRET, io.seed)}
@@ -429,11 +429,11 @@ local function get_special_heart(io)
         heartSubType = HeartSubType.HEART_ETERNAL
     end
 
-    if rng:RandomInt(4) == 0 and Lib.EntityPickup.IsAvailable(api, env, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE) then
+    if rng:RandomInt(4) == 0 and Lib.EntityPickup.IsAvailable(env, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE) then
         heartSubType = HeartSubType.HEART_BONE
     end
 
-    if rng:RandomInt(4) == 0 and Lib.EntityPickup.IsAvailable(api, env, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN) then
+    if rng:RandomInt(4) == 0 and Lib.EntityPickup.IsAvailable(env, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN) then
         heartSubType = HeartSubType.HEART_ROTTEN
     end
 
@@ -443,7 +443,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_rune(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_TAROTCARD, api.ItemPool.GetCard(itemPool, io.seed, false, true, true)}
@@ -452,7 +452,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_shop_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_SHOP, io.seed)}
@@ -461,7 +461,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_baby_shop_collectible(io)
     local api = io._API
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local itemPool = api.Game.GetItemPool(game)
 
     return {PickupVariant.PICKUP_COLLECTIBLE, get_item_pool_collectible(api, game, itemPool, ItemPoolType.POOL_BABY_SHOP, io.seed)}
@@ -475,7 +475,7 @@ end
 ---@param io Decomp.Room.SubSystem.Shop.Switch.GetShopPickup
 local function get_holy_card(io)
     local api = io._API
-    local persistentGameData = api.Manager.GetPersistentGameData(io._ENV)
+    local persistentGameData = api.Environment.GetPersistentGameData(io._ENV)
 
     if not api.PersistentGameData.Unlocked(persistentGameData, Achievement.HOLY_CARD) then
         return get_key_single(io)
@@ -529,7 +529,7 @@ end
 ---@return Decomp.Room.SubSystem.ShopPickup
 local function GetShopItem(shop, index, seed)
     local api = shop._API
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local room = api.Game.GetRoom(game)
     local playerManager = api.Game.GetPlayerManager(game)
 
@@ -547,7 +547,7 @@ end
 --#region PickupPrice
 
 ---@param api Decomp.IGlobalAPI
----@param playerManager Decomp.IPlayerManagerObject
+---@param playerManager Decomp.PlayerManagerObject
 ---@param seed integer
 ---@return boolean
 local function is_forced_coin_price(api, playerManager, seed)
@@ -566,7 +566,7 @@ end
 ---@param shop Decomp.Room.SubSystem.Shop.Data
 local function uses_devil_deal_price_logic(shop)
     local api = shop._API
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local roomDesc = api.Game.GetCurrentRoomDesc(game)
     local roomData = api.RoomDescriptor.GetRoomData(roomDesc)
     local roomType = roomData.Type
@@ -592,7 +592,7 @@ end
 
 ---@class Decomp.Room.SubSystem.Shop.GetShopPriceIO
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field variant PickupVariant | integer
 ---@field subType integer
 ---@field rng RNG
@@ -688,12 +688,12 @@ local function get_devil_deal_item_price(io)
     end
 
     local api = io._API
-    local itemConfig = api.Manager.GetItemConfig(io._ENV)
+    local itemConfig = api.Environment.GetItemConfig(io._ENV)
     local collectibleConfig = api.ItemConfig.GetCollectible(itemConfig, io.subType)
 
     local price = 0
     if not collectibleConfig then
-        api.Manager.LogMessage(0, "[warn] Room::GetShopItemPrice: no config for collectible %d.", io.subType)
+        api.Environment.LogMessage(0, "[warn] Room::GetShopItemPrice: no config for collectible %d.", io.subType)
         price = io.rng:RandomInt(2) ~= 0 and PickupPrice.PRICE_TWO_HEARTS or PickupPrice.PRICE_ONE_HEART
     else
         price = collectibleConfig.DevilPrice >= 2 and PickupPrice.PRICE_TWO_HEARTS or PickupPrice.PRICE_ONE_HEART
@@ -736,7 +736,7 @@ end
 ---@return PickupPrice | integer
 local function get_regular_collectible_item_price(io)
     local api = io._API
-    local itemConfig = api.Manager.GetItemConfig(io._ENV)
+    local itemConfig = api.Environment.GetItemConfig(io._ENV)
     local collectibleConfig = api.ItemConfig.GetCollectible(itemConfig, io.subType)
 
     if io.poundOfFlesh and not io.forcedCoinPrice then
@@ -748,11 +748,11 @@ local function get_regular_collectible_item_price(io)
     end
 
     if not collectibleConfig then
-        api.Manager.LogMessage(0, "[warn] Room::GetShopItemPrice: no config for collectible %d.", io.subType)
+        api.Environment.LogMessage(0, "[warn] Room::GetShopItemPrice: no config for collectible %d.", io.subType)
         return 15
     end
 
-    local game = api.Manager.GetGame(io._ENV)
+    local game = api.Environment.GetGame(io._ENV)
     local room = api.Game.GetRoom(game)
     local roomType = api.Room.GetRoomType(room)
 
@@ -784,7 +784,7 @@ end
 ---@param index integer
 local function GetShopItemPrice(shop, variant, subType, index)
     local api = shop._API
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local roomDesc = api.Game.GetCurrentRoomDesc(game)
     local playerManager = api.Game.GetPlayerManager(game)
 
@@ -822,7 +822,7 @@ end
 ---@field highestSoulHearts integer
 
 ---@param api Decomp.IGlobalAPI
----@param player Decomp.IEntityPlayerObject
+---@param player Decomp.EntityPlayerObject
 ---@param heartData Decomp.Room.SubSystem.Shop.GetHeartData
 local function update_heart_data(api, player, heartData)
     if api.Entity.GetVariant(player) ~= PlayerVariant.PLAYER or api.EntityPlayer.IsCoopGhost(player) then
@@ -851,7 +851,7 @@ local function get_modified_deal_price(shop, shopIndex, price)
     end
 
     local api = shop._API
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local playerManager = api.Game.GetPlayerManager(game)
 
     if api.PlayerManager.AnyoneHasTrinket(playerManager, TrinketType.TRINKET_YOUR_SOUL) then
@@ -904,8 +904,8 @@ local function get_modified_deal_price(shop, shopIndex, price)
 end
 
 ---@param shop Decomp.Room.SubSystem.Shop.Data
----@param room Decomp.IRoomObject
----@param playerManager Decomp.IPlayerManagerObject
+---@param room Decomp.RoomObject
+---@param playerManager Decomp.PlayerManagerObject
 ---@param shopIndex integer
 local function get_discount_points(shop, room, playerManager, shopIndex)
     local api = shop._API
@@ -957,7 +957,7 @@ end
 ---@param price PickupPrice
 local function get_modified_price(shop, shopIndex, price)
     local api = shop._API
-    local game = api.Manager.GetGame(shop._ENV)
+    local game = api.Environment.GetGame(shop._ENV)
     local room = api.Game.GetRoom(game)
     local playerManager = api.Game.GetPlayerManager(game)
 

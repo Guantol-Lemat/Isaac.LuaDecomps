@@ -2,9 +2,9 @@
 local CurrentRoom = {}
 
 ---@class Decomp.Level.SubSystem.Room.Data
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field _API Decomp.IGlobalAPI
----@field m_Room Decomp.IRoomObject
+---@field m_Room Decomp.RoomObject
 ---@field m_RoomIdx GridRooms | integer
 ---@field m_Dimension Dimension
 ---@field m_EnterDoor DoorSlot
@@ -14,8 +14,8 @@ local Lib = {
 }
 
 ---@param api Decomp.IGlobalAPI
----@param game Decomp.IGameObject
----@param roomDesc Decomp.IRoomDescObject
+---@param game Decomp.GameObject
+---@param roomDesc Decomp.RoomDescObject
 ---@return boolean
 local function should_force_more_options(api, game, roomDesc)
     if not (api.RoomDescriptor.GetRoomData(roomDesc).Type == RoomType.ROOM_TREASURE and api.RoomDescriptor.GetVisitedCount(roomDesc) == 0) then
@@ -53,10 +53,10 @@ local s_OffGridRoomsWithEnterDoor = Lib.Table.CreateDictionary({
 })
 
 ---@param currentRoom Decomp.Level.SubSystem.Room.Data
----@param level Decomp.ILevelObject
+---@param level Decomp.LevelObject
 local function LoadRoom(currentRoom, level)
     local api = currentRoom._API
-    local game = api.Manager.GetGame(currentRoom._ENV)
+    local game = api.Environment.GetGame(currentRoom._ENV)
     local playerManager = api.Game.GetPlayerManager(game)
 
     local roomDesc = api.Level.GetRoomByIdx(level, currentRoom.m_RoomIdx, Dimension.CURRENT)
@@ -128,9 +128,9 @@ local function LoadRoom(currentRoom, level)
 
     local entities = api.Room.GetRoomEntities(room)
     for index, value in api.CppContainer.iterator(entities) do
-        ---@cast value Decomp.IEntityObject
+        ---@cast value Decomp.EntityObject
         value:Update()
     end
 
-    api.Manager.RunCallback(currentRoom._ENV, ModCallbacks.MC_POST_NEW_ROOM)
+    api.Environment.RunCallback(currentRoom._ENV, ModCallbacks.MC_POST_NEW_ROOM)
 end

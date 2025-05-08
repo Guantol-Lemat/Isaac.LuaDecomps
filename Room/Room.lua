@@ -4,15 +4,15 @@ Decomp.Class.Room = Class_Room
 
 require("Room.SubSystem.Spawn")
 
----@class Decomp.Object.Room : Decomp.IRoomObject
+---@class Decomp.Object.Room : Decomp.RoomObject
 ---@field _API Decomp.IGlobalAPI
----@field _ENV Decomp.IEnvironment
+---@field _ENV Decomp.EnvironmentObject
 ---@field m_IsInitialized boolean
 ---@field m_RoomType RoomType
----@field m_RoomDescriptor Decomp.IRoomDescObject
+---@field m_RoomDescriptor Decomp.RoomDescObject
 ---@field m_GridWidth integer
 ---@field m_GridHeight integer
----@field m_Backdrop Decomp.IBackdropObject
+---@field m_Backdrop Decomp.BackdropObject
 ---@field m_WaterAmount integer
 ---@field m_BossId BossType | integer
 ---@field m_SecondBossId BossType | integer
@@ -59,13 +59,13 @@ end
 
 ---@param room Decomp.Object.Room
 ---@param roomData RoomConfigRoom
----@param roomDesc Decomp.IRoomDescObject
+---@param roomDesc Decomp.RoomDescObject
 local function Init(room, roomData, roomDesc)
     local api = room._API
-    local game = api.Manager.GetGame(room._ENV)
+    local game = api.Environment.GetGame(room._ENV)
 
     reset_data(room)
-    api.Manager.LogMessage(0, "Room %d.%d(%s)", roomData.Type, roomData.Variant, roomData.Name)
+    api.Environment.LogMessage(0, "Room %d.%d(%s)", roomData.Type, roomData.Variant, roomData.Name)
     local itemPool = api.Game.GetItemPool(game)
     api.ItemPool.ResetRoomBlacklist(itemPool)
     Reset(room)
@@ -90,7 +90,7 @@ local function Init(room, roomData, roomDesc)
     -- Notify Netplay Frame
 
     local spawnSeed = api.RoomDescriptor.GetSpawnSeed(room.m_RoomDescriptor)
-    api.Manager.LogMessage(0, "SpawnRNG seed: %u", spawnSeed)
+    api.Environment.LogMessage(0, "SpawnRNG seed: %u", spawnSeed)
     -- Evaluate Spawn Flags
 
     -- LoadBackdropGraphics
@@ -222,7 +222,7 @@ local function Init(room, roomData, roomDesc)
     local kb = math.floor(total_kb)
     local bytes = math.floor((total_kb - kb) * 1024 + 0.5)
 
-    api.Manager.LogMessage(0, "Lua mem usage: %d KB and %d bytes", kb, bytes)
+    api.Environment.LogMessage(0, "Lua mem usage: %d KB and %d bytes", kb, bytes)
     if room.m_BossId == BossType.ULTRA_GREED and api.Game.GetDifficulty(game) == Difficulty.DIFFICULTY_GREEDIER and api.RoomDescriptor.HasFlags(room.m_RoomDescriptor, RoomDescriptor.FLAG_CLEAR) then
         -- Turn Gold
     end
@@ -287,7 +287,7 @@ end
 ---@param spawnEntry RoomConfig_Entry
 ---@param gridIdx integer
 ---@param seed integer
----@return Decomp.Room.SubSystem.Spawn.SpawnEntry fixedSpawnEntry
+---@return Decomp.Room.Spawn.SpawnEntry fixedSpawnEntry
 function Class_Room.FixSpawnEntry(room, spawnEntry, gridIdx, seed)
     return RoomSubSystem.Spawn.FixSpawnEntry(room, spawnEntry, gridIdx, seed)
 end
