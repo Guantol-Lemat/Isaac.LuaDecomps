@@ -1,10 +1,7 @@
 ---@class Decomp.Collectible.BingeEater
 local BingeEater = {}
-Decomp.Item.Collectible.BingeEater = BingeEater
 
-require("General.Enums")
-
-local Enums = Decomp.Enums
+local Enums = require("General.Enums")
 
 ---@param collectibleNum integer
 ---@param modifiers number[]
@@ -29,9 +26,42 @@ local s_FoodStatModifiers = {
 
 ---@param player EntityPlayer
 ---@param modifiers number[]
-function BingeEater.ApplyStatModifiers(player, modifiers)
+local function ApplyStatModifiers(player, modifiers)
     for index, value in ipairs(s_FoodStatModifiers) do
         local collectibleNum = player:GetCollectibleNum(value[1], false)
         apply_food_stat_multiplier(collectibleNum, modifiers, value[2], value[3])
     end
 end
+
+---@param env Decomp.EnvironmentObject
+---@param seed integer
+local function GetRandomFoodCollectible(env, seed)
+    local api = env._API
+
+    local itemConfig = api.Isaac.GetItemConfig(env)
+    local foodItems = api.ItemConfig.GetTaggedItems(itemConfig, ItemConfig.TAG_FOOD)
+
+    local pool = {}
+    for index, value in ipairs(foodItems) do
+        if api.ItemConfigItem.IsCollectible(value) then
+            table.insert(pool, value.ID)
+        end
+    end
+
+    local itemCount = #pool
+    if itemCount == 0 then
+        return CollectibleType.COLLECTIBLE_BREAKFAST
+    end
+
+    local rng = RNG(); rng:SetSeed(seed, 9)
+    return pool[rng:RandomInt(itemCount) + 1]
+end
+
+--#region Module
+
+BingeEater.ApplyStatModifiers = ApplyStatModifiers
+BingeEater.GetRandomFoodCollectible = GetRandomFoodCollectible
+
+--#endregion
+
+return BingeEater

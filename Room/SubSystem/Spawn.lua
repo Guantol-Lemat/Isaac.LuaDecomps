@@ -9,8 +9,6 @@ local Lib = {
     NPC = require("Lib.EntityNPC"),
 }
 
-require("Lib.PersistentGameData")
-
 local Enums = require("General.Enums")
 
 local STB_EFFECT = 999
@@ -51,6 +49,49 @@ end
 local function get_spawn_position(api, room, spawn)
     local gridIdx = get_grid_idx(Vector(spawn.X + 1, spawn.Y + 1), api.Room.GetWidth(room))
     return api.Room.GetGridPosition(room, gridIdx)
+end
+
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
+---@return RNG
+local function GetSpawnRNG(api, room)
+    local roomDesc = api.Room.GetRoomDescriptor(room)
+    local rng = RNG(); rng:SetSeed(api.RoomDescriptor.GetSpawnSeed(roomDesc), 11)
+    return rng
+end
+
+---@param api Decomp.IGlobalAPI
+---@param desc Decomp.RoomDescObject
+---@param gridIdx integer
+local function is_restricted_grid_idx(api, desc, gridIdx)
+    local restrictedGrids = api.RoomDescriptor.GetRestrictedGridIndexes(desc)
+    for index, value in ipairs(restrictedGrids) do
+        if value == gridIdx then
+            return true
+        end
+    end
+
+    return false
+end
+
+---@param api Decomp.IGlobalAPI
+---@param room Decomp.RoomObject
+---@param spawn Decomp.RoomConfigSpawnObject
+---@param randomFloat number
+---@return { [1]: RoomConfig_Entry, [2]: integer }?
+local function PrepareSpawnEntry(api, room, spawn, randomFloat)
+    if api.RoomConfigSpawn.GetEntryCount(spawn) == 0 then
+        return
+    end
+    local spawnEntry = api.RoomConfigSpawn.PickEntry(spawn, randomFloat)
+
+    local x, y = api.RoomConfigSpawn.GetPosX(spawn), api.RoomConfigSpawn.GetPosY(spawn)
+    local gridIdx = get_grid_idx(Vector(x + 1, y + 1), api.Room.GetWidth(room))
+    if is_restricted_grid_idx(api, api.Room.GetRoomDescriptor(room), gridIdx) then
+        return
+    end
+
+    return {spawnEntry, gridIdx}
 end
 
 --#region Flags
@@ -206,7 +247,7 @@ function RoomSpawn.EvaluateRoomFlags(env, config, desc) -- Room::Init
     ---@type Decomp.Entity.SubSystem.Spawn.Switch.EvaluateRoomFlagsIO
     local switchIO = {
         _API = api,
-        room = api.Environment.GetRoom(env),
+        room = api.Isaac.GetRoom(env),
         desc = desc,
         ---@diagnostic disable-next-line: assign-type-mismatch  
         spawn = nil,
@@ -292,11 +333,11 @@ local function fix_pickup_spawns(env, spawnEntry, rng)
 
     local seed = rng:Next()
 
-    if Lib.EntityPickup.IsAvailable(env, spawnEntry.variant, spawnEntry.subType) then
+    if Lib.Pickup.IsAvailable(env, spawnEntry.variant, spawnEntry.subType) then
         return
     end
 
-    if Lib.EntityPickup.IsChest(spawnEntry.variant) then
+    if Lib.Pickup.IsChest(spawnEntry.variant) then
         spawnEntry.variant = s_DefaultChests[spawnEntry.variant] or PickupVariant.PICKUP_CHEST
         return
     end
@@ -307,8 +348,8 @@ local function fix_pickup_spawns(env, spawnEntry, rng)
     end
 
     if spawnEntry.variant == PickupVariant.PICKUP_TAROTCARD and spawnEntry.subType ~= 0 then
-        local itemPool = env._API.Environment.GetItemPool(env)
-        spawnEntry.subType = Lib.EntityPickup.GetCard(env, itemPool, seed, 25, 10, 10, true)
+        local itemPool = env._API.Isaac.GetItemPool(env)
+        spawnEntry.subType = Lib.Pickup.GetCard(env, itemPool, seed, 25, 10, 10, true)
         return
     end
 
@@ -323,7 +364,7 @@ local s_DefaultSlots = {
 }
 
 ---@param env Decomp.EnvironmentObject
----@param player Decomp.EntityPlayerObject
+---@param player Decomp.EntityObject
 ---@return boolean unlocked
 local function has_unlocked_tainted_character(env, player)
     local api = env._API
@@ -338,7 +379,7 @@ local function has_unlocked_tainted_character(env, player)
         return false
     end
 
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     return api.PersistentGameData.Unlocked(persistentGameData, taintedCharacterAchievement)
 end
 
@@ -348,9 +389,9 @@ local function fix_slot_spawns(env, spawnEntry)
     assert(spawnEntry.type == EntityType.ENTITY_SLOT)
 
     local api = env._API
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     if spawnEntry.variant == SlotVariant.HOME_CLOSET_PLAYER then
-        if not has_unlocked_tainted_character(env, api.Environment.GetPlayer(env, 0)) then
+        if not has_unlocked_tainted_character(env, api.Isaac.GetPlayer(env, 0)) then
             return
         end
 
@@ -381,19 +422,19 @@ end
 ---@param rng RNG
 local function is_heavens_trapdoor(env, rng)
     local api = env._API
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
 
     if api.Room.GetRoomType(room) == RoomType.ROOM_ANGEL then
         return true
     end
 
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
     local level = api.Game.GetLevel(game)
     local absoluteStage = Lib.Level.GetTrueAbsoluteStage(env, level)
     local forcedDevilPath = false
     local forcedAngelPath = false
 
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
     if api.Game.GetChallenge(game) ~= Challenge.CHALLENGE_NULL then
         local challengeParams = api.Game.GetChallengeParams(game)
         forcedAngelPath = api.ChallengeParams.IsAltPath(challengeParams)
@@ -421,7 +462,7 @@ end
 ---@param spawnEntry Decomp.Room.Spawn.SpawnEntry
 local function fix_heavens_trapdoor(env, spawnEntry)
     local api = env._API
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
 
     if not api.Level.IsNextStageAvailable(level) then
         spawnEntry.type = StbGridType.CRAWLSPACE
@@ -442,17 +483,17 @@ end
 local function fix_error_room_trapdoor_spawn(env, spawnEntry, rng)
     local api = env._API
 
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
     if api.Room.GetRoomType(room) ~= RoomType.ROOM_ERROR then
         return
     end
 
-    local level = api.Environment.GetLevel(env)
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local level = api.Isaac.GetLevel(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     local absoluteStage = Lib.Level.GetTrueAbsoluteStage(env, level)
 
     if absoluteStage == LevelStage.STAGE6 then
-        local game = api.Environment.GetGame(env)
+        local game = api.Isaac.GetGame(env)
         local challengeParams = api.Game.GetChallengeParams(game)
         local challengeEndStage = api.ChallengeParams.GetEndStage(challengeParams)
         local endStage = api.PersistentGameData.Unlocked(persistentGameData, Achievement.VOID_FLOOR) and LevelStage.STAGE7 or LevelStage.STAGE6
@@ -482,7 +523,7 @@ end
 local function fix_trapdoor_spawn(env, spawnEntry, rng)
     local api = env._API
 
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
     if spawnEntry.type ~= StbGridType.TRAP_DOOR or api.Game.IsGreedMode(game) then
         return
     end
@@ -512,7 +553,7 @@ local function morph_pickup_spawn(env, spawnEntry)
     assert(spawnEntry.type ~= EntityType.ENTITY_PICKUP, "attempted to morph a non pickup")
 
     local api = env._API
-    local roomDesc = api.Environment.GetCurrentRoomDesc(env)
+    local roomDesc = api.Isaac.GetCurrentRoomDesc(env)
 
     if api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_DEVIL_TREASURE) and spawnEntry.variant == PickupVariant.PICKUP_COLLECTIBLE then
         spawnEntry.variant = PickupVariant.PICKUP_SHOPITEM
@@ -529,7 +570,7 @@ local function morph_slot_spawn(env, spawnEntry, seed)
     local rng = RNG(); rng:SetSeed(seed, 68)
 
     local api = env._API
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
 
     if spawnEntry.variant == SlotVariant.SHELL_GAME and Lib.EntitySlot.IsAvailable(SlotVariant.HELL_GAME) and
        api.Game.GetDevilRoomDeals(game) > 0 and rng:RandomInt(4) == 0 then
@@ -796,8 +837,8 @@ local switch_TryStageSpawnModifiers = {
 ---@return boolean appliedModifier
 local function try_stage_npc_variant(env, room, spawnEntry, gridIdx, rng)
     local api = env._API
-    local level = api.Environment.GetLevel(env)
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local level = api.Isaac.GetLevel(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
 
     local stage = Lib.Level.GetTrueAbsoluteStage(env, level)
     local stageType = api.Level.GetStageType(level)
@@ -929,7 +970,7 @@ end
 ---@param rng RNG
 local function apply_spawn_modifiers(env, room, spawnEntry, gridIdx, rng)
     local api = env._API
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
 
     if spawnEntry.type == EntityType.ENTITY_STONEY then
         local dailyChallenge = api.Game.GetDailyChallenge(game)
@@ -977,7 +1018,7 @@ local function FixSpawnEntry(env, room, spawnEntry, gridIdx, seed)
 
     if fixedEntry.type == EntityType.ENTITY_PICKUP and fixedEntry.variant == RUNE_VARIANT then
         fixedEntry.variant = PickupVariant.PICKUP_TAROTCARD
-        local itemPool = api.Environment.GetItemPool(env)
+        local itemPool = api.Isaac.GetItemPool(env)
         fixedEntry.subType = Decomp.Lib.EntityPickup.GetRune(env, itemPool, rng:Next())
     end
 
@@ -1102,7 +1143,7 @@ local function try_dirty_mind_morph(env, room, spawnEntry, seed)
     end
 
     local rng = RNG(); rng:SetSeed(seed, 2)
-    local playerManager = api.Environment.GetPlayerManager(env)
+    local playerManager = api.Isaac.GetPlayerManager(env)
     local randomPlayer = api.PlayerManager.GetRandomCollectibleOwner(playerManager, CollectibleType.COLLECTIBLE_DIRTY_MIND, rng:Next())
     if not randomPlayer then
         return false
@@ -1124,7 +1165,7 @@ end
 ---@return boolean canSpawn
 local function can_spawn_trapdoor(env, room)
     local api = env._API
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
 
     if api.Level.IsNextStageAvailable(level) then
         return true
@@ -1171,7 +1212,7 @@ local function try_morph_spawn(env, room, spawnEntry, gridIdx, rng)
 
     local rockSeed = rng:GetSeed()
 
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
     local dangerousGridMorph = api.Room.HasRoomConfigFlag(room, 1 << 3)
     if dangerousGridMorph and can_morph_rock_entry(api, room, spawnEntry, gridIdx) then
         try_rock_dangerous_morph(api, level, spawnEntry, rng)
@@ -1206,7 +1247,7 @@ local function try_morph_spawn(env, room, spawnEntry, gridIdx, rng)
         end
     end
 
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     if spawnEntry.type == EntityType.ENTITY_SHOPKEEPER then
         if spawnEntry.variant == 0 and rng:RandomInt(4) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.SPECIAL_SHOPKEEPERS) then
             spawnEntry.variant = 3
@@ -1217,7 +1258,7 @@ local function try_morph_spawn(env, room, spawnEntry, gridIdx, rng)
         end
     end
 
-    local bossPool = api.Environment.GetBossPool(env)
+    local bossPool = api.Isaac.GetBossPool(env)
     if spawnEntry.type == StbGridType.DEVIL_STATUE and api.BossPool.GetRemovedBosses(bossPool)[BossType.SATAN] then
         spawnEntry.type = StbGridType.ROCK
         spawnEntry.variant = 0
@@ -1286,7 +1327,7 @@ local function can_spawn_entity(env, room, spawnEntry, respawning)
         return true
     end
 
-    local seeds = api.Environment.GetSeeds(env)
+    local seeds = api.Isaac.GetSeeds(env)
     if api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_PACIFIST) or api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_ENEMIES_RESPAWN) then
         return true
     end
@@ -1316,17 +1357,17 @@ local function build_entity_spawn(env, spawnEntry, gridIdx, rng, respawning)
         return {spawnType = 0, entityDesc = nil, addOutput = true}
     end
 
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
     if spawnEntry.type == EntityType.ENTITY_PICKUP and api.Level.IsCorpseEntrance(level) then
         return
     end
 
-    local roomDesc = api.Environment.GetCurrentRoomDesc(env)
+    local roomDesc = api.Isaac.GetCurrentRoomDesc(env)
     if spawnEntry.type == EntityType.ENTITY_MINECART and api.RoomDescriptor.HasFlags(roomDesc, RoomDescriptor.FLAG_SACRIFICE_DONE) then -- ???
         return
     end
 
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
     if not can_spawn_entity(env, room, spawnEntry, respawning) then
         return
     end
@@ -1389,7 +1430,7 @@ local s_StbGridConversion = {
 ---@return Vector
 local function get_gold_vein_size(env, rng)
     local api = env._API
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
     local stageID = api.Level.GetStageID(level)
 
     local veinWidthScale = 1.25
@@ -1417,7 +1458,7 @@ local function is_grid_idx_in_gold_vein(env, gridIdx, seed)
     end
 
     local api = env._API
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
     local roomWidth = api.Room.GetWidth(room)
     local roomHeight = api.Room.GetHeight(room)
 
@@ -1435,7 +1476,7 @@ end
 ---@return GridEntityType
 local function init_tinted_rock(env, rng)
     local api = env._API
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
 
     if rng:RandomInt(20) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.SUPER_SPECIAL_ROCKS) then
         return GridEntityType.GRID_ROCK_SS
@@ -1452,10 +1493,10 @@ end
 local function do_rock_morph(env, spawnEntry, gridIdx, rng)
     assert(spawnEntry.type == StbGridType.ROCK)
     local api = env._API
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
     local roomDesc = api.Room.GetRoomDescriptor(room)
 
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     local foolsRockMorph = api.PersistentGameData.Unlocked(persistentGameData, Achievement.FOOLS_GOLD) and is_grid_idx_in_gold_vein(env, gridIdx, api.RoomDescriptor.GetDecorationSeed(roomDesc))
 
     local randomNumber = rng:RandomInt(1001)
@@ -1483,7 +1524,7 @@ local function try_normal_poop_morph(env, rng)
     end
 
     local api = env._API
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     if rng:RandomInt(100) == 0 and api.PersistentGameData.Unlocked(persistentGameData, Achievement.CHARMING_POOP) then
         return GridPoopVariant.CHARMING
     end
@@ -1529,7 +1570,7 @@ local function do_poop_morph(env, variant, rng)
     end
 
     local api = env._API
-    local playerManager = api.Environment.GetPlayerManager(env)
+    local playerManager = api.Isaac.GetPlayerManager(env)
     if api.PlayerManager.AnyoneHasTrinket(playerManager, TrinketType.TRINKET_MECONIUM) then
         variant = try_meconium_morph(rng:GetSeed()) or variant
     end
@@ -1587,12 +1628,12 @@ local function build_grid_entity_spawn(env, spawnEntry, gridIdx, rng, seed, resp
     gridEntityDesc.increasePitCount = gridEntityDesc.type == GridEntityType.GRID_PIT
     gridEntityDesc.increasePoopCount = gridEntityDesc.type == GridEntityType.GRID_POOP
 
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
     if gridEntityDesc.type == GridEntityType.GRID_ROCK_GOLD and not api.PersistentGameData.Unlocked(persistentGameData, Achievement.FOOLS_GOLD) then
         gridEntityDesc.type = GridEntityType.GRID_ROCK
     end
 
-    local room = api.Environment.GetRoom(env)
+    local room = api.Isaac.GetRoom(env)
     local mineshaftChase = api.Room.HasRoomConfigFlag(room, Enums.eRoomConfigFlag.MINESHAFT_CHASE)
 
     if spawnEntry.type == StbGridType.ROCK and not mineshaftChase and spawnEntry.subType == 0 then
@@ -1621,7 +1662,7 @@ local function BuildSpawnDesc(env, room, gridIdx, spawnEntry, seed, respawning)
     local fixedSpawnEntry = FixSpawnEntry(env, room, spawnEntry, gridIdx, seed)
 
     local api = env._API
-    local level = api.Environment.GetLevel(env)
+    local level = api.Isaac.GetLevel(env)
     if try_block_spawn(api, level, fixedSpawnEntry, respawning) then
         return
     end
@@ -1704,7 +1745,7 @@ local function spawn_regular_entity(env, room, entityDesc, gridIdx)
         gridEntity:Destroy(true)
     end
 
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
     local position = api.Room.GetGridPosition(room, gridIdx)
 
     local entity = api.Game.Spawn(game, entityDesc.type, entityDesc.variant, position, Vector(0, 0), nil, entityDesc.subType, entityDesc.initSeed)
@@ -1725,6 +1766,9 @@ local function spawn_regular_entity(env, room, entityDesc, gridIdx)
        entityDesc.type == EntityType.ENTITY_PICKUP and entityDesc.variant == PickupVariant.PICKUP_COLLECTIBLE then
         api.EntityPickup.SetOptionsPickupIndex(pickup, 1)
     end
+
+    
+    api.Isaac.LogMessage(0, "Spawn Entity with Type(%d), Variant(%d), Pos(%.2f,%.2f)", api.Entity.GetType(entity), api.Entity.GetVariant(entity), position.X, position.Y)
 
     return entity
 end
@@ -1768,20 +1812,6 @@ local function SpawnEntity(env, room, gridIdx, spawnEntry, seed, respawning)
     end
 end
 
----@param api Decomp.IGlobalAPI
----@param desc Decomp.RoomDescObject
----@param gridIdx integer
-local function is_restricted_grid_idx(api, desc, gridIdx)
-    local restrictedGrids = api.RoomDescriptor.GetRestrictedGridIndexes(desc)
-    for index, value in ipairs(restrictedGrids) do
-        if value == gridIdx then
-            return true
-        end
-    end
-
-    return false
-end
-
 ---@param env Decomp.EnvironmentObject
 ---@param room Decomp.RoomObject
 ---@param desc Decomp.RoomDescObject
@@ -1816,7 +1846,7 @@ local function SpawnRoomConfigEntities(env, room, desc, config) -- Room::Init
     local spawnRNG = RNG(); spawnRNG:SetSeed(api.RoomDescriptor.GetSpawnSeed(desc), 11)
     local spawns = config.Spawns
 
-    for i = 0, #spawns - 1, 1 do
+    for i = 0, config.SpawnCount - 1, 1 do
         try_spawn_entry(env, room, desc, spawns, i, spawnRNG)
     end
 end
@@ -1825,6 +1855,8 @@ end
 
 --#region Module
 
+RoomSpawn.GetSpawnRNG = GetSpawnRNG
+RoomSpawn.PrepareSpawnEntry = PrepareSpawnEntry
 RoomSpawn.FixSpawnEntry = FixSpawnEntry -- Room::FixSpawnEntry
 RoomSpawn.BuildSpawnDesc = BuildSpawnDesc
 RoomSpawn.SpawnEntity = SpawnEntity -- Room::spawn_entity

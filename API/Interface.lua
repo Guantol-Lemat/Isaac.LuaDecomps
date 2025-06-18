@@ -1,5 +1,5 @@
 ---@class Decomp.IGlobalAPI
----@field Environment Decomp.IEnvironment
+---@field Isaac Decomp.IEnvironment
 ---@field Game Decomp.IGame
 ---@field Level Decomp.ILevel
 ---@field Room Decomp.IRoom
@@ -10,13 +10,22 @@
 ---@field ChallengeParams Decomp.IChallengeParams
 ---@field Seeds Decomp.ISeeds
 ---@field ItemConfig Decomp.IItemConfig
+---@field ItemConfigItem Decomp.IItemConfigItem
+---@field RoomConfig Decomp.IRoomConfig
+---@field RoomConfigSpawn Decomp.IRoomConfigSpawn
 ---@field SFXManager Decomp.ISFXManager
 ---@field MusicManager Decomp.IMusicManager
 ---@field PlayerManager Decomp.IPlayerManager
 ---@field PersistentGameData Decomp.IPersistentGameData
 ---@field Entity Decomp.IEntity
 ---@field EntityPlayer Decomp.IEntityPlayer
+---@field EntityTear Decomp.IEntityTear
 ---@field EntityPickup Decomp.IEntityPickup
+---@field EntityEffect Decomp.IEntityEffect
+---@field EntityList Decomp.IEntityList
+---@field EntityRef Decomp.IEntityRef
+---@field HitList Decomp.IHitList
+---@field DamageEntry Decomp.IDamageEntry
 ---@field TemporaryEffects Decomp.ITemporaryEffects
 ---@field Backdrop Decomp.IBackdrop
 ---@field RoomTransition Decomp.IRoomTransition
@@ -37,11 +46,17 @@
 ---@class Decomp.PersistentGameDataObject
 ---@class Decomp.ItemConfigObject
 ---@class Decomp.RoomConfigObject
+---@class Decomp.RoomConfigSpawnObject
 ---@class Decomp.EntityObject
 ---@class Decomp.EntityPlayerObject : Decomp.EntityObject
 ---@class Decomp.EntityTearObject : Decomp.EntityObject
 ---@class Decomp.EntityPickupObject : Decomp.EntityObject
 ---@class Decomp.EntityProjectileObject : Decomp.EntityObject
+---@class Decomp.EntityEffectObject : Decomp.EntityObject
+---@class Decomp.EntityListObject
+---@class Decomp.EntityRefObject
+---@class Decomp.HitListObject
+---@class Decomp.DamageEntryObject
 ---@class Decomp.GridEntityObject
 ---@class Decomp.TemporaryEffectsObject
 ---@class Decomp.BackdropObject
@@ -57,6 +72,9 @@
 ---Entity virtual methods
 ---@class Decomp.EntityObject
 ---@field Update fun(self: Decomp.EntityObject)
+---@field TakeDamage fun(self: Decomp.EntityObject, damage: number, flags: DamageFlag | integer, source: Decomp.EntityRefObject, damageCountdown: integer): boolean
+---@field Remove fun(self: Decomp.EntityObject)
+---@field handle_collision fun(self: Decomp.EntityObject, collider: Decomp.EntityObject, low: boolean): boolean
 
 ---GridEntity virtual methods
 ---@class Decomp.GridEntityObject
@@ -68,14 +86,15 @@
 ---@field GetRoom fun(env: Decomp.EnvironmentObject): Decomp.RoomObject
 ---@field GetCurrentRoomDesc fun(env: Decomp.EnvironmentObject): Decomp.RoomDescObject
 ---@field GetPlayerManager fun(env: Decomp.EnvironmentObject): Decomp.PlayerManagerObject
----@field GetPlayer fun(env: Decomp.EnvironmentObject, index: integer?): Decomp.EntityPlayerObject
+---@field GetPlayer fun(env: Decomp.EnvironmentObject, index: integer?): Decomp.EntityObject
 ---@field GetSeeds fun(env: Decomp.EnvironmentObject): Decomp.SeedsObject
 ---@field GetItemPool fun(env: Decomp.EnvironmentObject): Decomp.ItemPoolObject
 ---@field GetBossPool fun(env: Decomp.EnvironmentObject): Decomp.BossPoolObject
 ---@field GetItemConfig fun(env: Decomp.EnvironmentObject): Decomp.ItemConfigObject
 ---@field GetPersistentGameData fun(env: Decomp.EnvironmentObject): Decomp.PersistentGameDataObject
 ---@field GetMusicManager fun(env: Decomp.EnvironmentObject): Decomp.MusicManagerObject
----@field LogMessage fun(logType: integer, message: string, ...)
+---@field LogMessage fun(env:Decomp.EnvironmentObject, logType: integer, message: string, ...)
+---@field RandomInt fun(env: Decomp.EnvironmentObject, max: integer): integer
 ---@field RunCallback fun(env: Decomp.EnvironmentObject, callback: ModCallbacks, ...): any
 
 ---@class Decomp.IGame
@@ -93,6 +112,7 @@
 ---@field GetRoomTransition fun(game: Decomp.GameObject): Decomp.RoomTransitionObject
 ---@field GetDeathmatchManager fun(game: Decomp.GameObject): Decomp.DeathmatchManagerObject
 ---@field GetDevilRoomDeals fun(game: Decomp.GameObject): integer
+---@field GetFrameCount fun(game: Decomp.GameObject): integer
 ---@field Spawn fun(game: Decomp.GameObject, type: EntityType | integer, variant: integer, position: Vector, velocity: Vector, spawner: Decomp.EntityObject?, subType: integer, seed: integer): Decomp.EntityObject
 ---@field IsHardMode fun(game: Decomp.GameObject): boolean
 ---@field IsGreedMode fun(game: Decomp.GameObject): boolean
@@ -124,7 +144,7 @@
 ---@field GetRoomGridIdx fun(room: Decomp.RoomObject): GridRooms | integer
 ---@field GetRoomConfigStage fun(room: Decomp.RoomObject): StbType | integer
 ---@field GetTemporaryEffects fun(room: Decomp.RoomObject): Decomp.TemporaryEffectsObject
----@field GetSeededCollectible fun(room: Decomp.RoomObject, seed: integer, advanceRNG: boolean): CollectibleType | integer
+---@field GetSeededCollectible fun(room: Decomp.RoomObject, seed: integer, dontAdvanceRNG: boolean): CollectibleType | integer
 ---@field GetRoomEntities fun(room: Decomp.RoomObject): Decomp.CppContainerObject<Decomp.EntityObject>
 ---@field GetGridEntity fun(room: Decomp.RoomObject, gridIdx: integer): Decomp.GridEntityObject?
 ---@field GetTintedRockIdx fun(room: Decomp.RoomObject): integer
@@ -133,6 +153,8 @@
 ---@field GetHeight fun(room: Decomp.RoomObject): integer
 ---@field GetGridPosition fun(room: Decomp.RoomObject, gridIdx: integer): Vector
 ---@field GetGridIndex fun(room: Decomp.RoomObject, position: Vector): integer
+---@field GetWaterAmount fun(room: Decomp.RoomObject): number
+---@field GetEntityList fun(room: Decomp.RoomObject): Decomp.EntityListObject
 ---@field SetWaterCurrent fun(room: Decomp.RoomObject, value: Vector)
 ---@field Init fun(room: Decomp.RoomObject, roomData: RoomConfigRoom, roomDesc: Decomp.RoomDescObject)
 ---@field HasRoomConfigFlag fun(room: Decomp.RoomObject, flag: integer)
@@ -144,6 +166,7 @@
 ---@field TrySpawnSecretShop fun(room: Decomp.RoomObject, force: boolean): boolean
 ---@field TrySpawnTheVoidDoor fun(room: Decomp.RoomObject, force: boolean): boolean
 ---@field UpdateRedKey fun(room: Decomp.RoomObject)
+---@field IsClear fun(room: Decomp.RoomObject): boolean
 ---@field IsBeastRoom fun(room: Decomp.RoomObject): boolean
 ---@field IsDoorSlotAllowed fun(room: Decomp.RoomObject, doorSlot: DoorSlot): boolean
 ---@field is_persistent_room_entity fun(room: Decomp.RoomObject, type: EntityType | integer, variant: integer): boolean
@@ -185,6 +208,7 @@
 ---@field GetEndStage fun(challengeParams: Decomp.ChallengeParamObject): StageType
 
 ---@class Decomp.ISeeds
+---@field GetStartSeed fun(seeds: Decomp.SeedsObject): integer
 ---@field HasSeedEffect fun(seeds: Decomp.SeedsObject, seed: SeedEffect): boolean
 
 ---@class Decomp.IItemConfig
@@ -192,6 +216,16 @@
 ---@field GetTrinket fun(itemConfig: Decomp.ItemConfigObject, trinket: TrinketType | integer): ItemConfigItem?
 ---@field GetCard fun(itemConfig: Decomp.ItemConfigObject, card: Card | integer): ItemConfigCard?
 ---@field GetPillEffect fun(itemConfig: Decomp.ItemConfigObject, pill: PillEffect | integer): ItemConfigPillEffect?
+---@field GetTaggedItems fun(itemConfig: Decomp.ItemConfigObject, tags: integer): ItemConfigItem[]
+
+---@class Decomp.IItemConfigItem
+---@field IsCollectible fun(itemConfigItem: ItemConfigItem)
+
+---@class Decomp.IRoomConfigSpawn
+---@field GetEntryCount fun(roomConfigSpawn: Decomp.RoomConfigSpawnObject): integer
+---@field GetPosX fun(roomConfigSpawn: Decomp.RoomConfigSpawnObject): number
+---@field GetPosY fun(roomConfigSpawn: Decomp.RoomConfigSpawnObject): number
+---@field PickEntry fun(roomConfigSpawn: Decomp.RoomConfigSpawnObject, randomFloat: number): RoomConfig_Entry
 
 ---@class Decomp.IPlayerManager
 ---@field GetPlayer fun(playerManager: Decomp.PlayerManagerObject, index: integer): Decomp.EntityPlayerObject
@@ -207,17 +241,37 @@
 
 ---@class Decomp.IPersistentGameData
 ---@field Unlocked fun(persistentGameData: Decomp.PersistentGameDataObject, achievement: Achievement | integer): boolean
+---@field IsItemInCollection fun(persistentGameData: Decomp.PersistentGameDataObject, collectible: CollectibleType): boolean
 
 ---@class Decomp.IEntity
+---@field ToPlayer fun(entity: Decomp.EntityObject): Decomp.EntityPlayerObject?
 ---@field ToPickup fun(entity: Decomp.EntityObject): Decomp.EntityPickupObject?
+---@field GetDamageEntries fun(entity: Decomp.EntityObject): Decomp.DamageEntryObject[]
+---@field GetDamageFlags fun(entity: Decomp.EntityObject): DamageFlag
 ---@field GetType fun(entity: Decomp.EntityObject): EntityType | integer
 ---@field GetVariant fun(entity: Decomp.EntityObject): integer
 ---@field GetSubType fun(entity: Decomp.EntityObject): integer
 ---@field GetParent fun(entity: Decomp.EntityObject): Decomp.EntityObject?
+---@field GetLastSpawner fun(entity: Decomp.EntityObject): Decomp.EntityObject?
+---@field IsDead fun(entity: Decomp.EntityObject): boolean
+---@field GetEntityCollisionClass fun(entity: Decomp.EntityObject): EntityCollisionClass
+---@field GetGridCollisionClass fun(entity: Decomp.EntityObject): GridCollisionClass
+---@field GetPosition fun(entity: Decomp.EntityObject): Vector
 ---@field GetPositionOffset fun(entity: Decomp.EntityObject): Vector
+---@field GetDropRNG fun(entity: Decomp.EntityObject): RNG
+---@field GetSprite fun(entity: Decomp.EntityObject): Sprite
+---@field GetSize fun(entity: Decomp.EntityObject): number
+---@field GetCollisionDamage fun(entity: Decomp.EntityObject): number
 ---@field SetEntityCollisionClass fun(entity: Decomp.EntityObject, class: EntityCollisionClass)
 ---@field SetGridCollisionClass fun(entity: Decomp.EntityObject, class: GridCollisionClass)
 ---@field SetSpawnGridIndex fun(entity: Decomp.EntityObject, gridIdx: integer)
+---@field Die fun(entity: Decomp.EntityObject)
+---@field AddEntityFlags fun(entity: Decomp.EntityObject, flags: integer)
+---@field HasEntityFlags fun(entity: Decomp.EntityObject, flags: integer): boolean
+---@field AddSlowing fun(entity: Decomp.EntityObject, source: Decomp.EntityRefObject, duration: integer, slowValue: number, slowColor: Color)
+---@field IsVulnerableEnemy fun(entity: Decomp.EntityObject, attacker: Decomp.EntityObject?) : boolean
+---@field IsFlying fun(entity: Decomp.EntityObject): boolean
+---@field IsInFamilyTree fun(entity: Decomp.EntityObject): boolean
 
 ---@class Decomp.IEntityPlayer
 ---@field GetPlayerType fun(player: Decomp.EntityPlayerObject): PlayerType | integer
@@ -226,14 +280,40 @@
 ---@field GetHealthType fun(player: Decomp.EntityPlayerObject): HealthType
 ---@field GetEffectiveMaxHearts fun(player: Decomp.EntityPlayerObject): integer
 ---@field GetSoulHearts fun(player: Decomp.EntityPlayerObject): integer
+---@field SetFootprintColor fun(player: Decomp.EntityPlayerObject, color: KColor, force: boolean)
 ---@field IsHologram fun(player: Decomp.EntityPlayerObject): boolean
 ---@field HasInstantDeathCurse fun(player: Decomp.EntityPlayerObject): boolean
+---@field TryTriggerEvilEyeImmunity fun(player: Decomp.EntityPlayerObject, type: EntityType, variant: integer): boolean
+---@field HasCollectible fun(player: Decomp.EntityPlayerObject, collectible: CollectibleType, ignoreModifiers: boolean): boolean
+---@field HasTrinket fun(player: Decomp.EntityPlayerObject, trinket: TrinketType, ignoreModifiers: boolean): boolean
 
 ---@class Decomp.IEntityPickup
 ---@field SetWait fun(pickup: Decomp.EntityPickupObject, value: integer)
 ---@field SetCycleNum fun(pickup: Decomp.EntityPickupObject, value: integer)
 ---@field SetOptionsPickupIndex fun(pickup: Decomp.EntityPickupObject, value: integer)
 ---@field InitFlipState fun(pickup: Decomp.EntityPickupObject)
+---@field ShouldIgnoreModifier fun(env: Decomp.EnvironmentObject): boolean
+---@field CanReroll fun(pickup: Decomp.EntityPickupObject): boolean
+
+---@class Decomp.IEntityTear
+---@field ApplyTearFlagEffects fun(target: Decomp.EntityObject, position: Vector, flags: BitSet128, source: Decomp.EntityObject, damage: number)
+
+---@class Decomp.IEntityEffect
+
+---@class Decomp.IEntityRef
+---@field Create fun(entity: Decomp.EntityObject?): Decomp.EntityRefObject
+
+---@class Decomp.IEntityList
+---@field GetNPCCount fun(entityList: Decomp.EntityListObject): integer
+---@field QueryRadius fun(entityList: Decomp.EntityListObject, position: Vector, radius: number, partition: integer): Decomp.EntityObject[]
+
+---@class Decomp.IHitList
+---@field IsEntityInHitList fun(hitList: Decomp.HitListObject, entity: Decomp.EntityObject): boolean
+
+---@class Decomp.IDamageEntry
+---@field GetDamage fun(damageEntry: Decomp.DamageEntryObject): number
+---@field SetDamage fun(damageEntry: Decomp.DamageEntryObject, damage: number)
+---@field GetDamageFlags fun(damageEntry: Decomp.DamageEntryObject): DamageFlag
 
 ---@class Decomp.ITemporaryEffects
 ---@field HasCollectibleEffect fun(effects: Decomp.TemporaryEffectsObject, collectible: CollectibleType | integer): boolean

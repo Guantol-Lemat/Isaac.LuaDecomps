@@ -1,6 +1,5 @@
 ---@class Decomp.Lib.EntityNPC
 local Lib_EntityNPC = {}
-Decomp.Lib.EntityNPC = Lib_EntityNPC
 
 ---@param env Decomp.EnvironmentObject
 ---@param type EntityType | integer
@@ -10,7 +9,7 @@ Decomp.Lib.EntityNPC = Lib_EntityNPC
 ---@return boolean redirected
 local function morph_into_easier_npc(env, type, variant)
     local api = env._API
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
 
     if type == EntityType.ENTITY_BLISTER then
         if api.Game.IsHardMode(game) then
@@ -93,9 +92,9 @@ local s_GreedPortalDefault = {
 ---@return table? redirectedEntity
 local function morph_unavailable_portal(env)
     local api = env._API
-    local game = api.Environment.GetGame(env)
-    local level = api.Environment.GetLevel(env)
-    local room = api.Environment.GetRoom(env)
+    local game = api.Isaac.GetGame(env)
+    local level = api.Isaac.GetLevel(env)
+    local room = api.Isaac.GetRoom(env)
 
     local isHardMode = api.Game.IsHardMode(game)
     local morphTable = nil -- Forward Declaration
@@ -147,7 +146,7 @@ end
 ---@return boolean
 local function Redirect(env, type, variant)
     local api = env._API
-    local persistentGameData = api.Environment.GetPersistentGameData(env)
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
 
     if type == EntityType.ENTITY_SUCKER and variant == 5 and not api.PersistentGameData.Unlocked(persistentGameData, Achievement.EVERYTHING_IS_TERRIBLE) then
         type = EntityType.ENTITY_FLY
@@ -169,7 +168,7 @@ local function Redirect(env, type, variant)
         end
     end
 
-    local seeds = api.Environment.GetSeeds(env)
+    local seeds = api.Isaac.GetSeeds(env)
     if api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_G_FUEL) then
         type, variant = g_fuel_morph(type, variant)
     end

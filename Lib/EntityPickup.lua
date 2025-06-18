@@ -26,7 +26,7 @@ local function GetCard(env, itemPool, seed, specialChance, runeChance, suitChanc
     local includeRunes = runeChance < 0
     local onlyRunes = (runeChance == 1 or runeChance == -1) and specialChance == 0
 
-    return api.Environment.RunCallback(env, ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
+    return api.Isaac.RunCallback(env, ModCallbacks.MC_GET_CARD, rng, card, includePlayingCards, includeRunes, onlyRunes) or card -- GetCardEx does not call the callback, so we have to, to maintain mod compatibility
 end
 
 ---@param env Decomp.EnvironmentObject
@@ -83,35 +83,35 @@ local s_LockedPickupSubTypes = {
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_collectible_available(io)
-    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Isaac.GetItemConfig(io._ENV)
     local collectibleConfig = io._API.ItemConfig.GetCollectible(itemConfig, io.subType)
     return not not (collectibleConfig and collectibleConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_trinket_available(io)
-    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Isaac.GetItemConfig(io._ENV)
     local trinketConfig = io._API.ItemConfig.GetTrinket(itemConfig, io.subType)
     return not not (trinketConfig and trinketConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_card_available(io)
-    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Isaac.GetItemConfig(io._ENV)
     local cardConfig = io._API.ItemConfig.GetCard(itemConfig, io.subType)
     return not not (cardConfig and cardConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_pill_available(io)
-    local itemConfig = io._API.Environment.GetItemConfig(io._ENV)
+    local itemConfig = io._API.Isaac.GetItemConfig(io._ENV)
     local pillConfig = io._API.ItemConfig.GetPillEffect(itemConfig, io.subType)
     return not not (pillConfig and pillConfig:IsAvailable())
 end
 
 ---@param io Decomp.Lib.EntityPickup.Switch.IsAvailable
 local function is_pickup_available(io)
-    local persistentGameData = io._API.Environment.GetPersistentGameData(io._ENV)
+    local persistentGameData = io._API.Isaac.GetPersistentGameData(io._ENV)
     local variant = io.variant
 
     local achievement = s_LockedPickupVariants[variant]

@@ -22,7 +22,7 @@ end
 ---@return LevelStage | integer stage
 local function GetTrueAbsoluteStage(env, level)
     local api = env._API
-    local game = api.Environment.GetGame(env)
+    local game = api.Isaac.GetGame(env)
 
     if api.Game.IsGreedMode(game) then
         return api.Level.GetAbsoluteStage(level)

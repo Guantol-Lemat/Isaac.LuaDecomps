@@ -1,9 +1,13 @@
 local super = require("Entity.Entity")
 
----@class Decomp.Object.EntityEffect : Decomp.Class.EntityEffect.Data, Decomp.Class.EntityEffect.API
-
----@class Decomp.Class.EntityEffect.Data : Decomp.Class.Entity.Data
----@field object EntityEffect
+---@class Decomp.Object.EntityEffect : Decomp.EntityEffectObject, Decomp.Object.Entity
+---@field m_State integer
+---@field m_FScale number
+---@field m_RadiusMin number
+---@field m_RadiusMax number
+---@field m_Timeout integer
+---@field m_HitList Decomp.HitListObject
+---@field m_VarData any
 
 ---@param entityData Decomp.Class.EntityEffect.Data
 local function should_save(entityData)

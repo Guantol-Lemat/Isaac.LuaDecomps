@@ -59,7 +59,7 @@ end
 ---@param projectile Decomp.Object.EntityProjectile
 local function UpdateHeight(projectile)
     local api = projectile._API
-    local game = api.Environment.GetGame(projectile._ENV)
+    local game = api.Isaac.GetGame(projectile._ENV)
     local room = api.Game.GetRoom(game)
     local roomType = api.Room.GetRoomType(room)
 

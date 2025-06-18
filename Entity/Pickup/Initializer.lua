@@ -1,6 +1,6 @@
 ---@class Decomp.Entity.Pickup.TypeSelection
-local PickupTypeSelection = {}
-Decomp.Entity.Pickup.TypeSelection = PickupTypeSelection
+local PickupInitializer = {}
+Decomp.Entity.Pickup.TypeSelection = PickupInitializer
 
 local Table = require("Lib.Table")
 require("Lib.EntityPickup")
@@ -9,6 +9,10 @@ require("Lib.WeightedOutcomePicker")
 require("Lib.PlayerManager")
 require("Items.Loot_Modifiers")
 require("Room.RoomTypes.Super_Secret")
+
+local Items = {
+    BingeEater = require("Items.Collectible.Binge_Eater")
+}
 
 local Lib = Decomp.Lib
 local Item = Decomp.Item
@@ -744,7 +748,7 @@ local function get_double_pack(variant, subType)
     return s_DoublePacks[variant] and s_DoublePacks[variant][subType]
 end
 
-local s_BannedHearts = {Table.CreateDictionary({HeartSubType.HEART_FULL, HeartSubType.HEART_HALF, HeartSubType.HEART_DOUBLEPACK, HeartSubType.HEART_SCARED, HeartSubType.HEART_BLENDED, HeartSubType.HEART_ROTTEN})}
+local s_HaveAHeartBannedHearts = Table.CreateDictionary({HeartSubType.HEART_FULL, HeartSubType.HEART_HALF, HeartSubType.HEART_DOUBLEPACK, HeartSubType.HEART_SCARED, HeartSubType.HEART_BLENDED, HeartSubType.HEART_ROTTEN})
 
 ---@param variant PickupVariant
 ---@param subType integer
@@ -755,7 +759,7 @@ local function apply_have_a_heart_selection_modifier(variant, subType)
         return variant, subType
     end
 
-    if variant == PickupVariant.PICKUP_HEART and s_BannedHearts[subType] then
+    if variant == PickupVariant.PICKUP_HEART and s_HaveAHeartBannedHearts[subType] then
         subType = subType == HeartSubType.HEART_FULL and CoinSubType.COIN_DOUBLEPACK or (subType == HeartSubType.HEART_DOUBLEPACK and CoinSubType.COIN_NICKEL or CoinSubType.COIN_PENNY)
         return PickupVariant.PICKUP_COIN, subType
     end
@@ -846,7 +850,7 @@ local function apply_nuh_uh_selection_modifier(variant, subType, rng, advanceRNG
         return nil, nil -- The original returns -1 here and makes the SelectPickupType function fail
     end
 
-    return PickupTypeSelection.SelectPickupType(rng:Next(), newVariant, 0, advanceRNG, shopItem, ignoreModifiers)
+    return PickupInitializer.SelectPickupType(rng:Next(), newVariant, 0, advanceRNG, shopItem, ignoreModifiers)
 end
 
 ---@param seed integer
@@ -855,10 +859,11 @@ end
 ---@param rng RNG
 ---@param advanceRNG boolean
 ---@param ignoreModifiers boolean
+---@param shopItem boolean
 ---@param recursiveCount integer
 ---@return integer? newVariant
 ---@return integer? newSubType
-local function ApplyPostSelectionModifiers(seed, variant, subType, rng, advanceRNG, booleano, ignoreModifiers, recursiveCount, shopItem)
+local function ApplyPostSelectionModifiers(seed, variant, subType, rng, advanceRNG, shopItem, ignoreModifiers, recursiveCount)
     if should_try_double_pack(variant, seed) and not ignoreModifiers then
         subType = get_double_pack(variant, subType) or subType
     end
@@ -879,7 +884,7 @@ local function ApplyPostSelectionModifiers(seed, variant, subType, rng, advanceR
     end
 
     if not ignoreModifiers and recursiveCount < 2 then
-        variant, subType = apply_nuh_uh_selection_modifier(variant, subType, rng, advanceRNG, booleano, ignoreModifiers)
+        variant, subType = apply_nuh_uh_selection_modifier(variant, subType, rng, advanceRNG, shopItem, ignoreModifiers)
         if not variant then
             return nil, nil
         end
@@ -905,7 +910,7 @@ local s_SelectPickupTypeRecursiveCount = 0
 ---@param ignoreModifiers boolean
 ---@return integer? newVariant
 ---@return integer? newSubType
-function PickupTypeSelection.SelectPickupType(seed, variant, subType, advanceRNG, shopItem, ignoreModifiers)
+local function SelectPickupType(seed, variant, subType, advanceRNG, shopItem, ignoreModifiers)
     s_SelectPickupTypeRecursiveCount = s_SelectPickupTypeRecursiveCount + 1
     local rng = RNG(); rng:SetSeed(seed, 35)
 
@@ -921,3 +926,80 @@ function PickupTypeSelection.SelectPickupType(seed, variant, subType, advanceRNG
     s_SelectPickupTypeRecursiveCount = s_SelectPickupTypeRecursiveCount - 1
     return newVariant, newSubType
 end
+
+---@param api Decomp.IGlobalAPI
+---@param playerManager Decomp.PlayerManagerObject
+---@return integer
+local function get_base_cycle_num(api, playerManager)
+    if api.PlayerManager.AnyoneHasCollectible(playerManager, CollectibleType.COLLECTIBLE_GLITCHED_CROWN) then
+        return 4
+    end
+
+    if api.PlayerManager.AnyoneIsPlayerType(playerManager, PlayerType.PLAYER_ISAAC_B) or api.PlayerManager.AnyPlayerTypeHasBirthright(playerManager, PlayerType.PLAYER_ISAAC) then
+        return 1
+    end
+
+    return 0
+end
+
+---@param env Decomp.EnvironmentObject
+---@param pickup Decomp.EntityPickupObject
+local function ShouldDoWaitWhatMorph(env, pickup)
+    local api = env._API
+
+    if api.EntityPickup.ShouldIgnoreModifier(env) or api.Entity.GetSubType(pickup) ~= CollectibleType.COLLECTIBLE_BUTTER_BEAN then
+        return false
+    end
+
+    local persistentGameData = api.Isaac.GetPersistentGameData(env)
+    if not api.PersistentGameData.IsItemInCollection(persistentGameData, CollectibleType.COLLECTIBLE_BUTTER_BEAN) then
+        return false
+    end
+
+    local seeds = api.Isaac.GetSeeds(env)
+    local startSeed = api.Seeds.GetStartSeed(seeds)
+
+    local rng = RNG(); rng:SetSeed(startSeed, 77)
+    return rng:RandomInt(20) == 0
+end
+
+---@param env Decomp.EnvironmentObject
+---@param pickup Decomp.EntityPickupObject
+---@param baseCycleSeed integer
+---@param bingeEaterSeed integer
+---@return CollectibleType[]
+local function BuildCollectibleCycle(env, pickup, baseCycleSeed, bingeEaterSeed)
+    local api = env._API
+    local cycles = {}
+
+    if api.EntityPickup.ShouldIgnoreModifier(env) or not api.EntityPickup.CanReroll(pickup) then
+        return cycles
+    end
+
+    local rng = RNG(); rng:SetSeed(baseCycleSeed, 38)
+
+    local room = api.Isaac.GetRoom(env)
+    local playerManager = api.Isaac.GetPlayerManager(env)
+    local cycleNum = get_base_cycle_num(api, playerManager)
+
+    -- There should be another check for CanReroll here (most likely because the function was split into multiple smaller functions)
+    for i = 1, cycleNum, 1 do
+        table.insert(cycles, api.Room.GetSeededCollectible(room, rng:Next(), false))
+    end
+
+    if api.PlayerManager.AnyoneHasCollectible(playerManager, CollectibleType.COLLECTIBLE_BINGE_EATER) then
+        table.insert(cycles, Items.BingeEater.GetRandomFoodCollectible(env, bingeEaterSeed))
+    end
+
+    return cycles
+end
+
+--#region Module
+
+PickupInitializer.SelectPickupType = SelectPickupType
+PickupInitializer.ShouldDoWaitWhatMorph = ShouldDoWaitWhatMorph
+PickupInitializer.BuildCollectibleCycle = BuildCollectibleCycle
+
+--#endregion
+
+return PickupInitializer

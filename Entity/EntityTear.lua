@@ -41,7 +41,7 @@ local function GetRenderHeight(tear, height)
     end
 
     local api = tear._API
-    local game = api.Environment.GetGame(tear._ENV)
+    local game = api.Isaac.GetGame(tear._ENV)
     local seeds = api.Game.GetSeeds(game)
 
     if s_GFuelTears[tearVariant] and api.Seeds.HasSeedEffect(seeds, SeedEffect.SEED_G_FUEL) and should_calc_render_height(tear) then

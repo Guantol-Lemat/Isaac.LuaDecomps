@@ -1,13 +1,12 @@
 ---@class Decomp.Lib.PersistentGameData
 local Lib_PersistentGameData = {}
-Decomp.Lib.PersistentGameData = Lib_PersistentGameData
 
 ---@class Decomp.Lib.PersistentGameData.CompletionEvent
----@field eventCounter EventCounter
----@field achievement Achievement
+---@field eventCounter EventCounter | integer
+---@field achievement Achievement | integer
 
 ---@enum Decomp.Lib.PersistentGameData.eCompletionEvent
-Lib_PersistentGameData.eCompletionEvent = {
+local eCompletionEvent = {
     MOMS_HEART = 0,
     ISAAC = 1,
     SATAN = 2,
@@ -28,8 +27,6 @@ Lib_PersistentGameData.eCompletionEvent = {
     RUSH_BOSSES = 17,
     NUM_COMPLETION_EVENTS = 18,
 }
-
-local eCompletionEvent = Lib_PersistentGameData.eCompletionEvent
 
 ---@type table<PlayerType, table<Decomp.Lib.PersistentGameData.eCompletionEvent, Decomp.Lib.PersistentGameData.CompletionEvent>>
 local g_PlayerCompletionEvents = {
@@ -3071,6 +3068,15 @@ local g_PlayerCompletionEvents = {
 
 ---@param playerType PlayerType
 ---@return table<Decomp.Lib.PersistentGameData.eCompletionEvent, Decomp.Lib.PersistentGameData.CompletionEvent>
-function Lib_PersistentGameData.GetCompletionEventsDef(playerType)
+local function GetCompletionEventsDef(playerType)
     return g_PlayerCompletionEvents[playerType]
 end
+
+--#region Module
+
+Lib_PersistentGameData.eCompletionEvent = eCompletionEvent
+Lib_PersistentGameData.GetCompletionEventsDef = GetCompletionEventsDef
+
+--#endregion
+
+return Lib_PersistentGameData

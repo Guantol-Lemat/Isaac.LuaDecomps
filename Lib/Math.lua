@@ -3,7 +3,6 @@ local Lib_Math = {}
 
 ---@class Decomp.Math.Circle
 local Circle = {}
-Lib_Math.Circle = Circle
 
 ---@class Decomp.Math.Circle.Data
 ---@field center Vector
@@ -41,12 +40,19 @@ function Lib_Math.Clamp(value, min, max)
     return math.max(math.min(value, max),  min)
 end
 
+---@param a number
+---@param b number
+---@param blendFactor number
+local function Lerp(a, b, blendFactor)
+    return (b - a) * blendFactor + a
+end
+
 ---@param value number
 ---@param previousRange number[]
 ---@param newRange number[]
 ---@param clamp boolean
 ---@return number remappedNumber
-function Lib_Math.MapToRange(value, previousRange, newRange, clamp)
+local function MapToRange(value, previousRange, newRange, clamp)
     assert(previousRange[1] ~= previousRange[2], "invalid range")
 
     local normalizedForm = (value - previousRange[1]) / (previousRange[2] - previousRange[1])
@@ -72,19 +78,25 @@ end
 ---@param vector Vector
 ---@param other Vector
 ---@return boolean
-function Lib_Math.IsVectorEqual(vector, other)
+local function IsVectorEqual(vector, other)
     return vector.X == other.X and vector.Y == other.Y
 end
 
 ---@param vector Vector
 ---@return Vector
-function Lib_Math.VectorCopy(vector)
+local function VectorCopy(vector)
     return Vector(vector.X, vector.Y)
 end
 
 --#region Module
 
+Lib_Math.Circle = Circle
+
+Lib_Math.Lerp = Lerp
+Lib_Math.MapToRange = MapToRange
 Lib_Math.TimeScaledFriction = TimeScaledFriction
+Lib_Math.IsVectorEqual = IsVectorEqual
+Lib_Math.VectorCopy = VectorCopy
 
 --#endregion
 

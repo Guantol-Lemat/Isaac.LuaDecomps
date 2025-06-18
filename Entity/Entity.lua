@@ -14,9 +14,16 @@ local g_Game = Game()
 ---@field _API Decomp.IGlobalAPI
 ---@field _ENV Decomp.EnvironmentObject
 ---@field _Object Entity
+---@field m_DamageFlags DamageFlag
 ---@field m_Type integer
 ---@field m_Variant integer
+---@field m_SubType integer
+---@field m_Sprite Sprite
+---@field m_IsDead boolean
+---@field m_Position Vector
 ---@field m_PositionOffset Vector
+---@field m_Size number
+---@field m_CollisionDamage number
 ---@field m_Timescale number
 ---@field m_EntityFlags EntityFlag
 ---@field m_EntityCollisionClass EntityCollisionClass
@@ -24,11 +31,7 @@ local g_Game = Game()
 ---@field m_CollisionIndex integer
 ---@field m_CollidesWithNonTearEntity boolean
 ---@field m_CollidesWithGrid boolean
-
----@class Decomp.Class.Entity.Data : Decomp.Data.EntityBase
----@field object Entity
----@field m_CollisionIndex integer
----@field m_CollidesWithNonTearEntity boolean
+---@field m_SpawnerEntity Decomp.EntityObject?
 
 ---@class Decomp.Class.Entity.SaveState : Decomp.Interface.EntitySaveState
 ---@field m_Type EntityType | integer
@@ -41,16 +44,16 @@ local g_Game = Game()
 ---@field m_SpawnerVariant integer
 ---@field m_SpawnGridIdx integer
 
----@param data Decomp.Class.Entity.Data
+---@param data Decomp.Object.Entity
 local function constructor(data)
     data.m_CollisionIndex = 0
     data.m_CollidesWithNonTearEntity = false
 end
 
----@param entityData Decomp.Class.Entity.Data
+---@param entityData Decomp.Object.Entity
 ---@return boolean
 local function should_save(entityData)
-    local entity = entityData.object
+    local entity = entityData._Object
 
     if entity:IsDead() then
         return false
@@ -63,10 +66,10 @@ local function should_save(entityData)
     return true
 end
 
----@param entityData Decomp.Class.Entity.Data
+---@param entityData Decomp.Object.Entity
 ---@param saveState Decomp.Class.Entity.SaveState
 local function store_state(entityData, saveState)
-    local entity = entityData.object
+    local entity = entityData._Object
     saveState.m_Type = entity.Type
     saveState.m_Variant = entity.Variant
     saveState.m_SubType = entity.SubType
@@ -91,7 +94,7 @@ end
 ---@param offset Vector
 ---@return Decomp.Math.Circle.Data
 local function GetCollisionCircle(entity, offset)
-    local object = entity.object
+    local object = entity._Object
     return Math.Circle.new(object.Position + offset, object.Size)
 end
 
@@ -99,7 +102,7 @@ end
 ---@param offset Vector
 ---@return Capsule
 local function GetCollisionCapsule(entity, offset)
-    local object = entity.object
+    local object = entity._Object
     return Capsule(object.Position + offset, object.SizeMulti, object.SpriteRotation)
 end
 
@@ -144,7 +147,7 @@ local s_PlayerObjects = Table.CreateDictionary({
 ---@param entity Decomp.Object.Entity
 ---@return boolean
 local function is_player_object(entity)
-    local object = entity.object
+    local object = entity._Object
     if not not s_PlayerObjects[object.Type] then
         return true
     end
@@ -166,8 +169,8 @@ end
 ---@param collider Decomp.Object.Entity
 ---@return boolean skipCollisionLogic
 local function HandleCollisions(entity, collider)
-    local object = entity.object
-    local colliderObject = collider.object
+    local object = entity._Object
+    local colliderObject = collider._Object
     if object:IsDead() or colliderObject:IsDead() then
         return true
     end
@@ -228,7 +231,7 @@ end
 ---@return Decomp.Object.Entity second
 local function sort_collision_order(entity, other)
     local first, second = entity, other
-    local object, colliderObject = entity.object, other.object
+    local object, colliderObject = entity._Object, other._Object
 
     if (true or object.Type ~= EntityType.ENTITY_TEAR or object.Type ~= EntityType.ENTITY_PLAYER) and
        colliderObject.Type < object.Type then
@@ -322,7 +325,7 @@ end
 ---@param collisionPoint Vector
 ---@return Decomp.Entity.CapsuleCollision
 local function prepare_capsule_collision_data(entity, collider, collisionPoint)
-    local object, colliderObject = entity.object, collider.object
+    local object, colliderObject = entity._Object, collider._Object
     ---@type Decomp.Entity.CapsuleCollision
 ---@diagnostic disable-next-line: missing-fields
     local collisionData = {}
@@ -367,7 +370,7 @@ end
 ---@param collider Decomp.Object.Entity
 ---@param distance number
 local function post_circle_collision(entity, collider, distance)
-    local object, colliderObject = entity.object, collider.object
+    local object, colliderObject = entity._Object, collider._Object
 
     entity.m_CollidesWithNonTearEntity = colliderObject.Type ~= EntityType.ENTITY_TEAR
     collider.m_CollidesWithNonTearEntity = object.Type ~= EntityType.ENTITY_TEAR
@@ -395,8 +398,8 @@ local function post_capsule_collision(entity, collider, collisionPoint)
     end
 
     local collisionData = prepare_capsule_collision_data(entity, collider, collisionPoint)
-    apply_physic_knockback(entity.object, collisionData, false)
-    apply_physic_knockback(collider.object, collisionData, true)
+    apply_physic_knockback(entity._Object, collisionData, false)
+    apply_physic_knockback(collider._Object, collisionData, true)
 end
 
 ---@param entity Decomp.Object.Entity
@@ -404,8 +407,8 @@ end
 ---@return boolean collided
 local function CollideCircles(entity, collider)
     entity, collider = sort_collision_order(entity, collider)
-    local entityCircle = entity:GetCollisionCircle(Math.VectorZero)
-    local colliderCircle = collider:GetCollisionCircle(Math.VectorZero)
+    local entityCircle = GetCollisionCircle(entity, Math.VectorZero)
+    local colliderCircle = GetCollisionCircle(collider, Math.VectorZero)
 
     local collided, distance = Math.Circle.Collide(entityCircle, colliderCircle)
     if not collided then
@@ -425,11 +428,8 @@ end
 ---@return boolean collided
 local function CollideCapsules(entity, collider)
     entity, collider = sort_collision_order(entity, collider)
-    local object = entity.object
-    local colliderObject = collider.object
-
-    local entityCapsule = object:GetCollisionCapsule(Math.VectorZero)
-    local colliderCapsule = colliderObject:GetCollisionCapsule(Math.VectorZero)
+    local entityCapsule = GetCollisionCapsule(entity, Math.VectorZero)
+    local colliderCapsule = GetCollisionCapsule(collider, Math.VectorZero)
 
     local collisionPoint = Vector(0, 0)
     if not entityCapsule:Collide(colliderCapsule, collisionPoint) then
@@ -447,7 +447,7 @@ end
 ---@param entity Decomp.Object.Entity
 ---@param collider Decomp.Object.Entity
 local function Collide(entity, collider)
-    local object = entity.object
+    local object = entity._Object
     if Math.IsVectorEqual(object.SizeMulti, Math.VectorOne) and Math.IsVectorEqual(object.SizeMulti, Math.VectorOne) then
         entity:collide_circles(collider)
     else
@@ -510,8 +510,8 @@ end
 ---@param collider Decomp.Object.Entity
 ---@return number mass
 local function GetCollisionMass(entity, collider)
-    local object = entity.object
-    local colliderObject = collider.object
+    local object = entity._Object
+    local colliderObject = collider._Object
 
     local mass = object.Mass
 

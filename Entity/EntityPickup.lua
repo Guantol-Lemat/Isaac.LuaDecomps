@@ -12,7 +12,7 @@ local Lib = {
 
 require("General.Enums")
 require("Data.EntityPickup")
-require("Entity.Pickup.TypeSelection")
+local PickupInitializer = require("Entity.Pickup.Initializer")
 
 local Enums = Decomp.Enums
 local Data = Decomp.Data
@@ -20,9 +20,7 @@ local Pickup = Decomp.Entity.Pickup
 
 local g_Game = Game()
 
----@class Decomp.Object.EntityPickup : Decomp.Class.EntityPickup.Data, Decomp.Class.EntityPickup.API
-
----@class Decomp.Class.EntityPickup.Data : Decomp.Class.Entity.Data
+---@class Decomp.Object.EntityPickup : Decomp.Object.Entity
 ---@field object EntityPickup
 ---@field m_VariantRelated integer
 ---@field m_UnkInt integer
@@ -199,6 +197,9 @@ end
 
 --#endregion
 
+local function SetAlternatePedestal()
+end
+
 --#region Init
 
 ---@param pickup EntityPickup
@@ -220,7 +221,7 @@ local function initialize_pickup_data(pickup)
     pickup.AutoUpdatePrice = true
 end
 
----@param pickup EntityPickup
+---@param pickup Decomp.Object.EntityPickup
 ---@param type integer
 ---@param variant integer
 ---@param subType integer
@@ -238,6 +239,58 @@ function Class_EntityPickup.Init(pickup, type, variant, subType, seed)
     variant = selectVariant
     subType = selectSubType
 
+    if variant == PickupVariant.PICKUP_SHOPITEM then
+        -- Init Shop Pickups
+    end
+
+    if variant == PickupVariant.PICKUP_COLLECTIBLE then
+        -- Check Collectible config, or fetch new collectible
+        if PickupInitializer.ShouldDoWaitWhatMorph(env, pickup) then
+            subType = CollectibleType.COLLECTIBLE_WAIT_WHAT
+        end
+        
+        -- Init wait and charge
+    end
+
+    if variant == PickupVariant.PICKUP_BROKEN_SHOVEL then
+        -- Init charge and collectible subtype
+    end
+
+    -- Callback
+
+    if variant == PickupVariant.PICKUP_BOMB then
+        -- Try Poop Morph (all blue baby b)
+    end
+
+    if variant == PickupVariant.PICKUP_TAROTCARD then
+        -- Entity Init (with subType being the card back subtype)
+    else
+        -- Entity Init
+    end
+
+    if HasPayToPlay then
+        -- Init Pay to play variable in specific chests
+    end
+
+    if variant == PickupVariant.PICKUP_COLLECTIBLE then
+        pickup.m_Sprite:Play("Idle", false)
+        SetAlternatePedestal(pickup, 0)
+
+        pickup.m_CycleCollectible = PickupInitializer.BuildCollectibleCycle(env, pickup, pickup.m_DropRNG:GetSeed(), pickup.m_InitSeed)
+    end
+    -- Setup Flags and Sprite
+    -- Some variant get No KNOCKBACK, otherse also get DONT_OVERWRITE + some variables
+    -- TROPHYES get a check for g fuel seed
+    -- Collectibles check for Damocles Passive with and set the FLAG_ITEM_SHOULD_DUPLICATE
+    -- Collectibles then init their cycle (Glitched crown, Isaac B, Binge Eater)
+    -- They then try for Glitch flag
+
+    -- Try KEEPER Modifier
+
+    -- Remove Hearts in Ultra Hard
+    -- Remove Trophy on Backasswards
+
+    
     -- TODO
 end
 

@@ -62,10 +62,10 @@ end
 ---@param roomDesc Decomp.RoomDescObject
 local function Init(room, roomData, roomDesc)
     local api = room._API
-    local game = api.Environment.GetGame(room._ENV)
+    local game = api.Isaac.GetGame(room._ENV)
 
     reset_data(room)
-    api.Environment.LogMessage(0, "Room %d.%d(%s)", roomData.Type, roomData.Variant, roomData.Name)
+    api.Isaac.LogMessage(0, "Room %d.%d(%s)", roomData.Type, roomData.Variant, roomData.Name)
     local itemPool = api.Game.GetItemPool(game)
     api.ItemPool.ResetRoomBlacklist(itemPool)
     Reset(room)
@@ -90,7 +90,7 @@ local function Init(room, roomData, roomDesc)
     -- Notify Netplay Frame
 
     local spawnSeed = api.RoomDescriptor.GetSpawnSeed(room.m_RoomDescriptor)
-    api.Environment.LogMessage(0, "SpawnRNG seed: %u", spawnSeed)
+    api.Isaac.LogMessage(0, "SpawnRNG seed: %u", spawnSeed)
     -- Evaluate Spawn Flags
 
     -- LoadBackdropGraphics
@@ -103,7 +103,8 @@ local function Init(room, roomData, roomDesc)
 
     -- Reset GridPaths
     room.m_RoomClearDelay = 0
-    -- Calc Pit and Poop Count
+    -- Reset Pit and Poop Count
+    -- Restore GridEntities from save state
 
     -- Set water to 0 if pitcount > 0 and CORPSE backdrop
 
@@ -222,7 +223,7 @@ local function Init(room, roomData, roomDesc)
     local kb = math.floor(total_kb)
     local bytes = math.floor((total_kb - kb) * 1024 + 0.5)
 
-    api.Environment.LogMessage(0, "Lua mem usage: %d KB and %d bytes", kb, bytes)
+    api.Isaac.LogMessage(0, "Lua mem usage: %d KB and %d bytes", kb, bytes)
     if room.m_BossId == BossType.ULTRA_GREED and api.Game.GetDifficulty(game) == Difficulty.DIFFICULTY_GREEDIER and api.RoomDescriptor.HasFlags(room.m_RoomDescriptor, RoomDescriptor.FLAG_CLEAR) then
         -- Turn Gold
     end

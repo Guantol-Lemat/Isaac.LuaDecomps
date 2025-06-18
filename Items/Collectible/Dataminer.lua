@@ -28,7 +28,7 @@ end
 ---@param api Decomp.IGlobalAPI
 ---@param env Decomp.EnvironmentObject
 local function MessUpMusic(api, env) -- Room::Update
-    local musicManager = api.Environment.GetMusicManager(env)
+    local musicManager = api.Isaac.GetMusicManager(env)
 
     if Lib.RNG.SeedToInt(Random(), 10) ~= 0 then
         api.MusicManager.ResetPitch(musicManager)

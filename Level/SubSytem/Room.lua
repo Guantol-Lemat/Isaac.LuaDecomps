@@ -18,7 +18,13 @@ local Lib = {
 ---@param roomDesc Decomp.RoomDescObject
 ---@return boolean
 local function should_force_more_options(api, game, roomDesc)
-    if not (api.RoomDescriptor.GetRoomData(roomDesc).Type == RoomType.ROOM_TREASURE and api.RoomDescriptor.GetVisitedCount(roomDesc) == 0) then
+    local roomData = api.RoomDescriptor.GetRoomData(roomDesc)
+    if not (roomData.Type == RoomType.ROOM_TREASURE and api.RoomDescriptor.GetVisitedCount(roomDesc) == 0) then
+        return false
+    end
+
+    local roomSubType = roomData.Subtype
+    if not (roomSubType == 0 or roomSubType == 2) then
         return false
     end
 
@@ -33,7 +39,7 @@ local function should_force_more_options(api, game, roomDesc)
     end
 
     local level = api.Game.GetLevel(game)
-    if api.PlayerManager.AnyoneHasTrinket(playerManager, TrinketType.TRINKET_BROKEN_GLASSES) and api.Level.IsAltPath(level) then
+    if api.PlayerManager.AnyoneHasTrinket(playerManager, TrinketType.TRINKET_BROKEN_GLASSES) and not api.Level.IsAltPath(level) then
         local seed = api.RoomDescriptor.GetSpawnSeed(roomDesc)
         local rng = RNG(); rng:SetSeed(seed, 61)
 
@@ -56,7 +62,7 @@ local s_OffGridRoomsWithEnterDoor = Lib.Table.CreateDictionary({
 ---@param level Decomp.LevelObject
 local function LoadRoom(currentRoom, level)
     local api = currentRoom._API
-    local game = api.Environment.GetGame(currentRoom._ENV)
+    local game = api.Isaac.GetGame(currentRoom._ENV)
     local playerManager = api.Game.GetPlayerManager(game)
 
     local roomDesc = api.Level.GetRoomByIdx(level, currentRoom.m_RoomIdx, Dimension.CURRENT)
@@ -77,6 +83,7 @@ local function LoadRoom(currentRoom, level)
     end
 
     roomData = api.RoomDescriptor.GetEffectiveRoomData(roomDesc)
+    -- remember to Clear the surprise miniboss flag if we have to default to data and not override data
     choose_enter_door()
 
     local room = currentRoom.m_Room
@@ -132,5 +139,5 @@ local function LoadRoom(currentRoom, level)
         value:Update()
     end
 
-    api.Environment.RunCallback(currentRoom._ENV, ModCallbacks.MC_POST_NEW_ROOM)
+    api.Isaac.RunCallback(currentRoom._ENV, ModCallbacks.MC_POST_NEW_ROOM)
 end
