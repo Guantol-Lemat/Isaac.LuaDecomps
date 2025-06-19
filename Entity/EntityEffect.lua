@@ -1,6 +1,7 @@
 local super = require("Entity.Entity")
 
 ---@class Decomp.Object.EntityEffect : Decomp.EntityEffectObject, Decomp.Object.Entity
+---@field _Object EntityEffect
 ---@field m_State integer
 ---@field m_FScale number
 ---@field m_RadiusMin number
@@ -9,9 +10,9 @@ local super = require("Entity.Entity")
 ---@field m_HitList Decomp.HitListObject
 ---@field m_VarData any
 
----@param entityData Decomp.Class.EntityEffect.Data
+---@param entityData Decomp.Object.EntityEffect
 local function should_save(entityData)
-    local entity = entityData.object
+    local entity = entityData._Object
 
     if not (entity.Variant == EffectVariant.HEAVEN_LIGHT_DOOR and entity.SubType == 1) then
         return true

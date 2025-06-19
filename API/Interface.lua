@@ -49,6 +49,7 @@
 ---@class Decomp.RoomConfigSpawnObject
 ---@class Decomp.EntityObject
 ---@class Decomp.EntityPlayerObject : Decomp.EntityObject
+---@class Decomp.EntityFamiliarObject : Decomp.EntityObject
 ---@class Decomp.EntityTearObject : Decomp.EntityObject
 ---@class Decomp.EntityPickupObject : Decomp.EntityObject
 ---@class Decomp.EntityProjectileObject : Decomp.EntityObject
@@ -73,6 +74,7 @@
 ---@class Decomp.EntityObject
 ---@field Update fun(self: Decomp.EntityObject)
 ---@field TakeDamage fun(self: Decomp.EntityObject, damage: number, flags: DamageFlag | integer, source: Decomp.EntityRefObject, damageCountdown: integer): boolean
+---@field Kill fun(self: Decomp.EntityObject)
 ---@field Remove fun(self: Decomp.EntityObject)
 ---@field handle_collision fun(self: Decomp.EntityObject, collider: Decomp.EntityObject, low: boolean): boolean
 
@@ -94,7 +96,7 @@
 ---@field GetPersistentGameData fun(env: Decomp.EnvironmentObject): Decomp.PersistentGameDataObject
 ---@field GetMusicManager fun(env: Decomp.EnvironmentObject): Decomp.MusicManagerObject
 ---@field LogMessage fun(env:Decomp.EnvironmentObject, logType: integer, message: string, ...)
----@field RandomInt fun(env: Decomp.EnvironmentObject, max: integer): integer
+---@field RandomInt fun(env: Decomp.EnvironmentObject, max: integer?): integer
 ---@field RunCallback fun(env: Decomp.EnvironmentObject, callback: ModCallbacks, ...): any
 
 ---@class Decomp.IGame
@@ -258,6 +260,7 @@
 ---@field GetGridCollisionClass fun(entity: Decomp.EntityObject): GridCollisionClass
 ---@field GetPosition fun(entity: Decomp.EntityObject): Vector
 ---@field GetPositionOffset fun(entity: Decomp.EntityObject): Vector
+---@field GetDropSeed fun(entity: Decomp.EntityObject): integer
 ---@field GetDropRNG fun(entity: Decomp.EntityObject): RNG
 ---@field GetSprite fun(entity: Decomp.EntityObject): Sprite
 ---@field GetSize fun(entity: Decomp.EntityObject): number
@@ -281,6 +284,7 @@
 ---@field GetEffectiveMaxHearts fun(player: Decomp.EntityPlayerObject): integer
 ---@field GetSoulHearts fun(player: Decomp.EntityPlayerObject): integer
 ---@field SetFootprintColor fun(player: Decomp.EntityPlayerObject, color: KColor, force: boolean)
+---@field AddWisp fun(player: Decomp.EntityPlayerObject, collectible: CollectibleType | integer, position: Vector, adjustOrbitLayer: boolean, dontUpdate: boolean): Decomp.EntityFamiliarObject
 ---@field IsHologram fun(player: Decomp.EntityPlayerObject): boolean
 ---@field HasInstantDeathCurse fun(player: Decomp.EntityPlayerObject): boolean
 ---@field TryTriggerEvilEyeImmunity fun(player: Decomp.EntityPlayerObject, type: EntityType, variant: integer): boolean
@@ -290,10 +294,15 @@
 ---@class Decomp.IEntityPickup
 ---@field SetWait fun(pickup: Decomp.EntityPickupObject, value: integer)
 ---@field SetCycleNum fun(pickup: Decomp.EntityPickupObject, value: integer)
+---@field GetOptionsPickupIndex fun(pickup: Decomp.EntityPickupObject): integer
 ---@field SetOptionsPickupIndex fun(pickup: Decomp.EntityPickupObject, value: integer)
+---@field GetTimeout fun(pickup: Decomp.EntityPickupObject): integer
+---@field SetTouched fun(pickup: Decomp.EntityPickupObject, value: boolean)
 ---@field InitFlipState fun(pickup: Decomp.EntityPickupObject)
 ---@field ShouldIgnoreModifier fun(env: Decomp.EnvironmentObject): boolean
 ---@field CanReroll fun(pickup: Decomp.EntityPickupObject): boolean
+---@field TryRemoveCollectible fun(pickup: Decomp.EntityPickupObject)
+---@field Morph fun(pickup: Decomp.EntityPickupObject, type: EntityType, variant: PickupVariant, subtype: integer, keepPrice: boolean, keepSeed: boolean, ignoreModifiers: boolean)
 
 ---@class Decomp.IEntityTear
 ---@field ApplyTearFlagEffects fun(target: Decomp.EntityObject, position: Vector, flags: BitSet128, source: Decomp.EntityObject, damage: number)
@@ -306,6 +315,7 @@
 ---@class Decomp.IEntityList
 ---@field GetNPCCount fun(entityList: Decomp.EntityListObject): integer
 ---@field QueryRadius fun(entityList: Decomp.EntityListObject, position: Vector, radius: number, partition: integer): Decomp.EntityObject[]
+---@field QueryType fun(entityList: Decomp.EntityListObject, type: EntityType, variant: integer, subtype: integer, cache: boolean, ignoreFriendly: boolean): Decomp.EntityObject[]
 
 ---@class Decomp.IHitList
 ---@field IsEntityInHitList fun(hitList: Decomp.HitListObject, entity: Decomp.EntityObject): boolean

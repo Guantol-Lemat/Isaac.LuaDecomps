@@ -29,10 +29,8 @@ local UniqueRuns = Decomp.UniqueRuns
 local Item = Decomp.Item
 local Collectible = Item.Collectible
 
----@class Decomp.Object.EntityPlayer : Decomp.Class.EntityPlayer.Data, Decomp.Class.EntityPlayer.API
-
----@class Decomp.Class.EntityPlayer.Data : Decomp.Class.Entity.Data
----@field object EntityPlayer
+---@class Decomp.Object.EntityPlayer : Decomp.EntityPlayerObject, Decomp.Object.Entity
+---@field _Object EntityPlayer
 ---@field m_CacheFlags CacheFlag
 
 --#region SalvageCollectible
