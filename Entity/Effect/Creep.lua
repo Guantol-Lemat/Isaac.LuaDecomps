@@ -449,38 +449,6 @@ local function try_apply_enemy_slowing_creep_effect(creep, player, env)
         api.Entity.AddSlowing(player, source, -10, slowValue, slowColor)
     end
 
-    if creep.m_Variant ~= EffectVariant.CREEP_STATIC then
-        assert(hitTexel, "Creep's hitTexel is nil, despite being in effect radius")
-        api.EntityPlayer.SetFootprintColor(player, hitTexel, false);
-    end
-end
-
----@param creep Decomp.Object.EntityEffect
----@param player Decomp.EntityPlayerObject
----@param env Decomp.EnvironmentObject
-local function try_apply_enemy_slowing_creep_effect(creep, player, env)
-    if not can_player_be_hit_by_creep(player, env) then
-        return
-    end
-
-    local inEffectZone, hitTexel = is_player_in_creep_effect_zone(creep, player, env)
-    if not inEffectZone then
-        return
-    end
-
-    local api = env._API
-
-    if has_player_creep_immunity(player, creep.m_Variant, env) then
-        local source = api.EntityRef.Create(creep)
-        local slowColor = Color()
-        slowColor:Reset()
-        slowColor:SetTint(1.0, 1.0, 1.3, 1.0)
-        slowColor:SetOffset(40, 40, 40)
-
-        local slowValue = creep.m_Variant == EffectVariant.CREEP_WHITE and 0.75 or 0.85
-        api.Entity.AddSlowing(player, source, -10, slowValue, slowColor)
-    end
-
     assert(hitTexel, "Creep's hitTexel is nil, despite being in effect radius")
     api.EntityPlayer.SetFootprintColor(player, hitTexel, false);
 end
