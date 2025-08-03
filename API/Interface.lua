@@ -76,6 +76,8 @@
 ---@field TakeDamage fun(self: Decomp.EntityObject, damage: number, flags: DamageFlag | integer, source: Decomp.EntityRefObject, damageCountdown: integer): boolean
 ---@field Kill fun(self: Decomp.EntityObject)
 ---@field Remove fun(self: Decomp.EntityObject)
+---@field SetCollisionDamage fun(self: Decomp.EntityObject, damage: number)
+---@field SetColor fun(self: Decomp.EntityObject, color: Color)
 ---@field handle_collision fun(self: Decomp.EntityObject, collider: Decomp.EntityObject, low: boolean): boolean
 
 ---GridEntity virtual methods
@@ -247,6 +249,7 @@
 
 ---@class Decomp.IEntity
 ---@field ToPlayer fun(entity: Decomp.EntityObject): Decomp.EntityPlayerObject?
+---@field ToTear fun(entity: Decomp.EntityObject): Decomp.EntityTearObject?
 ---@field ToPickup fun(entity: Decomp.EntityObject): Decomp.EntityPickupObject?
 ---@field GetDamageEntries fun(entity: Decomp.EntityObject): Decomp.DamageEntryObject[]
 ---@field GetDamageFlags fun(entity: Decomp.EntityObject): DamageFlag
@@ -254,12 +257,15 @@
 ---@field GetVariant fun(entity: Decomp.EntityObject): integer
 ---@field GetSubType fun(entity: Decomp.EntityObject): integer
 ---@field GetParent fun(entity: Decomp.EntityObject): Decomp.EntityObject?
+---@field GetMaxHitPoints fun(entity: Decomp.EntityObject): number
+---@field SetSpawnerType fun(entity: Decomp.EntityObject, type: integer)
 ---@field GetLastSpawner fun(entity: Decomp.EntityObject): Decomp.EntityObject?
 ---@field IsDead fun(entity: Decomp.EntityObject): boolean
 ---@field GetEntityCollisionClass fun(entity: Decomp.EntityObject): EntityCollisionClass
 ---@field GetGridCollisionClass fun(entity: Decomp.EntityObject): GridCollisionClass
 ---@field GetPosition fun(entity: Decomp.EntityObject): Vector
 ---@field GetPositionOffset fun(entity: Decomp.EntityObject): Vector
+---@field GetInitSeed fun(entity: Decomp.EntityObject): integer
 ---@field GetDropSeed fun(entity: Decomp.EntityObject): integer
 ---@field GetDropRNG fun(entity: Decomp.EntityObject): RNG
 ---@field GetSprite fun(entity: Decomp.EntityObject): Sprite
@@ -305,6 +311,7 @@
 ---@field Morph fun(pickup: Decomp.EntityPickupObject, type: EntityType, variant: PickupVariant, subtype: integer, keepPrice: boolean, keepSeed: boolean, ignoreModifiers: boolean)
 
 ---@class Decomp.IEntityTear
+---@field SetTearFlags fun(tear: Decomp.EntityTearObject, flags: BitSet128)
 ---@field ApplyTearFlagEffects fun(target: Decomp.EntityObject, position: Vector, flags: BitSet128, source: Decomp.EntityObject, damage: number)
 
 ---@class Decomp.IEntityEffect
