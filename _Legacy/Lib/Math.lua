@@ -1,5 +1,5 @@
 ---@class Decomp.Lib.Math
-local Lib_Math = {}
+local Module = {}
 
 ---@class Decomp.Math.Circle
 local Circle = {}
@@ -29,14 +29,14 @@ function Circle.Collide(circle, other)
     return distance < (circle.radius + circle.radius), distance
 end
 
-Lib_Math.VectorZero = Vector(0, 0)
-Lib_Math.VectorOne = Vector(1, 1)
+Module.VectorZero = Vector(0, 0)
+Module.VectorOne = Vector(1, 1)
 
 ---@param value number
 ---@param min number
 ---@param max number
 ---@return number clampedValue
-function Lib_Math.Clamp(value, min, max)
+function Module.Clamp(value, min, max)
     return math.max(math.min(value, max),  min)
 end
 
@@ -57,7 +57,7 @@ local function MapToRange(value, previousRange, newRange, clamp)
 
     local normalizedForm = (value - previousRange[1]) / (previousRange[2] - previousRange[1])
     if clamp then
-        normalizedForm = Lib_Math.Clamp(normalizedForm, 0.0, 1.0)
+        normalizedForm = Module.Clamp(normalizedForm, 0.0, 1.0)
     end
 
     return newRange[1] + normalizedForm * (newRange[2] - newRange[1])
@@ -88,16 +88,55 @@ local function VectorCopy(vector)
     return Vector(vector.X, vector.Y)
 end
 
+---Normalizes the angle into the [-180, 180] interval
+---@param angle number
+---@return number
+local function NormalizeAngle(angle)
+    angle = math.fmod(angle, 360.0)  -- reduce to [-360, 360]
+    if angle > 180.0 then
+        return angle - 360.0
+    elseif angle < -180.0 then
+        return angle + 360.0
+    else
+        return angle
+    end
+end
+
+---@param start number
+---@param target number
+---@param interpolationFactor number
+---@return number
+local function InterpolateAngle(start, target, interpolationFactor)
+    start = NormalizeAngle(start)
+    target = NormalizeAngle(target)
+
+    local delta = target - start
+    -- Adjust for shortest path
+    if math.abs(delta) > 180 then
+        if delta > 0 then
+            start = start + 360
+        else
+            target = target + 360
+        end
+    end
+
+    -- Linear interpolation
+    local result = (target - start) * interpolationFactor + start
+    return NormalizeAngle(result)
+end
+
 --#region Module
 
-Lib_Math.Circle = Circle
+Module.Circle = Circle
 
-Lib_Math.Lerp = Lerp
-Lib_Math.MapToRange = MapToRange
-Lib_Math.TimeScaledFriction = TimeScaledFriction
-Lib_Math.IsVectorEqual = IsVectorEqual
-Lib_Math.VectorCopy = VectorCopy
+Module.Lerp = Lerp
+Module.MapToRange = MapToRange
+Module.TimeScaledFriction = TimeScaledFriction
+Module.IsVectorEqual = IsVectorEqual
+Module.VectorCopy = VectorCopy
+Module.NormalizeAngle = NormalizeAngle
+Module.InterpolateAngle = InterpolateAngle
 
 --#endregion
 
-return Lib_Math
+return Module

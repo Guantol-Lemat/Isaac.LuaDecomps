@@ -39,6 +39,14 @@ local s_BeggarSlot = Table.CreateDictionary({
     SlotVariant.BOMB_BUM, SlotVariant.BATTERY_BUM, SlotVariant.ROTTEN_BEGGAR,
 })
 
+local function pre_update()
+    if variant == SlotVariant.CRANE_GAME then
+        CraneGame_PreUpdate()
+    elseif variant == SlotVariant.MOMS_DRESSING_TABLE then
+        MomsDressingTable_PreUpdate()
+    end
+end
+
 ---@param slot EntitySlot
 local function slot_appear(slot)
     slot:SetState(0)
@@ -101,6 +109,22 @@ local s_ShouldAlwayUpdateVelocity = Table.CreateDictionary({
     SlotVariant.DONATION_MACHINE, SlotVariant.GREED_DONATION_MACHINE,
 })
 
+local function pre_timeout_decrease()
+    if variant == SlotVariant.SHOP_RESTOCK_MACHINE then
+        ShopRestock_TryShopRestock()
+    end
+
+    if variant == SlotVariant.BOMB_BUM then
+        BombBum_UpdateRage()
+    end
+end
+
+local function on_first_update()
+    if variant == SlotVariant.ROTTEN_BEGGAR then
+        RottenBeggar_SpawnParticles()
+    end
+end
+
 ---@param slot EntitySlot
 local function update_slot_physics(slot)
     local targetPosition = slot.TargetPosition
@@ -122,7 +146,7 @@ end
 
 ---@param slot EntitySlot
 local function on_timeout_end(slot)
-    --TODO
+    
 end
 
 ---@param slot EntitySlot
@@ -147,53 +171,33 @@ local function should_trigger_prize_logic(slot)
     return true
 end
 
----@param slot EntitySlot
-local function update_prize_logic(slot)
-    if should_trigger_prize_logic(slot) then
-        trigger_prize_logic()
-    else
-        update_wait_prize_logic()
-    end
-end
-
 ---@param slot Decomp.Object.EntitySlot
 local function Update(slot)
     local slotObject = slot.object
     ---@type SlotVariant
     local variant = slotObject.Variant
 
-    if variant == SlotVariant.CRANE_GAME then
-        CraneGame_PreUpdate()
-    elseif variant == SlotVariant.MOMS_DRESSING_TABLE then
-        MomsDressingTable_PreUpdate()
-    end
+    pre_update(slotObject) -- service
 
     if slotObject:HasEntityFlags(EntityFlag.FLAG_APPEAR) then
-        slot_appear(slotObject)
+        slot_appear(slotObject) -- service
     end
 
     if slotObject:GetState() == 0 then
-        init_slot(slotObject)
+        init_slot(slotObject) -- service
         return
     end
 
-    if variant == SlotVariant.ROTTEN_BEGGAR and g_Game:GetFrameCount() - slotObject.FrameCount == 1 then
-        RottenBeggar_SpawnParticles()
+    if g_Game:GetFrameCount() - slotObject.FrameCount == 1 then
+        on_first_update() -- service
     end
 
     --- The game just assumes the target is a player if not null
     local player = slotObject.Target and slotObject.Target:ToPlayer() or Isaac.GetPlayer(0)
-    local daemonsTailRNG = player:GetTrinketRNG(TrinketType.TRINKET_DAEMONS_TAIL)
-    local luckyFootRNG = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_LUCKY_FOOT)
 
     update_slot_physics(slotObject)
-    if variant == SlotVariant.SHOP_RESTOCK_MACHINE then
-        ShopRestock_TryShopRestock()
-    end
 
-    if variant == SlotVariant.BOMB_BUM then
-        BombBum_UpdateRage()
-    end
+    pre_timeout_decrease(slotObject) -- service
 
     local timeout = slotObject:GetTimeout()
     if timeout > 0 then
@@ -201,10 +205,14 @@ local function Update(slot)
     end
 
     if slotObject:GetTimeout() == 0 then
-        on_timeout_end(slotObject)
+        on_timeout_end(slotObject) -- service
     end
 
-    update_prize_logic(slotObject)
+    if should_trigger_prize_logic(slotObject) then
+        trigger_prize_logic(slotObject) -- service
+    else
+        update_wait_prize_logic(slotObject) -- service
+    end
 
     if variant == SlotVariant.SHELL_GAME or variant == SlotVariant.HELL_GAME then
         update_shell_game_shuffle_logic()

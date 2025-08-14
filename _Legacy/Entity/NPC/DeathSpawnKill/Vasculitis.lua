@@ -8,7 +8,7 @@ local SpawnCommands = require("Lib.SpawnCommands")
 local Module = {}
 
 ---@class DeathSpawnKill.VasculitisSystem
----@field package m_context Decomp.Context
+---@field package m_context Context
 ---@field package m_LevelApi Decomp.ILevel
 ---@field package m_EntityApi Decomp.IEntity
 ---@field package m_EntityTearApi Decomp.IEntityTear

@@ -28,3 +28,7 @@ function Lib_PlayerManager.AllPlayersType(playerTypes)
 
     return true
 end
+
+function Lib_PlayerManager.GetLuck()
+    -- TODO
+end

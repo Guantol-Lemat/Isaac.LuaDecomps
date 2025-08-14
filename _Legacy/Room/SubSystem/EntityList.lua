@@ -55,6 +55,10 @@ local function EL_push_back(el, entity)
     el.m_Size = el.m_Size + 1
 end
 
+local function EL_SaveState(el, vector)
+
+end
+
 --#endregion
 
 ---@param partition Decomp.Class.CellSpace.Data
