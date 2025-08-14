@@ -1,0 +1,17 @@
+---@class EntityComponent
+---@field Remove fun(self: EntityComponent, context: Context)
+---@field m_type EntityType | integer
+---@field m_variant integer
+---@field m_subtype integer
+---@field m_position Vector
+---@field m_velocity Vector
+---@field m_friction Vector
+---@field m_spawnFrame integer
+---@field m_flags EntityFlag | integer
+---@field m_entityCollisionClass EntityCollisionClass | integer
+---@field m_parent EntityComponent?
+---@field m_targetPosition Vector
+---@field m_spawnerEntity EntityComponent?
+---@field m_sprite Sprite
+---@field m_exists boolean
+---@field m_interpolated boolean

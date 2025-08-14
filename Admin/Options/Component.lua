@@ -1,0 +1,2 @@
+---@class OptionsComponent
+---@field m_mouseControlsEnabled boolean

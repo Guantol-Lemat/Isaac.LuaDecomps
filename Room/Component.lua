@@ -1,0 +1,2 @@
+---@class RoomComponent
+---@field m_renderScrollOffset Vector

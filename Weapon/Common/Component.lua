@@ -1,0 +1,9 @@
+---@class WeaponComponent
+---@field Update fun(self: WeaponComponent, context: Context, interpolationUpdate: boolean)
+---@field GetFocusEntity fun(self: WeaponComponent): EntityComponent?
+---@field GetMaxCharge fun(self: WeaponComponent): number
+---@field m_maxFireDelay number
+---@field m_weaponModifiers WeaponModifier | integer
+---@field m_charge number
+---@field m_bufferDirection_qqq Vector
+---@field m_owner EntityComponent?

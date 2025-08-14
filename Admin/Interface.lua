@@ -53,6 +53,7 @@
 ---@class Decomp.EntityTearObject : Decomp.EntityObject
 ---@class Decomp.EntityPickupObject : Decomp.EntityObject
 ---@class Decomp.EntityProjectileObject : Decomp.EntityObject
+---@class Decomp.EntityKnifeObject : Decomp.EntityObject
 ---@class Decomp.EntityEffectObject : Decomp.EntityObject
 ---@class Decomp.EntityListObject
 ---@class Decomp.EntityRefObject
@@ -248,6 +249,7 @@
 ---@field IsItemInCollection fun(persistentGameData: Decomp.PersistentGameDataObject, collectible: CollectibleType): boolean
 
 ---@class Decomp.IEntity
+---@field Equals fun(entity: Decomp.EntityObject, other: Decomp.EntityObject): boolean 
 ---@field ToPlayer fun(entity: Decomp.EntityObject): Decomp.EntityPlayerObject?
 ---@field ToTear fun(entity: Decomp.EntityObject): Decomp.EntityTearObject?
 ---@field ToPickup fun(entity: Decomp.EntityObject): Decomp.EntityPickupObject?
@@ -261,10 +263,15 @@
 ---@field SetSpawnerType fun(entity: Decomp.EntityObject, type: integer)
 ---@field GetLastSpawner fun(entity: Decomp.EntityObject): Decomp.EntityObject?
 ---@field IsDead fun(entity: Decomp.EntityObject): boolean
+---@field IsVisible fun(entity: Decomp.EntityObject): boolean
 ---@field GetEntityCollisionClass fun(entity: Decomp.EntityObject): EntityCollisionClass
 ---@field GetGridCollisionClass fun(entity: Decomp.EntityObject): GridCollisionClass
 ---@field GetPosition fun(entity: Decomp.EntityObject): Vector
+---@field SetPosition fun(entity: Decomp.EntityObject, position: Vector)
 ---@field GetPositionOffset fun(entity: Decomp.EntityObject): Vector
+---@field GetFriction fun(entity: Decomp.EntityObject): number
+---@field SetFriction fun(entity: Decomp.EntityObject, friction: number)
+---@field GetFrameCount fun(entity: Decomp.EntityObject): integer
 ---@field GetInitSeed fun(entity: Decomp.EntityObject): integer
 ---@field GetDropSeed fun(entity: Decomp.EntityObject): integer
 ---@field GetDropRNG fun(entity: Decomp.EntityObject): RNG
@@ -311,10 +318,19 @@
 ---@field Morph fun(pickup: Decomp.EntityPickupObject, type: EntityType, variant: PickupVariant, subtype: integer, keepPrice: boolean, keepSeed: boolean, ignoreModifiers: boolean)
 
 ---@class Decomp.IEntityTear
+---@field GetScale fun(tear: Decomp.EntityTearObject): number
 ---@field SetTearFlags fun(tear: Decomp.EntityTearObject, flags: BitSet128)
 ---@field ApplyTearFlagEffects fun(target: Decomp.EntityObject, position: Vector, flags: BitSet128, source: Decomp.EntityObject, damage: number)
 
 ---@class Decomp.IEntityEffect
+
+---@class EntityKnifeApi
+---@field SetTearFlags fun(knife: Decomp.EntityKnifeObject, flags: BitSet128)
+---@field HasTearFlags fun(knife: Decomp.EntityKnifeObject, flags: BitSet128): boolean
+---@field GetRotation fun(knife: Decomp.EntityKnifeObject): number
+---@field GetRotationOffset fun(knife: Decomp.EntityKnifeObject): number
+---@field GetPlayer fun(knife: Decomp.EntityKnifeObject): Decomp.EntityPlayerObject?
+---@field GetPrimaryKnife fun(knife: Decomp.EntityKnifeObject): Decomp.EntityKnifeObject
 
 ---@class Decomp.IEntityRef
 ---@field Create fun(entity: Decomp.EntityObject?): Decomp.EntityRefObject

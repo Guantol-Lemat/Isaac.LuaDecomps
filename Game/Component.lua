@@ -1,0 +1,5 @@
+---@class GameComponent
+---@field m_frameCounter integer
+---@field m_challenge Challenge
+---@field m_debugCurses LevelCurse | integer
+---@field m_screenShakeOffset Vector

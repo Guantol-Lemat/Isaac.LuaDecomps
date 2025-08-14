@@ -1,0 +1,6 @@
+---@class ScreenComponent
+---@field m_width number
+---@field m_height number
+---@field m_pointScale number
+---@field m_displayPixelsPerPoint number
+---@field m_renderingOffset Vector

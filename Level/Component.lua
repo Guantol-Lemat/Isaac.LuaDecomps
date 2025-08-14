@@ -1,0 +1,4 @@
+---@class LevelComponent
+---@field m_stage LevelStage
+---@field m_dimension Dimension
+---@field m_curses LevelCurse | integer

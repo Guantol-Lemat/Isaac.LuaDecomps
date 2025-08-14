@@ -1,0 +1,2 @@
+---@class EntityFamiliarComponent : EntityComponent
+---@field m_player EntityPlayerComponent

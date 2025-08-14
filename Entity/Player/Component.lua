@@ -1,0 +1,20 @@
+---@class EntityPlayerComponent : EntityComponent
+---@field m_playerType PlayerType | integer
+---@field m_playerIndex integer
+---@field m_maxFireDelay number
+---@field m_shootSpeed number
+---@field m_controllerIndex integer
+---@field m_controlsEnabled boolean
+---@field m_controlsCooldown integer
+---@field m_weapons WeaponComponent[]
+---@field m_itemState CollectibleType
+---@field m_headDirection Direction
+---@field m_temporaryEffects TemporaryEffectsComponent
+---@field m_babySkin BabySubType | integer
+---@field m_twinPlayer EntityPlayerComponent?
+---@field m_isCoopGhost boolean
+---@field m_isPlayingExtraAnimation boolean
+---@field m_isPlayingItemNullAnimation boolean
+---@field m_markedTarget EntityComponent?
+---@field m_peeBurstCooldown integer
+---@field m_suplexState integer
