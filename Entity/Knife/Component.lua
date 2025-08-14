@@ -1,0 +1,16 @@
+---@class EntityKnifeComponent : EntityComponent
+---@field m_tearFlags TearFlags | BitSet128
+---@field m_charge number
+---@field m_knifeVelocity number
+---@field m_rotation number
+---@field m_rotationOffset number
+---@field m_heldRotation number
+---@field m_hitboxRotation number
+---@field m_knifeDepthOffset number
+---@field m_holderPosition Vector
+---@field m_distance number
+---@field m_maxDistance number
+---@field m_distanceRelated_qqq number
+---@field m_isSwinging boolean
+---@field m_isFlying boolean
+---@field m_meleeSwingInputHeld_qqq boolean

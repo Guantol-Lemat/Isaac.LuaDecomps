@@ -1,0 +1,2 @@
+---@class WeaponBoneComponent : WeaponComponent
+---@field m_knives EntityKnifeComponent[]

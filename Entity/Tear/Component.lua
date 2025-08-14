@@ -1,0 +1,2 @@
+---@class EntityTearComponent : EntityComponent
+---@field m_scale number

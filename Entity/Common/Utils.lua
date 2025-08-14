@@ -41,6 +41,17 @@ local function ToFamiliar(entity)
 end
 
 ---@param entity EntityComponent
+---@return EntityTearComponent?
+local function ToTear(entity)
+    if entity.m_type == EntityType.ENTITY_TEAR then
+        ---@cast entity EntityTearComponent
+        return entity
+    end
+
+    return nil
+end
+
+---@param entity EntityComponent
 ---@return EntityKnifeComponent?
 local function ToKnife(entity)
     if entity.m_type == EntityType.ENTITY_KNIFE then
@@ -58,6 +69,7 @@ Module.HasAnyFlag = HasAnyFlag
 Module.SetTarget = SetTarget
 Module.ToPlayer = ToPlayer
 Module.ToFamiliar = ToFamiliar
+Module.ToTear = ToTear
 Module.ToKnife = ToKnife
 
 --#endregion
