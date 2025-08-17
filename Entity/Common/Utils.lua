@@ -9,8 +9,22 @@ end
 
 ---@param entity EntityComponent
 ---@param flags integer | EntityFlag
-local function HasAnyFlag(entity, flags)
-    return (entity.m_flags & flags) ~= 0
+local function ClearFlags(entity, flags)
+    entity.m_flags = entity.m_flags & ~flags
+end
+
+---@param entity EntityComponent
+---@param tags EntityTag | integer
+---@return boolean
+local function HasConfigTags(entity, tags)
+    return (entity.m_config.tags & tags) == tags
+end
+
+---@param entity EntityComponent
+---@param tags EntityTag | integer
+---@return boolean
+local function HasAnyConfigTags(entity, tags)
+    return (entity.m_config.tags & tags) ~= 0
 end
 
 ---@param entity EntityComponent
@@ -62,15 +76,55 @@ local function ToKnife(entity)
     return nil
 end
 
+---@param entity EntityComponent
+---@return EntityProjectileComponent?
+local function ToProjectile(entity)
+    if entity.m_type == EntityType.ENTITY_PROJECTILE then
+        ---@cast entity EntityProjectileComponent
+        return entity
+    end
+
+    return nil
+end
+
+---@param entity EntityComponent
+---@return boolean
+local function IsEnemy(entity)
+    local type = entity.m_type
+    return 10 <= type and type < 1000
+end
+
+---@param entity EntityComponent
+---@return boolean
+local function IsVulnerableEnemy(entity)
+end
+
+---@param entity EntityComponent
+---@return boolean
+local function DoesEntityShareStatus(entity)
+end
+
+---@param entity EntityComponent
+---@return EntityComponent
+local function GetStatusEffectTarget(entity)
+end
+
 --#region Module
 
 Module.HasFlags = HasFlags
-Module.HasAnyFlag = HasAnyFlag
+Module.ClearFlags = ClearFlags
+Module.HasConfigTags = HasConfigTags
+Module.HasAnyConfigTags = HasAnyConfigTags
 Module.SetTarget = SetTarget
 Module.ToPlayer = ToPlayer
 Module.ToFamiliar = ToFamiliar
 Module.ToTear = ToTear
 Module.ToKnife = ToKnife
+Module.ToProjectile = ToProjectile
+Module.IsEnemy = IsEnemy
+Module.IsVulnerableEnemy = IsVulnerableEnemy
+Module.DoesEntityShareStatus = DoesEntityShareStatus
+Module.GetStatusEffectTarget = GetStatusEffectTarget
 
 --#endregion
 

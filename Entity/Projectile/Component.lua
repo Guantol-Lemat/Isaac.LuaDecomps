@@ -1,0 +1,2 @@
+---@class EntityProjectileComponent : EntityComponent
+---@field m_projectileFlags ProjectileFlags | integer

@@ -3,7 +3,7 @@
 local EntityUtils = require("Entity.Common.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local TemporaryEffectsUtils = require("Items.TemporaryEffects.Utils")
-local StageTransitionUtils = require("Admin.Transition.Stage.Utils")
+local StageTransitionUtils = require("Game.Transition.StageTransition.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
 
 local PlayerInput = require("Entity.Player.Input")

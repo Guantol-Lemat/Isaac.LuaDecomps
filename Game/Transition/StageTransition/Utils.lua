@@ -1,4 +1,4 @@
----@class ModuleName
+---@class StageTransitionUtils
 local Module = {}
 
 ---@param stageTransition StageTransitionComponent

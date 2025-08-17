@@ -1,0 +1,2 @@
+---@class EntityConfigComponent
+---@field tags EntityTag | integer

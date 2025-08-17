@@ -1,40 +1,22 @@
----@class Decomp.Enum
-local Enums = {}
-Decomp.Enums = Enums
+---@class Enums
+local Module = {}
 
----@enum Decomp.Enum.eBasicEntityType
-Enums.eBasicEntityType = {
-    ENTITY = 1,
-    PLAYER = 2,
-    TEAR = 3,
-    FAMILIAR = 4,
-    BOMB = 5,
-    PICKUP = 6,
-    SLOT = 7,
-    LASER = 8,
-    KNIFE = 9,
-    PROJECTILE = 10,
-    NPC = 11,
-    EFFECT = 12,
-    TEXT = 13,
-}
-
----@enum Decomp.Enum.ePickVelType
-Enums.ePickVelType = {
+---@enum ePickVelType
+Module.ePickVelType = {
     DEFAULT = 0,
     BEGGAR = 1
 }
 
----@enum Decomp.Enum.ePurityState
-Enums.ePurityState = {
+---@enum ePurityState
+Module.ePurityState = {
     DAMAGE = 0,
     TEARS = 1,
     SPEED = 2,
     RANGE = 3
 }
 
----@enum Decomp.Enum.eStatModifiers
-Enums.eStatModifiers = {
+---@enum eStatModifiers
+Module.eStatModifiers = {
     DAMAGE = 1,
     TEARS = 2,
     RANGE = 3,
@@ -43,8 +25,8 @@ Enums.eStatModifiers = {
     LUCK = 6,
 }
 
----@enum Decomp.Enum.eWeaponModifiers
-Enums.eWeaponModifiers = {
+---@enum eWeaponModifiers
+Module.eWeaponModifiers = {
     CHOCOLATE_MILK = 0,
     CURSED_EYE = 1,
     BRIMSTONE = 2,
@@ -58,8 +40,8 @@ Enums.eWeaponModifiers = {
     C_SECTION = 11,
 }
 
----@enum Decomp.Enum.eShopItemType
-Enums.eShopItemType = {
+---@enum eShopItemType
+Module.eShopItemType = {
     HEART_FULL = 0,
     BOMB_SINGLE = 1,
     PILL = 2,
@@ -83,9 +65,17 @@ Enums.eShopItemType = {
     HOLY_CARD = 20
 }
 
----@enum Decomp.Enum.eRoomConfigFlag
-Enums.eRoomConfigFlag = {
+---@enum eGridCollisionClass
+Module.eGridCollisionClass = {
+    WALLS_X = GridCollisionClass.COLLISION_PIT,
+    WALLS_Y = GridCollisionClass.COLLISION_OBJECT,
+    NO_PITS = 6,
+    PITS_ONLY = 7,
+}
+
+---@enum eRoomConfigFlag
+Module.eRoomConfigFlag = {
     MINESHAFT_CHASE = 1 << 1,
 }
 
-return Enums
+return Module

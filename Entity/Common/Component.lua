@@ -1,17 +1,30 @@
 ---@class EntityComponent
 ---@field Remove fun(self: EntityComponent, context: Context)
+---@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
 ---@field m_type EntityType | integer
 ---@field m_variant integer
 ---@field m_subtype integer
+---@field m_config EntityConfigComponent
 ---@field m_position Vector
 ---@field m_velocity Vector
----@field m_friction Vector
+---@field m_size number
+---@field m_friction number
+---@field m_timescale number
 ---@field m_spawnFrame integer
 ---@field m_flags EntityFlag | integer
 ---@field m_entityCollisionClass EntityCollisionClass | integer
+---@field m_gridCollisionClass GridCollisionClass | integer
+---@field m_collisionDamage number
+---@field m_velocityOnGridCollide Vector
+---@field m_wallBounceDirection Vector
 ---@field m_parent EntityComponent?
 ---@field m_targetPosition Vector
 ---@field m_spawnerEntity EntityComponent?
+---@field m_target EntityComponent?
+---@field m_minecart EntityComponent?
 ---@field m_sprite Sprite
+---@field m_preInterpolatePosition Vector
 ---@field m_exists boolean
+---@field m_isDead boolean
 ---@field m_interpolated boolean
+---@field m_collidesWithGrid boolean

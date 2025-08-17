@@ -4,7 +4,7 @@ local ScreenUtils = require("Admin.Screen.Utils")
 
 --#endregion
 
----@class ModuleName
+---@class ScreenRules
 local Module = {}
 
 ---@param context Context
@@ -22,9 +22,16 @@ local function WorldToScreenPosition(context, screen, position)
     return screenPosition
 end
 
+---@param context Context
+---@param screen ScreenComponent
+---@return boolean
+local function ShouldTriggerLostFocusPause(context, screen)
+end
+
 --#region Module
 
-
+Module.WorldToScreenPosition = WorldToScreenPosition
+Module.ShouldTriggerLostFocusPause = ShouldTriggerLostFocusPause
 
 --#endregion
 

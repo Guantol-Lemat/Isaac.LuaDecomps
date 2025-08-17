@@ -3,3 +3,5 @@
 ---@field m_challenge Challenge
 ---@field m_debugCurses LevelCurse | integer
 ---@field m_screenShakeOffset Vector
+---@field m_roomTransition RoomTransitionComponent
+---@field m_stageTransition StageTransitionComponent

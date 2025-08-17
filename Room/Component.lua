@@ -1,2 +1,3 @@
 ---@class RoomComponent
+---@field m_type RoomType | integer
 ---@field m_renderScrollOffset Vector
