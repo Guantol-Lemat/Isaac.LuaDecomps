@@ -5,6 +5,8 @@
 ---@field m_variant integer
 ---@field m_subtype integer
 ---@field m_config EntityConfigComponent
+---@field m_initSeed integer
+---@field m_dropRNG RNG
 ---@field m_position Vector
 ---@field m_velocity Vector
 ---@field m_size number

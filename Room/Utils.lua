@@ -18,10 +18,16 @@ local function GetClampedPosition(room, position, margin)
     return GetClampedPositionRaw(room, position, marginVector, marginVector)
 end
 
+---@param room RoomComponent
+---@return RenderMode
+local function GetRenderMode(room)
+end
+
 --#region Module
 
 Module.GetClampedPositionRaw = GetClampedPositionRaw
 Module.GetClampedPosition = GetClampedPosition
+Module.GetRenderMode = GetRenderMode
 
 --#endregion
 

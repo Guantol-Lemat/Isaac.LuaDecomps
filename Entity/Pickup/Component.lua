@@ -1,0 +1,5 @@
+---@class EntityPickupComponent : EntityComponent
+---@field m_collectedCoopItems integer
+---@field m_flipState PickupSaveStateComponent?
+---@field m_flipCollectibleSprite Sprite
+---@field m_touched boolean

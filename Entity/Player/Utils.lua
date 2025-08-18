@@ -20,6 +20,12 @@ end
 
 ---@param player EntityPlayerComponent
 ---@return boolean
+local function IsMainPlayerCharacter(player)
+    return player.m_parent == nil and IsMainTwin(player)
+end
+
+---@param player EntityPlayerComponent
+---@return boolean
 local function IsHologram(player)
     if not player.m_exists then
         return false
@@ -67,6 +73,7 @@ end
 
 --#region Module
 
+Module.IsMainPlayerCharacter = IsMainPlayerCharacter
 Module.GetMainTwin = GetMainTwin
 Module.IsMainTwin = IsMainTwin
 Module.IsHologram = IsHologram
