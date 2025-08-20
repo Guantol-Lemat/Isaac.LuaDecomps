@@ -2,6 +2,17 @@
 local Module = {}
 
 ---@param room RoomComponent
+---@return boolean
+local function IsBeastDungeon(room)
+    local data = room.m_roomDescriptor.m_data
+    if not data then
+        return false
+    end
+
+    return data.m_type == RoomType.ROOM_DUNGEON and data.m_stageID == StbType.HOME
+end
+
+---@param room RoomComponent
 ---@param position Vector
 ---@param topLeft Vector
 ---@param bottomRight Vector
@@ -25,6 +36,7 @@ end
 
 --#region Module
 
+Module.IsBeastDungeon = IsBeastDungeon
 Module.GetClampedPositionRaw = GetClampedPositionRaw
 Module.GetClampedPosition = GetClampedPosition
 Module.GetRenderMode = GetRenderMode

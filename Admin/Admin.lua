@@ -7,10 +7,16 @@
 ---@field GetLevel fun(self: Context): LevelComponent
 ---@field GetRoom fun(self: Context): RoomComponent
 ---@field GetPlayerManager fun(self: Context): PlayerManagerComponent
+---@field GetPlayer fun(self: Context, playerIndex: integer): EntityPlayerComponent
 ---@field GetItemPool fun(self: Context): ItemPoolComponent
 ---@field GetSeeds fun(self: Context): SeedsComponent
 ---@field GetOptions fun(self: Context): OptionsComponent
 ---@field GetInput fun(self: Context): InputComponent
 ---@field GetScreen fun(self: Context): ScreenComponent
+---@field GetHUD fun(self: Context): HUDComponent
+---@field GetRoomTransition fun(self: Context): RoomTransitionComponent
 ---@field GetStageTransition fun(self: Context): StageTransitionComponent
+---@field GetNetplayManager fun(self: Context): NetplayManagerComponent
 ---@field GetDeathmatchManager fun(self: Context): DeathmatchManagerComponent
+---@field GetFont fun(self: Context, fontName: string): Font
+---@field GetString fun(self: Context, stringId: eStringKeys): string?

@@ -12,8 +12,30 @@ end
 ---@param a number
 ---@param b number
 ---@param blendFactor number
+---@return number value
 local function Lerp(a, b, blendFactor)
     return (b - a) * blendFactor + a
+end
+
+---@param a number
+---@param b number
+---@param value number
+---@return number blendFactor
+local function InverseLerp(a, b, value)
+    assert(a ~= b, "start and end values cannot be the same.")
+    return (value - a) / (b - a)
+end
+
+---@param current number
+---@param target number
+---@param rate number
+---@return number
+local function MoveTowards(current, target, rate)
+    local delta = target - current
+    local step = delta < 0 and -rate or rate
+    step = math.abs(delta) < rate and delta or step
+
+    return current + step
 end
 
 ---@param value number
@@ -92,6 +114,8 @@ end
 
 Module.Clamp = Clamp
 Module.Lerp = Lerp
+Module.InverseLerp = InverseLerp
+Module.MoveTowards = MoveTowards
 Module.MapToRange = MapToRange
 Module.TimeScaledFriction = TimeScaledFriction
 Module.NormalizeAngle = NormalizeAngle

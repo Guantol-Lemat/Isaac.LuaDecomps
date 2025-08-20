@@ -1,2 +1,6 @@
 ---@class OptionsComponent
+---@field m_hudOffset number
+---@field m_historyHudMode integer
+---@field m_enableFoundHUD boolean
+---@field m_mapOpacity number
 ---@field m_mouseControlsEnabled boolean

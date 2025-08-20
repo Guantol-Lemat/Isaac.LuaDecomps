@@ -28,9 +28,16 @@ local function GetEffectiveStage(context, level)
     return stage
 end
 
+---@param context Context
+---@param level LevelComponent
+---@param sticky boolean
+local function ShowName(context, level, sticky)
+end
+
 --#region Module
 
 Module.GetEffectiveStage = GetEffectiveStage
+Module.ShowName = ShowName
 
 --#endregion
 
