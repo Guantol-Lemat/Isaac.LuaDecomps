@@ -1,0 +1,1 @@
+---@class EntityBombComponent : EntityComponent

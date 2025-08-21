@@ -22,3 +22,4 @@
 ---@field GetDeathmatchManager fun(self: Context): DeathmatchManagerComponent
 ---@field GetFont fun(self: Context, fontName: string): Font
 ---@field GetString fun(self: Context, stringId: eStringKeys): string?
+---@field Random fun(self: Context): integer

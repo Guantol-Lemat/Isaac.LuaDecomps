@@ -1,4 +1,5 @@
 ---@class EntityComponent
+---@field Update fun(self: EntityComponent, context: Context)
 ---@field Remove fun(self: EntityComponent, context: Context)
 ---@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
 ---@field m_type EntityType | integer

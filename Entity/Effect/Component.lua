@@ -1,0 +1,3 @@
+---@class EntityEffectComponent : EntityComponent
+---@field m_minRadius number
+---@field m_maxRadius number
