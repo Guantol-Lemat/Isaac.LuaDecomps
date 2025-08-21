@@ -1,4 +1,19 @@
 ---@class LevelComponent
----@field m_stage LevelStage
+---@field m_stage LevelStage | integer
+---@field m_stageType StageType | integer
+---@field m_dimensionLookups integer[][]
+---@field m_currentDimensionLookup integer[]
+---@field m_roomIdx GridRooms | integer
+---@field m_lastRoomIdx GridRooms | integer
+---@field m_startingRoomIdx GridRooms | integer
 ---@field m_dimension Dimension
+---@field m_lastDimension Dimension
+---@field m_enterDoor DoorSlot | integer
+---@field m_leaveDoor DoorSlot | integer
 ---@field m_curses LevelCurse | integer
+---@field m_levelStateFlags LevelStateFlag | integer
+---@field m_generationRNG RNG
+---@field m_devilAngelRoomRNG RNG
+---@field m_dungeonPlacementSeed integer
+---@field m_isDevilRoomDisabled boolean
+---@field m_isInitializing boolean

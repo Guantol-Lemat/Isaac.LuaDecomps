@@ -3,9 +3,11 @@
 
 ---@class Context
 ---@field GetStaticContext fun(self: Context): StaticContext
+---@field GetPersistentGameData fun(self: Context): PersistentDataComponent
 ---@field GetGame fun(self: Context): GameComponent
 ---@field GetLevel fun(self: Context): LevelComponent
 ---@field GetRoom fun(self: Context): RoomComponent
+---@field GetChallengeParams fun(self: Context, challenge: Challenge | integer): ChallengeParamsComponent
 ---@field GetPlayerManager fun(self: Context): PlayerManagerComponent
 ---@field GetPlayer fun(self: Context, playerIndex: integer): EntityPlayerComponent
 ---@field GetItemPool fun(self: Context): ItemPoolComponent

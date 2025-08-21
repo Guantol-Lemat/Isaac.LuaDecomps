@@ -1,7 +1,11 @@
 ---@class GameComponent
 ---@field m_frameCounter integer
 ---@field m_challenge Challenge
----@field m_debugCurses LevelCurse | integer
+---@field m_dailyChallenge DailyChallengeComponent
+---@field m_difficulty Difficulty
+---@field m_gameStateFlags GameStateFlag | integer
+---@field m_victoryLap integer
 ---@field m_screenShakeOffset Vector
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
+---@field m_debugCurses LevelCurse | integer

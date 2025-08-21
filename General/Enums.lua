@@ -78,4 +78,10 @@ Module.eRoomConfigFlag = {
     MINESHAFT_CHASE = 1 << 1,
 }
 
+---@enum eSpecialDailyRuns
+Module.eSpecialDailyRuns = {
+    SATORU_IWATA_S_BIRTHDAY = 18,
+    I_FORGOT_DAY = 38,
+}
+
 return Module

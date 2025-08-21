@@ -2,7 +2,7 @@
 
 local TableUtils = require("General.Table")
 local SeedsUtils = require("Admin.Seeds.Utils")
-local CurseRules = require("Level.Curse.Rules")
+local LevelRules = require("Level.Rules")
 
 --#endregion
 
@@ -55,7 +55,7 @@ local function hook_is_blind_effect_active(context, isBlind)
         return false
     end
 
-    if CurseRules.HasCurses(context, level, LevelCurse.CURSE_OF_BLIND) then
+    if LevelRules.HasCurses(context, level, LevelCurse.CURSE_OF_BLIND) then
         return true
     end
 
