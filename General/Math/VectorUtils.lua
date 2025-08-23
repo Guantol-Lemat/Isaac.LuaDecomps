@@ -37,6 +37,14 @@ local function AxisAlign(vector)
     return Vector(length * dominantAxis.X, length * dominantAxis.Y)
 end
 
+---@param x number
+---@param y number
+---@param z number
+---@return number
+local function Vec3Length(x, y, z)
+    return math.sqrt(x^2 + y^2 + z^2)
+end
+
 --#region Module
 
 Module.VectorZero = VectorZero
@@ -44,6 +52,7 @@ Module.VectorOne = VectorOne
 Module.Equals = Equals
 Module.Copy = Copy
 Module.AxisAlign = AxisAlign
+Module.Vec3Length = Vec3Length
 
 --#endregion
 
