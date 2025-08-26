@@ -27,17 +27,17 @@ Module.eStatModifiers = {
 
 ---@enum eWeaponModifiers
 Module.eWeaponModifiers = {
-    CHOCOLATE_MILK = 0,
-    CURSED_EYE = 1,
-    BRIMSTONE = 2,
-    MONSTROS_LUNG = 3,
-    LUDOVICO_TECHNIQUE = 4,
-    ANTI_GRAVITY = 5,
-    TRACTOR_BEAM = 6,
-    SOY_MILK = 7,
-    NEPTUNUS = 8,
-    AZAZELS_SNEEZE = 9,
-    C_SECTION = 11,
+    CHOCOLATE_MILK = 1 << 0,
+    CURSED_EYE = 1 << 1,
+    BRIMSTONE = 1 << 2,
+    MONSTROS_LUNG = 1 << 3,
+    LUDOVICO_TECHNIQUE = 1 << 4,
+    ANTI_GRAVITY = 1 << 5,
+    TRACTOR_BEAM = 1 << 6,
+    SOY_MILK = 1 << 7,
+    NEPTUNUS = 1 << 8,
+    AZAZELS_SNEEZE = 1 << 9,
+    C_SECTION = 1 << 11,
 }
 
 ---@enum eShopItemType

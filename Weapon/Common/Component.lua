@@ -6,4 +6,5 @@
 ---@field m_weaponModifiers WeaponModifier | integer
 ---@field m_charge number
 ---@field m_bufferDirection_qqq Vector
+---@field m_targetPosition Vector
 ---@field m_owner EntityComponent?

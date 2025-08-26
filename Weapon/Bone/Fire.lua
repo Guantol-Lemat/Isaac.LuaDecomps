@@ -65,7 +65,7 @@ local function get_shooting_input(context, weapon, shootingInput, playerOwner)
     end
 
     if WeaponRules.IsAxisAligned(context, weapon) then
-        shootingInput = VectorUtils.AxisAlign(shootingInput)
+        shootingInput = VectorUtils.AxisAligned(shootingInput)
     end
 
     return shootingInput

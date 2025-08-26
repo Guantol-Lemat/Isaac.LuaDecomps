@@ -79,7 +79,7 @@ local function hook_movement_input(context, player, movementInput)
     end
 
     if SeedsUtils.HasSeedEffect(seeds, SeedEffect.SEED_AXIS_ALIGNED_CONTROLS) then
-        movementInput = VectorUtils.AxisAlign(movementInput)
+        movementInput = VectorUtils.AxisAligned(movementInput)
     end
 
     if MirrorUtils.IsMirrorWorld(context, game, level) then
@@ -131,7 +131,7 @@ local function hook_shooting_input(context, player, shootingInput)
     end
 
     if SeedsUtils.HasSeedEffect(seeds, SeedEffect.SEED_AXIS_ALIGNED_CONTROLS) then
-        shootingInput = VectorUtils.AxisAlign(shootingInput)
+        shootingInput = VectorUtils.AxisAligned(shootingInput)
     end
 
     if MirrorUtils.IsMirrorWorld(context, game, level) then

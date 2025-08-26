@@ -2,6 +2,8 @@
 ---@field entity EntityComponent?
 ---@field type EntityType | integer
 ---@field variant integer
+---@field spawnerType EntityType | integer
+---@field flags EntityFlag | integer
 
 ---@class EntityRefComponentUtils
 local Module = {}

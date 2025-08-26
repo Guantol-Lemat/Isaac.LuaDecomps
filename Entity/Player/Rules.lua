@@ -19,9 +19,32 @@ local function IsLocalPlayer(context, player)
     return NetplayUtils.IsIdxLocalPlayer(netplayManager, player.m_controllerIndex)
 end
 
+---@param context Context
+---@param player EntityPlayerComponent
+---@param realPlayer EntityPlayerComponent
+---@return EntityPlayerComponent
+local function hook_get_real_player(context, player, realPlayer)
+    local twin = player.m_twinPlayer
+    if player.m_playerType == PlayerType.PLAYER_THESOUL_B and twin then
+        realPlayer = twin
+    end
+
+    return realPlayer
+end
+
+---@param context Context
+---@param player EntityPlayerComponent
+---@return EntityPlayerComponent
+local function GetRealPlayer(context, player)
+    local realPlayer = player
+    realPlayer = hook_get_real_player(context, player, realPlayer)
+    return realPlayer
+end
+
 --#region Module
 
 Module.IsLocalPlayer = IsLocalPlayer
+Module.GetRealPlayer = GetRealPlayer
 
 --#endregion
 

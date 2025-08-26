@@ -31,7 +31,7 @@ end
 
 ---@param vector Vector
 ---@return Vector
-local function AxisAlign(vector)
+local function AxisAligned(vector)
     local length = vector:Length()
     local dominantAxis = get_dominant_axis(vector)
     return Vector(length * dominantAxis.X, length * dominantAxis.Y)
@@ -51,7 +51,7 @@ Module.VectorZero = VectorZero
 Module.VectorOne = VectorOne
 Module.Equals = Equals
 Module.Copy = Copy
-Module.AxisAlign = AxisAlign
+Module.AxisAligned = AxisAligned
 Module.Vec3Length = Vec3Length
 
 --#endregion
