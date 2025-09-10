@@ -1,6 +1,8 @@
 ---@class ScreenComponent
----@field m_width number
----@field m_height number
+---@field m_windowWidth number
+---@field m_windowHeight number
+---@field m_width number -- window width scaled to pointScale
+---@field m_height number -- window height scaled to pointScale
 ---@field m_pointScale number
 ---@field m_displayPixelsPerPoint number
 ---@field m_renderingOffset Vector

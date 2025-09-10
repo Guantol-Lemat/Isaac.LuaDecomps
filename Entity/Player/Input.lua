@@ -184,23 +184,23 @@ local function GetMouseShootingInput(context, player)
         focusEntity = player
     end
 
-    local focusPosition = ScreenUtils.GetScreenPosition(screen, focusEntity.m_position, true)
-    focusPosition = focusPosition + room.m_renderScrollOffset
+    local focusRenderPosition = ScreenUtils.GetScreenPosition(screen, focusEntity.m_position, true)
+    focusRenderPosition = focusRenderPosition + room.m_renderScrollOffset
 
     if IsMirrorWorld then
-        focusPosition = screen.m_width - focusPosition
+        focusRenderPosition.X = screen.m_width - focusRenderPosition.X -- get mirrored screen position
     end
 
-    focusPosition = focusPosition + screen.m_renderingOffset
+    focusRenderPosition = focusRenderPosition + screen.m_renderingOffset
 
-    local aspectRatio = screen.m_width / screen.m_height
-    focusPosition = focusPosition * aspectRatio
+    local pointScale = screen.m_windowHeight / screen.m_height -- don't know why they didn't just get the point scale
+    local focusWindowPosition = focusRenderPosition * pointScale
 
-    local fireDirection = InputUtils.GetMousePosition(input) - focusEntity
-    fireDirection = fireDirection * 0.2
+    local fireDirection = InputUtils.GetMousePosition(input) - focusWindowPosition
+    fireDirection = fireDirection * 0.02
 
     if IsMirrorWorld then
-        fireDirection = fireDirection * -1.0
+        fireDirection.X = -fireDirection.X
     end
 
     return fireDirection
