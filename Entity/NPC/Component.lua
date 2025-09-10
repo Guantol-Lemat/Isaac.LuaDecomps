@@ -1,1 +1,2 @@
 ---@class EntityNPCComponent : EntityComponent
+---@field m_state integer
