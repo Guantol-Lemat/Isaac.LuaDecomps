@@ -82,11 +82,20 @@ local function Morph(context, entity, type, variant, subtype, keepPrice, keepSee
 
 end
 
+---@param context Context
+---@param room RoomComponent
+---@param position Vector
+---@param velocityType ePickVelType
+---@param rng RNG?
+local function GetRandomPickupVelocity(context, room, position, velocityType, rng)
+end
+
 --#region Module
 
 Module.CanReroll = CanReroll
 Module.IsBlindEffectActive = IsBlindEffectActive
 Module.Morph = Morph
+Module.GetRandomPickupVelocity = GetRandomPickupVelocity
 
 --#endregion
 

@@ -11,6 +11,7 @@
 ---@field m_weapons WeaponComponent[]
 ---@field m_itemState CollectibleType
 ---@field m_headDirection Direction
+---@field m_collectibleRNG RNG[]
 ---@field m_temporaryEffects TemporaryEffectsComponent
 ---@field m_twinPlayer EntityPlayerComponent?
 ---@field m_isCoopGhost boolean

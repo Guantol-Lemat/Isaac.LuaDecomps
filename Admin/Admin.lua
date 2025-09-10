@@ -20,6 +20,7 @@
 ---@field GetStageTransition fun(self: Context): StageTransitionComponent
 ---@field GetNetplayManager fun(self: Context): NetplayManagerComponent
 ---@field GetDeathmatchManager fun(self: Context): DeathmatchManagerComponent
+---@field GetSFXManager fun(self: Context): SFXManagerComponent
 ---@field GetFont fun(self: Context, fontName: string): Font
 ---@field GetString fun(self: Context, stringId: eStringKeys): string?
 ---@field Random fun(self: Context): integer

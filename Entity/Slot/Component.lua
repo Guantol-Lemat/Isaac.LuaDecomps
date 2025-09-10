@@ -1,1 +1,2 @@
 ---@class EntitySlotComponent : EntityComponent
+---@field m_state integer
