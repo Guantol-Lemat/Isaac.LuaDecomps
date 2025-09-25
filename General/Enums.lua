@@ -84,4 +84,65 @@ Module.eSpecialDailyRuns = {
     I_FORGOT_DAY = 38,
 }
 
+---@enum eDoorFlags
+Module.eDoorFlags = {
+    DOOR_LEFT0 = 1 << DoorSlot.LEFT0,
+    DOOR_RIGHT0 = 1 << DoorSlot.RIGHT0,
+    DOOR_UP0 = 1 << DoorSlot.UP0,
+    DOOR_DOWN0 = 1 << DoorSlot.DOWN0,
+    DOOR_LEFT1 = 1 << DoorSlot.LEFT1,
+    DOOR_RIGHT1 = 1 << DoorSlot.RIGHT1,
+    DOOR_UP1 = 1 << DoorSlot.UP1,
+    DOOR_DOWN1 = 1 << DoorSlot.DOWN1,
+}
+
+---@enum eDisplayFlags
+Module.eDisplayFlags = {
+    DISPLAY_NONE = 0,
+    DISPLAY_BOX = 1 << RoomDescriptor.DISPLAY_BOX,
+    DISPLAY_LOCK = 1 << RoomDescriptor.DISPLAY_LOCK,
+    DISPLAY_ICON =  1 << RoomDescriptor.DISPLAY_ICON,
+}
+
+---@enum eShaders
+Module.eShaders = {
+    COLOR_OFFSET = 0,
+    PIXELATION = 1,
+    BLOOM = 2,
+    COLOR_CORRECTION = 3,
+    HQ4X = 4,
+    SHOCKWAVE = 5,
+    OLD_TV = 6,
+    WATER = 7,
+    HALLUCINATION = 8,
+    COLOR_MOD = 9,
+    COLOR_OFFSET_CHAMPION = 10,
+    WATER_V2 = 11,
+    BACKGROUND = 12,
+    WATER_OVERLAY = 13,
+    COLOR_OFFSET_DOGMA = 15,
+    COLOR_OFFSET_GOLD = 16,
+    DIZZY = 17,
+    HEAT_WAVE = 18,
+    MIRROR = 19,
+}
+
+---@enum eAnimationFlags
+Module.eAnimationFlags = {
+    IGNORE_COLOR_MODIFIERS = 1 << 0,
+    GLITCH = 1 << 1,
+    IS_LIGHT = 1 << 2,
+    APPLY_LAYER_SCALE_TO_SPRITE = 1 << 3,
+    CHAMPION = 1 << 4,
+    STATIC = 1 << 5,
+    IGNORE_GAME_TIME = 1 << 6,
+    GOLDEN = 1 << 7,
+    USE_SIMPLE_COLOR_OFFSET = 1 << 8, -- unused since there is no 
+    PROCEDURAL = 1 << 9,
+    HAS_LAYER_LIGHTING = 1 << 10,
+    HAS_NULL_LAYER_LIGHTING = 1 << 11,
+    GLOW_UNK = 1 << 12,
+    UNK_3 = 1 << 13,
+}
+
 return Module

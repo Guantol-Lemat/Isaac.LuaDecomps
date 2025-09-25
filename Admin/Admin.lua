@@ -1,7 +1,8 @@
 ---@class Admin
----@field context Context
+---@field m_frameCount number
 
 ---@class Context
+---@field GetAdmin fun(self: Context): Admin
 ---@field GetStaticContext fun(self: Context): StaticContext
 ---@field GetPersistentGameData fun(self: Context): PersistentDataComponent
 ---@field GetGame fun(self: Context): GameComponent
@@ -21,6 +22,12 @@
 ---@field GetNetplayManager fun(self: Context): NetplayManagerComponent
 ---@field GetDeathmatchManager fun(self: Context): DeathmatchManagerComponent
 ---@field GetSFXManager fun(self: Context): SFXManagerComponent
+---@field GetSystemManager fun(self: Context): SystemAdminComponent
+---@field GetGraphicsManager fun(self: Context): GraphicsAdminComponent
+---@field GetImageManager fun(self: Context): ImageAdminComponent
+---@field GetANM2Manager fun(self: Context): ANM2AdminComponent
 ---@field GetFont fun(self: Context, fontName: string): Font
 ---@field GetString fun(self: Context, stringId: eStringKeys): string?
+---@field LogMessage fun(self: Context, type: integer, message: string)
+---@field LoadShader fun(self: Context, shader: eShaders)
 ---@field Random fun(self: Context): integer

@@ -1,0 +1,12 @@
+---@class ColorModComponent
+---@field tintR number
+---@field tintG number
+---@field tintB number
+---@field tintA number
+---@field offsetR number
+---@field offsetG number
+---@field offsetB number
+---@field colorizeR number
+---@field colorizeG number
+---@field colorizeB number
+---@field colorizeA number

@@ -1,0 +1,108 @@
+---@class ANM2AdminComponent
+---@field g_ScreenShakingEnabled boolean
+---@field g_RenderLight boolean
+---@field g_ReflectionRendering boolean
+---@field g_GlitchRendering boolean
+---@field g_GlitchRNG RNG
+---@field g_SpritePixelationAmount number
+---@field g_SpriteClipPaneNormal Vector
+---@field g_SpriteClipPaneThreshold number
+---@field g_ColorOverrideStack Color[]
+
+---@class ANM2Component
+---@field m_fileName string
+---@field m_defaultAnimationName string
+---@field m_animationState unknown
+---@field m_overlayAnimationState unknown
+---@field m_renderOverlayFirst boolean
+---@field m_animations AnimationComponent[]
+---@field m_layerStates LayerStateComponent[]
+---@field m_nullLayerNames string[]
+---@field m_events string[]
+---@field m_offset Vector
+---@field m_scale Vector
+---@field m_rotation number
+---@field m_color Color
+---@field m_championColor Color
+---@field m_flipX boolean
+---@field m_flipY boolean
+---@field m_playbackSpeed number
+---@field m_loaded boolean
+---@field m_shadowLayer integer
+---@field m_flags eAnimationFlags | integer
+
+---@class AnimationStateComponent
+---@field m_anm2 ANM2Component
+---@field m_data AnimationComponent
+---@field m_layerFrames integer[] -- an array of frame indexes, indexed by layerId
+---@field m_nullLayerFrames integer[] -- an array of frame indexes, indexed by nullLayerId
+---@field m_currentFrame number -- is a float to support playback speed
+---@field m_isPlaying boolean
+---@field m_currentlyTriggeredEvents integer -- bitset
+---@field m_previouslyTriggeredEvents integer -- bitset
+
+---@class AnimationComponent
+---@field m_name string
+---@field m_layers AnimationLayerComponent[]
+---@field m_nullLayers NullLayerComponent[]
+---@field m_length integer
+---@field m_loop boolean
+---@field m_layerMap integer[] -- 64 long
+
+---@class LayerStateComponent
+---@field m_data unknown
+---@field m_anm2 ANM2Component
+---@field m_spriteSheetPath string
+---@field m_minFilterMode integer
+---@field m_magFilterMode integer
+---@field m_wrapSMode integer
+---@field m_wrapTMode integer
+---@field m_proceduralImage boolean
+---@field m_flipX boolean
+---@field m_flipY boolean
+---@field m_scale Vector
+---@field m_rotation number
+---@field m_position Vector
+---@field m_color Color
+---@field m_visible boolean
+---@field m_blendMode BlendModeComponent
+---@field m_flags eAnimationFlags | integer
+---@field m_cropOffset Vector
+---@field m_spriteSheet ImageComponent?
+
+---@class AnimationLayerComponent
+---@field m_layerId integer
+---@field m_frames FrameComponent[]
+---@field m_frameCount integer
+---@field m_visible boolean
+
+---@class FrameComponent
+---@field m_crop Vector
+---@field m_width number
+---@field m_height number
+---@field m_position Vector
+---@field m_scale Vector
+---@field m_pivot Vector
+---@field m_duration integer
+---@field m_visible boolean
+---@field m_color Color
+---@field m_rotation number
+---@field m_interpolated boolean
+---@field m_startFrame integer
+---@field m_endFrame integer
+
+---@class NullLayerComponent
+---@field m_id integer
+---@field m_enabled boolean
+---@field m_frames NullFrameComponent[]
+
+---@class NullFrameComponent
+---@field m_position Vector
+---@field m_duration integer
+---@field m_isVisible boolean
+---@field m_scale Vector
+---@field m_color Color
+---@field m_rotation number
+---@field m_interpolated boolean
+---@field m_startFrame integer
+---@field m_endFrame integer

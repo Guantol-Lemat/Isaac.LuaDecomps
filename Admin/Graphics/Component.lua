@@ -1,0 +1,31 @@
+---@class GraphicsAdminComponent
+---@field SetClearColor fun(self: GraphicsAdminComponent, r: number, g: number, b: number, a: number)
+---@field SetRenderTargetTexture fun(self: GraphicsAdminComponent, texture: ImageComponent, useScreenSize: boolean)
+---@field GetCurrentRenderTarget fun(self: GraphicsAdminComponent): ImageComponent, boolean
+---@field Clear fun(self: GraphicsAdminComponent)
+---@field SetBlendMode fun(self: GraphicsAdminComponent, blendMode: BlendModeComponent)
+---@field apply_blend_mode fun(self: GraphicsAdminComponent, blendMode: BlendModeComponent)
+---@field bind_shader fun(self: GraphicsAdminComponent, shader: ShaderComponent, shaderState: ShaderState)
+---@field render_vertices fun(self: GraphicsAdminComponent, vertexBuffer: GLvoid, vertexCount: GLsizei, vertexStride: GLsizei, indexBuffer: GLvoid, indexCount: GLsizei)
+---@field g_renderTargetStack table[] -- stores past render targets so that they may be restored
+---@field s_graphicsConfigOptions GraphicsConfigOptions
+---@field s_depth number
+---@field m_blendMode BlendModeComponent
+---@field m_shader ShaderComponent
+---@field m_renderTargetTexture ImageComponent
+---@field m_renderTargetUsesScreenSize boolean
+---@field m_cullOffscreenRendering boolean
+---@field m_useTexelFix boolean
+---@field m_usePremultipliedAlpha boolean -- RGB value are already multiplied by alpha
+---@field m_useSRGB boolean
+
+---@class GraphicsConfigOptions
+---@field s_clearColor Color
+---@field s_defaultTextureMagFilter integer
+---@field s_defaultTextureMinFilter integer
+---@field s_defaultTextureWrapS integer
+---@field s_defaultTextureWrapT integer
+---@field s_imageBucketCount integer
+---@field s_orthographicProjectionWidth number
+---@field s_orthographicProjectionHeight number
+---@field s_renderingOffset Vector

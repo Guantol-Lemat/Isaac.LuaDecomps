@@ -66,6 +66,12 @@ local function TimeScaledFriction(friction, timeScale)
     return friction / normalizationFactor
 end
 
+---@param degrees number
+---@return number radians
+local function DegreesToRadians(degrees)
+    return degrees * (math.pi / 180)
+end
+
 ---Normalizes the angle into the [-180, 180] interval
 ---@param angle number
 ---@return number
@@ -118,6 +124,7 @@ Module.InverseLerp = InverseLerp
 Module.MoveTowards = MoveTowards
 Module.MapToRange = MapToRange
 Module.TimeScaledFriction = TimeScaledFriction
+Module.DegreesToRadians = DegreesToRadians
 Module.NormalizeAngle = NormalizeAngle
 Module.InterpolateAngle = InterpolateAngle
 Module.PolarToCartesian = PolarToCartesian
