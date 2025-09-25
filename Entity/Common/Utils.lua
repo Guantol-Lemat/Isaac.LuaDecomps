@@ -3,8 +3,22 @@ local Module = {}
 
 ---@param entity EntityComponent
 ---@param flags integer | EntityFlag
+---@return boolean
 local function HasFlags(entity, flags)
     return (entity.m_flags & flags) == flags
+end
+
+---@param entity EntityComponent
+---@param flags integer | EntityFlag
+---@return boolean
+local function HasAnyFlag(entity, flags)
+    return (entity.m_flags & flags) ~= 0
+end
+
+---@param entity EntityComponent
+---@param flags integer | EntityFlag
+local function AddFlags(entity, flags)
+    entity.m_flags = entity.m_flags | flags
 end
 
 ---@param entity EntityComponent
@@ -185,9 +199,24 @@ end
 local function GetStatusEffectTarget(entity)
 end
 
+---@param entity EntityComponent
+---@param velocity Vector
+---@param ignoreTimescale boolean
+local function AddVelocity(entity, velocity, ignoreTimescale)
+    local friction = entity.m_friction
+    if friction == 0.0 then
+        return
+    end
+
+    local timeScale = not ignoreTimescale and entity.m_timescale or 1.0
+    entity.m_velocity = entity.m_velocity + (timeScale * velocity) / friction
+end
+
 --#region Module
 
 Module.HasFlags = HasFlags
+Module.HasAnyFlag = HasAnyFlag
+Module.AddFlags = AddFlags
 Module.ClearFlags = ClearFlags
 Module.HasConfigTags = HasConfigTags
 Module.HasAnyConfigTags = HasAnyConfigTags
@@ -209,6 +238,7 @@ Module.IsEnemy = IsEnemy
 Module.IsVulnerableEnemy = IsVulnerableEnemy
 Module.DoesEntityShareStatus = DoesEntityShareStatus
 Module.GetStatusEffectTarget = GetStatusEffectTarget
+Module.AddVelocity = AddVelocity
 
 --#endregion
 

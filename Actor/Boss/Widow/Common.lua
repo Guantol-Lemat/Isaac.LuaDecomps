@@ -1,5 +1,6 @@
 --#region Dependencies
 
+local EntityUtils = require("Entity.Common.Utils")
 local MySprite = require("Actor.Boss.Widow.Sprite")
 
 local Animations = MySprite.Animations
@@ -8,10 +9,24 @@ local Events = MySprite.Events
 --#endregion
 
 ---@class WidowComponent : EntityNPCComponent
----@field m_jumpTargetPosition Vector -- V1
+---@field m_jumpVelocity Vector -- V1
 
 ---@class WidoCommonLogic
 local Module = {}
+
+---@param widow WidowComponent
+---@param targetPosition Vector
+local function init_state_jump(widow, targetPosition)
+    widow.m_state = 6
+    widow.m_stateFrame = 0
+
+    -- I1 = 0
+    widow.m_friction = widow.m_friction * 0.7
+
+    local distance = targetPosition - widow.m_position
+    distance:Normalize()
+    widow.m_jumpVelocity = distance * 7.0
+end
 
 ---@param widow WidowComponent
 local function update_jump_physics(widow)
@@ -24,15 +39,12 @@ local function update_jump_physics(widow)
         return
     end
 
-    local friction = widow.m_friction
     widow.m_entityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
     widow.m_gridCollisionClass = GridCollisionClass.COLLISION_SOLID
 
-    if friction ~= 0.0 then
-        widow.m_velocity = widow.m_velocity + (widow.m_timescale * widow.m_jumpTargetPosition / friction)
-    end
+    EntityUtils.AddVelocity(widow, widow.m_jumpVelocity, false)
 
-    widow.m_friction = friction * 0.9
+    widow.m_friction = widow.m_friction * 0.9
 end
 
 ---@param widow WidowComponent
