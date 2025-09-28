@@ -1,0 +1,2 @@
+---@class ItemConfigComponent
+---@field m_cardList CardConfigComponent[]

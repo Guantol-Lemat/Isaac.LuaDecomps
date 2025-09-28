@@ -22,10 +22,17 @@ local function GetFloor(stage, stageType)
     return stage
 end
 
+---@param level LevelComponent
+---@return RoomDescriptorComponent
+local function GetCurrentRoomDesc(level)
+    return level.m_room.m_roomDescriptor
+end
+
 --#region Module
 
 Module.IsAltPath = IsAltPath
 Module.GetFloor = GetFloor
+Module.GetCurrentRoomDesc = GetCurrentRoomDesc
 
 --#endregion
 

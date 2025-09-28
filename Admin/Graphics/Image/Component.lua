@@ -10,6 +10,8 @@ local Module = {}
 ---@class ImageComponent
 ---@field Render_SourceDestQuad fun(self: ImageComponent, context: Context, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): pointer?
 ---@field Render_SourceDestQuadFlatColor fun(self: ImageComponent, context: Context, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, color: KColor): pointer?
+---@field GetWidth fun(self: ImageComponent): integer
+---@field GetHeight fun(self: ImageComponent): integer
 ---@field GetPaddedWidth fun(self: ImageComponent): integer
 ---@field GetPaddedHeight fun(self: ImageComponent): integer
 ---@field SetFilterMode fun(self: ImageComponent, minFilterMode: integer, magFilterMode: integer)

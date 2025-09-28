@@ -1,0 +1,9 @@
+---@class GridEntityDescComponent
+---@field m_type GridEntityType | integer
+---@field m_variant integer
+---@field m_state integer
+---@field m_spawnCount integer
+---@field m_spawnSeed integer
+---@field m_varData integer
+---@field m_initialized boolean
+---@field m_variableSeed integer

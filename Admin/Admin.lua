@@ -5,6 +5,7 @@
 ---@field GetAdmin fun(self: Context): Admin
 ---@field GetStaticContext fun(self: Context): StaticContext
 ---@field GetPersistentGameData fun(self: Context): PersistentDataComponent
+---@field GetItemConfig fun(self: Context): ItemConfigComponent
 ---@field GetGame fun(self: Context): GameComponent
 ---@field GetLevel fun(self: Context): LevelComponent
 ---@field GetRoom fun(self: Context): RoomComponent

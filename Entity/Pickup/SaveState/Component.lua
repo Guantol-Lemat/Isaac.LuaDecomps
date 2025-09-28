@@ -5,9 +5,16 @@ local EntitySaveStateComponentUtils = require("Entity.Common.SaveState.Component
 --#endregion
 
 ---@class PickupSaveStateComponent : EntitySaveStateComponent
+---@field alternatePedestal integer
+---@field charge integer
+---@field price PickupPrice | integer
+---@field shopItemId integer
+---@field timeout integer
+---@field touched boolean
+---@field isBlind boolean
+---@field optionsPickupIndex integer
 ---@field collectedCoopItems integer
 ---@field flipState PickupSaveStateComponent?
----@field touched boolean
 
 ---@class PickupSaveStateComponentUtils
 local Module = {}
@@ -16,6 +23,7 @@ local Module = {}
 local function Create()
     local saveState = EntitySaveStateComponentUtils.Create()
     ---@cast saveState PickupSaveStateComponent
+    saveState.price = 0
     saveState.collectedCoopItems = -1
     saveState.flipState = nil
 

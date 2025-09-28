@@ -1,0 +1,2 @@
+---@class CardConfigComponent
+---@field m_pocketItemType PocketItemType

@@ -96,9 +96,33 @@ Module.eDoorFlags = {
     DOOR_DOWN1 = 1 << DoorSlot.DOWN1,
 }
 
+---@enum eRoomFlags
+Module.eRoomFlags = {
+    FLAG_CLEAR = RoomDescriptor.FLAG_CLEAR,
+    FLAG_PRESSURE_PLATES_TRIGGERED = RoomDescriptor.FLAG_PRESSURE_PLATES_TRIGGERED,
+    FLAG_SACRIFICE_DONE = RoomDescriptor.FLAG_SACRIFICE_DONE,
+    FLAG_CHALLENGE_DONE = RoomDescriptor.FLAG_CHALLENGE_DONE,
+    FLAG_SURPRISE_MINIBOSS = RoomDescriptor.FLAG_SURPRISE_MINIBOSS,
+    FLAG_HAS_WATER = RoomDescriptor.FLAG_HAS_WATER,
+    FLAG_ALT_BOSS_MUSIC = RoomDescriptor.FLAG_ALT_BOSS_MUSIC,
+    FLAG_NO_REWARD = RoomDescriptor.FLAG_NO_REWARD,
+    FLAG_FLOODED = RoomDescriptor.FLAG_FLOODED,
+    FLAG_PITCH_BLACK = RoomDescriptor.FLAG_PITCH_BLACK,
+    FLAG_RED_ROOM = RoomDescriptor.FLAG_RED_ROOM,
+    FLAG_DEVIL_TREASURE = RoomDescriptor.FLAG_DEVIL_TREASURE,
+    FLAG_USE_ALTERNATE_BACKDROP = RoomDescriptor.FLAG_USE_ALTERNATE_BACKDROP,
+    FLAG_CURSED_MIST = RoomDescriptor.FLAG_CURSED_MIST,
+    FLAG_MAMA_MEGA = RoomDescriptor.FLAG_MAMA_MEGA,
+    FLAG_NO_WALLS = RoomDescriptor.FLAG_NO_WALLS,
+    FLAG_ROTGUT_CLEARED = RoomDescriptor.FLAG_ROTGUT_CLEARED,
+    FLAG_PORTAL_LINKED = RoomDescriptor.FLAG_PORTAL_LINKED,
+    FLAG_BLUE_REDIRECT = RoomDescriptor.FLAG_BLUE_REDIRECT,
+}
+
 ---@enum eDisplayFlags
 Module.eDisplayFlags = {
     DISPLAY_NONE = 0,
+    DISPLAY_ROOM = 1 << 0,
     DISPLAY_BOX = 1 << RoomDescriptor.DISPLAY_BOX,
     DISPLAY_LOCK = 1 << RoomDescriptor.DISPLAY_LOCK,
     DISPLAY_ICON =  1 << RoomDescriptor.DISPLAY_ICON,
