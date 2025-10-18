@@ -3,7 +3,7 @@
 local EntityUtils = require("Entity.Common.Utils")
 local EntityRules = require("Entity.Common.Rules")
 local KnifeUtils = require("Entity.Knife.Utils")
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 local MathUtils = require("General.Math")
 
 --#endregion
@@ -25,7 +25,7 @@ local function update_held_rotation(knife, context, player)
     end
 
     local interpolationFactor = 0.3
-    if player and CollectibleInventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_TRACTOR_BEAM, false) then
+    if player and Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_TRACTOR_BEAM, false) then
         interpolationFactor = 1.0
     end
 

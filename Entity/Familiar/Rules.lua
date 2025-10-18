@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local EntityUtils = require("Entity.Common.Utils")
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 local PlayerUtils = require("Entity.Player.Utils")
 
 --#endregion
@@ -18,9 +18,9 @@ local function hook_get_multiplier(context, entity, multiplier)
     local hasCollectibleBoost = false
 
     if entity.m_variant == FamiliarVariant.BLUE_FLY or entity.m_variant == FamiliarVariant.BLUE_SPIDER then
-        hasCollectibleBoost = CollectibleInventory.HasCollectibleRealOrEffect(context, player, CollectibleType.COLLECTIBLE_HIVE_MIND, false) and EntityUtils.HasAnyConfigTags(entity, EntityTag.FLY | EntityTag.SPIDER)
+        hasCollectibleBoost = Inventory.HasCollectibleRealOrEffect(context, player, CollectibleType.COLLECTIBLE_HIVE_MIND, false) and EntityUtils.HasAnyConfigTags(entity, EntityTag.FLY | EntityTag.SPIDER)
     else
-        hasCollectibleBoost = CollectibleInventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_BFFS, false)
+        hasCollectibleBoost = Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_BFFS, false)
     end
 
     if hasCollectibleBoost then

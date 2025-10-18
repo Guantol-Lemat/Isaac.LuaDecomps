@@ -1,0 +1,5 @@
+---@class GridEntityComponent
+---@field Destroy fun(self: GridEntityComponent, context: Context, immediate: boolean): boolean
+---@field m_desc GridEntityDescComponent
+---@field m_gridIdx integer
+---@field m_collisionClass GridCollisionClass

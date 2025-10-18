@@ -1,2 +1,3 @@
 ---@class EntityTearComponent : EntityComponent
+---@field m_tearFlags BitSet128
 ---@field m_scale number

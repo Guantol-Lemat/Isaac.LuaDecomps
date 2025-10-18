@@ -2,6 +2,9 @@
 ---@field m_type RoomType | integer
 ---@field m_roomDescriptor RoomDescriptorComponent
 ---@field m_entityList EntityListComponent
+---@field m_bossId BossType | integer
+---@field m_secondBossId BossType | integer
 ---@field m_bossCount integer
+---@field m_surpriseMiniboss boolean
 ---@field m_waterAmount number
 ---@field m_renderScrollOffset Vector

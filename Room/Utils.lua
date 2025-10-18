@@ -2,6 +2,27 @@
 local Module = {}
 
 ---@param room RoomComponent
+---@return integer
+local function GetAliveBossesCount(room)
+    local entityList = room.m_entityList
+    local aliveBosses = entityList.m_addedBosses + entityList.m_bossCount
+    return math.max(aliveBosses, 0)
+end
+
+---@param room RoomComponent
+---@return boolean
+local function IsClear(room)
+    local flags = room.m_roomDescriptor.m_flags
+    return (flags & RoomDescriptor.FLAG_CLEAR) ~= 0
+end
+
+---@param room RoomComponent
+---@return boolean
+local function IsDungeon(room)
+    return room.m_type == RoomType.ROOM_DUNGEON
+end
+
+---@param room RoomComponent
 ---@return boolean
 local function IsBeastDungeon(room)
     local data = room.m_roomDescriptor.m_data
@@ -10,6 +31,18 @@ local function IsBeastDungeon(room)
     end
 
     return data.m_type == RoomType.ROOM_DUNGEON and data.m_stageID == StbType.HOME
+end
+
+---@param room RoomComponent
+---@param position Vector
+---@return integer
+local function GetGridIdx(room, position)
+end
+
+---@param room RoomComponent
+---@param gridIdx integer
+---@return Vector
+local function GetGridPosition(room, gridIdx)
 end
 
 ---@param room RoomComponent
@@ -30,15 +63,58 @@ local function GetClampedPosition(room, position, margin)
 end
 
 ---@param room RoomComponent
+---@param gridIdx integer
+---@return GridCollisionClass | integer
+local function GetGridCollision(room, gridIdx)
+end
+
+---@param room RoomComponent
+---@param position Vector
+---@return GridCollisionClass | integer
+local function GetGridCollisionAtPos(room, position)
+    return GetGridCollision(room, GetGridIdx(room, position))
+end
+
+---@param room RoomComponent
+---@param gridIdx integer
+---@return GridEntityComponent?
+local function GetGridEntity(room, gridIdx)
+end
+
+---@param room RoomComponent
+---@param position Vector
+---@return GridEntityComponent?
+local function GetGridEntityFromPos(room, position)
+    return GetGridEntity(room, GetGridIdx(room, position))
+end
+
+---@param room RoomComponent
+---@param position Vector
+---@param distanceThreshold number
+---@return Vector
+local function FindFreeTilePosition(room, position, distanceThreshold)
+end
+
+---@param room RoomComponent
 ---@return RenderMode
 local function GetRenderMode(room)
 end
 
 --#region Module
 
+Module.GetAliveBossesCount = GetAliveBossesCount
+Module.IsClear = IsClear
+Module.IsDungeon = IsDungeon
 Module.IsBeastDungeon = IsBeastDungeon
+Module.GetGridIdx = GetGridIdx
+Module.GetGridPosition = GetGridPosition
 Module.GetClampedPositionRaw = GetClampedPositionRaw
 Module.GetClampedPosition = GetClampedPosition
+Module.GetGridCollision = GetGridCollision
+Module.GetGridCollisionAtPos = GetGridCollisionAtPos
+Module.GetGridEntity = GetGridEntity
+Module.GetGridEntityFromPos = GetGridEntityFromPos
+Module.FindFreeTilePosition = FindFreeTilePosition
 Module.GetRenderMode = GetRenderMode
 
 --#endregion

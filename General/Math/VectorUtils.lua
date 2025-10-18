@@ -19,7 +19,7 @@ end
 
 ---@param vector Vector
 ---@return Vector
-local function get_dominant_axis(vector)
+local function AxisAlignedUnitVector(vector)
     if math.abs(vector.X) <= math.abs(vector.Y) then
         local direction = vector.Y < 0.0 and -1.0 or 1.0
         return Vector(0.0, direction)
@@ -33,7 +33,7 @@ end
 ---@return Vector
 local function AxisAligned(vector)
     local length = vector:Length()
-    local dominantAxis = get_dominant_axis(vector)
+    local dominantAxis = AxisAlignedUnitVector(vector)
     return Vector(length * dominantAxis.X, length * dominantAxis.Y)
 end
 
@@ -51,6 +51,7 @@ Module.VectorZero = VectorZero
 Module.VectorOne = VectorOne
 Module.Equals = Equals
 Module.Copy = Copy
+Module.AxisAlignedUnitVector = AxisAlignedUnitVector
 Module.AxisAligned = AxisAligned
 Module.Vec3Length = Vec3Length
 

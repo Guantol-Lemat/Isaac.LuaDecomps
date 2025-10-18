@@ -6,7 +6,7 @@ local CoPlayerSprite = require("Entity.Player.Sprite.CoPlayer")
 local PlayerUtils = require("Entity.Player.Utils")
 local PlayerRules = require("Entity.Player.Rules")
 local EntityRefUtils = require("Entity.System.EntityRef.Utils")
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 
 local eFirePlaceVariant = EntityIdentity.eFirePlaceVariant
 local eVisageVariant = EntityIdentity.eVisageVariant
@@ -26,7 +26,7 @@ local Module = {}
 local function hook_pre_evaluate_take_damage(context, player, damage, damageFlags, source, damageCountdown)
     if player.m_playerType == PlayerType.PLAYER_THESOUL_B then
         local twin = player.m_twinPlayer
-        if twin and not CollectibleInventory.HasCollectible(context, twin, CollectibleType.COLLECTIBLE_ISAACS_HEART, false) then
+        if twin and not Inventory.HasCollectible(context, twin, CollectibleType.COLLECTIBLE_ISAACS_HEART, false) then
             return twin:TakeDamage(context, damage, damageFlags | DamageFlag.DAMAGE_ISSAC_HEART, source, damageCountdown)
         end
     end
@@ -54,7 +54,7 @@ local function hook_pre_evaluate_take_damage(context, player, damage, damageFlag
 
     local realPlayer = PlayerRules.GetRealPlayer(context, player)
     -- if immune to direct damage
-    if CollectibleInventory.HasCollectible(context, realPlayer, CollectibleType.COLLECTIBLE_ISAACS_HEART, false) or player.m_playerType == PlayerType.PLAYER_THEFORGOTTEN_B then
+    if Inventory.HasCollectible(context, realPlayer, CollectibleType.COLLECTIBLE_ISAACS_HEART, false) or player.m_playerType == PlayerType.PLAYER_THEFORGOTTEN_B then
         if not BitSetUtils.HasAny(damageFlags, DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_ISSAC_HEART | DamageFlag.DAMAGE_INVINCIBLE) then
             return false
         end

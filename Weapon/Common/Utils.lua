@@ -4,7 +4,7 @@ local EntityUtils = require("Entity.Common.Utils")
 
 --#endregion
 
----@class ModuleName
+---@class WeaponUtils
 local Module = {}
 
 ---@param weapon WeaponComponent

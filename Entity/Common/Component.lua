@@ -11,15 +11,17 @@
 ---@field m_position Vector
 ---@field m_velocity Vector
 ---@field m_size number
+---@field m_sizeMulti Vector
 ---@field m_friction number
 ---@field m_timescale number
 ---@field m_spawnFrame integer
 ---@field m_flags EntityFlag | integer
 ---@field m_entityCollisionClass EntityCollisionClass | integer
----@field m_gridCollisionClass GridCollisionClass | integer
+---@field m_gridCollisionClass EntityGridCollisionClass | integer
 ---@field m_collisionDamage number
 ---@field m_velocityOnGridCollide Vector
----@field m_wallBounceDirection Vector
+---@field m_gridCollisionDirection Vector
+---@field m_gridCollisionPoints Vector[]
 ---@field m_parent EntityComponent?
 ---@field m_targetPosition Vector
 ---@field m_spawnerEntity EntityComponent?

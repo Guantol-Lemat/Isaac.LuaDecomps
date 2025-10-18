@@ -1,10 +1,10 @@
---#region Dependencies
+---#region Dependencies
 
-local TemporaryEffectsUtils = require("Items.TemporaryEffects.Utils")
+local TemporaryEffects = require("Entity.Player.Inventory.TemporaryEffects")
 
---#endregion
+---#endregion
 
----@class PlayerCollectibleInventory
+---@class PlayerInventory
 local Module = {}
 
 ---@param context Context
@@ -25,7 +25,7 @@ local function HasCollectibleRealOrEffect(context, player, collectible, ignoreMo
         return true
     end
 
-    if TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, collectible) then
+    if TemporaryEffects.HasCollectibleEffect(player.m_temporaryEffects, collectible) then
         return true
     end
 

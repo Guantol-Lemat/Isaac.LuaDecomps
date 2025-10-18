@@ -1,6 +1,7 @@
 --#region Dependencies
 
 local NetplayUtils = require("Admin.Netplay.Utils")
+local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
 
 --#endregion
 
@@ -41,10 +42,40 @@ local function GetRealPlayer(context, player)
     return realPlayer
 end
 
+---@param context Context
+---@param player EntityPlayerComponent
+---@return boolean
+local function CanCrushRocks(context, player)
+end
+
+---@param context Context
+---@param player EntityPlayerComponent
+---@param gridEntity GridEntityComponent
+---@param collisionClass GridCollisionClass
+---@return boolean
+local function CanCrushGridEntity(context, player, gridEntity, collisionClass)
+    if collisionClass ~= GridCollisionClass.COLLISION_SOLID and collisionClass == GridCollisionClass.COLLISION_OBJECT then
+        return false
+    end
+
+    if CanCrushRocks(context, player) then
+        return true
+    end
+
+    local gridType = gridEntity.m_desc.m_type
+    if TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, CollectibleType.COLLECTIBLE_MARS) and gridType == GridEntityType.GRID_POOP then
+        return true
+    end
+
+    return false
+end
+
 --#region Module
 
 Module.IsLocalPlayer = IsLocalPlayer
 Module.GetRealPlayer = GetRealPlayer
+Module.CanCrushRocks = CanCrushRocks
+Module.CanCrushGridEntity = CanCrushGridEntity
 
 --#endregion
 
