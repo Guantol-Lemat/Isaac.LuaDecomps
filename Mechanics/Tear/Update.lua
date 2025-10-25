@@ -42,7 +42,7 @@ local function Update(context, tear)
     local room = context:GetRoom()
     -- TODO
 
-    local bouncingTear = TearUtils.HasAnyTearFlag(tear, TearFlags.TEAR_BOUNCE | TearFlags.TEAR_BOUNCE_WALLSONLY)
+    local bouncingTear = TearUtils.HasAnyTearFlag(tear, TearFlags.TEAR_BOUNCE | TearFlags.TEAR_BOUNCE_WALLSONLY) or tear.m_variant == TearVariant.FIRE
     if bouncingTear and not RoomUtils.IsBeastDungeon(room) then
         bounce_tear(context, tear)
     end
