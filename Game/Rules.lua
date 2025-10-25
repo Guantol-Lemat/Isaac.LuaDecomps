@@ -32,9 +32,16 @@ local function InterpolationUpdate(context, game)
     end
 end
 
+---@param context Context
+---@param game GameComponent
+---@param duration integer
+local function ShakeScreen(context, game, duration)
+end
+
 --#region Module
 
 Module.InterpolationUpdate = InterpolationUpdate
+Module.ShakeScreen = ShakeScreen
 
 --#endregion
 

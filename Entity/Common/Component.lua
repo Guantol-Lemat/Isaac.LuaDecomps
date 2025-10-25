@@ -24,6 +24,7 @@
 ---@field m_gridCollisionPoints Vector[]
 ---@field m_parent EntityComponent?
 ---@field m_targetPosition Vector
+---@field m_positionOffset Vector
 ---@field m_spawnerEntity EntityComponent?
 ---@field m_target EntityComponent?
 ---@field m_minecart EntityComponent?

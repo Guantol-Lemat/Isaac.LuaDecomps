@@ -6,6 +6,7 @@ local FlipStateGraphics = require("Mechanics.Pickup.FlipState.Graphics")
 
 ---@class StaticContext
 ---@field FLIP_COLLECTIBLE_FLICKER_RNG RNG
+---@field WEAPON_TEARS_TECH_LASERS EntityLaserComponent[]
 
 ---@class StaticContextUtils
 local Module = {}
@@ -42,6 +43,7 @@ local function Create()
     local setters = {}
 
     create_static_variable("FLIP_COLLECTIBLE_FLICKER_RNG", FlipStateGraphics.__init_flicker_rng, getters, setters)
+    create_static_variable("WEAPON_TEARS_TECH_LASERS", function() return {} end, getters, setters)
 
     local context = {}
     setmetatable(context, {

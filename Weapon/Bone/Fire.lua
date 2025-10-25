@@ -44,7 +44,7 @@ local function get_owner_data(weapon)
     end
 
     if player then
-        shootSpeed = player.m_shootSpeed
+        shootSpeed = player.m_shotSpeed
     end
 
     return playerOwner, player, shootSpeed, position
@@ -56,7 +56,7 @@ end
 ---@param playerOwner EntityPlayerComponent?
 local function get_shooting_input(context, weapon, shootingInput, playerOwner)
     if VectorUtils.Equals(shootingInput, Vector(0, 0)) then
-        shootingInput = weapon.m_bufferDirection_qqq
+        shootingInput = weapon.m_directionBuffer
     end
 
     if VectorUtils.Equals(shootingInput, Vector(0, 0)) and playerOwner then

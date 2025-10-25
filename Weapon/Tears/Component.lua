@@ -1,0 +1,4 @@
+---@class WeaponTearsComponent : WeaponComponent
+---@field m_cursedEyeShots integer
+---@field m_chocolateMilkCharge number
+---@field m_otherEyeFireDelay number

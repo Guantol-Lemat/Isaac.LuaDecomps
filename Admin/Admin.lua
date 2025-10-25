@@ -32,4 +32,5 @@
 ---@field LogMessage fun(self: Context, type: integer, message: string)
 ---@field LoadShader fun(self: Context, shader: eShaders)
 ---@field Random fun(self: Context): integer
+---@field RandomInt fun(self: Context, max: integer): integer
 ---@field RandomFloat fun(self: Context): number

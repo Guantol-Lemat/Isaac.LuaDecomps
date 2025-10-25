@@ -40,6 +40,14 @@ Module.eWeaponModifiers = {
     C_SECTION = 1 << 11,
 }
 
+---@enum eItemAnimation
+Module.eItemAnimation = {
+    CHARGE = 0,
+    CHARGE_FULL = 1,
+    SHOOT = 2,
+    SHOOT_ALT = 3,
+}
+
 ---@enum eShopItemType
 Module.eShopItemType = {
     HEART_FULL = 0,

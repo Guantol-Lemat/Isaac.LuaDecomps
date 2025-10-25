@@ -1,1 +1,2 @@
 ---@class EntityLaserComponent : EntityComponent
+---@field m_disableFollowParent boolean

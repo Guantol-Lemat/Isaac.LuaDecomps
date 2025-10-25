@@ -3,8 +3,10 @@
 ---@field m_playerIndex integer
 ---@field m_babySkin BabySubType | integer
 ---@field m_maxFireDelay number
----@field m_shootSpeed number
+---@field m_shotSpeed number
 ---@field m_damageCooldown integer
+---@field m_blinkTime integer
+---@field m_tearDisplacement integer
 ---@field m_controllerIndex integer
 ---@field m_controlsEnabled boolean
 ---@field m_controlsCooldown integer
@@ -19,4 +21,6 @@
 ---@field m_isPlayingItemNullAnimation boolean
 ---@field m_markedTarget EntityComponent?
 ---@field m_peeBurstCooldown integer
+---@field m_maxPeeBurstCooldown integer
 ---@field m_suplexState integer
+---@field m_epiphoraCharge integer

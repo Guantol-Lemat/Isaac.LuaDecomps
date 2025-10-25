@@ -1,5 +1,6 @@
 ---@class EntityFamiliarComponent : EntityComponent
 ---@field m_player EntityPlayerComponent
 ---@field m_fireCooldown integer
+---@field m_blinkTime integer
 ---@field m_orbitSpeed number
 ---@field m_hitList integer[]

@@ -71,6 +71,16 @@ local function IsExtraAnimationFinished(player)
     return not player.m_isPlayingExtraAnimation and not player.m_isPlayingItemNullAnimation
 end
 
+---@param fireDelay number
+---@return number
+local function FireDelayToTearsUp(fireDelay)
+    return 30.0 / (fireDelay + 1.0)
+end
+
+local function TearsUpToFireDelay(tearsUp)
+    return 30.0 / tearsUp - 1.0
+end
+
 --#region Module
 
 Module.IsMainPlayerCharacter = IsMainPlayerCharacter
@@ -79,6 +89,8 @@ Module.IsMainTwin = IsMainTwin
 Module.IsHologram = IsHologram
 Module.GetFocusEntity = GetFocusEntity
 Module.IsExtraAnimationFinished = IsExtraAnimationFinished
+Module.FireDelayToTearsUp = FireDelayToTearsUp
+Module.TearsUpToFireDelay = TearsUpToFireDelay
 
 --#endregion
 
