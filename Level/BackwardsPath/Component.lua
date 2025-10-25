@@ -1,0 +1,7 @@
+---@class BackwardsStageDescComponent
+---@field bossRoomDesc RoomDescriptorComponent[]
+---@field treasureRoomDesc RoomDescriptorComponent[]
+---@field numBossRooms integer
+---@field numTreasureRooms integer
+---@field stageType StageType
+---@field isXL boolean

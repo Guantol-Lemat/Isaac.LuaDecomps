@@ -11,6 +11,13 @@ local Module = {}
 
 ---@param context Context
 ---@param level LevelComponent
+---@param stage LevelStage | integer
+---@param stageType StageType | integer
+local function SetStage(context, level, stage, stageType)
+end
+
+---@param context Context
+---@param level LevelComponent
 ---@param curses LevelCurse | integer
 ---@return LevelCurse | integer
 local function hook_get_curses(context, level, curses)
@@ -79,6 +86,7 @@ end
 
 --#region Module
 
+Module.SetStage = SetStage
 Module.GetCurses = GetCurses
 Module.HasCurses = HasCurses
 Module.GetEffectiveStage = GetEffectiveStage

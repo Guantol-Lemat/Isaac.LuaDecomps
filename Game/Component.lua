@@ -8,4 +8,5 @@
 ---@field m_screenShakeOffset Vector
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
+---@field m_backwardsStageDesc BackwardsStageDescComponent[]
 ---@field m_debugCurses LevelCurse | integer

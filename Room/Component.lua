@@ -1,6 +1,7 @@
 ---@class RoomComponent
 ---@field m_type RoomType | integer
 ---@field m_roomDescriptor RoomDescriptorComponent
+---@field m_gridIdx GridRooms | integer
 ---@field m_entityList EntityListComponent
 ---@field m_bossId BossType | integer
 ---@field m_secondBossId BossType | integer
