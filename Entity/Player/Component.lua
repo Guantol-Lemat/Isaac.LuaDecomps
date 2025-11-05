@@ -14,8 +14,13 @@
 ---@field m_itemState CollectibleType
 ---@field m_headDirection Direction
 ---@field m_collectibleRNG RNG[]
+---@field m_trinketRNG RNG[]
 ---@field m_temporaryEffects TemporaryEffectsComponent
----@field m_twinPlayer EntityPlayerComponent?
+---@field m_twinPlayer EntityPtrComponent
+---@field m_backupPlayer EntityPlayerComponent?
+---@field m_hasUnlistedState boolean
+---@field m_unlistedState GameStatePlayerComponent -- used to trigger effects that would occur when restoring this player (since this doesn't exist before replacement)
+---@field m_replacedPlayer EntityPlayerComponent?
 ---@field m_isCoopGhost boolean
 ---@field m_isPlayingExtraAnimation boolean
 ---@field m_isPlayingItemNullAnimation boolean
@@ -24,3 +29,24 @@
 ---@field m_maxPeeBurstCooldown integer
 ---@field m_suplexState integer
 ---@field m_epiphoraCharge integer
+
+--#region Dependencies
+
+
+
+--#endregion
+
+---@class EntityPlayerComponentModule
+local Module = {}
+
+---@return EntityPlayerComponent
+local function Create()
+end
+
+--#region Module
+
+Module.Create = Create
+
+--#endregion
+
+return Module

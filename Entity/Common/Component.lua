@@ -1,4 +1,6 @@
 ---@class EntityComponent
+---@field Free fun(self: EntityComponent, context: Context)
+---@field Init fun(self: EntityComponent, context: Context, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
 ---@field Update fun(self: EntityComponent, context: Context)
 ---@field Remove fun(self: EntityComponent, context: Context)
 ---@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
@@ -22,15 +24,22 @@
 ---@field m_velocityOnGridCollide Vector
 ---@field m_gridCollisionDirection Vector
 ---@field m_gridCollisionPoints Vector[]
----@field m_parent EntityComponent?
+---@field m_backPointers Set<EntityPtrComponent>
+---@field m_parent EntityPtrComponent
 ---@field m_targetPosition Vector
 ---@field m_positionOffset Vector
 ---@field m_spawnerEntity EntityComponent?
----@field m_target EntityComponent?
----@field m_minecart EntityComponent?
+---@field m_spawnerType EntityType | integer
+---@field m_target EntityPtrComponent
+---@field m_minecart EntityPtrComponent
 ---@field m_sprite Sprite
 ---@field m_preInterpolatePosition Vector
 ---@field m_exists boolean
 ---@field m_isDead boolean
+---@field m_visible boolean
+---@field m_addedToEntityList boolean
 ---@field m_interpolated boolean
 ---@field m_collidesWithGrid boolean
+
+---@class EntityPtrComponent
+---@field ref EntityComponent?

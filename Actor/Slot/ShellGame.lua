@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 
 --#endregion
 
@@ -16,7 +16,7 @@ local function UpdateDispensePrize(context, slot, player)
     local rng = slot.m_dropRNG
     local luckyFootRNG = player.m_collectibleRNG[CollectibleType.COLLECTIBLE_LUCKY_FOOT]
 
-    local success = rng:RandomInt(3) == 0 or (CollectibleInventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) and luckyFootRNG:RandomInt(3) == 0)
+    local success = rng:RandomInt(3) == 0 or (Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) and luckyFootRNG:RandomInt(3) == 0)
     if not success then
         -- fly
     end

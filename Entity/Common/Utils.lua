@@ -56,6 +56,21 @@ end
 local function SetChild(entity, child)
 end
 
+---@param entityPtr EntityPtrComponent
+---@param newRef EntityComponent?
+local function SetEntityReference(entityPtr, newRef)
+    local currentRef = entityPtr.ref
+    if currentRef then
+        currentRef.m_backPointers[entityPtr] = nil
+    end
+
+    entityPtr.ref = newRef
+
+    if newRef then
+        newRef.m_backPointers[entityPtr] = true
+    end
+end
+
 ---@param entity EntityComponent
 ---@return EntityPlayerComponent?
 local function ToPlayer(entity)
@@ -220,6 +235,7 @@ Module.AddFlags = AddFlags
 Module.ClearFlags = ClearFlags
 Module.HasConfigTags = HasConfigTags
 Module.HasAnyConfigTags = HasAnyConfigTags
+Module.SetEntityReference = SetEntityReference
 Module.SetTarget = SetTarget
 Module.SetParent = SetParent
 Module.SetChild = SetChild

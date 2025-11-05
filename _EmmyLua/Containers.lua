@@ -1,1 +1,2 @@
----@alias Pair<K, V> { [1]: K, [2]: V }
+---@class Pair<K, V>: { [1]: K, [2]: V }
+---@class Set<T>: {[T]: true}

@@ -15,8 +15,23 @@ local VectorZero = VectorUtils.VectorZero
 
 --#endregion
 
----@class EntityCollision
+---@class EntityCollisionLogic
 local Module = {}
+
+local s_forcedCollision = 0
+
+local function StartForcedCollision()
+    s_forcedCollision = s_forcedCollision + 1
+end
+
+local function EndForcedCollision()
+    s_forcedCollision = s_forcedCollision - 1
+end
+
+---@return boolean
+local function IsForcedCollision()
+    return s_forcedCollision ~= 0
+end
 
 ---@param context Context
 ---@param entity EntityComponent
@@ -626,6 +641,9 @@ end
 
 --#region Module
 
+Module.StartForcedCollision = StartForcedCollision
+Module.EndForcedCollision = EndForcedCollision
+Module.IsForcedCollision = IsForcedCollision
 Module.CollideWithGrid = CollideWithGrid
 Module.PlayerCollideWithGrid = PlayerCollideWithGrid
 

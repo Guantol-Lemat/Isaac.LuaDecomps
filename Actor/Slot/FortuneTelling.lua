@@ -2,7 +2,7 @@
 
 local MySpriteUtils = require("Actor.Slot.Sprite.FortuneTelling")
 local SlotRules = require("Entity.Slot.Rules")
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 local SpawnLogic = require("Game.Spawn.Logic")
 local Fortunes = require("Game.Fortunes")
 local SFX = require("Admin.Sound.Rules")
@@ -29,7 +29,7 @@ local function UpdateDispensePrize(context, slot, player)
     local rng = slot.m_dropRNG
     local fortuneChance = game.m_difficulty == Difficulty.DIFFICULTY_HARD and 0.85 or 0.65
 
-    if CollectibleInventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
+    if Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
         fortuneChance = fortuneChance * 0.46
     end
 

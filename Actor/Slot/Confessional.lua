@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local CollectibleInventory = require("Entity.Player.Inventory.Collectible")
+local Inventory = require("Entity.Player.Inventory.Inventory")
 
 --#endregion
 
@@ -17,7 +17,7 @@ local function UpdateOnTimeoutEnd(context, slot, player)
     local rng = slot.m_dropRNG
     local prizeChance = game.m_difficulty == Difficulty.DIFFICULTY_HARD and 0.25 or 0.3
 
-    if CollectibleInventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
+    if Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
         prizeChance = prizeChance * 1.5
     end
 

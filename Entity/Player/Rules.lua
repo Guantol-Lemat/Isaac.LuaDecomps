@@ -25,7 +25,8 @@ end
 ---@param realPlayer EntityPlayerComponent
 ---@return EntityPlayerComponent
 local function hook_get_real_player(context, player, realPlayer)
-    local twin = player.m_twinPlayer
+    local twin = player.m_twinPlayer.ref
+    ---@cast twin EntityPlayerComponent?
     if player.m_playerType == PlayerType.PLAYER_THESOUL_B and twin then
         realPlayer = twin
     end
@@ -36,7 +37,7 @@ end
 ---@param context Context
 ---@param player EntityPlayerComponent
 ---@return EntityPlayerComponent
-local function GetRealPlayer(context, player)
+local function GetEffectTarget(context, player)
     local realPlayer = player
     realPlayer = hook_get_real_player(context, player, realPlayer)
     return realPlayer
@@ -73,7 +74,7 @@ end
 --#region Module
 
 Module.IsLocalPlayer = IsLocalPlayer
-Module.GetRealPlayer = GetRealPlayer
+Module.GetEffectTarget = GetEffectTarget
 Module.CanCrushRocks = CanCrushRocks
 Module.CanCrushGridEntity = CanCrushGridEntity
 

@@ -1,2 +1,6 @@
 ---@class EntitySlotComponent : EntityComponent
 ---@field m_state integer
+---@field m_prizeType integer
+---@field m_timeout integer
+---@field m_donationValue integer
+---@field m_unkShort1 integer
