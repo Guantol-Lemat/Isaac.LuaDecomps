@@ -71,12 +71,39 @@ local function CanCrushGridEntity(context, player, gridEntity, collisionClass)
     return false
 end
 
+---@param context Context
+---@param player EntityPlayerComponent
+---@return HealthType
+local function GetHealthType(context, player)
+end
+
+---@param context Context
+---@param player EntityPlayerComponent
+---@return HealthType
+local function GetEffectiveMaxHearts(context, player)
+    local healthType = GetHealthType(context, player)
+    if healthType == HealthType.SOUL or healthType == HealthType.NO_HEALTH then
+        return player.m_maxHearts
+    end
+
+    return player.m_maxHearts + player.m_boneHearts * 2
+end
+
+---@param context Context
+---@param player EntityPlayerComponent
+---@return boolean
+local function HasInstantDeathCurse(context, player)
+end
+
 --#region Module
 
 Module.IsLocalPlayer = IsLocalPlayer
 Module.GetEffectTarget = GetEffectTarget
 Module.CanCrushRocks = CanCrushRocks
 Module.CanCrushGridEntity = CanCrushGridEntity
+Module.GetHealthType = GetHealthType
+Module.GetEffectiveMaxHearts = GetEffectiveMaxHearts
+Module.HasInstantDeathCurse = HasInstantDeathCurse
 
 --#endregion
 

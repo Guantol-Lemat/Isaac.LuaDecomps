@@ -84,6 +84,24 @@ end
 local function ShowName(context, level, sticky)
 end
 
+---@param context Context
+---@param level LevelComponent
+---@return boolean
+local function CanSpawnTrapDoor(context, level)
+end
+
+---@param context Context
+---@param level LevelComponent
+---@return number
+local function GetPlanetariumChance(context, level)
+end
+
+---@param context Context
+---@param level LevelComponent
+---@return boolean
+local function HasPhotoDoor(context, level)
+end
+
 --#region Module
 
 Module.SetStage = SetStage
@@ -91,6 +109,9 @@ Module.GetCurses = GetCurses
 Module.HasCurses = HasCurses
 Module.GetEffectiveStage = GetEffectiveStage
 Module.ShowName = ShowName
+Module.CanSpawnTrapDoor = CanSpawnTrapDoor
+Module.GetPlanetariumChance = GetPlanetariumChance
+Module.HasPhotoDoor = HasPhotoDoor
 
 --#endregion
 

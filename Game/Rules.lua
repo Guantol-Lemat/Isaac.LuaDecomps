@@ -38,10 +38,23 @@ end
 local function ShakeScreen(context, game, duration)
 end
 
+---@param context Context
+---@param game GameComponent
+---@return ChallengeParamsComponent
+local function GetChallengeParams(context, game)
+    local dailyChallenge = game.m_dailyChallenge
+    if dailyChallenge.m_id ~= 0 then
+        return dailyChallenge.m_challengeParams
+    end
+
+    return context:GetChallengeParams(game.m_challenge)
+end
+
 --#region Module
 
 Module.InterpolationUpdate = InterpolationUpdate
 Module.ShakeScreen = ShakeScreen
+Module.GetChallengeParams = GetChallengeParams
 
 --#endregion
 

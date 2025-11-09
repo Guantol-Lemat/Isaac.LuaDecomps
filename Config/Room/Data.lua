@@ -4,7 +4,7 @@
 ---@field m_subtype integer
 ---@field m_shape RoomShape | integer
 
----@class RoomDataComponentUtils
+---@class RoomDataModule
 local Module = {}
 
 --#region Module

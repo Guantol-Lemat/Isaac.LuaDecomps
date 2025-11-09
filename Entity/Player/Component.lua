@@ -10,6 +10,12 @@
 ---@field m_controllerIndex integer
 ---@field m_controlsEnabled boolean
 ---@field m_controlsCooldown integer
+---@field m_maxHearts integer
+---@field m_redHearts integer
+---@field m_soulHearts integer
+---@field m_boneHearts integer
+---@field m_numCoins integer
+---@field m_numKeys integer
 ---@field m_weapons WeaponComponent[]
 ---@field m_itemState CollectibleType
 ---@field m_headDirection Direction

@@ -2,6 +2,7 @@
 ---@field m_listIdx integer
 ---@field m_gridIdx integer
 ---@field m_safeGridIdx integer
+---@field m_dimension Dimension | integer
 ---@field m_data RoomDataComponent?
 ---@field m_overrideData RoomDataComponent?
 ---@field m_allowedDoors eDoorFlags | integer

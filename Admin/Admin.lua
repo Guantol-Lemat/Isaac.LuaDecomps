@@ -6,6 +6,7 @@
 ---@field GetStaticContext fun(self: Context): StaticContext
 ---@field GetPersistentGameData fun(self: Context): PersistentDataComponent
 ---@field GetItemConfig fun(self: Context): ItemConfigComponent
+---@field GetRoomConfig fun(self: Context): RoomConfigComponent
 ---@field GetGame fun(self: Context): GameComponent
 ---@field GetLevel fun(self: Context): LevelComponent
 ---@field GetRoom fun(self: Context): RoomComponent

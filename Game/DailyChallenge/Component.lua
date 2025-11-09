@@ -1,6 +1,7 @@
 ---@class DailyChallengeComponent
 ---@field m_id integer
 ---@field m_specialDailyChallenge eSpecialDailyRuns | integer
+---@field m_challengeParams ChallengeParamsComponent
 
 ---@class DailyChallengeComponentUtils
 local Module = {}
