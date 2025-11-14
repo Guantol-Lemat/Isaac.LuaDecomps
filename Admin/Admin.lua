@@ -1,5 +1,6 @@
 ---@class Admin
 ---@field m_frameCount number
+---@field m_gameState GameStateComponent
 
 ---@class Context
 ---@field GetAdmin fun(self: Context): Admin
@@ -14,6 +15,7 @@
 ---@field GetPlayerManager fun(self: Context): PlayerManagerComponent
 ---@field GetPlayer fun(self: Context, playerIndex: integer): EntityPlayerComponent
 ---@field GetItemPool fun(self: Context): ItemPoolComponent
+---@field GetBossPool fun(self: Context): BossPoolComponent
 ---@field GetSeeds fun(self: Context): SeedsComponent
 ---@field GetOptions fun(self: Context): OptionsComponent
 ---@field GetInput fun(self: Context): InputComponent

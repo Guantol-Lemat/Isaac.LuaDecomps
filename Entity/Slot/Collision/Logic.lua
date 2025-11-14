@@ -144,10 +144,11 @@ local function HandleCollision(slot, context, collider)
         if not SlotUtils.IsShellGame(slotVariant) then
             return evaluate_collision_result(slot, collider)
         end
+    else
+        return evaluate_collision_result(slot, collider)
     end
 
     local effectTarget = PlayerRules.GetEffectTarget(context, player)
-    local daemonsTailRNG = effectTarget.m_trinketRNG[TrinketType.TRINKET_DAEMONS_TAIL]
 
     if not forcedCollision then
         local flags = hook_slot_pay_cost(slot, effectTarget)

@@ -40,9 +40,23 @@ end
 
 ---@param context Context
 ---@param manager PlayerManagerComponent
+---@param trinket TrinketType
+---@return integer
+local function GetTrinketMultiplier(context, manager, trinket)
+end
+
+---@param context Context
+---@param manager PlayerManagerComponent
 ---@param playerType PlayerType | integer
 ---@return EntityPlayerComponent?
-local function FirstBirthrightOwner(context, manager, playerType)
+local function FirstBirthrightOwner(context, manager, playerType)    
+end
+
+---@param context Context
+---@param manager PlayerManagerComponent
+---@param player EntityPlayerComponent
+---@param other EntityPlayerComponent
+local function ReplacePlayer(context, manager, player, other)
 end
 
 ---@param context Context
@@ -51,6 +65,13 @@ end
 ---@return boolean
 local function AnyoneHasBirthright(context, manager, playerType)
     return not not FirstBirthrightOwner(context, manager, playerType)
+end
+
+---@param context Context
+---@param manager PlayerManagerComponent
+---@param playerType PlayerType | integer
+---@return EntityPlayerComponent
+local function SpawnCoPlayer(context, manager, playerType)
 end
 
 ---@param context Context
@@ -80,15 +101,25 @@ local function HasFullHeartsSoulHearts(context, manager, all)
     return result
 end
 
+---@param context Context
+---@param manager PlayerManagerComponent
+---@param player EntityPlayerComponent
+local function RemoveCoPlayer(context, manager, player)
+end
+
 --#region Module
 
 Module.FirstCollectibleOwner = FirstCollectibleOwner
 Module.AnyoneHasCollectible = AnyoneHasCollectible
 Module.FirstTrinketOwner = FirstTrinketOwner
 Module.AnyoneHasTrinket = AnyoneHasTrinket
+Module.GetTrinketMultiplier = GetTrinketMultiplier
 Module.FirstBirthrightOwner = FirstBirthrightOwner
 Module.AnyoneHasBirthright = AnyoneHasBirthright
 Module.HasFullHeartsSoulHearts = HasFullHeartsSoulHearts
+Module.ReplacePlayer = ReplacePlayer
+Module.SpawnCoPlayer = SpawnCoPlayer
+Module.RemoveCoPlayer = RemoveCoPlayer
 
 --#endregion
 

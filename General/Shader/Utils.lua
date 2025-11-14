@@ -50,6 +50,8 @@ local function FillColorOffsetVertexBuffer(context, color, vertexBuffer, image)
         vertexBuffer[10] = clipPaneNormal.X
         vertexBuffer[11] = clipPaneNormal.Y
         vertexBuffer[12] = clipPaneThreshold
+
+        vertexBuffer = vertexBuffer + 22 -- add stride
     end
 end
 
@@ -102,6 +104,8 @@ local function FillColorOffsetChampionVertexBuffer(context, color, championColor
         vertexBuffer[14] = championTint.G
         vertexBuffer[15] = championTint.B
         vertexBuffer[16] = championTint.A
+
+        vertexBuffer = vertexBuffer + 26 -- add stride
     end
 end
 

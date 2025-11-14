@@ -313,7 +313,7 @@ local function RenderFrame(context, layer, position, frameIndex, topLeftClamp, b
         return
     end
 
-    if not (0 < frameIndex and frameIndex < layer.m_frameCount) then
+    if not (0 <= frameIndex and frameIndex < layer.m_frameCount) then
         return
     end
 
