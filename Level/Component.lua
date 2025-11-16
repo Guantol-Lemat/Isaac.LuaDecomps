@@ -13,12 +13,14 @@
 ---@field m_enterDoor DoorSlot | integer
 ---@field m_leaveDoor DoorSlot | integer
 ---@field m_startingRoomIdx GridRooms | integer
----@field m_lastBossRoomIdx GridRooms | integer
+---@field m_lastBossListIdx integer
+---@field m_deliriumListIdx integer
 ---@field m_greedGoldTreasureIdx GridRooms | integer
 ---@field m_curses LevelCurse | integer
 ---@field m_levelStateFlags LevelStateFlag | integer
 ---@field m_generationRNG RNG
 ---@field m_devilAngelRoomRNG RNG
 ---@field m_dungeonPlacementSeed integer
+---@field m_hasBossChallenge boolean
 ---@field m_isDevilRoomDisabled boolean
 ---@field m_isInitializing boolean

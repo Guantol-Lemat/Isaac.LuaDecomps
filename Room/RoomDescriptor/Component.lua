@@ -16,6 +16,7 @@
 ---@field m_bossDeathEffectSeed integer
 ---@field m_entitySaveState EntitySaveStateComponent[]
 ---@field m_gridEntitySaveStates GridEntityDescComponent[]
+---@field m_group integer
 
 ---@class RoomDescriptorComponentUtils
 local Module = {}

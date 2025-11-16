@@ -1,4 +1,5 @@
 ---@class Admin
+---@field m_state integer
 ---@field m_frameCount number
 ---@field m_gameState GameStateComponent
 

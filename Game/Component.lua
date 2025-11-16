@@ -5,9 +5,12 @@
 ---@field m_difficulty Difficulty
 ---@field m_gameStateFlags GameStateFlag | integer
 ---@field m_victoryLap integer
+---@field m_treasureRoomsVisited integer
+---@field m_planetariumsVisited integer
 ---@field m_donationModGreed integer
 ---@field m_screenShakeOffset Vector
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
 ---@field m_backwardsStageDesc BackwardsStageDescComponent[]
 ---@field m_debugCurses LevelCurse | integer
+---@field m_isDebug boolean

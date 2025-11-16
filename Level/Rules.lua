@@ -2,12 +2,23 @@
 
 local BitSetUtils = require("General.Bitset")
 local SeedsUtils = require("Admin.Seeds.Utils")
+local GameUtils = require("Game.Utils")
+local PlayerManagerRules = require("Game.PlayerManager.Rules")
 local CurseRules = require("Mechanics.Level.Curse.Rules")
 
 --#endregion
 
 ---@class LevelRules
 local Module = {}
+
+---@param myContext LevelContext.PlaceRoomContext
+---@param level LevelComponent
+---@param levelGenRoom LevelGeneratorRoomComponent
+---@param roomData RoomDataComponent
+---@param seed integer
+---@return boolean
+local function PlaceRoom(myContext, level, levelGenRoom, roomData, seed)
+end
 
 ---@param context Context
 ---@param level LevelComponent
@@ -78,40 +89,27 @@ local function GetEffectiveStage(context, level)
     return stage
 end
 
+---@param myContext LevelContext.GetStageId
+---@param level LevelComponent
+---@return StbType | integer
+local function GetStageId(myContext, level)
+end
+
 ---@param context Context
 ---@param level LevelComponent
 ---@param sticky boolean
 local function ShowName(context, level, sticky)
 end
 
----@param context Context
----@param level LevelComponent
----@return boolean
-local function CanSpawnTrapDoor(context, level)
-end
-
----@param context Context
----@param level LevelComponent
----@return number
-local function GetPlanetariumChance(context, level)
-end
-
----@param context Context
----@param level LevelComponent
----@return boolean
-local function HasPhotoDoor(context, level)
-end
-
 --#region Module
 
+Module.PlaceRoom = PlaceRoom
 Module.SetStage = SetStage
 Module.GetCurses = GetCurses
 Module.HasCurses = HasCurses
+Module.GetStageId = GetStageId
 Module.GetEffectiveStage = GetEffectiveStage
 Module.ShowName = ShowName
-Module.CanSpawnTrapDoor = CanSpawnTrapDoor
-Module.GetPlanetariumChance = GetPlanetariumChance
-Module.HasPhotoDoor = HasPhotoDoor
 
 --#endregion
 
