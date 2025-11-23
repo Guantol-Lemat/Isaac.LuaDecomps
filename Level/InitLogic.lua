@@ -3,6 +3,7 @@
 local BitsetUtils = require("General.Bitset")
 local LevelUtils = require("Level.Utils")
 local CurseInitLogic = require("Mechanics.Level.Curse.InitLogic")
+local SeedsUtils = require("Admin.Seeds.Utils")
 
 --#endregion
 
@@ -108,9 +109,8 @@ local function Init(context, level)
     level_reset(context, level)
 
     local seeds = context:GetSeeds()
-    assert(seeds.m_gameStartSeed ~= 0, "Game Start Seed was not set")
     local floor = LevelUtils.GetFloor(level.m_stage, level.m_stageType)
-    local seed = seeds.m_stageSeeds[floor]
+    local seed = SeedsUtils.GetStageSeed(seeds, floor)
 
     level.m_generationRNG:SetSeed(seed, 35)
     level.m_devilAngelRoomRNG:SetSeed(seed, 2)

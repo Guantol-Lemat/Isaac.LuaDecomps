@@ -2,8 +2,8 @@
 
 local GameUtils = require("Game.Utils")
 local LevelRules = require("Level.Rules")
-local SeedsUtils = require("Seeds.Utils")
-local PersistentDataRules = require("PersistentData.Rules")
+local SeedsUtils = require("Admin.Seeds.Utils")
+local PersistentDataRules = require("Admin.PersistentData.Rules")
 local BackwardsPathRules = require("Level.BackwardsPath.Rules")
 
 --#endregion
@@ -232,7 +232,7 @@ local function get_next_stage(context, level)
 
     if GameUtils.IsGreedMode(game) then
         local seeds = context:GetSeeds()
-        local seed = seeds.m_stageSeeds[newStage]
+        local seed = SeedsUtils.GetStageSeed(seeds, newStage)
         local persistentGameData = context:GetPersistentGameData()
 
         if (seed % 2) == 0 and is_wotl_available_greed(context, persistentGameData, newStage) then
@@ -259,7 +259,7 @@ local function get_next_stage(context, level)
         end
 
         local seeds = context:GetSeeds()
-        local seed = seeds.m_stageSeeds[newStage + 1]
+        local seed = SeedsUtils.GetStageSeed(seeds, newStage + 1)
         local persistentGameData = context:GetPersistentGameData()
 
         if (seed & 2) == 0 and is_repentance_b_available(context, persistentGameData, newStage) then
@@ -273,7 +273,7 @@ local function get_next_stage(context, level)
         end
 
         local seeds = context:GetSeeds()
-        local seed = seeds.m_stageSeeds[newStage]
+        local seed = SeedsUtils.GetStageSeed(seeds, newStage + 1)
         local persistentGameData = context:GetPersistentGameData()
 
         if (seed % 2) == 0 and is_wotl_available(context, persistentGameData, newStage) then

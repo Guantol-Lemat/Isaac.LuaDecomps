@@ -1,3 +1,4 @@
 ---@class SeedsComponent
----@field m_gameStartSeed integer
+---@field m_startSeed integer
 ---@field m_stageSeeds integer[]
+---@field m_playerSeed integer

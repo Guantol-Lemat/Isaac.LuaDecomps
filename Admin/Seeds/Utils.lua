@@ -8,6 +8,14 @@ local BitSetUtils = require("General.Bitset")
 local Module = {}
 
 ---@param seeds SeedsComponent
+---@param stage LevelStage | integer
+---@return integer
+local function GetStageSeed(seeds, stage)
+    assert(seeds.m_startSeed ~= 0, "Game Start Seed was not set")
+    return seeds.m_stageSeeds[stage + 1]
+end
+
+---@param seeds SeedsComponent
 ---@param seed SeedEffect
 ---@return boolean
 local function HasSeedEffect(seeds, seed)
@@ -89,6 +97,7 @@ end
 
 --#region Module
 
+Module.GetStageSeed = GetStageSeed
 Module.HasSeedEffect = HasSeedEffect
 Module.GetSpecialSeedPermanentCurses = GetSpecialSeedBannedCurses
 Module.GetSpecialSeedBannedCurses = GetSpecialSeedPermanentCurses
