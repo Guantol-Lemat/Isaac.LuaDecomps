@@ -19,9 +19,27 @@ local function IsChest(variant)
     return not not CHEST_VARIANTS[variant]
 end
 
+---@param pickup EntityPickupComponent
+---@return integer
+local function GetAlternatePedestal(pickup)
+end
+
+---@param pickup EntityPickupComponent
+---@param pedestal integer
+local function SetAlternatePedestal(pickup, pedestal)
+end
+
+---@param pickup EntityPickupComponent
+---@return integer
+local function SetNewOptionsPickupIndex(pickup)
+end
+
 --#region Module
 
 Module.IsChest = IsChest
+Module.GetAlternatePedestal = GetAlternatePedestal
+Module.SetAlternatePedestal = SetAlternatePedestal
+Module.SetNewOptionsPickupIndex = SetNewOptionsPickupIndex
 
 --#endregion
 

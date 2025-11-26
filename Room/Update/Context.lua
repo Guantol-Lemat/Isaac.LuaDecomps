@@ -1,4 +1,4 @@
----@class RoomUpdateContext.Update : RoomContext.GetFrameCount, InventoryContext.HasCollectible, LevelContext.GetStageId
+---@class RoomUpdateContext.Update : RoomContext.GetFrameCount, InventoryContext.HasCollectible, LevelContext.GetStageId, DamoclesItemsContext.Update
 ---@field game GameComponent
 ---@field level LevelComponent
 ---@field playerManager PlayerManagerComponent

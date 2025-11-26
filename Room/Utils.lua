@@ -40,12 +40,52 @@ end
 ---@param position Vector
 ---@return integer
 local function GetGridIdx(room, position)
+    local x = (position.X - 40.0) / 40.0 + 0.5
+    local y = (position.Y - 120.0) / 40.0 + 0.5
+
+    local width = room.m_gridWidth
+    if (0 >= x or x >= width) or (0 >= y or y >= room.m_gridHeight) then
+        return -1
+    end
+
+    return x + y * width
+end
+
+---@param room RoomComponent
+---@param tile Vector
+---@return integer
+local function GetGridIndexByTile(room, tile)
+    local x = tile.X
+    local y = tile.Y
+
+    local width = room.m_gridWidth
+    if (0 >= x or x >= width) or (0 >= y or y >= room.m_gridHeight) then
+        return -1
+    end
+
+    return x + y * width
 end
 
 ---@param room RoomComponent
 ---@param gridIdx integer
 ---@return Vector
 local function GetGridPosition(room, gridIdx)
+    local width = room.m_gridWidth
+    local x = (gridIdx % width) * 40.0 + 40.0
+    local y = (gridIdx / width) * 40.0 + 120.0
+
+    return Vector(x, y)
+end
+
+---@param room RoomComponent
+---@param gridIdx integer
+---@return Vector
+local function GetGridTile(room, gridIdx)
+    local width = room.m_gridWidth
+    local x = gridIdx % width
+    local y = gridIdx / width
+
+    return Vector(x, y)
 end
 
 ---@param room RoomComponent
@@ -79,6 +119,29 @@ local function GetGridCollisionAtPos(room, position)
 end
 
 ---@param room RoomComponent
+---@return integer
+local function GetGridPath(room, gridIndex)
+    if 0 <= gridIndex and gridIndex < 448 then
+        return room.m_gridPaths[gridIndex + 1]
+    end
+
+    return 0
+end
+
+---@param room RoomComponent
+---@param gridIndex integer
+---@param value integer
+---@return boolean
+local function SetGridPath(room, gridIndex, value)
+    if 0 <= gridIndex and gridIndex < 448 then
+        room.m_gridPaths[gridIndex + 1] = value
+        return true
+    end
+
+    return false
+end
+
+---@param room RoomComponent
 ---@param gridIdx integer
 ---@return GridEntityComponent?
 local function GetGridEntity(room, gridIdx)
@@ -99,6 +162,15 @@ local function FindFreeTilePosition(room, position, distanceThreshold)
 end
 
 ---@param room RoomComponent
+---@param position Vector
+---@param initialStep number
+---@param avoidActiveEntities boolean
+---@param allowPits boolean
+---@return Vector
+local function FindFreePickupSpawnPosition(room, position, initialStep, avoidActiveEntities, allowPits)
+end
+
+---@param room RoomComponent
 ---@return RenderMode
 local function GetRenderMode(room)
 end
@@ -110,14 +182,19 @@ Module.IsClear = IsClear
 Module.IsDungeon = IsDungeon
 Module.IsBeastDungeon = IsBeastDungeon
 Module.GetGridIdx = GetGridIdx
+Module.GetGridIndexByTile = GetGridIndexByTile
 Module.GetGridPosition = GetGridPosition
+Module.GetGridTile = GetGridTile
 Module.GetClampedPositionRaw = GetClampedPositionRaw
 Module.GetClampedPosition = GetClampedPosition
 Module.GetGridCollision = GetGridCollision
 Module.GetGridCollisionAtPos = GetGridCollisionAtPos
+Module.GetGridPath = GetGridPath
+Module.SetGridPath = SetGridPath
 Module.GetGridEntity = GetGridEntity
 Module.GetGridEntityFromPos = GetGridEntityFromPos
 Module.FindFreeTilePosition = FindFreeTilePosition
+Module.FindFreePickupSpawnPosition = FindFreePickupSpawnPosition
 Module.GetRenderMode = GetRenderMode
 
 --#endregion

@@ -1,4 +1,6 @@
 ---@class EntityPickupComponent : EntityComponent
+---@field m_price PickupPrice | integer
+---@field m_optionsPickupIndex integer
 ---@field m_collectedCoopItems integer
 ---@field m_flipState PickupSaveStateComponent?
 ---@field m_flipCollectibleSprite Sprite

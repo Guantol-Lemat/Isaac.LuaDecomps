@@ -10,6 +10,7 @@
 ---@field m_gridEntityList table<integer, GridEntityComponent?>
 ---@field m_gridWidth integer
 ---@field m_gridHeight integer
+---@field m_gridPaths integer[]
 ---@field m_temporaryEffects TemporaryEffectsComponent
 ---@field m_backdrop BackdropComponent
 ---@field m_waterAmount number
@@ -24,7 +25,7 @@
 ---@field m_cardAgainstHumanity_IsActive boolean
 ---@field m_ghost_Persists boolean
 ---@field m_pickupVision_Invalidate boolean
----@field m_duplicateItem_Invalidate boolean
+---@field m_damoclesItems_Invalidate boolean
 ---@field m_isInitialized boolean
 ---@field m_interpolatedPositions boolean
 ---@field m_shouldRenderPits boolean

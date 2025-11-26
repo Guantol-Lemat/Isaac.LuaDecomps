@@ -6,7 +6,7 @@ local GameUtils = require("Game.Utils")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
 local LevelUtils = require("Level.Utils")
-local Log = require("General.Log")
+local DamoclesItems = require("Mechanics.DamoclesItems.Logic")
 
 local BossLifecycle = require("Room.Boss.Lifecycle")
 
@@ -209,9 +209,7 @@ local function Update(myContext, room)
         room.m_pickupVision_Invalidate = false
     end
 
-    if room.m_duplicateItem_Invalidate then
-        -- update duplicate Item (damocles items)
-    end
+    DamoclesItems.Update(myContext, room)
 
     -- resolve weird vector
     return

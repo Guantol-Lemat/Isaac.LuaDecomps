@@ -1,7 +1,7 @@
 ---@class GameSpawnLogic
 local Module = {}
 
----@param context Context
+---@param myContext GameContext.Spawn
 ---@param entityType EntityType | integer
 ---@param variant integer
 ---@param subtype integer
@@ -10,7 +10,7 @@ local Module = {}
 ---@param velocity Vector
 ---@param spawner EntityComponent?
 ---@return EntityComponent
-local function Spawn(context, entityType, variant, subtype, seed, position, velocity, spawner)
+local function Spawn(myContext, entityType, variant, subtype, seed, position, velocity, spawner)
 end
 
 --#region Module
