@@ -1,0 +1,2 @@
+---@class MusicManagerComponent
+---@field m_pitchSlide number

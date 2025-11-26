@@ -1,0 +1,2 @@
+---@class BackdropComponent
+---@field m_type BackdropType

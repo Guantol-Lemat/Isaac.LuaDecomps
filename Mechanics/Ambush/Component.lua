@@ -1,0 +1,2 @@
+---@class AmbushComponent
+---@field isActive boolean

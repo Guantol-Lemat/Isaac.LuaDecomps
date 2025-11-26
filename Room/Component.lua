@@ -7,5 +7,24 @@
 ---@field m_secondBossId BossType | integer
 ---@field m_bossCount integer
 ---@field m_surpriseMiniboss boolean
+---@field m_gridEntityList table<integer, GridEntityComponent?>
+---@field m_gridWidth integer
+---@field m_gridHeight integer
+---@field m_temporaryEffects TemporaryEffectsComponent
+---@field m_backdrop BackdropComponent
 ---@field m_waterAmount number
+---@field m_waterLerpColorCountdown integer
 ---@field m_renderScrollOffset Vector
+---@field m_initialFrameCount integer
+---@field m_clearDelay integer
+---@field m_slowdownDuration integer
+---@field m_shopRestock_Countdown integer
+---@field m_curseOfTower_Countdown integer
+---@field m_genesisItems_Countdown integer
+---@field m_cardAgainstHumanity_IsActive boolean
+---@field m_ghost_Persists boolean
+---@field m_pickupVision_Invalidate boolean
+---@field m_duplicateItem_Invalidate boolean
+---@field m_isInitialized boolean
+---@field m_interpolatedPositions boolean
+---@field m_shouldRenderPits boolean

@@ -27,6 +27,11 @@ end
 local function IsAltPath(level)
 end
 
+---@param level LevelComponent
+---@return boolean
+local function IsCorpseEntrance(level)
+end
+
 ---@param stage LevelStage | integer
 ---@param stageType StageType | integer
 local function GetFloor(stage, stageType)
@@ -294,6 +299,7 @@ end
 
 Module.ToRoomIdx = ToRoomIdx
 Module.IsAltPath = IsAltPath
+Module.IsCorpseEntrance = IsCorpseEntrance
 Module.GetFloor = GetFloor
 Module.GetCurrentRoomDesc = GetCurrentRoomDesc
 Module.reset_room_list = reset_room_list

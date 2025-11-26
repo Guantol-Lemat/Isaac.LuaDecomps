@@ -9,6 +9,7 @@
 ---@field m_planetariumsVisited integer
 ---@field m_donationModGreed integer
 ---@field m_screenShakeOffset Vector
+---@field m_dizzyIntensity number
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
 ---@field m_backwardsStageDesc BackwardsStageDescComponent[]

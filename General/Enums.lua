@@ -1,6 +1,12 @@
 ---@class Enums
 local Module = {}
 
+---@enum eMode
+Module.eMode = {
+    NORMAL = 0,
+    GREED = 1,
+}
+
 ---@enum ePickVelType
 Module.ePickVelType = {
     DEFAULT = 0,

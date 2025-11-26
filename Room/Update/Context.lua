@@ -1,0 +1,17 @@
+---@class RoomUpdateContext.Update : RoomContext.GetFrameCount, InventoryContext.HasCollectible, LevelContext.GetStageId
+---@field game GameComponent
+---@field level LevelComponent
+---@field playerManager PlayerManagerComponent
+---@field musicManager MusicManagerComponent
+---@field ambush AmbushComponent
+---@field frameCount integer
+---@field room RoomComponent
+---@field persistentGameData PersistentDataComponent
+---@field itemConfig ItemConfigComponent
+---@field proceduralItemManager ProceduralItemManagerComponent
+---@field seeds SeedsComponent
+---@field challenge Challenge | integer -- Trinket
+---@field dailyChallenge DailyChallengeComponent -- Trinket
+---@field defaultPlayer EntityPlayerComponent? -- Both
+---@field forceUnlock boolean
+---@field mode integer

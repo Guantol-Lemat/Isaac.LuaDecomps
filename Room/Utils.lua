@@ -1,12 +1,15 @@
 ---@class RoomUtils
 local Module = {}
 
+---@param myContext RoomContext.GetFrameCount
 ---@param room RoomComponent
 ---@return integer
-local function GetAliveBossesCount(room)
-    local entityList = room.m_entityList
-    local aliveBosses = entityList.m_addedBosses + entityList.m_bossCount
-    return math.max(aliveBosses, 0)
+local function GetFrameCount(myContext, room)
+    if not room.m_isInitialized then
+        return -1
+    end
+
+    return myContext.frameCount - room.m_initialFrameCount
 end
 
 ---@param room RoomComponent
@@ -102,7 +105,7 @@ end
 
 --#region Module
 
-Module.GetAliveBossesCount = GetAliveBossesCount
+Module.GetFrameCount = GetFrameCount
 Module.IsClear = IsClear
 Module.IsDungeon = IsDungeon
 Module.IsBeastDungeon = IsBeastDungeon

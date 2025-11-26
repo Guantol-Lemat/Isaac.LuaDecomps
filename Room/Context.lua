@@ -1,0 +1,2 @@
+---@class RoomContext.GetFrameCount
+---@field frameCount integer

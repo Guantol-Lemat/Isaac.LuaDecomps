@@ -1,6 +1,10 @@
 ---@class OptionsComponent
 ---@field m_hudOffset number
 ---@field m_historyHudMode integer
----@field m_enableFoundHUD boolean
 ---@field m_mapOpacity number
+---@field m_enableFoundHUD boolean
+---@field m_enableLighting boolean
+---@field m_enableShockwave boolean
+---@field m_enableWaterSurface boolean
+---@field m_enableWaterSurface_Unk boolean
 ---@field m_mouseControlsEnabled boolean
