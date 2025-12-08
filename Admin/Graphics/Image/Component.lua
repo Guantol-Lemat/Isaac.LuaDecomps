@@ -18,6 +18,8 @@ local Module = {}
 ---@field SetWrapMode fun(self: ImageComponent, wrapSMode: integer, wrapTMode: integer)
 ---@field Bind fun(self: ImageComponent)
 ---@field apply_data fun(self: ImageComponent, context: Context, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): pointer?
+---@field apply_image fun(self: ImageComponent)
+---@field SwapBatches fun(self: ImageComponent)
 ---@field m_uvScale Vector
 ---@field m_flags eImageFlags | integer
 ---@field m_predefinedShader ePredefinedShader | integer
@@ -31,9 +33,9 @@ local Module = {}
 ---@field m_vertexAttributesCount integer
 ---@field m_vertexStride integer
 ---@field m_name string
----@field m_renderBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
+---@field m_opaqueBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
 ---@field m_lastRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
----@field m_transparentRenderBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
+---@field m_reusableTransparentRenderBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
 ---@field m_lastTransparentRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
 ---@field m_quadBatch RenderBatchComponent? -- the current batch in which to submit quads
 ---@field m_quadBatchRenderingOffset Vector

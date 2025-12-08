@@ -1,0 +1,2 @@
+---@class ImageAdminContext.apply_frame_images : ImageContext.EndBatch, ImageContext.DrawBatch
+---@field graphics GraphicsAdminComponent

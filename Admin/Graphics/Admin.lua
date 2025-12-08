@@ -1,6 +1,7 @@
 --#region Dependencies
 
 local BlendMode = require("Admin.Graphics.BlendMode")
+local Log = require("General.Log")
 
 --#endregion
 
@@ -14,18 +15,18 @@ local ePredefinedShader = {
     SHADER_3 = 2,
 }
 
----@param context Context
 ---@param admin GraphicsAdminComponent
-local function PushRenderTarget(context, admin)
+local function PushRenderTarget(admin)
     local stack = admin.g_renderTargetStack
     if #stack >= 16 then
-        context:LogMessage(3, "PushRenderTarget: stack overflow!\n")
+        Log.LogMessage(3, "PushRenderTarget: stack overflow!\n")
     end
 
     table.insert(admin.g_renderTargetStack, {admin.m_renderTargetTexture, admin.m_renderTargetUsesScreenSize})
 end
 
-local function PopRenderTarget(context, admin)
+---@param admin GraphicsAdminComponent
+local function PopRenderTarget(admin)
 
 end
 

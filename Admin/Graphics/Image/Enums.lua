@@ -6,7 +6,7 @@ local eImageFlags = {
     LOADED = 1 << 0,
     PROCEDURAL = 1 << 1,
     FRAME_IMAGE_ADDED = 1 << 2,
-    APPLIED = 1 << 4,
+    DRAWN = 1 << 4,
     BATCH_RUNNING = 1 << 5,
 }
 

@@ -13,7 +13,7 @@ local Memory = require("Admin.Memory.Memory")
 
 local eImageFlags = ImageEnums.eImageFlags
 local eCoordinateSpace = GraphicsQuad.eCoordinateSpace
-local eBlendType = BlendMode.eBlendMode
+local eBlendMode = BlendMode.eBlendMode
 local eVertexAttributeFormat = Shader.eVertexAttributeFormat
 
 --#endregion
@@ -41,7 +41,7 @@ local function get_batch(context, image, isTransparent)
     end
 
     image.m_lastRenderBatch = batch
-    table.insert(image.m_renderBatches, batch)
+    table.insert(image.m_opaqueBatches, batch)
     return batch
 end
 
@@ -58,7 +58,7 @@ local function begin_quad_batch(context, image, isTransparent)
 
     local changeBlendMode = blendIsOverride and isTransparent
     if changeBlendMode then
-        GraphicsAdmin.SetBlendMode(graphics, eBlendType.NORMAL)
+        GraphicsAdmin.SetBlendMode(graphics, eBlendMode.NORMAL)
     end
     image.m_quadBatchChangedBlend = changeBlendMode
 
@@ -87,9 +87,24 @@ local function BeginBatch(context, image, isTransparent)
     image.m_flags = BitsetUtils.Set(image.m_flags, eImageFlags.BATCH_RUNNING)
 end
 
----@param context Context
+---@param context ImageContext.EndBatch
 ---@param image ImageComponent
 local function EndBatch(context, image)
+    if not BitsetUtils.HasAny(image.m_flags, eImageFlags.BATCH_RUNNING) then
+        return
+    end
+
+    if image.m_quadBatchChangedBlend then
+        GraphicsAdmin.SetBlendMode(context.graphics, eBlendMode.OVERRIDE)
+    end
+
+    image.m_quadBatch = nil
+    image.m_quadBatchRenderingOffset.X = 0.0
+    image.m_quadBatchRenderingOffset.Y = 0.0
+    image.m_quadBatchPixelScale = 0.0
+    image.m_quadBatchChangedBlend = false
+
+    BitsetUtils.Clear(image.m_flags, eImageFlags.BATCH_RUNNING)
 end
 
 ---@param vertexBuffer pointer
@@ -313,43 +328,78 @@ local function RenderSourceDestQuadFlatColor(image, context, sourceQuad, destQua
     return RenderSourceDestQuad(image, context, sourceQuad, destQuad, color, color, color, color)
 end
 
+---@param context ImageContext.DrawBatch
+---@param image ImageComponent
+---@param batch RenderBatchComponent
+---@param bindImage boolean
+local function DrawBatch(context, image, batch, bindImage)
+    local graphics = context.graphics
+
+    local vertexBufferDesc = batch.m_vertexBuffer
+    local indexBufferDesc = batch.m_indexBuffer
+
+    local indexBuffer = indexBufferDesc.m_buffers[indexBufferDesc.m_activeBuffer]
+    local indexCount = indexBuffer.m_size - indexBuffer.m_processed
+
+    if indexCount < 0 then
+        return
+    end
+
+    if bindImage then
+        image:Bind()
+    end
+
+    local timeStamp = SystemTime.GetMilliseconds()
+    image.m_lastRenderTimeStamp = timeStamp
+
+    graphics:apply_blend_mode(batch.m_blendMode)
+    graphics:bind_shader(batch.m_shader, batch.m_shaderState)
+
+    local vertexBuffer = vertexBufferDesc.m_buffers[vertexBufferDesc.m_activeBuffer]
+    local vertexCount = vertexBuffer.m_size - vertexBuffer.m_processed
+    local startOfVertexBuffer = vertexBuffer.m_data + (vertexBufferDesc.m_elementSize * vertexBuffer.m_processed)
+    local startOfIndexBuffer = indexBuffer.m_data + (indexBufferDesc.m_elementSize * indexBuffer.m_processed)
+
+    graphics:render_vertices(startOfVertexBuffer, vertexCount, vertexBufferDesc.m_elementSize, startOfIndexBuffer, indexCount)
+    vertexBuffer.m_processed = vertexBuffer.m_size
+    indexBuffer.m_processed = indexBuffer.m_size
+end
+
+---@param bufferObject GraphicsBufferObject
+local function empty_graphics_buffer(bufferObject)
+    bufferObject.m_activeBuffer = 0
+    local buffer = bufferObject.m_buffers[1]
+    buffer.m_size = 0
+    buffer.m_processed = 0
+end
+
+---@param image ImageComponent
+local function SwapBatches(image)
+    local opaqueBatches = image.m_opaqueBatches
+    local transparentBatches = image.m_reusableTransparentRenderBatches
+
+    for i = 1, opaqueBatches, 1 do
+        local batch = opaqueBatches[i]
+        empty_graphics_buffer(batch.m_vertexBuffer)
+        empty_graphics_buffer(batch.m_indexBuffer)
+    end
+
+    for i = 1, transparentBatches, 1 do
+        local batch = transparentBatches[i]
+        empty_graphics_buffer(batch.m_vertexBuffer)
+        empty_graphics_buffer(batch.m_indexBuffer)
+    end
+end
+
 ---Render Image's render batches onto current RenderTarget
 ---@param image ImageComponent
----@param context Context
+---@param context ImageContext.DrawBatch
 local function apply_image(image, context)
-    local system = context:GetSystemManager()
-    local graphics = context:GetGraphicsManager()
     image:Bind()
 
-    local renderBatches = image.m_renderBatches
+    local renderBatches = image.m_opaqueBatches
     for i = 1, #renderBatches, 1 do
-        local batch = renderBatches[i]
-
-        local vertexBufferDesc = batch.m_vertexBuffer
-        local indexBufferDesc = batch.m_indexBuffer
-
-        local indexBuffer = indexBufferDesc.m_buffers[indexBufferDesc.m_activeBuffer]
-        local indexCount = indexBuffer.m_size - indexBuffer.m_processed
-
-        if indexCount < 0 then
-            goto continue
-        end
-
-        local timeStamp = SystemTime.GetMilliseconds(system)
-        image.m_lastRenderTimeStamp = timeStamp
-
-        graphics:apply_blend_mode(batch.m_blendMode)
-        graphics:bind_shader(batch.m_shader, batch.m_shaderState)
-
-        local vertexBuffer = vertexBufferDesc.m_buffers[vertexBufferDesc.m_activeBuffer]
-        local vertexCount = vertexBuffer.m_size - vertexBuffer.m_processed
-        local startOfVertexBuffer = vertexBuffer.m_data + (vertexBufferDesc.m_elementSize * vertexBuffer.m_processed)
-        local startOfIndexBuffer = indexBuffer.m_data + (indexBufferDesc.m_elementSize * indexBuffer.m_processed)
-
-        graphics:render_vertices(startOfVertexBuffer, vertexCount, vertexBufferDesc.m_elementSize, startOfIndexBuffer, indexCount)
-        vertexBuffer.m_processed = vertexBuffer.m_size
-        indexBuffer.m_processed = indexBuffer.m_size
-        ::continue::
+        DrawBatch(context, image, renderBatches[i], false)
     end
 end
 
@@ -359,6 +409,8 @@ Module.BeginBatch = BeginBatch
 Module.EndBatch = EndBatch
 Module.RenderSourceDestQuad = RenderSourceDestQuad
 Module.RenderSourceDestQuadFlatColor = RenderSourceDestQuadFlatColor
+Module.DrawBatch = DrawBatch
+Module.SwapBatches = SwapBatches
 Module.apply_data = apply_data
 Module.apply_image = apply_image
 
