@@ -138,9 +138,8 @@ Module.eRoomFlags = {
 Module.eDisplayFlags = {
     DISPLAY_NONE = 0,
     DISPLAY_ROOM = 1 << 0,
-    DISPLAY_BOX = 1 << RoomDescriptor.DISPLAY_BOX,
-    DISPLAY_LOCK = 1 << RoomDescriptor.DISPLAY_LOCK,
-    DISPLAY_ICON =  1 << RoomDescriptor.DISPLAY_ICON,
+    DISPLAY_LOCK = 1 << 1,
+    DISPLAY_ICON =  1 << 2,
 }
 
 ---@enum eShaders
