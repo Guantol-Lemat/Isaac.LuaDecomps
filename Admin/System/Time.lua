@@ -1,8 +1,7 @@
 ---@class SystemTimeModule
 local Module = {}
 
----@param system SystemAdminComponent
-local function GetMilliseconds(system)
+local function GetMilliseconds()
     return Isaac.GetTime()
 end
 
