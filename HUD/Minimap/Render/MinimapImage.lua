@@ -1048,7 +1048,7 @@ local function Render(context, config)
     local graphics = context:GetGraphicsManager()
 
     ANM2Admin.DisableScreenShaking(anm2Admin)
-    GraphicsAdmin.PushRenderTarget(context, graphics)
+    GraphicsAdmin.PushRenderTarget(graphics)
     graphics:SetRenderTargetTexture(config.m_image, false)
     graphics:Clear()
     GraphicsAdmin.SetBlendMode(graphics, BlendMode.eBlendMode.NORMAL)
@@ -1056,7 +1056,7 @@ local function Render(context, config)
     render(context, config)
 
     GraphicsAdmin.Present(graphics)
-    GraphicsAdmin.PopRenderTarget(context, graphics)
+    GraphicsAdmin.PopRenderTarget(graphics)
     ANM2Admin.EnableScreenShaking(anm2Admin)
 end
 
