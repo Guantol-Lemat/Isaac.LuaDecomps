@@ -45,31 +45,35 @@ local function check_spawn_offsets(room, damoclesItems, gridMap, offsets)
     end
 
     for i = 1, #damoclesItems, 1 do
-        do
-            local pickup = damoclesItems[i]
-            local position = pickup.m_position
-            local gridIdx = RoomUtils.GetGridIdx(room, position)
-            local gridPosition = RoomUtils.GetGridPosition(room , gridIdx)
+        local pickup = damoclesItems[i]
+        local position = pickup.m_position
+        local gridIdx = RoomUtils.GetGridIdx(room, position)
+        local gridPosition = RoomUtils.GetGridPosition(room , gridIdx)
+        local gridTile
+        local newPositionTile
+        local newGridIdx
+        local spawnTile
+        local spawnGridIdx
 
-            if not VectorUtils.Equals(position, gridPosition) then
-                break -- continue
-            end
-
-            local gridTile = RoomUtils.GetGridTile(room, gridIdx)
-            local newPositionTile = gridTile + offsets[1]
-            local newGridIdx = RoomUtils.GetGridIndexByTile(room, newPositionTile)
-
-            local spawnTile = gridTile + offsets[2]
-            local spawnGridIdx = RoomUtils.GetGridIndexByTile(room, spawnTile)
-
-            if newGridIdx < 0 or spawnGridIdx < 0 or spawnPositions[newGridIdx] ~= 0 or spawnPositions[spawnGridIdx] ~= 0 then
-                return false
-            end
-
-            spawnPositions[newGridIdx] = 1
-            spawnPositions[spawnGridIdx] = 1
-            spawnPositions[gridIdx] = 0
+        if not VectorUtils.Equals(position, gridPosition) then
+            goto continue
         end
+
+        gridTile = RoomUtils.GetGridTile(room, gridIdx)
+        newPositionTile = gridTile + offsets[1]
+        newGridIdx = RoomUtils.GetGridIndexByTile(room, newPositionTile)
+
+        spawnTile = gridTile + offsets[2]
+        spawnGridIdx = RoomUtils.GetGridIndexByTile(room, spawnTile)
+
+        if newGridIdx < 0 or spawnGridIdx < 0 or spawnPositions[newGridIdx] ~= 0 or spawnPositions[spawnGridIdx] ~= 0 then
+            return false
+        end
+
+        spawnPositions[newGridIdx] = 1
+        spawnPositions[spawnGridIdx] = 1
+        spawnPositions[gridIdx] = 0
+        ::continue::
     end
 
     return true
@@ -102,40 +106,41 @@ local function Update(myContext, room)
     local roomList = roomEL.data
 
     for i = 1, roomEL.size, 1 do
-        do
-            local entity = roomList[i]
-            if not entity or entity.m_type ~= EntityType.ENTITY_PICKUP or entity.m_variant ~= PickupVariant.PICKUP_COLLECTIBLE then
-                break
-            end
+        local entity = roomList[i]
+        local pickup
+        local gridIdx
 
-            local pickup = EntityUtils.ToPickup(entity)
-            assert(pickup, "ENTITY_PICKUP is not a pickup.")
-
-            local gridIdx = RoomUtils.GetGridIdx(room, pickup.m_position)
-            if gridIdx ~= -1 then
-                gridMap[gridIdx + 1] = 1
-            end
-
-            if pickup.m_isDead then
-                break
-            end
-
-            if pickup.m_price ~= 0 then
-                break
-            end
-
-            if not EntityUtils.HasAnyFlag(entity, EntityFlag.FLAG_ITEM_SHOULD_DUPLICATE) then
-               break
-            end
-
-            if ItemConfigUtils.IsTaggedCollectible(itemConfig, pickup.m_subtype, ItemConfig.TAG_QUEST) then
-                break
-            end
-
-            EntityUtils.ClearFlags(pickup, EntityFlag.FLAG_ITEM_SHOULD_DUPLICATE)
-            table.insert(damoclesItems, pickup)
-
+        if not entity or entity.m_type ~= EntityType.ENTITY_PICKUP or entity.m_variant ~= PickupVariant.PICKUP_COLLECTIBLE then
+            goto continue
         end
+
+        pickup = EntityUtils.ToPickup(entity)
+        assert(pickup, "ENTITY_PICKUP is not a pickup.")
+
+        gridIdx = RoomUtils.GetGridIdx(room, pickup.m_position)
+        if gridIdx ~= -1 then
+            gridMap[gridIdx + 1] = 1
+        end
+
+        if pickup.m_isDead then
+            goto continue
+        end
+
+        if pickup.m_price ~= 0 then
+            goto continue
+        end
+
+        if not EntityUtils.HasAnyFlag(entity, EntityFlag.FLAG_ITEM_SHOULD_DUPLICATE) then
+            goto continue
+        end
+
+        if ItemConfigUtils.IsTaggedCollectible(itemConfig, pickup.m_subtype, ItemConfig.TAG_QUEST) then
+            goto continue
+        end
+
+        EntityUtils.ClearFlags(pickup, EntityFlag.FLAG_ITEM_SHOULD_DUPLICATE)
+        table.insert(damoclesItems, pickup)
+        ::continue::
     end
 
     local try = 1
