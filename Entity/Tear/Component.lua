@@ -1,3 +1,9 @@
 ---@class EntityTearComponent : EntityComponent
 ---@field m_tearFlags BitSet128
+---@field m_baseScale number
 ---@field m_scale number
+---@field m_scaleAnimCheck number -- used to see if it's necessary to evaluate the scale animation.
+---@field m_deadEyeIntensity number
+---@field m_tearGlowSprite Sprite
+---@field m_tearEffectSprite Sprite
+---@field m_deadEyeSprite Sprite

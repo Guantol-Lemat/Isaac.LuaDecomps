@@ -14,6 +14,7 @@
 ---@field m_velocity Vector
 ---@field m_size number
 ---@field m_sizeMulti Vector
+---@field m_shadowSize number
 ---@field m_friction number
 ---@field m_timescale number
 ---@field m_spawnFrame integer

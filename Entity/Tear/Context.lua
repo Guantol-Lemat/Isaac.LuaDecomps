@@ -1,0 +1,2 @@
+---@class TearContext.ResetSpriteScale
+---@field seeds SeedsComponent

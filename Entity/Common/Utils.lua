@@ -227,6 +227,13 @@ local function AddVelocity(entity, velocity, ignoreTimescale)
     entity.m_velocity = entity.m_velocity + (timeScale * velocity) / friction
 end
 
+---@param entity EntityComponent
+---@param size number
+---@param sizeMulti Vector
+---@param numGridCollisionPoints integer
+local function SetSize(entity, size, sizeMulti, numGridCollisionPoints)
+end
+
 --#region Module
 
 Module.HasFlags = HasFlags
@@ -255,6 +262,7 @@ Module.IsVulnerableEnemy = IsVulnerableEnemy
 Module.DoesEntityShareStatus = DoesEntityShareStatus
 Module.GetStatusEffectTarget = GetStatusEffectTarget
 Module.AddVelocity = AddVelocity
+Module.SetSize = SetSize
 
 --#endregion
 
