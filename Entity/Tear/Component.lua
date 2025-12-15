@@ -3,6 +3,8 @@
 ---@field m_baseScale number
 ---@field m_scale number
 ---@field m_scaleAnimCheck number -- used to see if it's necessary to evaluate the scale animation.
+---@field m_height number
+---@field m_unkDegrees integer
 ---@field m_deadEyeIntensity number
 ---@field m_tearGlowSprite Sprite
 ---@field m_tearEffectSprite Sprite
