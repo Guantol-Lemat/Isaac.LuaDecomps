@@ -4,8 +4,13 @@
 ---@field m_scale number
 ---@field m_scaleAnimCheck number -- used to see if it's necessary to evaluate the scale animation.
 ---@field m_height number
----@field m_unkDegrees integer
+---@field m_range number
 ---@field m_deadEyeIntensity number
 ---@field m_tearGlowSprite Sprite
 ---@field m_tearEffectSprite Sprite
 ---@field m_deadEyeSprite Sprite
+---@field m_needsInit boolean
+---@field m_unkFlags integer
+---@field m_unkCountdown integer
+---@field m_unkVector Vector
+---@field m_unkVelocity Vector

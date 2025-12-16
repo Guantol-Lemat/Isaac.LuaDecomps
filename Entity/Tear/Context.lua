@@ -1,2 +1,3 @@
----@class TearContext.ResetSpriteScale
+---@class TearContext.SetHeight
 ---@field seeds SeedsComponent
+---@field isDungeon boolean

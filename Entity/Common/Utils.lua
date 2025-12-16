@@ -56,6 +56,20 @@ end
 local function SetChild(entity, child)
 end
 
+---@param entity EntityComponent
+---@return EntityComponent
+local function GetLastSpawner(entity)
+    local lastSpawner = entity
+    local spawner = entity.m_spawnerEntity.ref
+
+    while spawner ~= nil do
+        lastSpawner = spawner
+        spawner = lastSpawner.m_spawnerEntity.ref
+    end
+
+    return lastSpawner
+end
+
 ---@param entityPtr EntityPtrComponent
 ---@param newRef EntityComponent?
 local function SetEntityReference(entityPtr, newRef)
@@ -246,6 +260,7 @@ Module.SetEntityReference = SetEntityReference
 Module.SetTarget = SetTarget
 Module.SetParent = SetParent
 Module.SetChild = SetChild
+Module.GetLastSpawner = GetLastSpawner
 Module.ToPlayer = ToPlayer
 Module.ToTear = ToTear
 Module.ToFamiliar = ToFamiliar

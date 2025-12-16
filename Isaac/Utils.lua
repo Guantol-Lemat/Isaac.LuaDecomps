@@ -19,9 +19,30 @@ local function GetAxisAlignedUnitVectorFromDirection(direction)
     return Vector(vector.X, vector.Y)
 end
 
+---@return integer
+local function Random()
+end
+
+---@param max integer
+---@return integer
+local function RandomInt(max)
+    if max == 0 then
+        return 0
+    end
+
+    return Random() % max
+end
+
+---@return number
+local function RandomFloat()
+end
+
 --#region Module
 
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
+Module.Random = Random
+Module.RandomInt = RandomInt
+Module.RandomFloat = RandomFloat
 
 --#endregion
 

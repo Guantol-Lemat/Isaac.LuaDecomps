@@ -1,2 +1,5 @@
 ---@class EntityConfigComponent
+---@field collisionRadius number
+---@field gridCollisionPoints integer
+---@field shadowSize number
 ---@field tags EntityTag | integer

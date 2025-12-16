@@ -141,7 +141,7 @@ local switch_ResetSpriteScale = {
     default = default_sprite_scale
 }
 
----@param context TearContext.ResetSpriteScale
+---@param context TearMechanicsContext.ResetSpriteScale
 ---@param tear EntityTearComponent
 local function reset_sprite_scale(context, tear)
     local seeds = context.seeds
@@ -205,7 +205,7 @@ local function reset_sprite_scale(context, tear)
     tear.m_shadowSize = config.shadowSize * tear.m_scale * (sizeMultiplier.X + sizeMultiplier.Y) * 0.5
 end
 
----@param context TearContext.ResetSpriteScale
+---@param context TearMechanicsContext.ResetSpriteScale
 ---@param tear EntityTearComponent
 local function SetScale(context, tear, scale)
     scale = math.max(scale, 0.01)

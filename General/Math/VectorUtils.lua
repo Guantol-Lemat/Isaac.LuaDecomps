@@ -17,6 +17,15 @@ local function Copy(vector)
     return Vector(vector.X, vector.Y)
 end
 
+---@param dest Vector
+---@param origin Vector
+---@return Vector dest
+local function Assign(dest, origin)
+    dest.X = origin.X
+    dest.Y = origin.Y
+    return dest
+end
+
 ---@param vector Vector
 ---@return Vector
 local function AxisAlignedUnitVector(vector)
@@ -51,6 +60,7 @@ Module.VectorZero = VectorZero
 Module.VectorOne = VectorOne
 Module.Equals = Equals
 Module.Copy = Copy
+Module.Assign = Assign
 Module.AxisAlignedUnitVector = AxisAlignedUnitVector
 Module.AxisAligned = AxisAligned
 Module.Vec3Length = Vec3Length

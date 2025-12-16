@@ -4,6 +4,7 @@
 ---@field Update fun(self: EntityComponent, context: Context)
 ---@field Remove fun(self: EntityComponent, context: Context)
 ---@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
+---@field SetCollisionDamage fun(self: EntityComponent, context: Context, collisionDamage: number)
 ---@field m_type EntityType | integer
 ---@field m_variant integer
 ---@field m_subtype integer
@@ -17,6 +18,8 @@
 ---@field m_shadowSize number
 ---@field m_friction number
 ---@field m_timescale number
+---@field m_localFrame number -- local "Time" for the entity, affected by timeScale
+---@field m_lastLocalFrame number
 ---@field m_spawnFrame integer
 ---@field m_flags EntityFlag | integer
 ---@field m_entityCollisionClass EntityCollisionClass | integer
@@ -29,7 +32,7 @@
 ---@field m_parent EntityPtrComponent
 ---@field m_targetPosition Vector
 ---@field m_positionOffset Vector
----@field m_spawnerEntity EntityComponent?
+---@field m_spawnerEntity EntityPtrComponent
 ---@field m_spawnerType EntityType | integer
 ---@field m_target EntityPtrComponent
 ---@field m_minecart EntityPtrComponent

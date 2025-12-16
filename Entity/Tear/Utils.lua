@@ -14,10 +14,17 @@ local function ClearTearFlags(tear, flags)
     tear.m_tearFlags = tear.m_tearFlags & (~flags)
 end
 
+---@param context TearContext.SetHeight
+---@param tear EntityTearComponent
+---@param height number
+local function SetHeight(context, tear, height)
+end
+
 --#region Module
 
 Module.HasAnyTearFlag = HasAnyTearFlag
 Module.ClearTearFlags = ClearTearFlags
+Module.SetHeight = SetHeight
 
 --#endregion
 
