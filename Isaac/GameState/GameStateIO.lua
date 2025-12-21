@@ -1,0 +1,4 @@
+---@class GameStateIO
+---@field m_file file*
+---@field m_version integer
+---@field m_checksum ChecksumComponent
