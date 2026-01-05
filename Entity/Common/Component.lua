@@ -8,7 +8,7 @@
 ---@field m_type EntityType | integer
 ---@field m_variant integer
 ---@field m_subtype integer
----@field m_config EntityConfigComponent
+---@field m_config EntityConfig.EntityComponent
 ---@field m_initSeed integer
 ---@field m_dropRNG RNG
 ---@field m_position Vector
@@ -16,6 +16,7 @@
 ---@field m_size number
 ---@field m_sizeMulti Vector
 ---@field m_shadowSize number
+---@field m_initialFriction number
 ---@field m_friction number
 ---@field m_timescale number
 ---@field m_localFrame number -- local "Time" for the entity, affected by timeScale
@@ -32,6 +33,7 @@
 ---@field m_parent EntityPtrComponent
 ---@field m_targetPosition Vector
 ---@field m_positionOffset Vector
+---@field m_depthOffset number
 ---@field m_spawnerEntity EntityPtrComponent
 ---@field m_spawnerType EntityType | integer
 ---@field m_target EntityPtrComponent
@@ -41,6 +43,7 @@
 ---@field m_exists boolean
 ---@field m_isDead boolean
 ---@field m_visible boolean
+---@field m_invincible boolean
 ---@field m_addedToEntityList boolean
 ---@field m_interpolated boolean
 ---@field m_collidesWithGrid boolean

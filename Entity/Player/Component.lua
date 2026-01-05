@@ -18,6 +18,7 @@
 ---@field m_numKeys integer
 ---@field m_weapons WeaponComponent[]
 ---@field m_itemState CollectibleType
+---@field m_aimDirection Vector
 ---@field m_headDirection Direction
 ---@field m_collectibleRNG RNG[]
 ---@field m_trinketRNG RNG[]

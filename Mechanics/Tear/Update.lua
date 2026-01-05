@@ -17,9 +17,10 @@ local Module = {}
 
 ---@param room RoomComponent
 ---@param entity EntityTearComponent
+---@return number
 local function get_time_scale(room, entity)
     local timeScale = 1.0
-    -- Room:GetTimescale
+    -- TODO: Room:GetTimescale
     if room.m_slowdownDuration > 0 then
         timeScale = timeScale * 0.75
     end

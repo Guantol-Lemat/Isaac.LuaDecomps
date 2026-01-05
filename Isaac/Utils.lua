@@ -37,12 +37,22 @@ end
 local function RandomFloat()
 end
 
+---@param context IsaacContext.PlaySound
+---@param soundId SoundEffect | integer
+---@param volume number
+---@param frameDelay integer
+---@param loop boolean
+---@param pitch integer
+local function PlaySound(context, soundId, volume, frameDelay, loop, pitch)
+end
+
 --#region Module
 
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
 Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
+Module.PlaySound = PlaySound
 
 --#endregion
 

@@ -1,3 +1,12 @@
 ---@class EntityNPCComponent : EntityComponent
----@field m_state integer
+---@field m_state NpcState | integer
 ---@field m_stateFrame integer
+---@field m_statusEffectSprite Sprite
+---@field m_pauseTimer integer
+---@field m_champion_id integer
+---@field m_champion_isChampion boolean
+---@field m_appear_frameCount integer
+---@field m_appear_originalState NpcState | integer
+---@field m_possessor_controllerIdx integer
+---@field m_possessor_aim Vector
+---@field m_possessor_crosshair EntityPtrComponent

@@ -1,0 +1,2 @@
+---@class IsaacContext.PlaySound
+---@field sfxManager SfxManagerComponent
