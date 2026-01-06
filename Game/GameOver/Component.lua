@@ -1,0 +1,2 @@
+---@class GameOverComponent
+---@field m_state integer

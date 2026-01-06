@@ -1,0 +1,2 @@
+---@class GenericPromptComponent
+---@field m_submittedSelection integer

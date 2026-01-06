@@ -1,0 +1,3 @@
+---@class IsaacManager
+---@field m_loadImage_frame1 ImageComponent
+---@field m_loadImage_frame2 ImageComponent

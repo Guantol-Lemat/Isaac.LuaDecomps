@@ -193,7 +193,7 @@ local function GetDestQuad(context, position, frame, layerState, topLeftClamp, b
         pivot.Y = frame.m_height - pivot.Y
     end
 
-    local shakeOffset = admin.g_ScreenShakingEnabled and game.m_screenShakeOffset or Vector(0, 0)
+    local shakeOffset = admin.g_ScreenShakingEnabled and game.m_screenShake_offset or Vector(0, 0)
     position = position + shakeOffset
 
     local spritePosition = position + spriteOffset

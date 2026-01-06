@@ -1,0 +1,2 @@
+---@class LeaderboardComponent
+---@field m_state integer

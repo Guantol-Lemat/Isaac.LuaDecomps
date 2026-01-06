@@ -1,4 +1,5 @@
 ---@class EntityEffectComponent : EntityComponent
+---@field m_state integer
 ---@field m_minRadius number
 ---@field m_maxRadius number
 ---@field m_timeout integer

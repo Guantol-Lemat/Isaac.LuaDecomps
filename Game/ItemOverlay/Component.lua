@@ -1,0 +1,2 @@
+---@class ItemOverlayComponent
+---@field m_state integer

@@ -183,4 +183,11 @@ Module.eAnimationFlags = {
     UNK_3 = 1 << 13,
 }
 
+---@enum eItemOverlayState
+Module.eItemOverlayState = {
+    INACTIVE = 0,
+    WAITING = 1,
+    ACTIVE = 2,
+}
+
 return Module

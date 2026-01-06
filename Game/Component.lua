@@ -1,5 +1,7 @@
 ---@class GameComponent
+---@field m_level LevelComponent
 ---@field m_frameCounter integer
+---@field m_timeCounter integer
 ---@field m_challenge Challenge
 ---@field m_dailyChallenge DailyChallengeComponent
 ---@field m_difficulty Difficulty
@@ -8,10 +10,31 @@
 ---@field m_treasureRoomsVisited integer
 ---@field m_planetariumsVisited integer
 ---@field m_donationModGreed integer
----@field m_screenShakeOffset Vector
----@field m_dizzyIntensity number
+---@field m_updateTimeout integer -- seemingly unused
+---@field m_console ConsoleComponent
+---@field m_gameOver GameOverComponent
+---@field m_leaderboard LeaderboardComponent
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
+---@field m_itemOverlay ItemOverlayComponent
+---@field m_genericPrompt GenericPromptComponent
+---@field m_pauseScreen PauseScreenComponent
+---@field m_hud HUDComponent
+---@field m_minimap MinimapComponent
 ---@field m_backwardsStageDesc BackwardsStageDescComponent[]
+---@field m_fade_fadeInValue number
+---@field m_fade_fadeOutValue number
+---@field m_fade_speed number
+---@field m_fade_target integer
+---@field m_bloom_countdown integer
+---@field m_screenShake_offset Vector
+---@field m_screenShake_countdown integer
+---@field m_dizzy_intensity number
+---@field m_lightning_strength number
+---@field m_hallucination_countdown integer
+---@field m_colorModifier_current ColorModStateComponent
+---@field m_colorModifier_target ColorModStateComponent
+---@field m_colorModifier_rate ColorModStateComponent
+---@field m_colorModifier_approach boolean
 ---@field m_debugCurses LevelCurse | integer
 ---@field m_isDebug boolean

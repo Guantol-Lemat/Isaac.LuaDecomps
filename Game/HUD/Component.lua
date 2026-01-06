@@ -1,5 +1,6 @@
 ---@class HUDComponent
 ---@field m_statHUD StatHUDComponent
+---@field m_hudRefreshType integer
 ---@field m_isVisible boolean
 
 ---@class HUDComponentUtils

@@ -29,7 +29,7 @@ end
 ---@param context Context
 local function get_icon_to_text_offset(context)
     local game = context:GetGame()
-    return Vector(16.0, 1.0) + game.m_screenShakeOffset
+    return Vector(16.0, 1.0) + game.m_screenShake_offset
 end
 
 ---@param font Font
