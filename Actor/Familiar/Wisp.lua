@@ -54,13 +54,13 @@ local function update_motion(context, familiar)
         orbitPosition = RoomUtils.GetClampedPosition(room, orbitPosition, 0.0)
     end
 
-    local velocityToOrbit
-    local velocityToTarget
+    local orbitSteering
+    local chaseVelocity
     do
         local targetDisplacement = targetPosition - familiarRead.m_position
-        local targetStep = (targetPosition - familiarRead.m_position) * 0.01
-        if targetStep:Length() > 8.0 then
-            targetStep:Resize(8.0)
+        local chaseStep = (targetPosition - familiarRead.m_position) * 0.01
+        if chaseStep:Length() > 8.0 then
+            chaseStep:Resize(8.0)
         end
 
         local targetDistance = targetDisplacement:Length()
@@ -73,20 +73,22 @@ local function update_motion(context, familiar)
         local targetFarness = 1.0 - quadraticFalloff
         local targetCloseness = 2.0 * quadraticFalloff
 
-        local movementInheritance = targetVelocity * targetCloseness / orbitTarget.m_friction
-        velocityToOrbit = (orbitPosition - familiarRead.m_position + movementInheritance) * 0.5
-        local speed = velocityToOrbit:Length()
+        local targetVelInfluence = targetVelocity * targetCloseness / orbitTarget.m_friction
+        orbitSteering = (orbitPosition - (familiarRead.m_position + targetVelInfluence)) * 0.5
+        local orbitSteerSpeed = orbitSteering:Length()
 
-        if speed > 5.0 and (familiarRead.m_flags & EntityFlag.FLAG_SPIN) == 0 then
-            velocityToOrbit:Resize(4.0) -- this caps the speed at 4.0 if > 5.0 (maybe a bug)
+        if orbitSteerSpeed > 5.0 and (familiarRead.m_flags & EntityFlag.FLAG_SPIN) == 0 then
+            orbitSteering:Resize(4.0) -- this caps the speed at 4.0 if > 5.0 (maybe a bug)
         end
 
-        velocityToTarget = (familiarRead.m_velocity + targetStep) * targetFarness -- velocityToTarget dominates target is far from orbit
-        velocityToOrbit = velocityToOrbit + movementInheritance / familiarRead.m_friction
-        velocityToOrbit = velocityToOrbit - (velocityToOrbit * targetFarness) -- velocityToOrbit dominates when target is close to orbit
+        chaseVelocity = familiarRead.m_velocity + chaseStep
+        orbitSteering = (orbitSteering + targetVelInfluence) / familiarRead.m_friction
+
+        chaseVelocity = chaseVelocity * targetFarness -- chase dominates when target is far from orbit
+        orbitSteering = orbitSteering - (orbitSteering * targetFarness) -- orbitSteer dominates when target is close to orbit
     end
 
-    familiarWrite.m_velocity = velocityToTarget + velocityToOrbit
+    familiarWrite.m_velocity = chaseVelocity + orbitSteering
 end
 
 ---@param context FamiliarWispContext.Update

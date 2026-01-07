@@ -48,7 +48,7 @@ local function MapToRange(value, previousRange, newRange, clamp)
 
     local normalizedForm = (value - previousRange[1]) / (previousRange[2] - previousRange[1])
     if clamp then
-        normalizedForm = Module.Clamp(normalizedForm, 0.0, 1.0)
+        normalizedForm = Clamp(normalizedForm, 0.0, 1.0)
     end
 
     return newRange[1] + normalizedForm * (newRange[2] - newRange[1])

@@ -1,10 +1,7 @@
 --#region Dependencies
 
-local MathUtils = require("General.Math")
 local Inventory = require("Entity.Player.Inventory.Inventory")
 local EntityListUtils = require("Game.Room.EntityList.Utils")
-
-local Pi = MathUtils.PI
 
 --#endregion
 
