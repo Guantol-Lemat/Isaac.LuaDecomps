@@ -1,7 +1,11 @@
 ---@class EntityFamiliarComponent : EntityComponent
 ---@field m_player EntityPlayerComponent
+---@field m_state integer
 ---@field m_fireCooldown integer
 ---@field m_blinkTime integer
----@field m_orbitAngle number
+---@field m_orbitDistance Vector
+---@field m_orbitLayer integer
+---@field m_orbitAngleOffset number
 ---@field m_orbitSpeed number
 ---@field m_hitList integer[]
+---@field m_ductTape_tapedPosition Vector

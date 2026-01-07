@@ -46,8 +46,14 @@ end
 local function PlaySound(context, soundId, volume, frameDelay, loop, pitch)
 end
 
+---@param isaac IsaacManager
+local function IsInterpolation(isaac)
+    return isaac.m_frameCount % 2 == 1
+end
+
 --#region Module
 
+Module.IsInterpolation = IsInterpolation
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
 Module.Random = Random
 Module.RandomInt = RandomInt

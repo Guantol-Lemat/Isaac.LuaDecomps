@@ -1,6 +1,12 @@
 ---@class EntityUtils
 local Module = {}
 
+---@param context EntityContext.GetFrame
+---@param entity EntityComponent
+local function GetFrameCount(context, entity)
+    return context.frameCount - entity.m_spawnFrame
+end
+
 ---@param entity EntityComponent
 ---@param flags integer | EntityFlag
 ---@return boolean
@@ -55,6 +61,7 @@ end
 ---@param child EntityComponent?
 local function SetChild(entity, child)
 end
+
 
 ---@param entity EntityComponent
 ---@return EntityComponent
@@ -250,6 +257,7 @@ end
 
 --#region Module
 
+Module.GetFrameCount = GetFrameCount
 Module.HasFlags = HasFlags
 Module.HasAnyFlag = HasAnyFlag
 Module.AddFlags = AddFlags

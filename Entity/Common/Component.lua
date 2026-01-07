@@ -44,7 +44,7 @@
 ---@field m_isDead boolean
 ---@field m_visible boolean
 ---@field m_invincible boolean
----@field m_addedToEntityList boolean
+---@field m_valid boolean
 ---@field m_interpolated boolean
 ---@field m_collidesWithGrid boolean
 

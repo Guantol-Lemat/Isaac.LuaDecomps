@@ -24,8 +24,8 @@ local function Update(familiar)
     end
 
     local aimAngle = aimDirection:GetAngleDegrees()
-    local newAngle = Math.InterpolateAngle(familiar.m_orbitAngle, aimAngle, 0.3)
-    familiar.m_orbitAngle = newAngle
+    local newAngle = Math.InterpolateAngle(familiar.m_orbitAngleOffset, aimAngle, 0.3)
+    familiar.m_orbitAngleOffset = newAngle
 
     local playerOffset = Vector.FromAngle(newAngle) * 50.0
     local targetPosition = player.m_position + playerOffset

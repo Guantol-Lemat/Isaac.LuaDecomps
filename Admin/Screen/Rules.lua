@@ -17,7 +17,7 @@ local function WorldToScreenPosition(context, screen, position)
 
     local screenPosition = ScreenUtils.GetScreenPosition(screen, position, true)
     screenPosition = screenPosition + room.m_renderScrollOffset
-    screenPosition = screenPosition + game.m_screenShakeOffset
+    screenPosition = screenPosition + game.m_screenShake_offset
 
     return screenPosition
 end

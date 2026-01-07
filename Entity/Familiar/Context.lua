@@ -1,0 +1,27 @@
+---@class FamiliarContext.GetOrbitTarget : InventoryContext.HasCollectible
+---@field level LevelComponent
+---@field room RoomComponent
+---@field persistentGameData PersistentDataComponent
+---@field itemConfig ItemConfigComponent
+---@field proceduralItemManager ProceduralItemManagerComponent
+---@field seeds SeedsComponent
+---@field frameCount integer
+---@field challenge Challenge | integer
+---@field dailyChallenge DailyChallengeComponent
+---@field defaultPlayer EntityPlayerComponent?
+---@field forceUnlock boolean
+---@field entityList EntityListComponent
+
+---@class FamiliarContext.GetOrbitPosition : EntityContext.GetFrame, InventoryContext.GetTrinketMultiplier
+---@field isInterpolation boolean
+---@field level LevelComponent
+---@field room RoomComponent
+---@field persistentGameData PersistentDataComponent
+---@field itemConfig ItemConfigComponent
+---@field proceduralItemManager ProceduralItemManagerComponent
+---@field seeds SeedsComponent
+---@field frameCount integer
+---@field challenge Challenge | integer
+---@field dailyChallenge DailyChallengeComponent
+---@field defaultPlayer EntityPlayerComponent?
+---@field forceUnlock boolean
