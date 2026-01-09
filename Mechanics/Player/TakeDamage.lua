@@ -34,7 +34,7 @@ local function t_eden_glitch(context, player)
 
     local sprite = playerRead.m_sprite
     if playerRead.m_isPlayingExtraAnimation or sprite:IsPlaying("Glitch") then
-        return true
+        return
     end
 
 
