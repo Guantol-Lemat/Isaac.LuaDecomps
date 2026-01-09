@@ -31,6 +31,7 @@
 ---@field m_gridCollisionPoints Vector[]
 ---@field m_backPointers Set<EntityPtrComponent>
 ---@field m_parent EntityPtrComponent
+---@field m_child EntityPtrComponent
 ---@field m_targetPosition Vector
 ---@field m_positionOffset Vector
 ---@field m_depthOffset number

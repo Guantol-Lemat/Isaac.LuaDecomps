@@ -7,7 +7,7 @@
 ---@class EntityListUtils
 local Module = {}
 
----@param entityList EntityListComponent
+---@param entityList EntityManagerComponent
 ---@param entityType EntityType | integer
 ---@param variant integer
 ---@param subtype integer

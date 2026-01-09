@@ -68,6 +68,20 @@ local function IsHologram(player)
 end
 
 ---@param player EntityPlayerComponent
+---@return EntityPlayerComponent
+local function GetEffectTarget(player)
+    local effectTarget = player
+
+    local twin = player.m_twinPlayer.ref
+    ---@cast twin EntityPlayerComponent?
+    if player.m_playerType == PlayerType.PLAYER_THESOUL_B and twin then
+        effectTarget = twin
+    end
+
+    return effectTarget
+end
+
+---@param player EntityPlayerComponent
 ---@return boolean
 local function HasInstantDeathCurse(player)
     if TemporaryEffectsUtils.HasNullEffect(player.m_temporaryEffects, NullItemID.ID_LOST_CURSE) then
@@ -122,8 +136,20 @@ local function GetFocusEntity(player)
 end
 
 ---@param player EntityPlayerComponent
+---@param id CollectibleType | integer
+---@return RNG
+local function GetCollectibleRNG(player, id)
+    return player.m_collectibleRNG[id + 1]
+end
+
+---@param player EntityPlayerComponent
 local function IsExtraAnimationFinished(player)
     return not player.m_isPlayingExtraAnimation and not player.m_isPlayingItemNullAnimation
+end
+
+---@param player EntityPlayerComponent
+---@param animation string
+local function PlayExtraAnimation(player, animation)
 end
 
 ---@param fireDelay number
@@ -144,11 +170,14 @@ Module.IsMainPlayerCharacter = IsMainPlayerCharacter
 Module.GetMainTwin = GetMainTwin
 Module.IsMainTwin = IsMainTwin
 Module.IsHologram = IsHologram
+Module.GetEffectTarget = GetEffectTarget
 Module.HasInstantDeathCurse = HasInstantDeathCurse
 Module.IsExtraAnimationFinished = IsExtraAnimationFinished
+Module.PlayExtraAnimation = PlayExtraAnimation
 Module.GetHealthType = GetHealthType
 Module.GetEffectiveMaxHearts = GetEffectiveMaxHearts
 Module.GetFocusEntity = GetFocusEntity
+Module.GetCollectibleRNG = GetCollectibleRNG
 Module.FireDelayToTearsUp = FireDelayToTearsUp
 Module.TearsUpToFireDelay = TearsUpToFireDelay
 

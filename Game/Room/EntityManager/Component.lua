@@ -1,4 +1,4 @@
----@class EntityListComponent
+---@class EntityManagerComponent
 ---@field m_roomEL ELComponent
 ---@field m_addedBosses integer -- number of bosses added this frame
 ---@field m_bossCount integer

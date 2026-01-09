@@ -31,6 +31,12 @@
 ---@field m_isCoopGhost boolean
 ---@field m_isPlayingExtraAnimation boolean
 ---@field m_isPlayingItemNullAnimation boolean
+---@field m_eden_damage number
+---@field m_eden_speed number
+---@field m_eden_maxFireDelay number
+---@field m_eden_range number
+---@field m_eden_shotSpeed number
+---@field m_eden_luck number
 ---@field m_markedTarget EntityComponent?
 ---@field m_peeBurstCooldown integer
 ---@field m_maxPeeBurstCooldown integer

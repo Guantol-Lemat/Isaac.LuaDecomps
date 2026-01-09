@@ -1,0 +1,13 @@
+---@class PlayerContext.TakeDamage : IsaacContext.PlaySound, InventoryContext.HasCollectible, BishopProtectionContext.FindClosestBishop, BishopProtectionContext.TriggerProtectPlayer, InvincibilityContext.HasInvincibility, AstralProjectionContext.TryEndAstralProjection
+---@field sfxManager SfxManagerComponent
+---@field level LevelComponent
+---@field room RoomComponent
+---@field persistentGameData PersistentDataComponent
+---@field itemConfig ItemConfigComponent
+---@field proceduralItemManager ProceduralItemManagerComponent
+---@field seeds SeedsComponent
+---@field frameCount integer
+---@field challenge Challenge | integer
+---@field dailyChallenge DailyChallengeComponent
+---@field defaultPlayer EntityPlayerComponent?
+---@field forceUnlock boolean

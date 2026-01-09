@@ -10,7 +10,7 @@
 ---@field dailyChallenge DailyChallengeComponent
 ---@field defaultPlayer EntityPlayerComponent?
 ---@field forceUnlock boolean
----@field entityList EntityListComponent
+---@field entityList EntityManagerComponent
 
 ---@class FamiliarContext.GetOrbitPosition : EntityContext.GetFrame, InventoryContext.GetTrinketMultiplier
 ---@field isInterpolation boolean
