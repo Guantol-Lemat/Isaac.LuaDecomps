@@ -72,6 +72,12 @@ local function DegreesToRadians(degrees)
     return degrees * (math.pi / 180)
 end
 
+---@param radians number
+---@return number degrees
+local function RadiansToDegrees(radians)
+    return radians * (180 / math.pi)
+end
+
 ---Normalizes the angle into the [-180, 180] interval
 ---@param angle number
 ---@return number
@@ -109,6 +115,39 @@ local function InterpolateAngle(start, target, interpolationFactor)
     return NormalizeAngle(result)
 end
 
+---@param start number
+---@param target number
+---@param maxStep number
+---@return number
+local function ApproachAngle(start, target, maxStep)
+    local delta = target - start
+    delta = math.fmod(delta, 360.0)  -- reduce to [-360, 360]
+
+    -- Adjust for shortest path
+    if math.abs(delta) > 180 then
+        if delta > 0 then
+            start = start + 360
+        else
+            target = target + 360
+        end
+    end
+
+    -- if we reach the angle in this step, simply snap to it
+    if math.abs(delta) <= maxStep then
+        return target
+    end
+
+    -- Approach using step
+    local newAngle
+    if delta > 0.0 then
+        newAngle = start + maxStep;
+    else
+        newAngle = start - maxStep
+    end
+
+    return NormalizeAngle(newAngle)
+end
+
 ---@param radius number
 ---@param angle number -- in degrees
 local function PolarToCartesian(radius, angle)
@@ -125,8 +164,10 @@ Module.MoveTowards = MoveTowards
 Module.MapToRange = MapToRange
 Module.TimeScaledFriction = TimeScaledFriction
 Module.DegreesToRadians = DegreesToRadians
+Module.RadiansToDegrees = RadiansToDegrees
 Module.NormalizeAngle = NormalizeAngle
 Module.InterpolateAngle = InterpolateAngle
+Module.ApproachAngle = ApproachAngle
 Module.PolarToCartesian = PolarToCartesian
 
 --#endregion

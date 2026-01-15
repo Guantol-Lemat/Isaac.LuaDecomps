@@ -38,4 +38,11 @@ Module.eSingeVariant = {
     SINGE_BALL = 1,
 }
 
+---@enum eCultistVariant
+Module.eCultistVariant = {
+    CULTIST = 0,
+    BLOOD_CULTIST = 1,
+    BONE_TRAP = 10,
+}
+
 return Module
