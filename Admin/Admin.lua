@@ -24,7 +24,7 @@
 ---@field GetHUD fun(self: Context): HUDComponent
 ---@field GetRoomTransition fun(self: Context): RoomTransitionComponent
 ---@field GetStageTransition fun(self: Context): StageTransitionComponent
----@field GetNetplayManager fun(self: Context): NetplayManagerComponent
+---@field GetNetplayManager fun(self: Context): NetManagerComponent
 ---@field GetDeathmatchManager fun(self: Context): DeathmatchManagerComponent
 ---@field GetSFXManager fun(self: Context): SFXManagerComponent
 ---@field GetSystemManager fun(self: Context): SystemAdminComponent

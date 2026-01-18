@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local NetplayUtils = require("Admin.Netplay.Utils")
+local NetPlayUtils = require("Isaac.NetPlayManager.Utils")
 local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
 
 --#endregion
@@ -13,11 +13,11 @@ local Module = {}
 ---@return boolean
 local function IsLocalPlayer(context, player)
     local netplayManager = context:GetNetplayManager()
-    if not NetplayUtils.IsNetplay(netplayManager) then
+    if not NetPlayUtils.IsNetPlay(netplayManager) then
         return true
     end
 
-    return NetplayUtils.IsIdxLocalPlayer(netplayManager, player.m_controllerIndex)
+    return NetPlayUtils.IsIdxLocalPlayer(netplayManager, player.m_controllerIndex)
 end
 
 ---@param context Context

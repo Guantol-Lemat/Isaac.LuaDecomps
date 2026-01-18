@@ -1,0 +1,2 @@
+---@class NetManagerComponent
+---@field m_inputDevices NetInputDeviceComponent[]

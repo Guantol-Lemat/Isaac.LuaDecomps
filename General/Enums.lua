@@ -190,4 +190,31 @@ Module.eItemOverlayState = {
     ACTIVE = 2,
 }
 
+---@enum eCoopStat
+Module.eCoopStat = {
+    STAT_STAGE_TRANSITION = 0,
+    STAT_GREEDY = 1,
+    STAT_PRIDEFUL = 2,
+    STAT_LUSTFUL = 3,
+    STAT_ENVIOUS = 4,
+    STAT_MYSTIC = 5,
+    STAT_PILL_POPPER = 6,
+    STAT_HEARTLESS = 7,
+    STAT_EXPRESSIVE = 8,
+    STAT_ESCAPE_ARTIST = 9,
+    STAT_DRESSED_UP = 10,
+    STAT_GAMBLER = 11,
+    STAT_SAVIOUR = 12,
+    STAT_BIG_SPENDER = 13,
+    STAT_JANITOR = 14,
+    STAT_WRATHFUL = 15,
+    STAT_RECKLESS = 16,
+    STAT_SLOTHFUL = 17,
+    STAT_GLUTTONOUS = 18,
+    STAT_EXPLORER = 19,
+    STAT_BIG_BOSS = 20,
+    STAT_ETERNAL = 21,
+    NUM_COOP_STATS = 22,
+}
+
 return Module
