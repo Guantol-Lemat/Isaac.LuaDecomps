@@ -162,8 +162,8 @@ local function Update(game)
     -- TODO: Update Death Certificate Leave
 
     gameWrite.m_timeCounter = gameRead.m_timeCounter + 1
-    local frame = gameRead.m_frameCounter + 1
-    gameWrite.m_frameCounter = frame
+    local frame = gameRead.m_frameCount + 1
+    gameWrite.m_frameCount = frame
 
     if frame % 30 == 0 then
         -- TODO: Hud::SetSecondScreenRefresh(1)

@@ -244,7 +244,7 @@ local function render_dogma(context, image, flags, color, sourceQuad, destQuad)
     local isaac = context:GetAdmin()
     local game = context:GetGame()
 
-    local frameCount = BitsetUtils.HasAny(flags, eAnimationFlags.IGNORE_GAME_TIME) and game.m_frameCounter or (isaac.m_frameCount / 2)
+    local frameCount = BitsetUtils.HasAny(flags, eAnimationFlags.IGNORE_GAME_TIME) and game.m_frameCount or (isaac.m_frameCount / 2)
     local staticProgression = math.fmod(frameCount, 256) / 256 -- a number in the (-1.0, 1.0) range
     local colorize = color:GetColorize()
     color:SetColorize(colorize.R, colorize.G, colorize.B, staticProgression)
@@ -266,7 +266,7 @@ local function render_gold(context, image, flags, color, sourceQuad, destQuad)
     local isaac = context:GetAdmin()
     local game = context:GetGame()
 
-    local frameCount = BitsetUtils.HasAny(flags, eAnimationFlags.IGNORE_GAME_TIME) and game.m_frameCounter or (isaac.m_frameCount / 2)
+    local frameCount = BitsetUtils.HasAny(flags, eAnimationFlags.IGNORE_GAME_TIME) and game.m_frameCount or (isaac.m_frameCount / 2)
     local goldProgression = math.fmod(frameCount, 256) / 256 -- a number in the (-1.0, 1.0) range
     local colorize = color:GetColorize()
     color:SetColorize(colorize.R, colorize.G, colorize.B, goldProgression)

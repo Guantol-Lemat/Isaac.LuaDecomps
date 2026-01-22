@@ -62,6 +62,19 @@ end
 local function SetChild(entity, child)
 end
 
+---@param entity EntityComponent
+---@return EntityComponent
+local function GetLastParent(entity)
+    local lastParent = entity
+    local parent = entity.m_parent.ref
+
+    while parent ~= nil do
+        lastParent = parent
+        parent = lastParent.m_parent.ref
+    end
+
+    return lastParent
+end
 
 ---@param entity EntityComponent
 ---@return EntityComponent
@@ -268,6 +281,7 @@ Module.SetEntityReference = SetEntityReference
 Module.SetTarget = SetTarget
 Module.SetParent = SetParent
 Module.SetChild = SetChild
+Module.GetLastParent = GetLastParent
 Module.GetLastSpawner = GetLastSpawner
 Module.ToPlayer = ToPlayer
 Module.ToTear = ToTear

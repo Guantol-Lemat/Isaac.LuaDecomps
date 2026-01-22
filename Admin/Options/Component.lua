@@ -2,6 +2,7 @@
 ---@field m_hudOffset number
 ---@field m_historyHudMode integer
 ---@field m_mapOpacity number
+---@field m_enableInterpolation boolean
 ---@field m_enableFoundHUD boolean
 ---@field m_enableLighting boolean
 ---@field m_enableShockwave boolean

@@ -3,6 +3,7 @@
 ---@field m_stateFrame integer
 ---@field m_statusEffectSprite Sprite
 ---@field m_pauseTimer integer
+---@field m_totalDamageTaken number
 ---@field m_champion_id integer
 ---@field m_champion_isChampion boolean
 ---@field m_appear_frameCount integer

@@ -1,7 +1,25 @@
 ---@class EntityManagerComponent
----@field m_roomEL ELComponent
+---@field m_mainEL ELComponent
+---@field m_persistentEL ELComponent
+---@field m_updateEL ELComponent
+---@field m_renderEL ELComponent
+---@field m_effectEL ELComponent
+---@field m_bufferEL ELComponent
+---@field m_bufferTemplateEL ELComponent
+---@field m_wispCache ELComponent -- Used as a quick cache for wisps
+---@field m_queryCache table<EntityClassificator, ELComponent>
+---@field m_addedEnemies integer -- number of enemies added this frame
+---@field m_aliveEnemyCount integer
 ---@field m_addedBosses integer -- number of bosses added this frame
----@field m_bossCount integer
+---@field m_aliveBossCount integer
+---@field m_maxBossBarHealth number
+---@field m_enemyDamageInflicted number
+---@field m_entityBaited boolean
+
+---@class EntityClassificator
+---@field type EntityType | integer
+---@field variant integer
+---@field subType integer
 
 ---@class ELComponent
 ---@field data EntityComponent[]
@@ -9,7 +27,6 @@
 ---@field capacity integer
 ---@field isSublist boolean
 
----@class EntityListComponentUtils
 local Module = {}
 
 --#region Module

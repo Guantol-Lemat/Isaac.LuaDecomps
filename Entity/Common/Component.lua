@@ -5,6 +5,8 @@
 ---@field Remove fun(self: EntityComponent, context: Context)
 ---@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
 ---@field SetCollisionDamage fun(self: EntityComponent, context: Context, collisionDamage: number)
+---@field CanShutDoors fun(self: EntityComponent) : boolean
+---@field IsBoss fun(self: EntityComponent) : boolean
 ---@field m_type EntityType | integer
 ---@field m_variant integer
 ---@field m_subtype integer
@@ -26,6 +28,8 @@
 ---@field m_entityCollisionClass EntityCollisionClass | integer
 ---@field m_gridCollisionClass EntityGridCollisionClass | integer
 ---@field m_collisionDamage number
+---@field m_maxHealth number
+---@field m_health number
 ---@field m_velocityOnGridCollide Vector
 ---@field m_gridCollisionDirection Vector
 ---@field m_gridCollisionPoints Vector[]

@@ -1,6 +1,6 @@
 ---@class GameComponent
 ---@field m_level LevelComponent
----@field m_frameCounter integer
+---@field m_frameCount integer
 ---@field m_timeCounter integer
 ---@field m_challenge Challenge
 ---@field m_dailyChallenge DailyChallengeComponent
@@ -11,6 +11,7 @@
 ---@field m_planetariumsVisited integer
 ---@field m_donationModGreed integer
 ---@field m_updateTimeout integer -- seemingly unused
+---@field m_playerManager PlayerManagerComponent
 ---@field m_console ConsoleComponent
 ---@field m_gameOver GameOverComponent
 ---@field m_leaderboard LeaderboardComponent

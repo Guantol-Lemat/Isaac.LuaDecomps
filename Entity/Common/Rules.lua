@@ -4,7 +4,7 @@ local Module = {}
 ---@param game GameComponent
 ---@param entity EntityComponent
 local function GetFrameCount(game, entity)
-    return game.m_frameCounter - entity.m_spawnFrame
+    return game.m_frameCount - entity.m_spawnFrame
 end
 
 ---@param context Context

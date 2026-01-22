@@ -102,7 +102,7 @@ local function Update(myContext, room)
     end
 
     local entityList = room.m_entityList
-    local roomEL = entityList.m_roomEL
+    local roomEL = entityList.m_updateEL
     local roomList = roomEL.data
 
     for i = 1, roomEL.size, 1 do

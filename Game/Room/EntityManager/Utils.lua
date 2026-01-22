@@ -7,6 +7,12 @@
 ---@class EntityListUtils
 local Module = {}
 
+---Clears all caches
+---@param entityManager EntityManagerComponent
+local function ClearResults(entityManager)
+
+end
+
 ---@param entityList EntityManagerComponent
 ---@param entityType EntityType | integer
 ---@param variant integer
@@ -19,6 +25,7 @@ end
 
 --#region Module
 
+Module.ClearResults = ClearResults
 Module.QueryType = QueryType
 
 --#endregion

@@ -1,2 +1,3 @@
 ---@class PlayerManagerComponent
 ---@field m_players EntityPlayerComponent[]
+---@field m_possessors EntityPlayerComponent[]
