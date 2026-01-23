@@ -36,12 +36,21 @@ local function IsBeastDungeon(room)
     return data.m_type == RoomType.ROOM_DUNGEON and data.m_stageID == StbType.HOME
 end
 
+---@param position Vector
+---@return Vector
+local function ToGridTile(position)
+    local x = math.floor((position.X - 40.0) / 40.0 + 0.5)
+    local y = math.floor((position.Y - 120.0) / 40.0 + 0.5)
+
+    return Vector(x, y)
+end
+
 ---@param room RoomComponent
 ---@param position Vector
 ---@return integer
 local function GetGridIdx(room, position)
-    local x = (position.X - 40.0) / 40.0 + 0.5
-    local y = (position.Y - 120.0) / 40.0 + 0.5
+    local x = math.floor((position.X - 40.0) / 40.0 + 0.5)
+    local y = math.floor((position.Y - 120.0) / 40.0 + 0.5)
 
     local width = room.m_gridWidth
     if (0 >= x or x >= width) or (0 >= y or y >= room.m_gridHeight) then
@@ -83,7 +92,7 @@ end
 local function GetGridTile(room, gridIdx)
     local width = room.m_gridWidth
     local x = gridIdx % width
-    local y = gridIdx / width
+    local y = math.floor(gridIdx / width)
 
     return Vector(x, y)
 end
@@ -181,6 +190,7 @@ Module.GetFrameCount = GetFrameCount
 Module.IsClear = IsClear
 Module.IsDungeon = IsDungeon
 Module.IsBeastDungeon = IsBeastDungeon
+Module.ToGridTile = ToGridTile
 Module.GetGridIdx = GetGridIdx
 Module.GetGridIndexByTile = GetGridIndexByTile
 Module.GetGridPosition = GetGridPosition
