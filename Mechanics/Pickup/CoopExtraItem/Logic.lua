@@ -11,7 +11,7 @@ local Module = {}
 
 ---@param pickup EntityPickupComponent
 local function MakePickupCoopExtra(pickup)
-    pickup.m_collectedCoopItems = 0
+    pickup.m_coopExtra_collectedItems = 0
 end
 
 ---@param context Context
@@ -31,14 +31,14 @@ local function HandleGrantExtraItem(context, pickup)
         return
     end
 
-    if pickup.m_collectedCoopItems == -1 then
+    if pickup.m_coopExtra_collectedItems == -1 then
         return
     end
 
-    pickup.m_collectedCoopItems = pickup.m_collectedCoopItems + 1
+    pickup.m_coopExtra_collectedItems = pickup.m_coopExtra_collectedItems + 1
     local numCoopPlayers = PlayerManagerUtils.GetNumCoopPlayers(playerManager)
 
-    if pickup.m_collectedCoopItems >= numCoopPlayers then
+    if pickup.m_coopExtra_collectedItems >= numCoopPlayers then
         return
     end
 

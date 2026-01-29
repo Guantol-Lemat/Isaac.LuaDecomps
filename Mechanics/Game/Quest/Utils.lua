@@ -65,6 +65,13 @@ local function HasAbandonedMineshaft(myContext, level)
     return stage == LevelStage.STAGE2_2 or (stage == LevelStage.STAGE2_1 and (myContext.curses & LevelCurse.CURSE_OF_LABYRINTH) ~= 0)
 end
 
+---@param myContext QuestContext.HasAbandonedMineshaft
+---@param level LevelComponent
+---@return boolean
+local function IsAbandonedMineshaft(myContext, level)
+    return level.m_dimension == Dimension.MINESHAFT and HasAbandonedMineshaft(myContext, level)
+end
+
 ---@param myContext QuestContext.HasPhotoDoor
 ---@param level LevelComponent
 ---@return boolean
@@ -125,6 +132,7 @@ Module.HasPhotoDoor = HasPhotoDoor
 Module.IsBackwardsPathEntrance = IsBackwardsPathEntrance
 Module.IsBackwardsPath = IsBackwardsPath
 Module.IsMirrorWorld = IsMirrorWorld
+Module.IsAbandonedMineshaft = IsAbandonedMineshaft
 Module.IsRoomBackwardsPathEntrance = IsRoomBackwardsPathEntrance
 
 --#endregion

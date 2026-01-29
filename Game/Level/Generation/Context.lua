@@ -386,7 +386,7 @@ local function BuildPlaceRoomsContext(level, generationContext)
         hasAbandonedMineshaft = QuestUtils.HasAbandonedMineshaft(generationContext, level) and hasFirstKnifePiece,
         hasPhotoDoor = QuestUtils.HasPhotoDoor(generationContext, level) and strangeDoor,
         superSecretAllowed = challengeAllowsSuperSecret,
-        shopAllowed = shopAvailable and challengeAllowsShop and game.m_victoryLap < 3,
+        shopAllowed = shopAvailable and challengeAllowsShop and game.m_victoryRun_currentLap < 3,
         treasureAllowed = treasureAllowed,
         treasureRoomCount = treasureRoomCount,
         obligatoryTreasureRoom = hasMirrorDimension and challengeParams.m_isSecretPath,

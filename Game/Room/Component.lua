@@ -26,6 +26,7 @@
 ---@field m_ghost_Persists boolean
 ---@field m_pickupVision_Invalidate boolean
 ---@field m_damoclesItems_Invalidate boolean
+---@field m_babyPlum_mercyTimer integer
 ---@field m_isInitialized boolean
 ---@field m_interpolatedPositions boolean
 ---@field m_shouldRenderPits boolean

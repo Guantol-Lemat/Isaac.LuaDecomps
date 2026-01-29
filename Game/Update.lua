@@ -116,8 +116,8 @@ local function Update(game)
         return
     end
 
-    if gameRead.m_itemOverlay.m_state == eItemOverlayState.INACTIVE and GenericPromptUtils.IsActive(gameRead.m_genericPrompt) then
-        local genericPrompt = gameWrite.m_genericPrompt
+    if gameRead.m_itemOverlay.m_state == eItemOverlayState.INACTIVE and GenericPromptUtils.IsActive(gameRead.m_victoryRun_prompt) then
+        local genericPrompt = gameWrite.m_victoryRun_prompt
         GenericPromptUpdate.Update(genericPrompt)
 
         if genericPrompt.m_submittedSelection == 1 then

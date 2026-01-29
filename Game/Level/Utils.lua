@@ -1,6 +1,7 @@
 --#region Dependencies
 
 local GameUtils = require("Game.Utils")
+local SeedsUtils = require("Admin.Seeds.Utils")
 local QuestUtils = require("Mechanics.Game.Quest.Utils")
 local PersistentDataUtils = require("Admin.PersistentData.Utils")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
@@ -9,6 +10,9 @@ local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 
 ---@class LevelUtils
 local Module = {}
+
+---@type RoomDescriptorComponent
+local s_defaultRoom = {}
 
 ---@param coordinates XYComponent
 local function ToRoomIdx(coordinates)
@@ -65,14 +69,16 @@ local function reset_dimension_lookup(level)
     end
 end
 
+
+
 ---@param level LevelComponent
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
----@return RoomDescriptorComponent?
+---@return RoomDescriptorComponent
 local function get_dimension_room_by_idx(level, idx, dimension)
     local roomListIdx = level.m_dimensionLookups[dimension][idx]
     if roomListIdx == -1 then
-        return
+        return s_defaultRoom
     end
 
     return level.m_roomList[roomListIdx]
@@ -81,20 +87,20 @@ end
 ---@param level LevelComponent
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
----@return RoomDescriptorComponent?
+---@return RoomDescriptorComponent
 local function GetRoomByIdx(level, idx, dimension)
     if dimension == Dimension.CURRENT then
         dimension = level.m_dimension
     end
 
     if dimension >= 3 then
-        return
+        return s_defaultRoom
     end
 
     if idx == GridRooms.ROOM_MIRROR_IDX then
         idx = level.m_roomIdx
         if idx < 0 then
-            return nil
+            return s_defaultRoom
         end
 
         dimension = dimension == Dimension.NORMAL and Dimension.MIRROR or Dimension.NORMAL
@@ -119,7 +125,7 @@ local function GetRoomByIdx(level, idx, dimension)
             end
         end
 
-        return nil
+        return s_defaultRoom
     end
 
     local offgridIdx = -idx -1
@@ -224,7 +230,7 @@ end
 ---@param challengeParams ChallengeParamsComponent
 ---@param level LevelComponent
 ---@param effectiveStage LevelStage | integer
-local function trapdoor_hinders_challenge(challenge, challengeParams, level, effectiveStage)
+local function TrapDoorHindersChallenge(challenge, challengeParams, level, effectiveStage)
     if not challengeParams.m_isSecretPath then
         return false
     end
@@ -269,7 +275,7 @@ local function CanSpawnTrapDoor(myContext, level)
 
     local stage = level.m_stage
     local effectiveStage = (curses & LevelCurse.CURSE_OF_LABYRINTH) ~= 0 and stage + 1 or stage
-    if trapdoor_hinders_challenge(myContext.challenge, myContext.challengeParams, level, effectiveStage) then
+    if TrapDoorHindersChallenge(myContext.challenge, myContext.challengeParams, level, effectiveStage) then
         return false
     end
 
@@ -308,6 +314,7 @@ Module.GetRoomByIdx = GetRoomByIdx
 Module.GetStageID = GetStageID
 Module.IsNextStageAvailable = IsNextStageAvailable
 Module.IsStageAvailable = IsStageAvailable
+Module.TrapDoorHindersChallenge = TrapDoorHindersChallenge
 Module.CanSpawnTrapDoor = CanSpawnTrapDoor
 
 --#endregion

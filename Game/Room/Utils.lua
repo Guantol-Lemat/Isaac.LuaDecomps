@@ -1,5 +1,11 @@
----@class RoomUtils
-local Module = {}
+--#region Dependencies
+
+local LevelUtils = require("Game.Level.Utils")
+
+--#endregion
+
+---@class RoomContext.IsCurrentRoomLastBoss
+---@field level LevelComponent
 
 ---@param myContext RoomContext.GetFrameCount
 ---@param room RoomComponent
@@ -34,6 +40,14 @@ local function IsBeastDungeon(room)
     end
 
     return data.m_type == RoomType.ROOM_DUNGEON and data.m_stageID == StbType.HOME
+end
+
+---@param myContext RoomContext.IsCurrentRoomLastBoss
+---@return boolean
+local function IsCurrentRoomLastBoss(myContext)
+    local level = myContext.level
+    local room = LevelUtils.GetRoomByIdx(level, level.m_roomIdx, Dimension.CURRENT)
+    return room.m_listIdx == level.m_lastBossListIdx
 end
 
 ---@param position Vector
@@ -115,6 +129,11 @@ local function GetClampedPosition(room, position, margin)
 end
 
 ---@param room RoomComponent
+---@return Vector
+local function GetCenterPos(room)
+end
+
+---@param room RoomComponent
 ---@param gridIdx integer
 ---@return GridCollisionClass | integer
 local function GetGridCollision(room, gridIdx)
@@ -184,12 +203,22 @@ end
 local function GetRenderMode(room)
 end
 
+---@param myContext Context.Common
+---@param seed integer
+---@param noDecrease boolean
+---@return CollectibleType
+local function GetSeededCollectible(myContext, seed, noDecrease)
+end
+
+local Module = {}
+
 --#region Module
 
 Module.GetFrameCount = GetFrameCount
 Module.IsClear = IsClear
 Module.IsDungeon = IsDungeon
 Module.IsBeastDungeon = IsBeastDungeon
+Module.IsCurrentRoomLastBoss = IsCurrentRoomLastBoss
 Module.ToGridTile = ToGridTile
 Module.GetGridIdx = GetGridIdx
 Module.GetGridIndexByTile = GetGridIndexByTile
@@ -197,6 +226,7 @@ Module.GetGridPosition = GetGridPosition
 Module.GetGridTile = GetGridTile
 Module.GetClampedPositionRaw = GetClampedPositionRaw
 Module.GetClampedPosition = GetClampedPosition
+Module.GetCenterPos = GetCenterPos
 Module.GetGridCollision = GetGridCollision
 Module.GetGridCollisionAtPos = GetGridCollisionAtPos
 Module.GetGridPath = GetGridPath
@@ -206,6 +236,7 @@ Module.GetGridEntityFromPos = GetGridEntityFromPos
 Module.FindFreeTilePosition = FindFreeTilePosition
 Module.FindFreePickupSpawnPosition = FindFreePickupSpawnPosition
 Module.GetRenderMode = GetRenderMode
+Module.GetSeededCollectible = GetSeededCollectible
 
 --#endregion
 

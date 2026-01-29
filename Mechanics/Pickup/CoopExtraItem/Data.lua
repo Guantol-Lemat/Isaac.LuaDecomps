@@ -3,19 +3,19 @@ local Module = {}
 
 ---@param pickup EntityPickupComponent
 local function InitData(pickup)
-    pickup.m_collectedCoopItems = -1
+    pickup.m_coopExtra_collectedItems = -1
 end
 
 ---@param pickup EntityPickupComponent
 ---@param saveState PickupSaveStateComponent
 local function SaveState(pickup, saveState)
-    saveState.collectedCoopItems = pickup.m_collectedCoopItems
+    saveState.collectedCoopItems = pickup.m_coopExtra_collectedItems
 end
 
 ---@param pickup EntityPickupComponent
 ---@param saveState PickupSaveStateComponent
 local function RestoreState(pickup, saveState)
-    pickup.m_collectedCoopItems = saveState.collectedCoopItems
+    pickup.m_coopExtra_collectedItems = saveState.collectedCoopItems
 end
 
 ---@param saveState PickupSaveStateComponent

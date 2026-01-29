@@ -1,7 +1,7 @@
 ---@class LuaUtils
 local Module = {}
 
----@param value any
+---@param value IsaacManager
 ---@return boolean?
 local function CheckBoolean(value)
     if type(value) == "boolean" then

@@ -1,4 +1,5 @@
 ---@class IsaacManager
+---@field m_state integer
 ---@field m_frameCount integer
 ---@field m_options OptionsComponent
 ---@field m_loadImage_frame1 ImageComponent

@@ -143,6 +143,11 @@ local function GetCollectibleRNG(player, id)
 end
 
 ---@param player EntityPlayerComponent
+---@return integer
+local function GetCollectibleCount(player)
+end
+
+---@param player EntityPlayerComponent
 local function IsExtraAnimationFinished(player)
     return not player.m_isPlayingExtraAnimation and not player.m_isPlayingItemNullAnimation
 end
@@ -178,6 +183,7 @@ Module.GetHealthType = GetHealthType
 Module.GetEffectiveMaxHearts = GetEffectiveMaxHearts
 Module.GetFocusEntity = GetFocusEntity
 Module.GetCollectibleRNG = GetCollectibleRNG
+Module.GetCollectibleCount = GetCollectibleCount
 Module.FireDelayToTearsUp = FireDelayToTearsUp
 Module.TearsUpToFireDelay = TearsUpToFireDelay
 

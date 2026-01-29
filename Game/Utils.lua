@@ -18,9 +18,20 @@ local function IsPaused(game)
 end
 
 ---@param game GameComponent
+---@return ChallengeParamsComponent
+local function GetChallengeParams(game)
+end
+
+---@param game GameComponent
 ---@return boolean
 local function InChallenge(game)
     return not (game.m_dailyChallenge.m_id == 0 and game.m_challenge == Challenge.CHALLENGE_NULL)
+end
+
+---@param myContext Context.Manager
+---@param game GameComponent
+---@return boolean
+local function AchievementUnlocksDisallowed(myContext, game)
 end
 
 --#region
@@ -28,7 +39,9 @@ end
 Module.IsGreedMode = IsGreedMode
 Module.HasGameStateFlags = HasGameStateFlags
 Module.IsPaused = IsPaused
+Module.GetChallengeParams = GetChallengeParams
 Module.InChallenge = InChallenge
+Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
 
 --#endregion
 

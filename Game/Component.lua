@@ -4,9 +4,9 @@
 ---@field m_timeCounter integer
 ---@field m_challenge Challenge
 ---@field m_dailyChallenge DailyChallengeComponent
+---@field m_seeds SeedsComponent
 ---@field m_difficulty Difficulty
 ---@field m_gameStateFlags GameStateFlag | integer
----@field m_victoryLap integer
 ---@field m_treasureRoomsVisited integer
 ---@field m_planetariumsVisited integer
 ---@field m_donationModGreed integer
@@ -18,11 +18,13 @@
 ---@field m_roomTransition RoomTransitionComponent
 ---@field m_stageTransition StageTransitionComponent
 ---@field m_itemOverlay ItemOverlayComponent
----@field m_genericPrompt GenericPromptComponent
 ---@field m_pauseScreen PauseScreenComponent
 ---@field m_hud HUDComponent
 ---@field m_minimap MinimapComponent
 ---@field m_backwardsStageDesc BackwardsStageDescComponent[]
+---@field m_lastLevelWithDamage LevelStage | integer
+---@field m_victoryRun_currentLap integer
+---@field m_victoryRun_prompt GenericPromptComponent
 ---@field m_fade_fadeInValue number
 ---@field m_fade_fadeOutValue number
 ---@field m_fade_speed number

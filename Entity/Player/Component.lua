@@ -16,6 +16,7 @@
 ---@field m_boneHearts integer
 ---@field m_numCoins integer
 ---@field m_numKeys integer
+---@field m_damage number
 ---@field m_weapons WeaponComponent[]
 ---@field m_itemState CollectibleType
 ---@field m_aimDirection Vector

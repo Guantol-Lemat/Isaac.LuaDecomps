@@ -1,0 +1,2 @@
+---@class AchievementOverlayComponent
+---@field disablePopups boolean

@@ -51,6 +51,12 @@ local function IsInterpolation(isaac)
     return isaac.m_frameCount % 2 == 1
 end
 
+---@param isaac IsaacManager
+---@param ignoreModRestrictions boolean
+---@return boolean
+local function AchievementUnlocksDisallowed(isaac, ignoreModRestrictions)
+end
+
 --#region Module
 
 Module.IsInterpolation = IsInterpolation
@@ -59,6 +65,7 @@ Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
 Module.PlaySound = PlaySound
+Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
 
 --#endregion
 

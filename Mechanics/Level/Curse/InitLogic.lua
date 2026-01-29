@@ -6,7 +6,7 @@ local ChallengeParamsUtils = require("Admin.Challenge.Utils")
 local PersistentDataRules = require("Admin.PersistentData.Rules")
 local PlayerManagerRules = require("Game.PlayerManager.Rules")
 local BackwardsPathRules = require("Level.BackwardsPath.Rules")
-local CurseRules = require("Level.Curse.Rules")
+local CurseUtils = require("Level.Curse.Utils")
 
 local eSpecialDailyRuns = Enums.eSpecialDailyRuns
 
@@ -92,7 +92,7 @@ end
 
 ---@type fun(context: Context, level: LevelComponent): LevelCurse | integer
 local function set_curse_of_labyrinth(context, level)
-    if CurseRules.CanStageHaveCurseOfLabyrinth(context, level.m_stage) then
+    if CurseUtils.CanStageHaveCurseOfLabyrinth(context, level.m_stage) then
         return LevelCurse.CURSE_OF_LABYRINTH
     end
 
@@ -101,7 +101,7 @@ end
 
 ---@type fun(context: Context, level: LevelComponent): LevelCurse | integer
 local function set_curse_of_the_lost(context)
-    if CurseRules.CanHaveCurseOfTheLost(context) then
+    if CurseUtils.CanHaveCurseOfTheLost(context) then
         return LevelCurse.CURSE_OF_THE_LOST
     end
 
@@ -120,7 +120,7 @@ end
 
 ---@type fun(context: Context, level: LevelComponent): LevelCurse | integer
 local function set_curse_of_maze(context)
-    if CurseRules.CanHaveCurseOfMaze(context) then
+    if CurseUtils.CanHaveCurseOfMaze(context) then
         return LevelCurse.CURSE_OF_MAZE
     end
 
@@ -129,7 +129,7 @@ end
 
 ---@type fun(context: Context, level: LevelComponent): LevelCurse | integer
 local function set_curse_of_blind(context)
-    if CurseRules.CanHaveCurseOfBlind(context) then
+    if CurseUtils.CanHaveCurseOfBlind(context) then
         return LevelCurse.CURSE_OF_BLIND
     end
 
@@ -167,11 +167,11 @@ local function hook_post_get_curse(context, level, rng, curses)
         curses = curses | LevelCurse.CURSE_OF_BLIND | LevelCurse.CURSE_OF_THE_UNKNOWN | LevelCurse.CURSE_OF_THE_LOST
     end
 
-    if game.m_challenge ~= Challenge.CHALLENGE_NULL and not CurseRules.CanStageHaveCurseOfLabyrinth(context, level.m_stage) then
+    if game.m_challenge ~= Challenge.CHALLENGE_NULL and not CurseUtils.CanStageHaveCurseOfLabyrinth(context, level.m_stage) then
         curses = BitsetUtils.Clear(curses, LevelCurse.CURSE_OF_LABYRINTH)
     end
 
-    if level.m_stage == LevelStage.STAGE4_3 or game.m_victoryLap > 2 then
+    if level.m_stage == LevelStage.STAGE4_3 or game.m_victoryRun_currentLap > 2 then
         curses = BitsetUtils.Clear(curses, LevelCurse.CURSE_OF_DARKNESS)
     end
 

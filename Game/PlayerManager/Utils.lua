@@ -55,6 +55,11 @@ local function IsCoopPlay(playerManager)
 end
 
 ---@param playerManager PlayerManagerComponent
+local function ReviveCoopPlayers(playerManager)
+
+end
+
+---@param playerManager PlayerManagerComponent
 ---@return number
 local function GetNumCoopPlayers(playerManager)
     local players = playerManager.m_players
@@ -199,6 +204,7 @@ Module.GetNumCoins = GetNumCoins
 Module.GetNumKeys = GetNumKeys
 Module.IsCoopPlay = IsCoopPlay
 Module.GetNumCoopPlayers = GetNumCoopPlayers
+Module.ReviveCoopPlayers = ReviveCoopPlayers
 Module.FirstPlayerByType = FirstPlayerByType
 Module.AnyoneIsPlayerType = AnyoneIsPlayerType
 Module.FirstCollectibleOwner = FirstCollectibleOwner
