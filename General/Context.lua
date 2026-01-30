@@ -7,3 +7,6 @@
 ---@class Context.Common : Context.Manager, Context.Game
 ---@field manager IsaacManager
 ---@field game GameComponent
+
+---@class Context.Menu
+---@field menuManager MenuManagerComponent

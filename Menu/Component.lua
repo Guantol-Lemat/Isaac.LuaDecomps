@@ -1,0 +1,2 @@
+---@class MenuManagerComponent
+---@field m_viewPosition Vector
