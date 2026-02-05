@@ -3,6 +3,7 @@
 ---@field m_state integer
 ---@field m_fireCooldown integer
 ---@field m_blinkTime integer
+---@field m_roomClearCount integer
 ---@field m_orbitDistance Vector
 ---@field m_orbitLayer integer
 ---@field m_orbitAngleOffset number

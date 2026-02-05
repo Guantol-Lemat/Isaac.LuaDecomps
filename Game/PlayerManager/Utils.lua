@@ -176,27 +176,6 @@ local function HasFullHeartsSoulHearts(manager, all)
     return result
 end
 
----@param context Context
----@param manager PlayerManagerComponent
----@param player EntityPlayerComponent
----@param other EntityPlayerComponent
-local function ReplacePlayer(context, manager, player, other)
-
-end
-
----@param context Context
----@param manager PlayerManagerComponent
----@param playerType PlayerType | integer
----@return EntityPlayerComponent
-local function SpawnCoPlayer(context, manager, playerType)
-end
-
----@param context Context
----@param manager PlayerManagerComponent
----@param player EntityPlayerComponent
-local function RemoveCoPlayer(context, manager, player)
-end
-
 --#region Module
 
 Module.GetPlayer = GetPlayer
@@ -215,8 +194,6 @@ Module.AnyoneHasTrinket = AnyoneHasTrinket
 Module.FirstBirthrightOwner = FirstBirthrightOwner
 Module.AnyoneHasBirthright = AnyoneHasBirthright
 Module.HasFullHeartsSoulHearts = HasFullHeartsSoulHearts
-Module.SpawnCoPlayer = SpawnCoPlayer
-Module.RemoveCoPlayer = RemoveCoPlayer
 
 --#endregion
 

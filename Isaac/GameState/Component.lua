@@ -1,0 +1,3 @@
+---@class GameStateComponent
+---@field m_players GameStatePlayerComponent[]
+---@field m_playerCount integer

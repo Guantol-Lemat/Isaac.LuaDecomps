@@ -1,10 +1,10 @@
 ---@class GameStatePlayerComponent
----@field playerType PlayerType | integer
----@field controllerIdx integer
----@field backupOwnerIdx integer -- treated as offset from current state in the playerManager.players list (0 if this is not a backup player)
----@field parentIdx integer -- index in the playerManager.players list (< 0 if this is not a parent)
----@field familiarData GameStatePlayer.FamiliarData[]
----@field familiarCount integer
+---@field m_playerType PlayerType | integer
+---@field m_controllerIdx integer
+---@field m_backupOwnerIdx integer -- treated as offset from current state in the playerManager.players list (0 if this is not a backup player)
+---@field m_parentIdx integer -- index in the playerManager.players list (< 0 if this is not a parent)
+---@field m_familiarData GameStatePlayer.FamiliarData[]
+---@field m_familiarCount integer
 
 ---@class GameStatePlayer.FamiliarData
 
