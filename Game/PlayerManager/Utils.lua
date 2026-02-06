@@ -127,7 +127,7 @@ end
 local function FirstTrinketOwner(myContext, manager, trinket)
 end
 
----@param myContext InventoryContext.GetTrinketMultiplier
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param trinket TrinketType
 ---@return boolean

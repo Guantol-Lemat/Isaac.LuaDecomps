@@ -8,5 +8,8 @@
 ---@field manager IsaacManager
 ---@field game GameComponent
 
+---@class Context.Room
+---@field room RoomComponent
+
 ---@class Context.Menu
 ---@field menuManager MenuManagerComponent
