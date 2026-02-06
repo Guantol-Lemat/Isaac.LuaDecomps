@@ -115,11 +115,6 @@ local function GetGridCollisionAtPos(room, position)
     return GetGridCollision(room, GetGridIdx(room, position))
 end
 
-local TEST_POSITION_OFFSETS = {
-    Vector(-5.0, -5.0), Vector(-5.0, 5.0),
-    Vector(5.0, 5.0), Vector(5.0, -5.0),
-}
-
 ---@param myContext Context.Common
 ---@param room RoomComponent
 ---@param pos1 Vector
@@ -142,7 +137,6 @@ local function CheckLine(myContext, room, pos1, pos2, mode, gridPathThreshold, i
     local playerManager = myContext.game.m_playerManager
     local stepVector = displacement:Resize(10.0)
     local gridEntityList = room.m_gridEntityList
-    local gridPaths = room.m_gridPaths
 
     --#region CheckGridIndex
     local startGridIdx = GetGridIdx(room, pos1)
@@ -175,8 +169,8 @@ local function CheckLine(myContext, room, pos1, pos2, mode, gridPathThreshold, i
         [LineCheckMode.RAYCAST] = function(index)
             local collisionClass = GetGridCollision(room, index)
             if collisionClass ~= GridCollisionClass.COLLISION_NONE then
-                    return false
-                end
+                return false
+            end
 
             if index ~= startGridIdx then
                 local pathMark = GetGridPath(room, index)
@@ -244,14 +238,29 @@ local function CheckLine(myContext, room, pos1, pos2, mode, gridPathThreshold, i
     local check_entity_line = switch_check_grid_index[mode] or function() return true end
     local hitPosition = currentPosition
 
+    local THICK_LINE_CORNER_OFFSETS = {
+        Vector(-1/2, -1/2), Vector(-1/2, 1/2),
+        Vector(1/2, 1/2), Vector(1/2, -1/2),
+    }
+
+    local lineHasWidth = false
+    local lineWidth = 0.0
+
+    if mode == LineCheckMode.ENTITY or mode == LineCheckMode.PROJECTILE then
+        lineHasWidth = true
+        lineWidth = 10.0
+    end
+
     repeat
         hitPosition = currentPosition
         currentPosition = currentPosition + stepVector
         partialHits = 0
 
-        if mode == LineCheckMode.ENTITY or mode == LineCheckMode.PROJECTILE then
-            for i = 1, 4, 1 do
-                local testPosition = currentPosition + TEST_POSITION_OFFSETS[i]
+        if lineHasWidth then
+            -- create a ray with a width of 10.0
+            for i = 1, #THICK_LINE_CORNER_OFFSETS, 1 do
+                local testOffset = THICK_LINE_CORNER_OFFSETS[i] * lineWidth
+                local testPosition = currentPosition + testOffset
                 local testIdx = GetGridIdx(room, testPosition)
 
                 if not check_entity_line(testIdx) then
