@@ -28,7 +28,7 @@ end
 
 ---@param vector Vector
 ---@return Vector
-local function AxisAlignedUnitVector(vector)
+local function GetAxisAlignedUnitVector(vector)
     if math.abs(vector.X) <= math.abs(vector.Y) then
         local direction = vector.Y < 0.0 and -1.0 or 1.0
         return Vector(0.0, direction)
@@ -40,9 +40,9 @@ end
 
 ---@param vector Vector
 ---@return Vector
-local function AxisAligned(vector)
+local function GetAxisAligned(vector)
     local length = vector:Length()
-    local dominantAxis = AxisAlignedUnitVector(vector)
+    local dominantAxis = GetAxisAlignedUnitVector(vector)
     return Vector(length * dominantAxis.X, length * dominantAxis.Y)
 end
 
@@ -61,8 +61,8 @@ Module.VectorOne = VectorOne
 Module.Equals = Equals
 Module.Copy = Copy
 Module.Assign = Assign
-Module.AxisAlignedUnitVector = AxisAlignedUnitVector
-Module.AxisAligned = AxisAligned
+Module.GetAxisAlignedUnitVector = GetAxisAlignedUnitVector
+Module.GetAxisAligned = GetAxisAligned
 Module.Vec3Length = Vec3Length
 
 --#endregion

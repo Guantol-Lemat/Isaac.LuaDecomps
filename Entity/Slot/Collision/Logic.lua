@@ -3,7 +3,7 @@
 local IsaacSFX = require("Admin.Sound.Rules")
 local EntityUtils = require("Entity.Common.Utils")
 local PlayerRules = require("Entity.Player.Rules")
-local PlayerInventory = require("Entity.Player.Inventory.Inventory")
+local PlayerInventory = require("Game.Inventory.Inventory")
 local SlotUtils = require("Entity.Slot.Utils")
 local CollisionCommon = require("Entity.Common.Collision")
 

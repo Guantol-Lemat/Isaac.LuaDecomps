@@ -2,7 +2,7 @@
 
 local EntityUtils = require("Entity.Common.Utils")
 local EffectUtils = require("Entity.Effect.Utils")
-local SpawnLogic = require("Game.Spawn.Logic")
+local SpawnLogic = require("Game.Spawn")
 
 --#endregion
 

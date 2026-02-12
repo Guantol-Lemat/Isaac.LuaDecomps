@@ -1,61 +1,392 @@
----@class EntityPlayerComponent : EntityComponent
----@field m_playerType PlayerType | integer
----@field m_playerIndex integer
----@field m_babySkin BabySubType | integer
----@field m_maxFireDelay number
----@field m_shotSpeed number
----@field m_damageCooldown integer
----@field m_blinkTime integer
----@field m_tearDisplacement integer
----@field m_controllerIndex integer
----@field m_controlsEnabled boolean
----@field m_controlsCooldown integer
----@field m_maxHearts integer
----@field m_redHearts integer
----@field m_soulHearts integer
----@field m_boneHearts integer
----@field m_numCoins integer
----@field m_numKeys integer
----@field m_damage number
----@field m_weapons WeaponComponent[]
----@field m_itemState CollectibleType
----@field m_aimDirection Vector
----@field m_headDirection Direction
----@field m_collectibleRNG RNG[]
----@field m_trinketRNG RNG[]
----@field m_temporaryEffects TemporaryEffectsComponent
----@field m_twinPlayer EntityPtrComponent
----@field m_backupPlayer EntityPlayerComponent?
----@field m_hasUnlistedState boolean
----@field m_unlistedState GameStatePlayerComponent -- used to trigger effects that would occur when restoring this player (since this doesn't exist before replacement)
----@field m_replacedPlayer EntityPlayerComponent?
----@field m_isCoopGhost boolean
----@field m_isPlayingExtraAnimation boolean
----@field m_isPlayingItemNullAnimation boolean
----@field m_eden_damage number
----@field m_eden_speed number
----@field m_eden_maxFireDelay number
----@field m_eden_range number
----@field m_eden_shotSpeed number
----@field m_eden_luck number
----@field m_markedTarget EntityComponent?
----@field m_peeBurstCooldown integer
----@field m_maxPeeBurstCooldown integer
----@field m_suplexState integer
----@field m_epiphoraCharge integer
-
 --#region Dependencies
 
 
 
 --#endregion
 
----@class EntityPlayerComponentModule
-local Module = {}
+---@class EntityPlayerComponent : EntityComponent
+---@field m_controlsEnabled boolean : 0x360
+---@field m_controlsCooldown integer : 0x364
+---@field m_firingCooldown integer : 0x368
+---@field m_bodySprite Sprite : 0x36c
+---@field m_crownOfLightSprite Sprite : 0x480
+---@field m_darkPrinceCrownSprite Sprite : 0x594
+---@field m_chargeBarSprites Sprite[] [7] : 0x6a8
+---@field m_bloodGushSprite Sprite : 0xe34
+---@field m_heldSprite Sprite : 0xf48
+---@field m_statusEffectSprite Sprite : 0x105c
+---@field m_costumeSpriteDesc CostumeSpriteDescComponent[] : 0x1170
+---@field m_costumeMap CostumeMapEntryComponent[] [15] : 0x117c
+---@field m_boolUsedInInvalidateCoPlayerItems boolean : 0x126c
+---@field m_headAnim string : 0x1270
+---@field m_blinkTime integer : 0x1288
+---@field m_headDirectionLockTime integer : 0x128c
+---@field m_maxHearts integer : 0x1290
+---@field m_redHearts integer : 0x1294
+---@field m_eternalHearts integer : 0x1298
+---@field m_soulHearts integer : 0x129c
+---@field m_blackHearts integer : 0x12a0
+---@field m_jar_hearts integer : 0x12a4
+---@field m_jar_flies integer : 0x12a8
+---@field m_numKeys integer : 0x12ac
+---@field m_hasGoldenKey boolean : 0x12b0
+---@field m_hasGoldenBomb boolean : 0x12b1
+---@field m_numBombs integer : 0x12b4
+---@field m_numCoins integer : 0x12b8
+---@field m_numBlueFlies integer : 0x12bc
+---@field m_numBlueSpiders integer : 0x12c0
+---@field m_gnawedLeafCountdown integer : 0x12c4
+---@field m_lastActionTriggers integer : 0x12c8
+---@field m_bloodyGust_hits integer : 0x12cc
+---@field m_deadCat_lives integer : 0x12ce
+---@field m_leprocy_count integer : 0x12d4
+---@field m_metronome_collectible CollectibleType | integer : 0x12d8
+---@field m_bleedoutTimer integer : 0x12dc
+---@field m_3dollarBill_collectible CollectibleType | integer : 0x12e0
+---@field m_monkeyPaw_counter integer : 0x12e4
+---@field m_isPlayingExtraAnimation boolean : 0x12e8
+---@field m_damageAnimationRelated_qqq boolean : 0x12e9
+---@field m_isPlayingItemNullAnimation boolean : 0x12ea
+---@field m_string_unk2 string : 0x12ec
+---@field m_triggerNewRoomTempEffectsThing boolean : 0x1304
+---@field m_crownOfLight_active boolean : 0x1305
+---@field m_brokenRemote_isTriggered boolean : 0x1306
+---@field m_damageCooldown integer : 0x1308
+---@field m_playerType PlayerType | integer : 0x130c
+---@field m_name string : 0x1310
+---@field m_weapons WeaponComponent[] [5] : 0x1328
+---@field m_enabledWeapons boolean[] [16] : 0x133c
+---@field m_trinityShield_rotation number : 0x134c
+---@field m_spearOfDestiny_rotation number : 0x1350
+---@field m_marked_targetEntity EntityPtrComponent : 0x1354
+---@field m_heldEntity EntityPtrComponent : 0x1358
+---@field m_isHeldEntityVisible boolean : 0x135c
+---@field m_heldEntityGridCollisionClass EntityGridCollisionClass | integer : 0x1360
+---@field m_heldEntityCollisionClass EntityCollisionClass | integer : 0x1364
+---@field m_unkEntity2 EntityPtrComponent : 0x1368
+---@field m_ladder_entity EntityPtrComponent : 0x136c
+---@field m_trinityShield_entity EntityPtrComponent : 0x1370
+---@field m_spearDestiny_entity EntityPtrComponent : 0x1374
+---@field m_tractorBeam_entity EntityPtrComponent : 0x1378
+---@field m_momForm_knifeEntity EntityPtrComponent : 0x137c
+---@field m_deadTooth_effectEntity EntityPtrComponent : 0x1380
+---@field m_dadsRing_effectEntity EntityPtrComponent : 0x1384
+---@field m_telekinesis_entity EntityPtrComponent : 0x1388
+---@field m_breathOfLife_parryEffectEntity EntityPtrComponent : 0x138c
+---@field m_isaacsHeart_familiar EntityPtrComponent : 0x1390
+---@field m_npcTargetRelated1 EntityPtrComponent : 0x1394
+---@field m_npcTargetRelated EntityPtrComponent : 0x1398
+---@field m_circleOfProtection_entity EntityPtrComponent : 0x139c
+---@field m_megaBlast_entity EntityPtrComponent : 0x13a0
+---@field m_rUaWizard_timer integer : 0x13a4
+---@field m_maxFireDelay number : 0x13a8
+---@field m_shotSpeed number : 0x13ac
+---@field m_tech5_fireChanceCounter integer : 0x13b0
+---@field m_tearsFired_qqq integer : 0x13b4
+---@field m_damage number : 0x13b8
+---@field m_tearHeight number : 0x13bc
+---@field m_tearFallingSpeed number : 0x13c0
+---@field m_tearFallingAcceleration number : 0x13c4
+---@field m_range number : 0x13c8
+---@field m_tearFlags TearFlags | BitSet128 : 0x13d0
+---@field m_tearColor Color : 0x13e0
+---@field m_laserColor Color : 0x140c
+---@field m_spriteScale_qqq Vector : 0x1438
+---@field m_megaMushSpriteRelated_qqq Vector : 0x1440
+---@field m_temporaryEffects TemporaryEffectsComponent : 0x1450
+---@field m_speedModifier integer : 0x1468
+---@field m_fireDelayModifier integer : 0x146c
+---@field m_damageModifier integer : 0x1470
+---@field m_rangeModifier integer : 0x1474
+---@field m_shotSpeedModifier integer : 0x1478
+---@field m_luckModifier integer : 0x147c
+---@field m_donateLuck integer : 0x1480
+---@field m_unkFloat number : 0x1484
+---@field m_greedsGullet_hp integer : 0x1488
+---@field m_greedsGullet_overflow integer : 0x148a
+---@field m_updatingGreedsGullet_qqq boolean : 0x148c
+---@field m_eden_speed number : 0x1490
+---@field m_eden_maxFireDelay number : 0x1494
+---@field m_eden_damage number : 0x1498
+---@field m_eden_range number : 0x149c
+---@field m_eden_shotSpeed number : 0x14a0
+---@field m_eden_luck number : 0x14a4
+---@field m_taurus_speedMod number : 0x14a8
+---@field m_moveSpeed number : 0x14ac
+---@field m_luck number : 0x14b0
+---@field m_canFly boolean : 0x14b4
+---@field m_cacheFlags CacheFlag | integer : 0x14b8
+---@field m_tearDisplacement integer : 0x14bc
+---@field m_tearPoisonDamage number : 0x14c0
+---@field m_activeItems ActiveItemDescComponent[] [4] : 0x14c4
+---@field m_itemState CollectibleType | integer : 0x1534
+---@field m_itemStateCooldown integer : 0x1538
+---@field m_charmVampire_enemiesKilled integer : 0x153c
+---@field m_jumperCable_enemiesKilled integer : 0x1540
+---@field m_bombCooldown integer : 0x1544
+---@field m_forgotten_swapFormCooldown integer : 0x1548
+---@field m_controllerIndex integer : 0x154c
+---@field m_playerIndex integer : 0x1550
+---@field m_gameStatePlayerIdx integer : 0x1554
+---@field m_movementDirection Direction | integer : 0x1558
+---@field m_headDirection Direction | integer : 0x155c
+---@field m_fireDirection Direction | integer : 0x1560
+---@field m_aimDirection Vector : 0x1564
+---@field m_opposingShootDirectionsPressed boolean : 0x156c
+---@field m_lastDirection Vector : 0x1570
+---@field m_movementVector Vector : 0x1578
+---@field m_tearsOffset Vector : 0x1580
+---@field m_recentMovementVector Vector : 0x1588
+---@field m_slipperyCountdown integer : 0x1590
+---@field m_velocityBeforeUpdate Vector : 0x1594
+---@field m_fireInputDeque_qqq unknown : 0x159c
+---@field m_lastDamageSource EntityRefComponent : 0x15b0
+---@field m_lastDamageFlags DamageFlag | integer : 0x15d8
+---@field m_totalDamageTaken integer : 0x15e4
+---@field m_trinkets (TrinketType | integer)[] [2] : 0x15e8
+---@field m_collectibleCount integer[] : 0x15f0
+---@field m_pillEffectUses integer[] : 0x15fc
+---@field m_unkColor Color : 0x1608
+---@field m_temporaryEffectColor Color : 0x1634
+---@field m_lastUsedPill PillColor | integer : 0x1660
+---@field m_gameStateUnkVector integer[] : 0x1664
+---@field m_smeltedTrinkets SmeltedTrinketDescComponent[] : 0x1670
+---@field m_void_Collectibles integer[] : 0x167c
+---@field m_void_Actives integer[] : 0x1688
+---@field m_extensionCord_segmentNum integer : 0x1694 -- Decrements from x (familiars) to 0 (closest familiar)
+---@field m_collectibleRNG RNG[] : 0x1698
+---@field m_trinketRNG RNG[] : 0x16a4
+---@field m_pillRNG RNG[] : 0x16b0
+---@field m_cardRNG RNG[] : 0x16bc
+---@field m_pocketItem PocketItemComponent[] [4] : 0x16c8
+---@field m_actionDropHoldTimer integer : 0x16e8
+---@field m_queuedItem QueuedItemDataComponent : 0x16ec
+---@field m_heldItemVisible boolean : 0x16fc
+---@field m_playerForms integer[] [15] : 0x1700
+---@field m_transformationFlags_qqq integer : 0x173c
+---@field m_brokenWatch_roomCounter integer : 0x1740
+---@field m_postLevelInitFinished boolean : 0x1744
+---@field m_canShoot boolean : 0x1745
+---@field m_usedByDischargeActiveItem boolean : 0x1746
+---@field m_footprintColor1 Color : 0x1748
+---@field m_footprintColor2 Color : 0x1774
+---@field m_itemHoldCooldown integer : 0x17a4
+---@field m_pony_charge integer : 0x17a8
+---@field m_planC_killCountdown integer : 0x17ac
+---@field m_headColor integer : 0x17b4
+---@field m_bodyColor integer : 0x17b8
+---@field m_unkControllsDisabler integer : 0x17bc
+---@field m_strength_hpGiven integer : 0x17c0
+---@field m_epiphora_charge integer : 0x17c4
+---@field m_epiphora_countdownRelated integer : 0x17c8
+---@field m_epiphora_lastFireDirection integer : 0x17cc
+---@field m_deadEye_charge integer : 0x17d0
+---@field m_deadEye_misses integer : 0x17d4
+---@field m_number2_charge integer : 0x17d8
+---@field m_mawOfTheVoid_chargeTimer integer : 0x17dc
+---@field m_unkDamageCacheCountdown integer : 0x17e0
+---@field m_unkFireDelayCacheCountdown integer : 0x17e4
+---@field m_unkSpeedCacheCountdown integer : 0x17e8
+---@field m_unkShotSpeedRangeCacheCountdown integer : 0x17ec
+---@field m_unkLuckCacheCountdown integer : 0x17f0
+---@field m_unkSizeCacheCountdown integer : 0x17f4
+---@field m_unkCountdown1 integer : 0x17f8
+---@field m_unkCountdown2 integer : 0x17fc
+---@field m_excited_roomSpeedCountdown integer : 0x1808
+---@field m_unkTimeSinceFireReady integer : 0x1810
+---@field m_megaBlast_duration integer : 0x1814
+---@field m_peeBurstCooldown integer : 0x1818
+---@field m_maxPeeBurstCooldown integer : 0x181c
+---@field m_bladderCharge integer : 0x1820
+---@field m_maxBladderCharge integer : 0x1824
+---@field m_isUrethraBlocked boolean : 0x1828
+---@field m_nextUrethraBlockFrame integer : 0x182c
+---@field m_friendBall_entityDesc EntityDescComponent : 0x1830
+---@field m_purity_state integer : 0x184c
+---@field m_immaculateConception_state integer : 0x1850
+---@field m_cambionConception_state integer : 0x1854
+---@field m_conceptionFamiliarFlags integer : 0x1858
+---@field m_d8_damageModifier number : 0x185c
+---@field m_d8_speedModifier number : 0x1860
+---@field m_d8_rangeModifier number : 0x1864
+---@field m_d8_fireDelayModifier number : 0x1868
+---@field m_goldenHearts integer : 0x186c
+---@field m_hpOverflow integer : 0x1870
+---@field m_blackPowder_entities EntityPtrComponent[] : 0x1874
+---@field m_blackPowder_removedCount integer : 0x19f4 -- Increments when the effect dies
+---@field m_blackPowder_existingNum_qqq integer : 0x19f8 -- These wrap from 0-61
+---@field m_blackPowder_cooldown integer 0x19fc
+---@field m_smoothBodyRotation number : 0x1a04
+---@field m_unkRedFlashCondition integer : 0x1a08
+---@field m_babySkin BabySubType | integer : 0x1a0c
+---@field m_unk_YBAB_vector Vector[] [3] : 0x1a18
+---@field m_triggeredNewRoomAsALilBaby boolean : 0x1a30
+---@field m_unkEntity_coopBaby_qqq EntityPtrComponent : 0x1a34 -- coop baby is guess
+---@field m_babySkinInitialized_qqq boolean : 0x1a38
+---@field m_forcedTargetPosition Vector : 0x1a3c
+---@field m_delayedSoundId SoundEffect | integer : 0x1a44
+---@field m_delayedSoundVolume number : 0x1a48
+---@field m_delayedSoundDelay integer : 0x1a4c
+---@field m_delayedSoundFrameDelay integer : 0x1a50
+---@field m_hallucinations1 HallucinationsComponent : 0x1a54
+---@field m_hallucinations2 HallucinationsComponent : 0x1b78
+---@field m_movingBox_contents EntitySaveStateComponent[] : 0x1c9c
+---@field m_boneHearts integer : 0x1ca8
+---@field m_boneHeartsBitMask integer : 0x1cac
+---@field m_hallowedGround_countdown integer : 0x1cb0
+---@field m_hallowedGround_cacheFlag1 integer : 0x1cb4
+---@field m_hallowedGround_cacheFlag2 integer : 0x1cb6
+---@field m_subPlayer EntityPtrComponent : 0x1cb8
+---@field m_forgotten_birthrightEntity EntityPtrComponent : 0x1cbc
+---@field m_brokenHearts integer : 0x1cc0
+---@field m_rottenHearts integer : 0x1cc4
+---@field m_soulCharges integer : 0x1cc8
+---@field m_bloodCharges integer : 0x1ccc
+---@field m_candyHeart_statUps integer[] [6] : 0x1cd0
+---@field m_soulLocket_statUps integer[] [6] : 0x1cdc
+---@field m_redemption_bonus integer : 0x1ce8
+---@field m_urn_souls integer : 0x1cf0
+---@field m_numGigaBombs integer : 0x1cf4
+---@field m_mysteryGiftWisps_qqq integer[] : 0x1cfc
+---@field m_history HistoryComponent : 0x1d0c
+---@field m_hitList HitListComponent : 0x1d60
+---@field m_afterImagePosDeque unknown : 0x1d6c
+---@field m_twinPlayer EntityPtrComponent : 0x1d80
+---@field m_backupPlayer EntityPtrComponent : 0x1d84
+---@field m_tossedPosYOffsetRelated number : 0x1d88
+---@field m_redStew_bonusDuration integer : 0x1d8c
+---@field m_monstrance_effect EntityPtrComponent : 0x1d90
+---@field m_halo_effect EntityPtrComponent : 0x1d94
+---@field m_salvation_effect EntityPtrComponent : 0x1d98
+---@field m_darkArts_halo EntityPtrComponent : 0x1d9c
+---@field m_mars_cooldown integer : 0x1da0
+---@field m_mars_moveDirection integer : 0x1da4
+---@field m_mars_framesSinceLastTap integer : 0x1da8
+---@field m_toothAndNail_frameCycle integer : 0x1dac
+---@field m_poisonCloud_timer integer : 0x1db0
+---@field m_fakeDeathEntityRef EntityRefComponent : 0x1db4
+---@field m_rb_moveSpeed number : 0x1db8
+---@field m_rb_maxFireDelay number : 0x1dbc
+---@field m_rb_damage number : 0x1dc0
+---@field m_rb_range number : 0x1dc4
+---@field m_rb_shotSpeed number : 0x1dc8
+---@field m_rb_luck number : 0x1dcc
+---@field m_4_5Volt_cooldown integer : 0x1dd0
+---@field m_rEmpress_activeCount integer : 0x1dd4
+---@field m_rChariotRelated integer : 0x1dd8
+---@field m_rSunRelated integer : 0x1ddc
+---@field m_rTemperance_pillColor PillColor | integer : 0x1de0
+---@field m_revelations_chargeTimer integer : 0x1de4
+---@field m_montezumaRevenge_charge integer : 0x1de8
+---@field m_montezumaRevenge_laser EntityPtrComponent : 0x1dec
+---@field m_jupiter_charge number : 0x1df0
+---@field m_tMagdalene_healthDrainCooldown integer : 0x1df4
+---@field m_tMagdalene_swingCooldown integer : 0x1df8
+---@field m_bellyJelly_jiggle number : 0x1dfc
+---@field m_azazelsRage_laser EntityPtrComponent : 0x1e00
+---@field m_redemption_effect EntityPtrComponent : 0x1e04
+---@field m_forgotten_birthrightDestination integer : 0x1e08
+---@field m_forgotten_birthrightPosition Vector : 0x1e0c
+---@field m_echoChamber_queue unknown : 0x1e18
+---@field m_suplex_state integer : 0x1e2c
+---@field m_suplex_aimCountdown integer : 0x1e30
+---@field m_suplex_targetPos Vector : 0x1e34
+---@field m_suplexRelatedPos Vector : 0x1e3c
+---@field m_bagOfCrafting_content integer[] [8] : 0x1e44
+---@field m_bagOfCrafting_result CollectibleType | integer : 0x1e4c
+---@field m_poopSpell_mana integer : 0x1e50
+---@field m_poopSpell_queue integer[] [28] : 0x1e54
+---@field m_poopSpell_nextPoopChance number : 0x1e70
+---@field m_bagOfCrafting_heldFullTimer integer : 0x1e74
+---@field m_tEve_sumptoriumCharge integer : 0x1e78
+---@field m_wispCollectibleList table<integer, integer> : 0x1e7c
+---@field m_tossedRelated number : 0x1e84
+---@field m_tossedRelated2 number : 0x1e88
+---@field m_hemoptysis_lastFireDirection integer : 0x1e8c
+---@field m_hemoptysis_framesSinceTrigger integer : 0x1e90
+---@field m_divineIntervention_cooldown integer : 0x1e94
+---@field m_divineIntervention_effect EntityPtrComponent : 0x1e98
+---@field m_tempEffectTreeThing Set<integer> : 0x1ea8
+---@field m_modelingClay_collectible CollectibleType | integer : 0x1eb0
+---@field m_keepersSack_coinsSpent integer : 0x1eb4
+---@field m_darkEsau EntityPtrComponent : 0x1eb8
+---@field m_stageTransitionActive boolean : 0x1ebc
+---@field m_proceduralItemInventory ProceduralItemInventoryComponent : 0x1ec0
+---@field m_darkArts_active boolean : 0x1efc
+---@field m_darkArts_damage number : 0x1f00
+---@field m_darkArts_newestSnare EntityPtrComponent : 0x1f04
+---@field m_darkArts_hitList HitListComponent : 0x1f08
+---@field m_liquidPoop_frameCount integer : 0x1f14
+---@field m_liquidPoop_effectFlags integer : 0x1f18
+---@field m_hasCurseMistEffect boolean : 0x1f1c
+---@field m_consumableBackup ConsumableDataComponent : 0x1f20
+---@field m_pocketItemBackup PocketItemComponent[] [4] : 0x1f40
+---@field m_trinketsBackup (TrinketType | integer)[] [2] : 0x1f60
+---@field m_attachMinecartVector Vector : 0x1f68
+---@field m_wildCard_itemType integer : 0x1f70
+---@field m_wildCard_item integer : 0x1f74
+---@field m_wildCardRelated integer : 0x1f78
+---@field m_tSamson_berserkCharge number : 0x1f7c
+---@field m_ibs_charge number : 0x1f80
+---@field m_ibsRelated number : 0x1f84
+---@field m_isCoopGhost boolean 0x1f88
+---@field m_coopGhostPocketItemBackup PocketItemComponent[] [4] : 0x1f8c
+---@field m_coopGhostTrinketsBackup (TrinketType | integer)[] [2] : 0x1fac
+---@field m_playerHUD PlayerHUDComponent : 0x1fb4
+---@field m_startingItems (CollectibleType | integer)[] : 0x1fbc
+---@field m_hasUnlistedState boolean : 0x1fc8
+---@field m_unlistedState GameStatePlayerComponent : 0x1fcc -- used to trigger effects that would occur when restoring this player (since this doesn't exist before replacement)
+---@field m_replacedPlayer EntityPlayerComponent? : 0x2574
+---@field m_activeItemControlRelated boolean : 0x2578
+
+---@class CostumeSpriteDescComponent
+---@field m_sprite Sprite : 0x0
+---@field m_itemConfig ItemConfigComponent : 0x114
+---@field m_priority integer : 0x118
+---@field m_itemAnimPlay boolean : 0x11c
+---@field m_isFlying boolean : 0x11d
+---@field m_hasOverlay boolean : 0x11e
+---@field m_hasSkinAlt boolean : 0x11f
+---@field m_headColor_qqq integer : 0x120
+---@field m_bodyColor_qqq integer : 0x124
+---@field m_overwriteColor boolean : 0x128
+---@field m_itemStateOnly boolean : 0x129
+---@field m_playerType PlayerType | integer : 0x12c
+
+---@class CostumeMapEntryComponent
+---@field index integer : 0x0
+---@field layerID integer : 0x4
+---@field priority integer : 0x8
+---@field isBodyLayer boolean : 0xc
+
+---@class ActiveItemDescComponent
+---@field item CollectibleType | integer : 0x0
+---@field activeCharge integer : 0x4
+---@field batteryCharge integer : 0x8
+---@field subCharge integer : 0xc
+---@field timeRechargeCooldown integer : 0x10
+---@field partialCharge integer : 0x14
+---@field activeVarData integer : 0x18
+
+---@class SmeltedTrinketDescComponent
+---@field amount integer : 0x0
+---@field goldenAmount integer : 0x2
+
+---@class PocketItemComponent
+---@field id integer : 0x0
+---@field type integer : 0x4
+
+---@class QueuedItemDataComponent
+---@field item ItemConfigComponent : 0x0
+---@field charge integer : 0x4
+---@field flags integer : 0x8
+---@field varData integer : 0xc
 
 ---@return EntityPlayerComponent
 local function Create()
 end
+
+local Module = {}
 
 --#region Module
 

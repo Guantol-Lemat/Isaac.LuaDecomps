@@ -3,7 +3,8 @@ local Module = {}
 
 ---@class RoomContext.SpawnGridEntity
 
----@param myContext GameContext.Spawn
+---@param myContext Context.Common
+---@param game GameComponent
 ---@param entityType EntityType | integer
 ---@param variant integer
 ---@param subtype integer
@@ -12,7 +13,7 @@ local Module = {}
 ---@param velocity Vector
 ---@param spawner EntityComponent?
 ---@return EntityComponent
-local function Spawn(myContext, entityType, variant, subtype, seed, position, velocity, spawner)
+local function Spawn(myContext, game, entityType, variant, subtype, seed, position, velocity, spawner)
 end
 
 ---@param myContext RoomContext.SpawnGridEntity

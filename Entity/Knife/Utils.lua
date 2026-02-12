@@ -58,8 +58,8 @@ end
 local function GetPrimaryKnife(knife)
     ---@type EntityComponent
     local entity = knife
-    while entity.m_parent and entity.m_parent.m_type == EntityType.ENTITY_KNIFE do
-        entity = entity.m_parent
+    while entity.m_parent.ref and entity.m_parent.ref.m_type == EntityType.ENTITY_KNIFE do
+        entity = entity.m_parent.ref
     end
 
     local primaryKnife = EntityUtils.ToKnife(knife)
@@ -67,11 +67,29 @@ local function GetPrimaryKnife(knife)
     return primaryKnife
 end
 
+local BASE_TYPE = {
+    [KnifeVariant.BONE_SCYTHE] = KnifeVariant.BONE_CLUB,
+    [KnifeVariant.BERSERK_CLUB] = KnifeVariant.BONE_CLUB,
+    [KnifeVariant.BAG_OF_CRAFTING] = KnifeVariant.BONE_CLUB,
+    [KnifeVariant.SUMPTORIUM] = KnifeVariant.MOMS_KNIFE,
+    [8] = KnifeVariant.BONE_CLUB,
+    [KnifeVariant.NOTCHED_AXE] = KnifeVariant.BONE_CLUB,
+    [KnifeVariant.TECH_SWORD] = KnifeVariant.SPIRIT_SWORD,
+}
+
+---@param knife EntityKnifeComponent
+---@return KnifeVariant | integer
+local function GetBaseType(knife)
+    local variant = knife.m_variant
+    return BASE_TYPE[variant] or variant
+end
+
 --#region Module
 
 Module.HasTearFlags = HasTearFlags
 Module.GetPlayer = GetPlayer
 Module.GetPrimaryKnife = GetPrimaryKnife
+Module.GetBaseType = GetBaseType
 
 --#endregion
 

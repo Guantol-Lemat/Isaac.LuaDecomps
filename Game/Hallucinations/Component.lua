@@ -1,0 +1,12 @@
+---@class HallucinationsComponent
+---@field m_playerRecord PlayerRecordComponent[] : 0x0
+---@field m_currentRecord integer : 0x8 -- the game uses a list to store records, so this is actually the current list node, as long as this is not the head the hallucination must be rendered
+---@field m_sprite Sprite : 0xc
+
+---@class PlayerRecordComponent
+---@field m_position Vector : 0x0
+---@field m_velocity Vector : 0x8
+---@field m_animationIndex integer : 0x10
+---@field m_animationFrameIndex integer : 0x14
+---@field m_overlayAnimationIndex integer : 0x18
+---@field m_overlayAnimationFrameIndex integer : 0x1c

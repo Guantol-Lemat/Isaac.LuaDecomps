@@ -7,9 +7,6 @@ local SeedsUtils = require("Admin.Seeds.Utils")
 
 --#endregion
 
----@class TearScaleLogic
-local Module = {}
-
 local NUM_TEAR_VARIANTS = 51
 
 local TEAR_SCALE_THRESHOLDS = {
@@ -44,7 +41,7 @@ local STONE_TRAR_VARIANTS = TableUtils.CreateDictionary({
 ---@type TearScaleLogic._SWITCH_ResetSpriteScale
 local function base_tear_sprite_scale(tear, variant, returns)
     local sizeId = 1
-    local scale = tear.m_scale
+    local scale = tear.m_fScale
     local scaleCheck = variant * 100
 
     while sizeId < 13 do
@@ -141,10 +138,10 @@ local switch_ResetSpriteScale = {
     default = default_sprite_scale
 }
 
----@param context TearMechanicsContext.ResetSpriteScale
+---@param myContext Context.Seeds
 ---@param tear EntityTearComponent
-local function reset_sprite_scale(context, tear)
-    local seeds = context.seeds
+local function reset_sprite_scale(myContext, tear)
+    local seeds = myContext.seeds
 
     ---@type TearVariant
     local variant = tear.m_variant
@@ -162,7 +159,7 @@ local function reset_sprite_scale(context, tear)
     local sprite = tear.m_sprite
 
     if variant >= NUM_TEAR_VARIANTS then
-        baseSpriteSize = tear.m_scale
+        baseSpriteSize = tear.m_fScale
     end
 
     if variant == TearVariant.NAIL or variant == TearVariant.NAIL_BLOOD then
@@ -180,7 +177,7 @@ local function reset_sprite_scale(context, tear)
     end
 
     -- Effects Sprite Scale
-    local effectsScale = sizeMultiplier * (tear.m_scale * 0.45)
+    local effectsScale = sizeMultiplier * (tear.m_fScale * 0.45)
 
     if (tear.m_tearFlags & TearFlags.TEAR_GLOW) ~= 0 then
         local glowSprite = tear.m_tearGlowSprite
@@ -194,29 +191,45 @@ local function reset_sprite_scale(context, tear)
         effectSprite:Update()
     end
 
-    if tear.m_deadEyeSprite ~= 0.0 then
-        local deadEyeSprite = tear.m_deadEyeSprite
+    if tear.m_deadEye_sprite ~= 0.0 then
+        local deadEyeSprite = tear.m_deadEye_sprite
         deadEyeSprite.Scale = effectsScale
         deadEyeSprite:Update()
     end
 
     local config = tear.m_config
-    EntityUtils.SetSize(tear, config.collisionRadius * tear.m_scale, tear.m_sizeMulti, config.gridCollisionPoints)
-    tear.m_shadowSize = config.shadowSize * tear.m_scale * (sizeMultiplier.X + sizeMultiplier.Y) * 0.5
+    EntityUtils.SetSize(tear, config.collisionRadius * tear.m_fScale, tear.m_sizeMulti, config.gridCollisionPoints)
+    tear.m_shadowSize = config.shadowSize * tear.m_fScale * (sizeMultiplier.X + sizeMultiplier.Y) * 0.5
 end
 
----@param context TearMechanicsContext.ResetSpriteScale
+---@param myContext Context.Seeds
 ---@param tear EntityTearComponent
-local function SetScale(context, tear, scale)
+---@param scale number
+local function SetScale(myContext, tear, scale)
     scale = math.max(scale, 0.01)
     tear.m_baseScale = scale
-    tear.m_scale = scale
-    reset_sprite_scale(context, tear)
+    tear.m_fScale = scale
+    reset_sprite_scale(myContext, tear)
 end
+
+---@param myContext Context.Game
+---@param tear EntityTearComponent
+---@param height number
+local function SetHeight(myContext, tear, height)
+end
+
+---@param tear EntityTearComponent
+---@param flags TearFlags | BitSet128
+local function SetTearFlags(tear, flags)
+end
+
+local Module = {}
 
 --#region Module
 
 Module.SetScale = SetScale
+Module.SetHeight = SetHeight
+Module.SetTearFlags = SetTearFlags
 
 --#endregion
 

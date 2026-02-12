@@ -115,6 +115,18 @@ local function GetGridCollisionAtPos(room, position)
     return GetGridCollision(room, GetGridIdx(room, position))
 end
 
+---@param room RoomComponent
+---@param gridIdx integer
+local function DamageGrid(room, gridIdx)
+end
+
+---@param room RoomComponent
+---@param pit GridEntityComponent?
+---@param rock GridEntityComponent?
+---@return boolean
+local function TryMakeBridge(room, pit, rock)
+end
+
 ---@param myContext Context.Common
 ---@param room RoomComponent
 ---@param pos1 Vector
@@ -257,7 +269,6 @@ local function CheckLine(myContext, room, pos1, pos2, mode, gridPathThreshold, i
         partialHits = 0
 
         if lineHasWidth then
-            -- create a ray with a width of 10.0
             for i = 1, #THICK_LINE_CORNER_OFFSETS, 1 do
                 local testOffset = THICK_LINE_CORNER_OFFSETS[i] * lineWidth
                 local testPosition = currentPosition + testOffset
@@ -287,7 +298,12 @@ local Module = {}
 
 --#region Module
 
+Module.GetGridIdx = GetGridIdx
+Module.GetGridPosition = GetGridPosition
+Module.GetGridEntity = GetGridEntity
 Module.CheckLine = CheckLine
+Module.TryMakeBridge = TryMakeBridge
+Module.DamageGrid = DamageGrid
 
 --#endregion
 

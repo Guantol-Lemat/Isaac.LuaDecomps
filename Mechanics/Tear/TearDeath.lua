@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local SpawnLogic = require("Game.Spawn.Logic")
+local SpawnLogic = require("Game.Spawn")
 local IsaacUtils = require("Isaac.Utils")
 local EntityUtils = require("Entity.Common.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
@@ -23,7 +23,7 @@ local function default_tear_splash() end
 
 ---@type TearDeathLogic._SWITCH_TearSplash
 local function regular_tear_splash(tear, returns)
-    local scale = tear.m_scale
+    local scale = tear.m_fScale
 
     if scale < 0.4 then
         returns.splashSound = SoundEffect.SOUND_SPLATTER
@@ -97,9 +97,9 @@ local function do_splash_effect(context, tear, splashEffect, splashSubtype, spla
             splash.m_positionOffset.Y = 0.0
             scaleMulti = (tear.m_size + 8.0) / 28.0
         elseif splashEffect == EffectVariant.SCYTHE_BREAK or (tearVariant == TearVariant.PUPULA_BLOOD or tearVariant == TearVariant.PUPULA) then
-            scaleMulti = tear.m_scale * 0.4
+            scaleMulti = tear.m_fScale * 0.4
         else
-            scaleMulti = tear.m_scale * 0.8
+            scaleMulti = tear.m_fScale * 0.8
         end
 
         sprite.Scale = Vector(1, 1) * scaleMulti
@@ -128,7 +128,7 @@ local function TriggerDeath(context, tear)
     local tearFlags = tear.m_tearFlags
     local hydrobounce = (tearFlags & TearFlags.TEAR_HYDROBOUNCE) ~= 0
 
-    if hydrobounce and tear.m_unkFlags == 0x4 then
+    if hydrobounce and tear.m_deathRelatedFlags == 0x4 then
         -- TODO: revive and bounce
     end
 

@@ -6,7 +6,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 local ItemConfigUtils = require("Config.ItemConfig.Utils")
 local PickupInitLogic = require("Entity.Pickup.Init")
 local PickupUtils = require("Entity.Pickup.Utils")
-local SpawnLogic = require("Game.Spawn.Logic")
+local SpawnLogic = require("Game.Spawn")
 
 local VectorZero = VectorUtils.VectorZero
 

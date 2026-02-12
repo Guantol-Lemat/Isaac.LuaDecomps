@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Inventory = require("Entity.Player.Inventory.Inventory")
+local Inventory = require("Game.Inventory.Inventory")
 
 --#endregion
 

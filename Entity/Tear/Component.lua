@@ -1,16 +1,42 @@
 ---@class EntityTearComponent : EntityComponent
----@field m_tearFlags BitSet128
----@field m_baseScale number
----@field m_scale number
----@field m_scaleAnimCheck number -- used to see if it's necessary to evaluate the scale animation.
----@field m_height number
----@field m_range number
----@field m_deadEyeIntensity number
----@field m_tearGlowSprite Sprite
----@field m_tearEffectSprite Sprite
----@field m_deadEyeSprite Sprite
----@field m_needsInit boolean
----@field m_unkFlags integer
----@field m_unkCountdown integer
----@field m_unkVector Vector
----@field m_unkVelocity Vector
+---@field m_height number : 0x360
+---@field m_fallingSpeed number : 0x364
+---@field m_fallingAcceleration number : 0x368
+---@field m_homingFriction number : 0x36c
+---@field m_fScale number : 0x370
+---@field m_baseScale number : 0x374
+---@field m_tearFlags TearFlags | BitSet128 : 0x378
+---@field m_wait_frames integer : 0x388
+---@field m_wait_velocity Vector : 0x38c
+---@field m_hitList HitListComponent : 0x394
+---@field m_tearIdx integer : 0x3a0
+---@field m_baseDamage integer : 0x3a4
+---@field m_rotation number : 0x3a8
+---@field m_scaleAnimCheck number : 0x3ac -- used to see if it's necessary to evaluate the scale animation.
+---@field m_knockbackMultiplier number : 0x3b0
+---@field m_deadEye_Intensity number : 0x3b4
+---@field m_multidimensional_touched boolean : 0x3b8
+---@field m_prims_touched boolean : 0x3b9
+---@field m_needsInit boolean : 0x3ba
+---@field m_popRelated integer : 0x3bc
+---@field m_maybeExists_qqq integer : 0x3be
+---@field m_fetusBombRelated_qqq integer : 0x3c0
+---@field m_deathRelatedFlags integer : 0x3c4
+---@field m_stick_target EntityPtrComponent : 0x3c8
+---@field m_stick_diff Vector : 0x3cc
+---@field m_stick_timer integer : 0x3d4
+---@field m_chainTear2 EntityPtrComponent : 0x3e4
+---@field m_chainTear1 EntityPtrComponent : 0x3e8
+---@field m_tearGlowSprite Sprite : 0x3fc
+---@field m_tearEffectSprite Sprite : 0x510
+---@field m_deadEye_sprite Sprite : 0x624
+---@field m_deadEye_canEndStreak boolean : 0x738
+---@field m_renderHeightRelated boolean : 0x739
+---@field m_unkBool boolean : 0x73a
+---@field m_posDisplacement Vector : 0x73c
+---@field m_parentOffset Vector : 0x744
+---@field m_unkCountdown integer : 0x74c
+---@field m_unkVector Vector : 0x750
+---@field m_unkVelocity Vector : 0x758
+---@field m_unkVector2 Vector : 0x760
+---@field m_tearRange number : 0x770

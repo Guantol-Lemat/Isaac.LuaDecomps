@@ -1,12 +1,29 @@
 ---@class EntityComponent
----@field Free fun(self: EntityComponent, context: Context)
----@field Init fun(self: EntityComponent, context: Context, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
----@field Update fun(self: EntityComponent, context: Context)
----@field Remove fun(self: EntityComponent, context: Context)
----@field TakeDamage fun(self: EntityComponent, context: Context, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
----@field SetCollisionDamage fun(self: EntityComponent, context: Context, collisionDamage: number)
+---@field Free fun(self: EntityComponent, myContext: Context.Common)
+---@field Init fun(self: EntityComponent, myContext: Context.Common, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
+---@field PreUpdate fun(self: EntityComponent, myContext: Context.Common)
+---@field Update fun(self: EntityComponent, myContext: Context.Common)
+---@field Interpolate fun(self: EntityComponent, myContext: Context.Common)
+---@field Render fun(self: EntityComponent, myContext: Context.Common, offset: Vector)
+---@field RenderShadowLayer fun(self: EntityComponent, myContext: Context.Common, position: Vector)
+---@field PostRender fun(self: EntityComponent, myContext: Context.Common)
+---@field TakeDamage fun(self: EntityComponent, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: EntityRefComponent, damageCountdown: integer)
+---@field Kill fun(self: EntityComponent, myContext: Context.Common)
+---@field Remove fun(self: EntityComponent, myContext: Context.Common)
+---@field TriggerGlowingHourglass fun(self: EntityComponent, myContext: Context.Common)
+---@field GetRenderZ fun(self: EntityComponent, myContext: Context.Common): integer
+---@field CanOverwrite fun(self: EntityComponent, myContext: Context.Common): boolean
+---@field SetColor fun(self: EntityComponent, myContext: Context.Common, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
+---@field SetCollisionDamage fun(self: EntityComponent, myContext: Context.Common, collisionDamage: number)
+---@field ClearReferences fun(self: EntityComponent, myContext: Context.Common)
 ---@field CanShutDoors fun(self: EntityComponent) : boolean
 ---@field IsBoss fun(self: EntityComponent) : boolean
+---@field IsValidTarget fun(self: EntityComponent, myContext: Context.Common, requester: EntityComponent): boolean
+---@field TryThrow fun(self: EntityComponent, myContext: Context.Common): boolean
+---@field GetForwardVector fun(self: EntityComponent, myContext: Context.Common): Vector
+---@field HandleCollision fun(self: EntityComponent, myContext: Context.Common, collider: EntityComponent, low: boolean): boolean
+---@field ResetColor fun(self: EntityComponent)
+---@field LoadEntityConfig fun(self: EntityComponent, myContext: Context.Common)
 ---@field m_type EntityType | integer
 ---@field m_variant integer
 ---@field m_subtype integer
@@ -25,6 +42,8 @@
 ---@field m_lastLocalFrame number
 ---@field m_spawnFrame integer
 ---@field m_flags EntityFlag | integer
+---@field m_preInterpolatePosition Vector
+---@field m_interpolated boolean
 ---@field m_entityCollisionClass EntityCollisionClass | integer
 ---@field m_gridCollisionClass EntityGridCollisionClass | integer
 ---@field m_collisionDamage number
@@ -33,25 +52,27 @@
 ---@field m_velocityOnGridCollide Vector
 ---@field m_gridCollisionDirection Vector
 ---@field m_gridCollisionPoints Vector[]
+---@field m_collidesWithGrid boolean
 ---@field m_backPointers Set<EntityPtrComponent>
 ---@field m_parent EntityPtrComponent
 ---@field m_child EntityPtrComponent
 ---@field m_targetPosition Vector
 ---@field m_positionOffset Vector
----@field m_depthOffset number
+---@field m_depthOffset_qqq number
 ---@field m_spawnerEntity EntityPtrComponent
 ---@field m_spawnerType EntityType | integer
 ---@field m_target EntityPtrComponent
 ---@field m_minecart EntityPtrComponent
 ---@field m_sprite Sprite
----@field m_preInterpolatePosition Vector
+---@field m_color Color
 ---@field m_exists boolean
 ---@field m_isDead boolean
 ---@field m_visible boolean
 ---@field m_invincible boolean
 ---@field m_valid boolean
----@field m_interpolated boolean
----@field m_collidesWithGrid boolean
 
 ---@class EntityPtrComponent
 ---@field ref EntityComponent?
+
+---@class HitListComponent
+---@field m_lists integer[]

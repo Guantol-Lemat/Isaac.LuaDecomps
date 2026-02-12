@@ -136,7 +136,7 @@ local function Update(context, player)
         shootingControls.shootingInput:Normalize()
     end
 
-    local axisAlignedInput = VectorUtils.AxisAligned(shootingControls.shootingInput)
+    local axisAlignedInput = VectorUtils.GetAxisAligned(shootingControls.shootingInput)
 
     hook_pre_update_item_state()
     update_item_state()

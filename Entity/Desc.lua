@@ -1,0 +1,8 @@
+---@class EntityDescComponent
+---@field type EntityType | integer : 0x0
+---@field variant integer : 0x4
+---@field subType integer : 0x8
+---@field championId ChampionColor | integer : 0xc
+---@field health number : 0x10
+---@field maxHealth number : 0x14
+---@field playerControlled boolean : 0x18

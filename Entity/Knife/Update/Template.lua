@@ -3,7 +3,7 @@
 local EntityUtils = require("Entity.Common.Utils")
 local EntityRules = require("Entity.Common.Rules")
 local KnifeUtils = require("Entity.Knife.Utils")
-local Inventory = require("Entity.Player.Inventory.Inventory")
+local Inventory = require("Game.Inventory.Inventory")
 local MathUtils = require("General.Math")
 
 --#endregion
@@ -19,8 +19,8 @@ local function update_held_rotation(knife, context, player)
 
     local targetRotation = knife.m_rotation + knife.m_rotationOffset
 
-    if EntityRules.GetFrameCount(game, knife) < 2 or math.abs(knife.m_heldRotation - knife.m_rotation) <= 0.1 then
-        knife.m_heldRotation = targetRotation
+    if EntityRules.GetFrameCount(game, knife) < 2 or math.abs(knife.m_effectiveRotation - knife.m_rotation) <= 0.1 then
+        knife.m_effectiveRotation = targetRotation
         return
     end
 
@@ -29,7 +29,7 @@ local function update_held_rotation(knife, context, player)
         interpolationFactor = 1.0
     end
 
-    knife.m_heldRotation = MathUtils.InterpolateAngle(knife.m_heldRotation, targetRotation, interpolationFactor)
+    knife.m_effectiveRotation = MathUtils.InterpolateAngle(knife.m_effectiveRotation, targetRotation, interpolationFactor)
 end
 
 ---@param knife EntityKnifeComponent
@@ -51,7 +51,7 @@ local function update_held_knife(knife, context, primaryKnife, player, pivotRadi
 
     ---@type EntityComponent
     local primaryParent = primaryKnife.m_parent
-    knife.m_position = MathUtils.PolarToCartesian(pivotRadius, knife.m_heldRotation) + primaryParent.m_position
+    knife.m_position = MathUtils.PolarToCartesian(pivotRadius, knife.m_effectiveRotation) + primaryParent.m_position
     knife.m_holderPosition = primaryParent.m_position
     knife.m_hitboxRotation = (knife.m_position - primaryParent.m_position):GetAngleDegrees()
 end

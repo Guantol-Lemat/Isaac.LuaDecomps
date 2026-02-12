@@ -8,7 +8,7 @@ local RoomRules = require("Room.Rules")
 local GridUtils = require("GridEntity.Common.Utils")
 local VectorUtils = require("Math.VectorUtils")
 local IsaacSoundRules = require("Admin.Sound.Rules")
-local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
+local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
 
 local eSingeVariant = EntityIdentity.eSingeVariant
 local VectorZero = VectorUtils.VectorZero

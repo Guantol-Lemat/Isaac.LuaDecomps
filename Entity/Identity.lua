@@ -1,6 +1,14 @@
 ---@class EntityIdentity
 local Module = {}
 
+---@enum eKnifeSubType
+Module.eKnifeSubType = {
+    BASE = 0,
+    PROJECTILE = 1,
+    SUBTYPE_3 = 3,
+    CLUB_HITBOX = 4,
+}
+
 ---@enum eFirePlaceVariant
 Module.eFirePlaceVariant = {
     FIRE_PLACE = 0,

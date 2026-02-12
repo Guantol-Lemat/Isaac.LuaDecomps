@@ -5,9 +5,6 @@ local RoomUtils = require("Room.Utils")
 
 --#endregion
 
----@class EntityUpdate
-local Module = {}
-
 ---@param context Context
 ---@param entity EntityComponent
 local function interpolate_grid_collide(context, entity)
@@ -16,6 +13,11 @@ local function interpolate_grid_collide(context, entity)
     else
         --CollideWithGrid(context, entity, true)
     end
+end
+
+---@param myContext Context.Common
+---@param entity EntityComponent
+local function Update(myContext, entity)
 end
 
 ---@param entity EntityComponent
@@ -39,8 +41,11 @@ local function Interpolate(entity, context)
     end
 end
 
+local Module = {}
+
 --#region Module
 
+Module.Update = Update
 Module.Interpolate = Interpolate
 
 --#endregion

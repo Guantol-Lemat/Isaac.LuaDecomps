@@ -6,7 +6,7 @@ local CoPlayerSprite = require("Entity.Player.Sprite.CoPlayer")
 local PlayerUtils = require("Entity.Player.Utils")
 local PlayerRules = require("Entity.Player.Rules")
 local EntityRefUtils = require("Entity.System.EntityRef.Utils")
-local Inventory = require("Entity.Player.Inventory.Inventory")
+local Inventory = require("Game.Inventory.Inventory")
 
 local eFirePlaceVariant = EntityIdentity.eFirePlaceVariant
 local eVisageVariant = EntityIdentity.eVisageVariant

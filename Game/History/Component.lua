@@ -1,0 +1,12 @@
+---@class HistoryComponent
+---@field m_items HistoryItemComponent[] : 0x0
+---@field m_readOnly boolean : 0xc
+
+---@class HistoryItemComponent
+---@field timestamp integer : 0x0
+---@field isTrinket boolean : 0x4
+---@field itemId integer : 0x8
+---@field stage LevelStage | integer : 0xc
+---@field stageType StageType | integer : 0x10
+---@field roomType RoomType | integer : 0x14
+---@field pool ItemPoolType | integer : 0x18

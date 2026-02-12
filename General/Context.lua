@@ -11,5 +11,8 @@
 ---@class Context.Room
 ---@field room RoomComponent
 
+---@class Context.Seeds
+---@field seeds SeedsComponent
+
 ---@class Context.Menu
 ---@field menuManager MenuManagerComponent

@@ -88,14 +88,6 @@ Module.eShopItemType = {
     HOLY_CARD = 20
 }
 
----@enum eGridCollisionClass
-Module.eGridCollisionClass = {
-    WALLS_X = GridCollisionClass.COLLISION_PIT,
-    WALLS_Y = GridCollisionClass.COLLISION_OBJECT,
-    NO_PITS = 6,
-    PITS_ONLY = 7,
-}
-
 ---@enum eRoomConfigFlag
 Module.eRoomConfigFlag = {
     MINESHAFT_CHASE = 1 << 1,
@@ -184,7 +176,7 @@ Module.eAnimationFlags = {
     STATIC = 1 << 5,
     IGNORE_GAME_TIME = 1 << 6,
     GOLDEN = 1 << 7,
-    USE_SIMPLE_COLOR_OFFSET = 1 << 8, -- unused since there is no 
+    USE_SIMPLE_COLOR_OFFSET = 1 << 8, -- unused
     PROCEDURAL = 1 << 9,
     HAS_LAYER_LIGHTING = 1 << 10,
     HAS_NULL_LAYER_LIGHTING = 1 << 11,

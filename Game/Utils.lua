@@ -12,9 +12,10 @@ end
 local function HasGameStateFlags(game, flags)
 end
 
+---@param myContext Context.Manager
 ---@param game GameComponent
 ---@return boolean
-local function IsPaused(game)
+local function IsPaused(myContext, game)
 end
 
 ---@param game GameComponent

@@ -50,7 +50,7 @@ local function can_shoot(player)
         return false
     end
 
-    if player.m_suplexState ~= 2 then
+    if player.m_suplex_state ~= 2 then
         return false
     end
 

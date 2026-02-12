@@ -13,7 +13,7 @@ local EntityUtils = require("Entity.Common.Utils")
 local GFuelRules = require("Mechanics.Game.GFuel.Rules")
 local GFuelLogic = require("Mechanics.Game.GFuel.Logic")
 local PlayerUtils = require("Entity.Player.Utils")
-local Inventory = require("Entity.Player.Inventory.Inventory")
+local Inventory = require("Game.Inventory.Inventory")
 
 local eWeaponModifiers = Enums.eWeaponModifiers
 local eItemAnimation = Enums.eItemAnimation
@@ -176,7 +176,7 @@ local function get_tear_spread(context, weapon, playerOwner)
     local spread = 0.0
 
     if playerOwner then
-        local charge = playerOwner.m_epiphoraCharge
+        local charge = playerOwner.m_epiphora_charge
         if Inventory.HasCollectible(context, playerOwner, CollectibleType.COLLECTIBLE_EPIPHORA, false) and charge > 0 then
             spread = ((charge // 90) * 16.0) / 3.0 + 0.0
         end
@@ -660,7 +660,7 @@ local function Fire(weapon, context, shootingInput, isShooting, interpolate)
     end
 
     if WeaponRules.IsAxisAligned(context, weapon) then
-        shootingInput = VectorUtils.AxisAligned(shootingInput)
+        shootingInput = VectorUtils.GetAxisAligned(shootingInput)
     else
         shootingInput = shootingInput:Normalized()
     end

@@ -57,7 +57,7 @@ end
 ---@return EntityComponent?
 local function GetMarkedTarget(weapon)
     local player = GetPlayer(weapon)
-    return player and player.m_markedTarget or nil
+    return player and player.m_marked_targetEntity or nil
 end
 
 ---@param weapon WeaponComponent

@@ -18,7 +18,7 @@ local function GetPivotRadius(knife)
     if parent and parent.m_type == EntityType.ENTITY_TEAR then
         local tear = EntityUtils.ToTear(parent)
         assert(tear, "Could not convert tear ToTear")
-        return tear.m_scale * 20.0
+        return tear.m_fScale * 20.0
     end
 
     return 30.0

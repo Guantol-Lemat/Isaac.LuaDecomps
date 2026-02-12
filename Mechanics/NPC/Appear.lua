@@ -4,7 +4,7 @@ local IsaacUtils = require("Isaac.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
 local NpcUtils = require("Entity.NPC.Utils")
 local NpcAi = require("Actor.NpcAi")
-local SpawnLogic = require("Game.Spawn.Logic")
+local SpawnLogic = require("Game.Spawn")
 local EntityUtils = require("Entity.Common.Utils")
 local SfxUtils = require("Isaac.SoundManager.Utils")
 
@@ -72,7 +72,7 @@ local function spawn_poof(context, npc)
 
     local positionOffset = npcRead.m_positionOffset
     VectorUtils.Assign(poof.m_positionOffset, positionOffset)
-    poof.m_depthOffset = positionOffset.Y + 1.0
+    poof.m_depthOffset_qqq = positionOffset.Y + 1.0
 
     if npcRead.m_champion_isChampion then
         -- TODO: Set ChampionColor

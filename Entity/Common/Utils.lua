@@ -1,10 +1,30 @@
+--#region Dependencies
+
+local GameUtils = require("Game.Utils")
+
+--#endregion
+
 ---@class EntityUtils
 local Module = {}
 
----@param context EntityContext.GetFrame
+---@param myContext Context.Game
 ---@param entity EntityComponent
-local function GetFrameCount(context, entity)
-    return context.frameCount - entity.m_spawnFrame
+local function GetFrameCount(myContext, entity)
+    return myContext.game.m_frameCount - entity.m_spawnFrame
+end
+
+---@param myContext Context.Common
+---@param entity EntityComponent
+---@param interval integer
+---@param offset integer
+---@return boolean
+local function IsFrame(myContext, entity, interval, offset)
+    local game = myContext.game
+    if (entity.m_flags & EntityFlag.FLAG_INTERPOLATION_UPDATE) ~= 0 or GameUtils.IsPaused(myContext, game) then
+        return false
+    end
+
+    return (game.m_frameCount + offset) % interval == 0
 end
 
 ---@param entity EntityComponent
@@ -103,6 +123,114 @@ local function SetEntityReference(entityPtr, newRef)
     if newRef then
         newRef.m_backPointers[entityPtr] = true
     end
+end
+
+---@param entity EntityComponent
+---@param velocity Vector
+---@param ignoreTimescale boolean
+local function AddVelocity(entity, velocity, ignoreTimescale)
+    local friction = entity.m_friction
+    if friction == 0.0 then
+        return
+    end
+
+    local timeScale = not ignoreTimescale and entity.m_timescale or 1.0
+    entity.m_velocity = entity.m_velocity + (timeScale * velocity) / friction
+end
+
+---@param vector Vector
+---@return Direction
+local function GetMovementDirection(vector)
+end
+
+---@param entity EntityComponent
+---@return Direction
+local function GetVelocityDirection(entity)
+    return GetMovementDirection(entity.m_velocity)
+end
+
+---@param entity EntityComponent
+---@param size number
+---@param sizeMulti Vector
+---@param numGridCollisionPoints integer
+local function SetSize(entity, size, sizeMulti, numGridCollisionPoints)
+end
+
+---@param entity EntityComponent
+---@return EntityPlayerComponent
+local function StaticToPlayer(entity)
+    ---@cast entity EntityPlayerComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityTearComponent
+local function StaticToTear(entity)
+    ---@cast entity EntityTearComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityFamiliarComponent
+local function StaticToFamiliar(entity)
+    ---@cast entity EntityFamiliarComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityBombComponent
+local function StaticToBomb(entity)
+    ---@cast entity EntityBombComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityPickupComponent
+local function StaticToPickup(entity)
+    ---@cast entity EntityPickupComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntitySlotComponent
+local function StaticToSlot(entity)
+    ---@cast entity EntitySlotComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityLaserComponent
+local function StaticToLaser(entity)
+    ---@cast entity EntityLaserComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityKnifeComponent
+local function StaticToKnife(entity)
+    ---@cast entity EntityKnifeComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityProjectileComponent
+local function StaticToProjectile(entity)
+    ---@cast entity EntityProjectileComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityNPCComponent
+local function StaticToNPC(entity)
+    ---@cast entity EntityNPCComponent
+    return entity
+end
+
+---@param entity EntityComponent
+---@return EntityEffectComponent
+local function StaticToEffect(entity)
+    ---@cast entity EntityEffectComponent
+    return entity
 end
 
 ---@param entity EntityComponent
@@ -248,29 +376,10 @@ end
 local function GetStatusEffectTarget(entity)
 end
 
----@param entity EntityComponent
----@param velocity Vector
----@param ignoreTimescale boolean
-local function AddVelocity(entity, velocity, ignoreTimescale)
-    local friction = entity.m_friction
-    if friction == 0.0 then
-        return
-    end
-
-    local timeScale = not ignoreTimescale and entity.m_timescale or 1.0
-    entity.m_velocity = entity.m_velocity + (timeScale * velocity) / friction
-end
-
----@param entity EntityComponent
----@param size number
----@param sizeMulti Vector
----@param numGridCollisionPoints integer
-local function SetSize(entity, size, sizeMulti, numGridCollisionPoints)
-end
-
 --#region Module
 
 Module.GetFrameCount = GetFrameCount
+Module.IsFrame = IsFrame
 Module.HasFlags = HasFlags
 Module.HasAnyFlag = HasAnyFlag
 Module.AddFlags = AddFlags
@@ -283,6 +392,21 @@ Module.SetParent = SetParent
 Module.SetChild = SetChild
 Module.GetLastParent = GetLastParent
 Module.GetLastSpawner = GetLastSpawner
+Module.AddVelocity = AddVelocity
+Module.GetMovementDirection = GetMovementDirection
+Module.GetVelocityDirection = GetVelocityDirection
+Module.SetSize = SetSize
+Module.StaticToPlayer = StaticToPlayer
+Module.StaticToTear = StaticToTear
+Module.StaticToFamiliar = StaticToFamiliar
+Module.StaticToBomb = StaticToBomb
+Module.StaticToPickup = StaticToPickup
+Module.StaticToSlot = StaticToSlot
+Module.StaticToLaser = StaticToLaser
+Module.StaticToKnife = StaticToKnife
+Module.StaticToProjectile = StaticToProjectile
+Module.StaticToNPC = StaticToNPC
+Module.StaticToEffect = StaticToEffect
 Module.ToPlayer = ToPlayer
 Module.ToTear = ToTear
 Module.ToFamiliar = ToFamiliar
@@ -298,8 +422,6 @@ Module.IsEnemy = IsEnemy
 Module.IsVulnerableEnemy = IsVulnerableEnemy
 Module.DoesEntityShareStatus = DoesEntityShareStatus
 Module.GetStatusEffectTarget = GetStatusEffectTarget
-Module.AddVelocity = AddVelocity
-Module.SetSize = SetSize
 
 --#endregion
 

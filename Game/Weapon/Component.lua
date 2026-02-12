@@ -1,0 +1,13 @@
+---@class WeaponComponent
+---@field Update fun(self: WeaponComponent, context: Context, interpolationUpdate: boolean)
+---@field GetFocusEntity fun(self: WeaponComponent): EntityComponent?
+---@field GetMaxCharge fun(self: WeaponComponent): number
+---@field m_owner EntityComponent? : 0x4
+---@field m_fireDelay number : 0xc
+---@field m_maxFireDelay number : 0x10
+---@field m_charge number : 0x14
+---@field m_directionBuffer Vector : 0x1c -- used as a buffer to store a previous direction (usually for effects that require the direction to not change even on dropped inputs), individually managed by each weapon (mostly by Fire and Reset)
+---@field m_targetPosition Vector : 0x24
+---@field m_weaponType WeaponType | integer : 0x2c
+---@field m_weaponModifiers WeaponModifier | integer : 0x30
+---@field m_numFired integer : 0x34

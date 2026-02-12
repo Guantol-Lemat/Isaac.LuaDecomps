@@ -1,1 +1,14 @@
 ---@class ProceduralItemManagerComponent
+
+---@class ProceduralItemInventoryComponent
+---@field m_player EntityPlayerComponent : 0x0
+---@field m_id_iterator integer[] : 0x4
+---@field m_count integer : 0x8
+---@field m_itemList (CollectibleType | integer)[] : 0xc
+---@field m_trinketList (TrinketType | integer)[] : 0x18
+---@field m_damage number : 0x24
+---@field m_fireDelay number : 0x28
+---@field m_speed number : 0x2c
+---@field m_range number : 0x30
+---@field m_shotSpeed number : 0x34
+---@field m_luck number : 0x38

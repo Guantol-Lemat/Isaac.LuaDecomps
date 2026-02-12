@@ -37,13 +37,13 @@ end
 local function RandomFloat()
 end
 
----@param context IsaacContext.PlaySound
+---@param myContext Context.Common
 ---@param soundId SoundEffect | integer
 ---@param volume number
 ---@param frameDelay integer
 ---@param loop boolean
 ---@param pitch integer
-local function PlaySound(context, soundId, volume, frameDelay, loop, pitch)
+local function PlaySound(myContext, soundId, volume, frameDelay, loop, pitch)
 end
 
 ---@param isaac IsaacManager

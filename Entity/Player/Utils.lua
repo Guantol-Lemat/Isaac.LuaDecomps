@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
+local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
 
 --#endregion
 
@@ -115,8 +115,8 @@ end
 ---@param player EntityPlayerComponent
 ---@return EntityComponent?
 local function GetFocusEntity(player)
-    if player.m_markedTarget then
-        return player.m_markedTarget
+    if player.m_marked_targetEntity then
+        return player.m_marked_targetEntity
     end
 
     for i = 1, 4, 1 do

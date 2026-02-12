@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local NetPlayUtils = require("Isaac.NetPlayManager.Utils")
-local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
+local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
 
 --#endregion
 

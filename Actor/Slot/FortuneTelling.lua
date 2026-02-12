@@ -2,8 +2,8 @@
 
 local MySpriteUtils = require("Actor.Slot.Sprite.FortuneTelling")
 local SlotRules = require("Entity.Slot.Rules")
-local Inventory = require("Entity.Player.Inventory.Inventory")
-local SpawnLogic = require("Game.Spawn.Logic")
+local Inventory = require("Game.Inventory.Inventory")
+local SpawnLogic = require("Game.Spawn")
 local Fortunes = require("Game.Fortunes")
 local SFX = require("Admin.Sound.Rules")
 

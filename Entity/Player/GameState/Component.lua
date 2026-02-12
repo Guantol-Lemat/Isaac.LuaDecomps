@@ -8,6 +8,17 @@
 
 ---@class GameStatePlayer.FamiliarData
 
+---@class ConsumableDataComponent
+---@field m_coins integer : 0x0
+---@field m_keys integer : 0x4
+---@field m_bombs integer : 0x8
+---@field m_hasGoldKey boolean : 0xc
+---@field m_hasGoldBomb boolean : 0xd
+---@field m_soulCharges integer : 0x10
+---@field m_gigaBombs integer : 0x14
+---@field m_poopMana integer : 0x18
+---@field m_bloodCharges integer : 0x1c
+
 --#region Dependencies
 
 

@@ -5,10 +5,10 @@ local IsaacUtils = require("Isaac.Utils")
 local RoomUtils = require("Game.Room.Utils")
 local LuaCallbacks = require("LuaEngine.Callbacks")
 local GameUtils = require("Game.Utils")
-local SpawnLogic = require("Game.Spawn.Logic")
+local SpawnLogic = require("Game.Spawn")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 local GameEnd = require("Game.End")
-local PersitentGameDataUtils = require("Isaac.PersistentGameData.Utils")
+local PersistentGameDataUtils = require("Isaac.PersistentGameData.Utils")
 local Progress = require("Isaac.PersistentGameData.Progress")
 local LevelUtils = require("Game.Level.Utils")
 local EntityUtils = require("Entity.Common.Utils")
@@ -466,7 +466,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
             local victoryLap = game.m_victoryRun_currentLap
             if victoryLap > 0 then
                 local achievementUnlocksDisallowed = GameUtils.AchievementUnlocksDisallowed(myContext, game)
-                PersitentGameDataUtils.SetReadOnly(persistentGameData, achievementUnlocksDisallowed)
+                PersistentGameDataUtils.SetReadOnly(persistentGameData, achievementUnlocksDisallowed)
 
                 Progress.TryUnlock(persistentGameData, Achievement.GULP_PILL)
                 if victoryLap > 1 then
@@ -476,7 +476,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
                     Progress.TryUnlock(persistentGameData, Achievement.RERUNS)
                 end
 
-                PersitentGameDataUtils.SetReadOnly(persistentGameData, true)
+                PersistentGameDataUtils.SetReadOnly(persistentGameData, true)
             end
 
             if not GameUtils.InChallenge(game) and not GameUtils.IsGreedMode(game) then

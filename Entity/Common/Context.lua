@@ -1,2 +1,0 @@
----@class EntityContext.GetFrame
----@field frameCount integer

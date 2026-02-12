@@ -4,7 +4,7 @@ local Enums = require("General.Enums")
 local RoomUtils = require("Room.Utils")
 local GameUtils = require("Game.Utils")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
-local TemporaryEffectsUtils = require("Entity.Player.Inventory.TemporaryEffects")
+local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
 local LevelUtils = require("Level.Utils")
 local DamoclesItems = require("Mechanics.DamoclesItems.Logic")
 

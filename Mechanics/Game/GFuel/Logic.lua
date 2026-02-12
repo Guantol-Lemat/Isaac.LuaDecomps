@@ -5,7 +5,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 local ColorUtils = require("General.Color")
 local BlendModeUtils = require("Admin.Graphics.BlendMode")
 local GameRules = require("Game.Rules")
-local GameSpawn = require("Game.Spawn.Logic")
+local GameSpawn = require("Game.Spawn")
 local WeaponParamsRules = require("Weapon.Common.Params.Rules")
 
 --#endregion

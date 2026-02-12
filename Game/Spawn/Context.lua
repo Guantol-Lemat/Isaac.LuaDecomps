@@ -1,2 +1,0 @@
----@class GameContext.Spawn
----@field game GameComponent

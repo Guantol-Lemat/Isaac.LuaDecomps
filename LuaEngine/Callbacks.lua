@@ -11,11 +11,16 @@
 local function SpawnClearAward(rng, position)
 end
 
+---@param knife EntityKnifeComponent
+local function PostKnifeUpdate(knife)
+end
+
 local Module = {}
 
 --#region Module
 
 Module.SpawnClearAward = SpawnClearAward
+Module.PostKnifeUpdate = PostKnifeUpdate
 
 --#endregion
 
