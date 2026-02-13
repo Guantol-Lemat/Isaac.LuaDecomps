@@ -6,10 +6,10 @@ local BOUNCE_RESTITUTION = 0.4
 
 ---@param entity WormWoodComponent
 local function update_height_above(entity)
-    local fallingStep = entity.m_timescale * FALLING_SPEED_STEP
+    local fallingStep = entity.m_timeScale * FALLING_SPEED_STEP
     local fallingSpeed = entity.m_fallingSpeed + fallingStep
     entity.m_fallingSpeed = fallingSpeed + fallingStep
-    entity.m_height = entity.m_height + fallingSpeed * entity.m_timescale
+    entity.m_height = entity.m_height + fallingSpeed * entity.m_timeScale
 end
 
 ---@param entity WormWoodComponent

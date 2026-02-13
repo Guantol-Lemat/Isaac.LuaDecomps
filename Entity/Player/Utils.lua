@@ -116,7 +116,7 @@ end
 ---@return EntityComponent?
 local function GetFocusEntity(player)
     if player.m_marked_targetEntity then
-        return player.m_marked_targetEntity
+        return player.m_marked_targetEntity.ref
     end
 
     for i = 1, 4, 1 do

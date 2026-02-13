@@ -5,7 +5,8 @@ local MathUtils = require("General.Math")
 local VectorUtils = require("General.Math.VectorUtils")
 local IsaacUtils = require("Isaac.Utils")
 local Callbacks = require("LuaEngine.Callbacks")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
+local EntityCast = require("Entity.TypeCast")
 local EntityUpdate = require("Entity.Common.Update")
 local EntityIdentity = require("Entity.Identity")
 local KnifeUtils = require("Entity.Knife.Utils")
@@ -98,9 +99,9 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
         if primaryParent then
             local parentType = primaryParent.m_type
             if parentType == EntityType.ENTITY_PLAYER then
-                primaryPlayer = EntityUtils.StaticToPlayer(primaryParent)
+                primaryPlayer = EntityCast.StaticToPlayer(primaryParent)
             elseif parentType == EntityType.ENTITY_FAMILIAR then
-                local familiar = EntityUtils.StaticToFamiliar(primaryParent)
+                local familiar = EntityCast.StaticToFamiliar(primaryParent)
                 primaryPlayer = familiar.m_player
             end
         end
@@ -168,7 +169,7 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
 
         local tearVariant = variant == KnifeVariant.TECH_SWORD and TearVariant.TECH_SWORD_BEAM or TearVariant.SWORD_BEAM
         local ent = SpawnLogic.Spawn(myContext, game, EntityType.ENTITY_TEAR, tearVariant, 0, IsaacUtils.Random(), knife.m_position, shotVelocity, knife.m_spawnerEntity.ref)
-        local beam = EntityUtils.StaticToTear(ent)
+        local beam = EntityCast.StaticToTear(ent)
 
         -- init beam data
         if player then
@@ -288,7 +289,7 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
             local nullFrame = nil -- GetNullFrame at layerId 0 (you currently can only get it by layer name not layer id)
             if nullFrame then
                 local spriteDirection = Vector.FromAngle(sprite.Rotation)
-                knife.m_depthOffset_qqq = nullFrame:GetPos():Dot(spriteDirection)
+                knife.m_knifeDepthOffset = nullFrame:GetPos():Dot(spriteDirection)
             end
         end
     else
@@ -305,7 +306,7 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
         local room = game.m_level.m_room
         local creepPosition = RoomBounds.GetClampedPosition(room, knife.m_position, 15.0, 15.0, 15.0, 15.0)
         local ent = SpawnLogic.Spawn(myContext, game, EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_GREEN, 0, IsaacUtils.Random(), creepPosition, VectorZero, knife.m_spawnerEntity.ref)
-        local creep = EntityUtils.StaticToEffect(ent)
+        local creep = EntityCast.StaticToEffect(ent)
 
         creep.m_timeout = 30
         creep.m_lifeSpan = 30
@@ -337,7 +338,7 @@ local function update_base(closure, myContext, knife)
     ---@type EntityComponent
     local parent = knife.m_parent.ref
 
-    local tear = EntityUtils.ToTear(parent)
+    local tear = EntityCast.ToTear(parent)
     if tear and not isClub and not isSword then
         pivotRadius = tear.m_fScale * 20.0
     end
@@ -364,8 +365,7 @@ local function update_base(closure, myContext, knife)
         end
     end
 
-    local tearFlags = knife.m_tearFlags
-    if (tearFlags & TearFlags.TEAR_LUDOVICO) ~= 0 then
+    if (knife.m_tearFlags & TearFlags.TEAR_LUDOVICO) ~= 0 then
         update_base_ludovico(closure, myContext, knife)
     else
         local remove = update_base_normal(closure, myContext, knife, pivotRadius)
@@ -440,7 +440,57 @@ local function update_base(closure, myContext, knife)
 
     local interpolationUpdate = knife.m_interpolated
     if not interpolationUpdate then
-        -- TODO
+        -- lasers update logic
+
+        if not knife.m_isFlying or knife.m_isDead then -- remove lasers
+            -- tech x laser fade out logic
+            local techXLaser = EntityCast.StaticToLaser(knife.m_techXLaser.ref)
+            if techXLaser then
+                local timeout = techXLaser.m_timeout
+                if timeout > 8 then
+                    techXLaser.m_timeout = 8
+                else
+                    -- fade out
+                    local color = techXLaser.m_sprite.Color
+                    color.A = color.A * timeout * 1/8
+                    techXLaser.m_radius = techXLaser.m_radius + 4.0
+                end
+            end
+        elseif player and PlayerInventory.HasCollectible(myContext, player, CollectibleType.COLLECTIBLE_TECHNOLOGY, false) then
+            -- update technology laser
+            local createdThisUpdate = false
+            local technologyLaser = EntityCast.StaticToLaser(knife.m_technologyLaser.ref)
+
+            if not technologyLaser then
+                -- create laser
+                local positionOffset = player.m_positionOffset + Vector(0.0, -8.0)
+                technologyLaser = LaserUtils.ShootAngle(myContext, LaserVariant.THICK_RED, player.m_position, 0.0, -1, positionOffset, player, false)
+
+                local laserTearFlags = knife.m_tearFlags & ~(TearFlags.TEAR_WIGGLE | TearFlags.TEAR_ORBIT | TearFlags.TEAR_BIG_SPIRAL | TearFlags.TEAR_SPIRAL | TearFlags.TEAR_SQUARE)
+                technologyLaser.m_tearFlags = laserTearFlags
+                technologyLaser:SetColor(myContext, player.m_laserColor, -1, -1, false, true)
+                technologyLaser:SetCollisionDamage(myContext, knife.m_charge * knife.m_collisionDamage)
+                technologyLaser.m_mass = 0.0
+                EntityUtils.SetEntityReference(knife.m_technologyLaser, technologyLaser)
+                createdThisUpdate = true
+            end
+
+            local laserSegmentVector = knife.m_position - technologyLaser.m_position
+            LaserUtils.SetAngle(technologyLaser, laserSegmentVector:GetAngleDegrees())
+            technologyLaser.m_maxDistance = laserSegmentVector:Length()
+            technologyLaser.m_depthOffset = laserSegmentVector.Y < -0.5 and -10.0 or 3000.0
+
+            if createdThisUpdate then
+                technologyLaser:Update(myContext)
+            end
+        end
+
+        if not knife.m_isFlying or knife.m_isDead then -- don't know why they performed the check twice
+            local technologyLaser = knife.m_technologyLaser.ref
+            if technologyLaser then
+                technologyLaser:Remove(myContext)
+            end
+        end
     end
 end
 

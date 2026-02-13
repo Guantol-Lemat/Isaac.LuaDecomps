@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local FamiliarRules = require("Entity.Familiar.Rules")
 local CollisionCommon = require("Entity.Familiar.Collision.Common")
 

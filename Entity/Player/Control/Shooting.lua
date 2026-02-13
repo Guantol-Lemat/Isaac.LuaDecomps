@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local TemporaryEffectsUtils = require("Items.TemporaryEffects.Utils")
 local StageTransitionUtils = require("Game.Transition.StageTransition.Utils")

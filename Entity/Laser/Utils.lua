@@ -15,7 +15,7 @@ end
 ---@param angle number
 ---@param timeout integer
 ---@param posOffset Vector
----@param source Entity?
+---@param source EntityComponent?
 ---@param force boolean
 ---@return EntityLaserComponent
 local function ShootAngle(myContext, variant, sourcePos, angle, timeout, posOffset, source, force)

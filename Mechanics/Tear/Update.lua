@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local RoomUtils = require("Room.Utils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local TearUtils = require("Entity.Tear.Utils")
 local TearRules = require("Entity.Tear.Rules")
 local VectorUtils = require("General.Math.VectorUtils")
@@ -80,7 +80,7 @@ local function Update(context, tear)
     local lastSpawner = EntityUtils.GetLastSpawner(tear)
     local playerOwner = EntityUtils.ToPlayer(lastSpawner)
 
-    tear.m_timescale = get_time_scale(room, tear)
+    tear.m_timeScale = get_time_scale(room, tear)
 
     -- this seems to be completely unused,
     -- maybe an older version of the Wait flag implementation?

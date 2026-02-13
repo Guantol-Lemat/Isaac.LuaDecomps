@@ -5,7 +5,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 local NpcUtils = require("Entity.NPC.Utils")
 local NpcAi = require("Actor.NpcAi")
 local SpawnLogic = require("Game.Spawn")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local SfxUtils = require("Isaac.SoundManager.Utils")
 
 local VectorZero = VectorUtils.VectorZero

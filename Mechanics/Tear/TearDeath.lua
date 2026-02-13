@@ -2,7 +2,7 @@
 
 local SpawnLogic = require("Game.Spawn")
 local IsaacUtils = require("Isaac.Utils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
 
 --#endregion

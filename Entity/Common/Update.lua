@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local RoomUtils = require("Room.Utils")
 
 --#endregion
@@ -31,7 +31,7 @@ local function Interpolate(entity, context)
     entity.m_preInterpolatePosition = entity.m_position
     entity.m_interpolated = true
 
-    entity.m_position = entity.m_position + (entity.m_friction * entity.m_velocity * entity.m_timescale * 0.5)
+    entity.m_position = entity.m_position + (entity.m_friction * entity.m_velocity * entity.m_timeScale * 0.5)
     interpolate_grid_collide(context, entity)
 
     -- This should absolutely be in a Player::Interpolate, but to keep consistency with vanilla it will be left here

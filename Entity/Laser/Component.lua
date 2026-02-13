@@ -1,5 +1,51 @@
 ---@class EntityLaserComponent : EntityComponent
----@field m_disableFollowParent boolean
+---@field m_parentOffset Vector : 0x360
+---@field m_startAngleDegrees number : 0x368
+---@field m_angleDegrees number : 0x36c
+---@field m_lastAngleDegrees number : 0x370
+---@field m_tearFlags TearFlags | BitSet128 : 0x378
+---@field m_unk_tearflags_qqq TearFlags | BitSet128 : 0x388
+---@field m_unk_damageflags_qqq TearFlags | BitSet128 : 0x398
+---@field m_timeout integer : 0x3a8
+---@field m_firstUpdate boolean : 0x3ac
+---@field m_sampleLaser boolean : 0x3ad
+---@field m_shrink boolean : 0x3ae
+---@field m_laserLength number : 0x3b0
+---@field m_homingLaser HomingLaserComponent : 0x3b4
+---@field m_curveStrength number : 0x408
+---@field m_radius number : 0x40c
+---@field m_isActiveRotating boolean : 0x410
+---@field m_rotationDelay integer : 0x414
+---@field m_rotationDegrees number : 0x418
+---@field m_rotationSpeed number : 0x41c
+---@field m_maxDistance number : 0x420
+---@field m_homingType integer : 0x424
+---@field m_endPoint Vector : 0x428
+---@field m_laserScale number : 0x430
+---@field m_disableFollowParent boolean : 0x434
+---@field m_bounceLaser EntityPtrComponent : 0x438
+---@field m_unkEntity3 EntityPtrComponent : 0x43c
+---@field m_blackHpDropChance number : 0x444
+---@field m_unkEntity EntityPtrComponent : 0x448
+---@field m_multidimensional_applied boolean : 0x450
+---@field m_prism_lasers EntityPtrComponent[] [4] : 0x454
+---@field m_prism_applied boolean : 0x464
+---@field m_oneHit boolean : 0x465
+---@field m_gridHit boolean : 0x466
+---@field m_delayed_qqq boolean : 0x467
+---@field m_unkBool2 boolean : 0x468
+---@field m_damageScale number : 0x46c
+---@field m_hitList HitListComponent : 0x470
+---@field m_hitListParent_qqq EntityPtrComponent : 0x47c
+---@field m_entityPtrs_qqq EntityPtrComponent[] [2] : 0x480
+---@field m_continuumLaserProbably EntityPtrComponent : 0x488
+---@field m_unkEntity2 EntityPtrComponent : 0x48c
+---@field m_interpolationRelatedCountdown integer : 0x490
+---@field m_unkFloat1 number : 0x494
+---@field m_lastSamplePos Vector : 0x498
+---@field m_distanceRelated Vector : 0x4a0
+---@field m_unkFloat2 number : 0x4a8
+---@field m_unkCountdown_qqq integer : 0x4b0
 
 ---@class HomingLaserComponent
 ---@field m_entity EntityPtrComponent : 0x0

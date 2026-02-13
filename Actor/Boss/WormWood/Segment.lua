@@ -56,7 +56,7 @@ end
 ---@param parent WormWoodComponent
 local function FollowParent(entity, parent)
     follow_parent(entity, parent)
-    entity.m_height = entity.m_height + entity.m_fallingSpeed * entity.m_timescale
+    entity.m_height = entity.m_height + entity.m_fallingSpeed * entity.m_timeScale
 end
 
 --#region Module

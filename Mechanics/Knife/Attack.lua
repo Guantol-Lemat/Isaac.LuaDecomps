@@ -19,6 +19,11 @@ end
 
 ---@param myContext Context.Common
 ---@param knife EntityKnifeComponent
+local function Shoot(myContext, knife, charge, range)
+end
+
+---@param myContext Context.Common
+---@param knife EntityKnifeComponent
 local function UpdateBoneSwing(myContext, knife)
 end
 
@@ -35,6 +40,7 @@ local Module = {}
 
 Module.InitHomingPath = InitHomingPath
 Module.DoShootEffects = DoShootEffects
+Module.Shoot = Shoot
 Module.UpdateBoneSwing = UpdateBoneSwing
 Module.SpinAttack = SpinAttack
 

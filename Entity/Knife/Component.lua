@@ -35,8 +35,8 @@
 ---@field m_spinAttack_remainingMultiShot integer : 0x440
 ---@field m_notchedAxe EntityPtrComponent : 0x444
 ---@field m_swingEntity EntityPtrComponent : 0x448
----@field m_unkEntity2 EntityPtrComponent : 0x44c
----@field m_unkEntity3 EntityPtrComponent : 0x450
+---@field m_techXLaser EntityPtrComponent : 0x44c
+---@field m_technologyLaser EntityPtrComponent : 0x450
 ---@field m_distanceRelated_qqq number : 0x454
 ---@field m_splitDistance number : 0x464
 ---@field m_hitboxRotation number : 0x468 -- used when handling collision for physics

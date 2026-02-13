@@ -21,7 +21,7 @@ local Module = {}
 ---@param cultist EntityNPCComponent
 ---@param blackboard Cultist.Blackboard
 local function update_idle_movement(cultist, blackboard)
-    local timescale = cultist.m_timescale
+    local timescale = cultist.m_timeScale
 
     local targetPosition = cultist.m_targetPosition
     local targetDisplacement = targetPosition - cultist.m_position
@@ -50,16 +50,16 @@ local function update_attack_movement(cultist, blackboard)
     local variant = cultist.m_variant
     if variant == eMyVariant.BLOOD_CULTIST then
         local horizontalDirection = cultist.m_sprite.FlipX and 1.0 or -1.0
-        local horizontalSpeed = attackSpeedFactor * 5.0 * horizontalDirection * cultist.m_timescale
+        local horizontalSpeed = attackSpeedFactor * 5.0 * horizontalDirection * cultist.m_timeScale
         local velocity = Vector(horizontalSpeed, 0.0)
         cultist.m_velocity = cultist.m_velocity + velocity
     else
-        local verticalSpeed = attackSpeedFactor * -5.0 * cultist.m_timescale
+        local verticalSpeed = attackSpeedFactor * -5.0 * cultist.m_timeScale
         local velocity = Vector(0.0, verticalSpeed)
         cultist.m_velocity = cultist.m_velocity + velocity
     end
 
-    blackboard.attackSpeedFactor = blackboard.attackSpeedFactor - 0.1 * cultist.m_timescale
+    blackboard.attackSpeedFactor = blackboard.attackSpeedFactor - 0.1 * cultist.m_timeScale
 end
 
 ---@param cultist EntityNPCComponent
@@ -83,7 +83,7 @@ local function update_idle(cultist, blackboard)
     else
         local targetPosition = cultist.m_targetPosition
         if not VectorUtils.Equals(targetPosition, VectorZero) then
-            local timescale = cultist.m_timescale
+            local timescale = cultist.m_timeScale
             blackboard.idleFrames = blackboard.idleFrames + timescale
             update_idle_movement(cultist, blackboard)
             -- TODO: Try Attack

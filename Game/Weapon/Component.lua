@@ -1,8 +1,23 @@
 ---@class WeaponComponent
----@field Update fun(self: WeaponComponent, context: Context, interpolationUpdate: boolean)
----@field GetFocusEntity fun(self: WeaponComponent): EntityComponent?
+---@field Free fun(self: WeaponComponent)
+---@field Init fun(self: WeaponComponent, myContext: Context.Common)
+---@field Update fun(self: WeaponComponent, myContext: Context.Common, interpolationUpdate: boolean)
+---@field Fire fun(self: WeaponComponent, myContext: Context.Common, shootingInput: Vector, isShooting: boolean, interpolationUpdate: boolean)
+---@field Reset fun(self: WeaponComponent)
+---@field ClearReferences fun(self: WeaponComponent)
 ---@field GetMaxCharge fun(self: WeaponComponent): number
+---@field GetChargeBarAmount fun(self: WeaponComponent): number
+---@field GetChargeBarAmount2 fun(self: WeaponComponent): number
+---@field GetFocusEntity fun(self: WeaponComponent): EntityComponent?
+---@field GetMainEntity fun(self: WeaponComponent): EntityComponent?
+---@field TriggerNewRoom fun(self: WeaponComponent)
+---@field GetMarkedTargetVariant fun(self: WeaponComponent): integer
+---@field SupportsTractorBeam fun(self: WeaponComponent): boolean
+---@field CanTriggerCursedEyeTeleport fun(self: WeaponComponent): boolean
+---@field CanTriggerKidneyStone fun(self: WeaponComponent): boolean
+---@field ShouldOverrideForgottenThrow fun(self: WeaponComponent): boolean
 ---@field m_owner EntityComponent? : 0x4
+---@field m_entity_qqq EntityPtrComponent : 0x8
 ---@field m_fireDelay number : 0xc
 ---@field m_maxFireDelay number : 0x10
 ---@field m_charge number : 0x14

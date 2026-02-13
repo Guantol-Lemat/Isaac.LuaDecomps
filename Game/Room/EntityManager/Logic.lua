@@ -2,7 +2,7 @@
 
 local NetManagerUtils = require("Isaac.NetManager.Utils")
 local EntityManagerUtils = require("Game.Room.EntityManager.Utils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local HudUtils = require("Game.HUD.Utils")
 local Screen = require("Isaac.Screen")
 

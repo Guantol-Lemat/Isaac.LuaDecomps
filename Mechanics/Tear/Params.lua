@@ -2,7 +2,7 @@
 
 local TableUtils = require("General.Table")
 local VectorUtils = require("General.Math.VectorUtils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local SeedsUtils = require("Admin.Seeds.Utils")
 
 --#endregion

@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local Inventory = require("Game.Inventory.Inventory")
 local PlayerUtils = require("Entity.Player.Utils")
 

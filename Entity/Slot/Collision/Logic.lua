@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local IsaacSFX = require("Admin.Sound.Rules")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local PlayerRules = require("Entity.Player.Rules")
 local PlayerInventory = require("Game.Inventory.Inventory")
 local SlotUtils = require("Entity.Slot.Utils")

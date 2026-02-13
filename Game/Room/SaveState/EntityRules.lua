@@ -2,7 +2,7 @@
 
 local BitsetUtils = require("General.Bitset")
 local TableUtils = require("General.Table")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local PickupUtils = require("Entity.Pickup.Utils")
 
 --#endregion

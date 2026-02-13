@@ -2,7 +2,7 @@
 
 local PlayerLifecycle = require("Game.PlayerManager.Lifecycle")
 local PlayerPersistence = require("Entity.Player.GameState.Persistence")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 
 --#endregion
 

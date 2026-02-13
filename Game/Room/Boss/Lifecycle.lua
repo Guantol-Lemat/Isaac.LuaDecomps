@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local GameUtils = require("Game.Utils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local RoomUtils = require("Room.Utils")
 local NPCUtils = require("Entity.NPC.Utils")
 local Log = require("General.Log")

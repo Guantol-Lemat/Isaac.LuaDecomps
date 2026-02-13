@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local RoomUtils = require("Room.Utils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
 local ItemConfigUtils = require("Config.ItemConfig.Utils")
 local PickupInitLogic = require("Entity.Pickup.Init")

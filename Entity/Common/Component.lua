@@ -24,55 +24,120 @@
 ---@field HandleCollision fun(self: EntityComponent, myContext: Context.Common, collider: EntityComponent, low: boolean): boolean
 ---@field ResetColor fun(self: EntityComponent)
 ---@field LoadEntityConfig fun(self: EntityComponent, myContext: Context.Common)
----@field m_type EntityType | integer
----@field m_variant integer
----@field m_subtype integer
----@field m_config EntityConfig.EntityComponent
----@field m_initSeed integer
----@field m_dropRNG RNG
----@field m_position Vector
----@field m_velocity Vector
----@field m_size number
----@field m_sizeMulti Vector
----@field m_shadowSize number
----@field m_initialFriction number
----@field m_friction number
----@field m_timescale number
----@field m_localFrame number -- local "Time" for the entity, affected by timeScale
----@field m_lastLocalFrame number
----@field m_spawnFrame integer
----@field m_flags EntityFlag | integer
----@field m_preInterpolatePosition Vector
----@field m_interpolated boolean
----@field m_entityCollisionClass EntityCollisionClass | integer
----@field m_gridCollisionClass EntityGridCollisionClass | integer
----@field m_collisionDamage number
----@field m_maxHealth number
----@field m_health number
----@field m_velocityOnGridCollide Vector
----@field m_gridCollisionDirection Vector
----@field m_gridCollisionPoints Vector[]
----@field m_collidesWithGrid boolean
----@field m_backPointers Set<EntityPtrComponent>
----@field m_parent EntityPtrComponent
----@field m_child EntityPtrComponent
----@field m_targetPosition Vector
----@field m_positionOffset Vector
----@field m_depthOffset_qqq number
----@field m_spawnerEntity EntityPtrComponent
----@field m_spawnerType EntityType | integer
----@field m_target EntityPtrComponent
----@field m_minecart EntityPtrComponent
----@field m_sprite Sprite
----@field m_color Color
----@field m_exists boolean
----@field m_isDead boolean
----@field m_visible boolean
----@field m_invincible boolean
----@field m_valid boolean
+---@field m_damageEntries DamageEntryComponent[] : 0x8
+---@field m_currentFrameDamage number : 0x14
+---@field m_damageFlagsTaken DamageFlag | integer : 0x18
+---@field m_index integer : 0x20
+---@field m_collisionIndex integer : 0x24
+---@field m_type EntityType | integer : 0x28
+---@field m_variant integer : 0x2c
+---@field m_subtype integer : 0x30
+---@field m_spawnerType EntityType | integer : 0x34
+---@field m_spawnerVariant integer : 0x38
+---@field m_sprite Sprite : 0x3c
+---@field m_shadowSize number : 0x150
+---@field m_shadowRelated Vector : 0x154
+---@field m_flags EntityFlag | integer : 0x160
+---@field m_valid boolean : 0x168
+---@field m_visible boolean : 0x169
+---@field m_exists boolean : 0x16a
+---@field m_isDead boolean : 0x16b
+---@field m_unkBool boolean : 0x16c
+---@field m_interpolated boolean : 0x16d
+---@field m_isSpriteBatched_qqq boolean : 0x16e
+---@field m_removedByFactoryCreate boolean : 0x16f
+---@field m_gridCollisionPoints Vector[] : 0x170
+---@field m_gridCollisionClass EntityGridCollisionClass | integer : 0x17c
+---@field m_entityCollisionClass EntityCollisionClass | integer : 0x180
+---@field m_modifiedInEntityList_collide boolean : 0x184
+---@field m_collidesWithGrid boolean : 0x188
+---@field m_velocityOnGridCollide Vector : 0x18c
+---@field m_gridCollisionDirection Vector : 0x194
+---@field m_screenPosition Vector : 0x19c
+---@field m_colorMask ColorMaskComponent : 0x1a4
+---@field m_color Color : 0x1b0
+---@field m_splatColor Color : 0x1dc
+---@field m_fireDamageCountdown integer : 0x208
+---@field m_damageCountdown integer : 0x20c
+---@field m_freezeCountdown integer : 0x210
+---@field m_poisonCountdown integer : 0x214
+---@field m_slowingCountdown integer : 0x218
+---@field m_charmedCountdown integer : 0x21c
+---@field m_confusionCountdown integer : 0x220
+---@field m_midasFreezeCountdown integer : 0x224
+---@field m_fearCountdown integer : 0x228
+---@field m_burnCountdown integer : 0x22c
+---@field m_bossStatusEffectCooldown integer : 0x230
+---@field m_shrinkCountdown integer : 0x234
+---@field m_poisonDamageTimer integer : 0x238
+---@field m_burnDamageTimer integer : 0x23c
+---@field m_bleedingCountdown integer : 0x240
+---@field m_bleedDamageDistance_qqq number : 0x244
+---@field m_magnetizedCountdown integer : 0x248
+---@field m_baitedCountdown integer : 0x24c
+---@field m_knockbackCountdown integer : 0x250
+---@field m_weaknessCountdown integer : 0x254
+---@field m_iceCountdown integer : 0x258
+---@field m_brimstoneMarkCountdown integer : 0x25c
+---@field m_knockbackDirection Vector : 0x260
+---@field m_magnetizedPullingEffect EntityPtrComponent : 0x268
+---@field m_unkVector2 Vector : 0x26c
+---@field m_pauseTimer integer : 0x274
+---@field m_poisonDamage number : 0x278
+---@field m_burnDamage number : 0x27c
+---@field m_spawnFrame integer : 0x280
+---@field m_spawnGridIdx integer : 0x284
+---@field m_config EntityConfigComponent : 0x288
+---@field m_targetPosition Vector : 0x28c
+---@field m_position Vector : 0x294
+---@field m_preInterpolatePosition Vector : 0x29c
+---@field m_positionOffset Vector : 0x2a4
+---@field m_renderZOffset integer : 0x2ac
+---@field m_depthOffset number : 0x2b0
+---@field m_sortingLayer SortingLayer | integer : 0x2b4
+---@field m_velocity Vector : 0x2b8
+---@field m_initialFriction number : 0x2c0
+---@field m_friction number : 0x2c4
+---@field m_size number : 0x2c8
+---@field m_sizeMulti Vector : 0x2cc
+---@field m_mass number : 0x2d4
+---@field m_health number : 0x2d8
+---@field m_maxHealth number : 0x2dc
+---@field m_collisionDamage number : 0x2e0
+---@field m_preUpdatePos Vector : 0x2e4
+---@field m_preUpdateVel Vector : 0x2ec
+---@field m_timeScale number : 0x2f4
+---@field m_lastLocalFrame number : 0x2f8
+---@field m_localFrame number : 0x2fc -- local "Time" for the entity, affected by timeScale
+---@field m_slowStatusFrictionMult_qqq number : 0x304
+---@field m_invincible boolean : 0x308
+---@field m_defaultSpriteScale_qqq number : 0x30c
+---@field m_usedInShrinkStatus2 number : 0x310
+---@field m_parent EntityPtrComponent : 0x314
+---@field m_child EntityPtrComponent : 0x318
+---@field m_target EntityPtrComponent : 0x31c
+---@field m_spawnerEntity EntityPtrComponent : 0x320
+---@field m_backPointers Set<EntityPtrComponent> : 0x324
+---@field m_minecart EntityPtrComponent : 0x32c
+---@field m_bishopRelated EntityPtrComponent : 0x330
+---@field m_dropRNG RNG : 0x334
+---@field m_initSeed integer : 0x344
+---@field m_childTimescale_qqq integer : 0x348
+---@field m_childRelated1 integer : 0x34c
+---@field m_childRelated2 integer : 0x350
+---@field m_pitfallState integer : 0x354
+---@field m_pitfallRelated integer : 0x358
+---@field m_luaData table : 0x35c -- the lua table returned by GetData()
 
 ---@class EntityPtrComponent
 ---@field ref EntityComponent?
 
 ---@class HitListComponent
 ---@field m_lists integer[]
+
+---@class DamageEntryComponent
+---@field damage number : 0x0
+---@field damageFlags DamageFlag | integer : 0x8
+---@field source EntityRefComponent : 0x10
+
+---@class ColorMaskComponent

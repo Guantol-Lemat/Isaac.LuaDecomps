@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local VectorUtils = require("General.Math.VectorUtils")
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local NpcAppear = require("Mechanics.NPC.Appear")
 
 local VectorZero = VectorUtils.VectorZero
@@ -40,7 +40,7 @@ local function Update(context, npc)
     local room = context.room
     local flags = npcRead.m_flags
 
-    npcWrite.m_timescale = get_time_scale(room, npcRead)
+    npcWrite.m_timeScale = get_time_scale(room, npcRead)
     -- TODO: update_player_crosshair
 
     if npcRead.m_possessor_controllerIdx == -1 then

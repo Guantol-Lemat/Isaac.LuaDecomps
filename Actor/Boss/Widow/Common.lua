@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityUtils = require("Entity.Common.Utils")
+local EntityUtils = require("Entity.Utils")
 local MySprite = require("Actor.Boss.Widow.Sprite")
 
 local Animations = MySprite.Animations

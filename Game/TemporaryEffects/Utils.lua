@@ -4,7 +4,6 @@
 
 --#endregion
 
----@class TemporaryEffectsUtils
 local Module = {}
 
 ---@param temporaryEffects TemporaryEffectsComponent
