@@ -1,15 +1,14 @@
 --#region Dependencies
 
 local GameUtils = require("Game.Utils")
+local LevelUtils = require("Game.Level.Utils")
 local LevelRules = require("Level.Rules")
 local SeedsUtils = require("Admin.Seeds.Utils")
 local PersistentDataRules = require("Admin.PersistentData.Rules")
-local BackwardsPathRules = require("Level.BackwardsPath.Rules")
+local BackwardsPath = require("Mechanics.Level.BackwardsPath.Logic")
+local NightmareSceneUtils = require("Isaac.NightmareScene.Utils")
 
 --#endregion
-
----@class LevelStageProgression
-local Module = {}
 
 ---@alias LevelStageProgression._SWITCH_NormalProgression fun(context: Context, stageType: StageType): LevelStage, StageType
 ---@alias LevelStageProgression._SWITCH_GreedModeProgression fun(context: Context): LevelStage
@@ -174,7 +173,7 @@ local function get_next_stage(context, level)
     local stage = level.m_stage
     local stageType = level.m_stageType
     local isAltPath = stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B
-    local IsBackwardsPath = BackwardsPathRules.IsBackwardsPath(game, level)
+    local IsBackwardsPath = BackwardsPath.IsBackwardsPath(game, level)
 
     if IsBackwardsPath then
         if isAltPath then
@@ -321,12 +320,46 @@ local function get_next_stage(context, level)
     return newStage, newStageType
 end
 
+---@param myContext Context.Common
+---@param level LevelComponent
+---@param stage LevelStage | integer
+---@param stageType StageType | integer
+local function SetStage(myContext, level, stage, stageType)
+    -- save backwards stage
+    if not BackwardsPath.IsBackwardsPath(myContext, level) then
+        local currentStage = level.m_stage
+        if LevelUtils.IsAltPath(level) then
+            currentStage = currentStage + 1
+        end
+
+        if currentStage < LevelStage.STAGE4_2 then
+            BackwardsPath.SaveBackwardsStage(myContext, level, currentStage)
+        end
+    end
+
+    level.m_stage = stage
+    level.m_stageType = stageType
+
+    local nightmareScene = myContext.manager.m_nightmareScene
+    NightmareSceneUtils.SetStageAlt(myContext, nightmareScene, stage, stageType)
+
+    -- set boss rush par time
+    local game = myContext.game
+    if not GameUtils.IsGreedMode(game) and stage < LevelStage.STAGE4_1 and LevelUtils.IsAltPath(level) then
+        game.m_bossRushParTime = 45000
+    else
+        game.m_bossRushParTime = 36000
+    end
+end
+
 ---@param context Context
 ---@param level LevelComponent
 local function SetNextStage(context, level)
     local stage, stageType = get_next_stage(context, level)
-    LevelRules.SetStage(context, level, stage, stageType)
+    SetStage(context, level, stage, stageType)
 end
+
+local Module = {}
 
 --#region Module
 

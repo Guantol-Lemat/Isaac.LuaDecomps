@@ -1,0 +1,16 @@
+---@class NightmareSceneComponent
+---@field m_state integer : 0x0
+---@field m_frameCount_qqq integer : 0x4
+---@field m_entryVectorMaybe_qqq unknown[] : 0x8
+---@field m_nightmareBackgroundSprite Sprite : 0x20
+---@field m_nightmareBubbleSprite Sprite : 0x134
+---@field m_progressBarSprite Sprite : 0x248
+---@field m_fadeFloat_qqq number : 0x35c
+---@field m_voidRelated LevelStage : 0x364
+---@field m_unkBool boolean : 0x368
+---@field m_progressBar_stageFrame integer[] [14] : 0x36c
+---@field m_dreamCatcherDeathScreen Sprite : 0x3a8
+---@field m_nightmareBubbleRelated boolean : 0x4bc
+---@field m_nightmareDeque unknown[] : 0x4c0
+---@field m_playerExtraPortraitSprite Sprite : 0x4d4
+---@field m_dogmaNightmare boolean : 0x5e8

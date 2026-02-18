@@ -1,43 +1,94 @@
 ---@class GameComponent
----@field m_level LevelComponent
----@field m_frameCount integer
----@field m_timeCounter integer
----@field m_challenge Challenge
----@field m_dailyChallenge DailyChallengeComponent
----@field m_seeds SeedsComponent
----@field m_difficulty Difficulty
----@field m_gameStateFlags GameStateFlag | integer
----@field m_treasureRoomsVisited integer
----@field m_planetariumsVisited integer
----@field m_donationModGreed integer
----@field m_updateTimeout integer -- seemingly unused
----@field m_playerManager PlayerManagerComponent
----@field m_console ConsoleComponent
----@field m_gameOver GameOverComponent
----@field m_leaderboard LeaderboardComponent
----@field m_roomTransition RoomTransitionComponent
----@field m_stageTransition StageTransitionComponent
----@field m_itemOverlay ItemOverlayComponent
----@field m_pauseScreen PauseScreenComponent
----@field m_hud HUDComponent
----@field m_minimap MinimapComponent
----@field m_backwardsStageDesc BackwardsStageDescComponent[]
----@field m_lastLevelWithDamage LevelStage | integer
----@field m_victoryRun_currentLap integer
----@field m_victoryRun_prompt GenericPromptComponent
----@field m_fade_fadeInValue number
----@field m_fade_fadeOutValue number
----@field m_fade_speed number
----@field m_fade_target integer
----@field m_bloom_countdown integer
----@field m_screenShake_offset Vector
----@field m_screenShake_countdown integer
----@field m_dizzy_intensity number
----@field m_lightning_strength number
----@field m_hallucination_countdown integer
----@field m_colorModifier_current ColorModStateComponent
----@field m_colorModifier_target ColorModStateComponent
----@field m_colorModifier_rate ColorModStateComponent
----@field m_colorModifier_approach boolean
----@field m_debugCurses LevelCurse | integer
----@field m_isDebug boolean
+---@field m_level LevelComponent : 0x0
+---@field m_roomConfig RoomConfigComponent : 0x1879c
+---@field m_preloader PreloaderComponent : 0x1a5c4
+---@field m_itemPool ItemPoolComponent : 0x1a5cc
+---@field m_bossPool BossPoolComponent : 0x1adf4
+---@field m_roomTransition RoomTransitionComponent : 0x1b6c0
+---@field m_stageTransition StageTransitionComponent : 0x1ba0c
+---@field m_fortuneRNG RNG : 0x1ba30
+---@field m_playerManager PlayerManagerComponent : 0x1ba40
+---@field m_seeds SeedsComponent : 0x1bb04
+---@field m_console ConsoleComponent : 0x1bb60
+---@field m_itemOverlay ItemOverlayComponent : 0x1bcc0
+---@field m_bossOverlay BossOverlayComponent : 0x1cf20
+---@field m_gameOver GameOverComponent : 0x1d154
+---@field m_leaderboard LeaderboardComponent : 0x3d5f0
+---@field m_hud HUDComponent : 0x3da4c
+---@field m_pauseScreen PauseScreenComponent : 0x10203c
+---@field m_minimap MinimapComponent : 0x1a2ab0
+---@field m_updateTimeout integer : 0x1a30d8 -- seemingly unused
+---@field m_frameCount integer : 0x1a30dc
+---@field m_timeCounter integer : 0x1a30e0
+---@field m_bossRushParTime integer : 0x1a30e4
+---@field m_blueWombParTime integer : 0x1a30e8
+---@field m_screenShake_countdown integer : 0x1a30ec
+---@field m_screenShake_offset Vector : 0x1a30f0
+---@field m_darknessTimeout integer : 0x1a30f8
+---@field m_darknessModifier number : 0x1a30fc
+---@field m_targetDarkness number : 0x1a3100
+---@field m_fontDroid Font : 0x1a3104
+---@field m_clickerImage_qqq ImageComponent : 0x1c3140
+---@field m_bloom_countdown integer : 0x1c3148
+---@field m_bloomInt_duration_qqq integer : 0x1c314c
+---@field m_bloomStrength number : 0x1c3150
+---@field m_triggerWindowResize boolean : 0x1c3154
+---@field m_hallucination_countdown integer : 0x1c3158
+---@field m_hallucinationDuration integer : 0x1c315c
+---@field m_debugFlags eDebugFlags : 0x1c3164
+---@field m_gameStateFlags GameStateFlag | integer : 0x1c3168
+---@field m_debugCurses integer : 0x1c3170
+---@field m_lastDevilRoomStage LevelStage | integer : 0x1c3174
+---@field m_treasureRoomsVisited integer : 0x1c3178
+---@field m_planetariumsVisited integer : 0x1c317c
+---@field m_stagesWithoutHeartsPicked integer : 0x1c3180
+---@field m_stagesWithoutDamage integer : 0x1c3184
+---@field m_devilRoomDeals integer : 0x1c3188
+---@field m_donationModGreed integer : 0x1c318c
+---@field m_donationModAngel integer : 0x1c3190
+---@field m_schoolbagUnlockTracker integer : 0x1c3194
+---@field m_EntityFactory EntityFactoryComponent : 0x1c3198
+---@field m_challenge Challenge | integer : 0x1c319c
+---@field m_isRerun_qqq boolean : 0x1c31a0
+---@field m_isDebug boolean : 0x1c31a1
+---@field m_canDoGameExit boolean : 0x1c31a2
+---@field m_fade_fadeInValue number : 0x1c31a4
+---@field m_fade_fadeOutValue number : 0x1c31a8
+---@field m_fade_speed number : 0x1c31ac
+---@field m_fade_target integer : 0x1c31b0
+---@field m_ambush Ambush : 0x1c31b8
+---@field m_dailyChallenge DailyChallengeComponent : 0x1c3204
+---@field m_scoreSheet ScoreSheetComponent : 0x1c32b8
+---@field m_victoryRun_currentLap integer : 0x1c33f8
+---@field m_victoryRun_prompt GenericPromptComponent : 0x1c33fc
+---@field m_lastLevelWithoutHalfHp integer : 0x24361c
+---@field m_BASEMENTseedFloor integer : 0x243620
+---@field m_difficulty Difficulty | integer : 0x243624
+---@field m_lastLevelWithDamage LevelStage | integer : 0x243628
+---@field m_isConsoleEnabled_qqq boolean : 0x24362c
+---@field m_encounteredBosses EncounteredBossComponent[] : 0x243630
+---@field m_pixelationTimeout integer : 0x24363c
+---@field m_pixelation_2 integer : 0x243640
+---@field m_itemOverlayEndRelated boolean : 0x243644
+---@field m_startingFromState_qqq boolean : 0x243645
+---@field m_isStoringGlowingHourglassState boolean : 0x243646
+---@field m_isRestoringGlowingHourglassState boolean : 0x243647
+---@field m_glowingHourglassStates GlowingHourglassStateComponent[] [2] : 0x243648
+---@field m_currentGlowingHourglassStateSlot integer : 0x283b78
+---@field m_playerManagerTriggerNewStageRelated integer : 0x283b7c
+---@field m_colorModifier_approach boolean : 0x283b80
+---@field m_colorModifier_current ColorModStateComponent : 0x283b84
+---@field m_colorModifier_target ColorModStateComponent : 0x283b9c
+---@field m_colorModifier_rate ColorModStateComponent : 0x283bb4
+---@field m_debugRenderer DebugRendererComponent : 0x283bf8
+---@field m_debugRendererRelated unknown : 0x283bfc
+---@field m_lightning_strength number : 0x283c00
+---@field m_dizzy_intensity number : 0x283c04
+---@field m_dizzy_targetIntensity number : 0x283c08
+---@field m_dizzy_speed number : 0x283c0c
+---@field m_magicSkinUses integer : 0x283c10
+---@field m_erasedEnemies ErasedEnemyComponent : 0x283c14
+---@field m_proceduralItemManager ProceduralItemManagerComponent : 0x283c20
+---@field m_ascentTimer integer : 0x283c50
+---@field m_backwardsStageDesc BackwardsStageDescComponent[] [7] : 0x283c54
+---@field m_deathCertificateLeaveCountdown integer : 0x285234

@@ -1,6 +1,77 @@
 ---@class IsaacManager
----@field m_state integer
----@field m_frameCount integer
----@field m_options OptionsComponent
----@field m_loadImage_frame1 ImageComponent
----@field m_loadImage_frame2 ImageComponent
+---@field m_changeStateTo4 boolean : 0x0
+---@field m_state integer : 0x8
+---@field m_previousState_qqq integer : 0xc
+---@field m_currentSaveSlot integer : 0x10
+---@field m_persistentGameData PersistentDataComponent : 0x14
+---@field m_gameState GameStateComponent : 0xf34
+---@field m_cutsceneManager CutsceneComponent : 0x20a00
+---@field m_nightmareScene NightmareSceneComponent : 0x211bc
+---@field m_achievementOverlay AchievementOverlayComponent : 0x217a8
+---@field m_musicManager MusicManagerComponent : 0x29a78
+---@field m_sfxManager SoundManagerComponent : 0x29de0
+---@field m_options OptionsComponent : 0x29df8
+---@field m_itemConfig ItemConfigComponent : 0x29e84
+---@field m_challengeParams ChallengeParamComponent[] : 0x29f7c
+---@field m_challengeParamsCount integer : 0x29f80
+---@field m_entityConfig EntityConfigComponent : 0x29f88
+---@field m_modManager ModManagerComponent : 0x29fd8
+---@field m_stringTable StringTableComponent : 0x4a234
+---@field m_stringTable-2 StringTableComponent : 0x4a24c
+---@field m_frameCount integer : 0x4a264
+---@field m_scaredHeartUnlockCounter integer : 0x4a268
+---@field m_unkPreventUpdate boolean[] [2] : 0x4a26c
+---@field m_setByKeyConfigUpdate boolean : 0x4a26f
+---@field m_unrecognizedControllerPopupRelated boolean : 0x4a270
+---@field m_isConsoleEnabled boolean : 0x4a271
+---@field m_buttonMapManager ButtonMapManagerComponent : 0x4a278
+---@field m_ButtonsSprite Sprite : 0x4a284
+---@field m_loadImage_frame1 ImageComponent : 0x4a398
+---@field m_loadImage_frame2 ImageComponent : 0x4a3a0
+---@field m_millisecondsOnInitLoadImage integer : 0x4a3a8
+---@field m_font_1 Font : 0x4a3ac
+---@field m_font_2 Font : 0x6a3e8
+---@field m_entityTextFont Font : 0x8a424
+---@field m_font_4 Font : 0xaa460
+---@field m_font_5 Font : 0xca49c
+---@field m_font_luaminioutlined Font : 0xea4d8
+---@field m_font_7_TeamMeat10_qqq Font : 0x10a514
+---@field m_font_8_TeamMeat12_qqq Font : 0x12a550
+---@field m_font_9 Font : 0x14a58c
+---@field m_font_10 Font : 0x16a5c8
+---@field m_genericPromptFont1 Font : 0x18a604
+---@field m_genericPromptFont2 Font : 0x1aa640
+---@field m_font_subtitles Font : 0x1ca67c
+---@field m_selectedCharacterMenuDifficulty Difficulty : 0x1ea6b8
+---@field m_startingGame boolean : 0x1ea6c0
+---@field m_canContinue boolean : 0x1ea6c1
+---@field m_startingFromRerun_qqq boolean : 0x1ea6c2
+---@field m_startPlayerType PlayerType : 0x1ea6c4
+---@field m_startChallenge_qqq integer : 0x1ea6c8
+---@field m_startSeeds SeedsComponent : 0x1ea6cc
+---@field m_startDifficulty Difficulty : 0x1ea728
+---@field m_debugStart_qqq boolean : 0x1ea72c
+---@field m_debug_levelStage integer : 0x1ea730
+---@field m_debug_stageType integer : 0x1ea734
+---@field m_debugStartRelated string : 0x1ea738
+---@field m_dailyChallenge DailyChallengeComponent : 0x1ea750
+---@field m_networkPlay boolean : 0x1ea804
+---@field m_shouldSave boolean : 0x1ea814
+---@field m_lossRecorded_qqq boolean : 0x1ea815
+---@field m_shouldStartMenu boolean : 0x1ea818
+---@field m_fadeoutState_qqq integer : 0x1ea81c
+---@field m_fadeoutColor_qqq Color : 0x1ea820
+---@field m_startCutscene_qqq boolean : 0x1ea830
+---@field m_cutsceneId eCutscene : 0x1ea834
+---@field m_shouldCleanup_qqq boolean : 0x1ea838
+---@field m_stageTransitionRelated boolean : 0x1ea83c
+---@field m_stageTransitionSameStage boolean : 0x1ea83d
+---@field m_CursorSprite Sprite : 0x1ea840
+---@field m_cursorPos_qqq Vector : 0x1ea954
+---@field m_cursorCountdown_qqq integer : 0x1ea95c
+---@field m_triggerWindowResize boolean : 0x1ea961
+---@field m_isWindowFocused boolean : 0x1ea962
+---@field m_unkVector Vector : 0x1ea964
+---@field m_font_14 Font : 0x1ea96c
+---@field m_networkTestEnabled boolean : 0x20a9a8
+---@field m_netPlayManager NetManagerComponent : 0x20a9ac
