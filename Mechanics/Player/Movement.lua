@@ -86,8 +86,6 @@ end
 ---@param myContext Context.Common
 ---@param player EntityPlayerComponent
 local function jupiter_update(myContext, player, targetVelocity)
-    local preJupiterCharge = player.m_jupiter_charge
-
     if VectorUtils.Equals(targetVelocity, VectorZero) then
         if player.m_velocity:Length() < 1.0 then
             local add = player.m_timeScale / 60.0
