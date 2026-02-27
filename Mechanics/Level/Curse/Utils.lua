@@ -5,10 +5,7 @@ local SeedsUtils = require("Admin.Seeds.Utils")
 
 --#endregion
 
----@class LevelContext.Curses
----@field game GameComponent
-
----@param myContext LevelContext.Curses
+---@param myContext Context.Game
 ---@param stage LevelStage
 local function CanStageHaveCurseOfLabyrinth(myContext, stage)
     if not (LevelStage.STAGE1_1 <= stage and stage <= LevelStage.STAGE4_2) then
@@ -28,7 +25,7 @@ local function CanStageHaveCurseOfLabyrinth(myContext, stage)
     return result
 end
 
----@param myContext LevelContext.Curses
+---@param myContext Context.Game
 ---@return boolean
 local function CanHaveCurseOfTheLost(myContext)
     local game = myContext.game
@@ -43,17 +40,17 @@ local function CanHaveCurseOfTheLost(myContext)
     return true
 end
 
----@param myContext LevelContext.Curses
+---@param myContext Context.Game
 local function CanHaveCurseOfMaze(myContext)
     local game = myContext.game
-    if GameUtils.IsGreedMode(myContext.game) then
+    if GameUtils.IsGreedMode(game) then
         return false
     end
 
     return true
 end
 
----@param myContext LevelContext.Curses
+---@param myContext Context.Game
 local function CanHaveCurseOfBlind(myContext)
     local game = myContext.game
     if game.m_dailyChallenge.m_id ~= 0 then
@@ -63,7 +60,7 @@ local function CanHaveCurseOfBlind(myContext)
     return true
 end
 
----@param myContext LevelContext.Curses
+---@param myContext Context.Game
 ---@param level LevelComponent
 ---@return LevelCurse | integer
 local function GetCurses(myContext, level)

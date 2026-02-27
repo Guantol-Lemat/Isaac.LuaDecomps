@@ -54,6 +54,14 @@ local function Vec3Length(x, y, z)
     return math.sqrt(x^2 + y^2 + z^2)
 end
 
+---@param a Vector
+---@param b Vector
+---@param blendFactor number
+---@return Vector
+local function Lerp(a, b, blendFactor)
+    return (b - a) * blendFactor + a
+end
+
 --#region Module
 
 Module.VectorZero = VectorZero
@@ -64,6 +72,7 @@ Module.Assign = Assign
 Module.GetAxisAlignedUnitVector = GetAxisAlignedUnitVector
 Module.GetAxisAligned = GetAxisAligned
 Module.Vec3Length = Vec3Length
+Module.Lerp = Lerp
 
 --#endregion
 

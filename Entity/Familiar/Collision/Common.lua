@@ -4,7 +4,7 @@ local EntityRefComponent = require("Entity.System.EntityRef.Component")
 local EntityUtils = require("Entity.Utils")
 local FamiliarRules = require("Entity.Familiar.Rules")
 local ProjectileUtils = require("Entity.Projectile.Utils")
-local HitListUtils = require("Entity.System.HitList.Utils")
+local HitListUtils = require("Entity.HitList")
 
 --#endregion
 

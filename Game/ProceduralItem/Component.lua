@@ -1,4 +1,23 @@
 ---@class ProceduralItemManagerComponent
+---@field m_items ProceduralItemComponent[] : 0x0
+---@field m_itemImage ImageComponent : 0xc
+---@field m_image2 ImageComponent : 0x14
+
+---@class ProceduralItemComponent
+---@field m_config ItemConfigItemComponent : 0x0
+---@field m_id integer : 0x4
+---@field m_bits? integer : 0x8
+---@field m_sfx_qqq unknown : 0xc
+---@field m_randomItem ItemConfigItemComponent : 0x10
+---@field m_damage number : 0x14
+---@field m_fireDelay number : 0x18
+---@field m_speed number : 0x1c
+---@field m_range number : 0x20
+---@field m_shootSpeed number : 0x24
+---@field m_luck number : 0x28
+---@field m_effects ProceduralEffectComponent : 0x2c
+
+---@class ProceduralEffectComponent
 
 ---@class ProceduralItemInventoryComponent
 ---@field m_player EntityPlayerComponent : 0x0

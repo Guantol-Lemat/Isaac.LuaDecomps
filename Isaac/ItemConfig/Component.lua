@@ -1,0 +1,62 @@
+---@class ItemConfigComponent
+---@field m_collectibleList ItemConfigItemComponent[] : 0x0
+---@field m_trinketList ItemConfigItemComponent[] : 0xc
+---@field m_nullItemList ItemConfigItemComponent[] : 0x18
+---@field m_cardList CardConfigComponent[] : 0x24
+---@field m_pillEffectList PillEffectComponent[] : 0x30
+---@field m_collectibleNameMap table<string, integer> : 0x3c
+---@field m_playerForms PlayerFormComponent[] : 0x44
+---@field m_itemFilter function[] : 0xd0
+---@field m_wisps WispConfigComponent[] : 0xe4
+
+---@class ItemConfigItemComponent
+---@field m_itemType ItemType | integer : 0x0
+---@field m_id CollectibleType | TrinketType | NullItemID | integer : 0x4
+---@field m_name string : 0x8
+---@field m_description string : 0x20
+---@field m_gfxFileName string : 0x38
+---@field m_achievementID Achievement | integer : 0x50
+---@field m_cacheFlags CacheFlag | integer : 0x54
+---@field m_addMaxHearts integer : 0x58
+---@field m_addHearts integer : 0x5c
+---@field m_addSoulHearts integer : 0x60
+---@field m_addBlackHearts integer : 0x64
+---@field m_addBombs integer : 0x68
+---@field m_addKeys integer : 0x6c
+---@field m_addCoins integer : 0x70
+---@field m_maxCharges integer : 0x74
+---@field m_maxCooldown integer : 0x78
+---@field m_devilPrice integer : 0x7c
+---@field m_shopPrice integer : 0x7e
+---@field m_costume CostumeComponent : 0x80
+---@field m_chargeType integer : 0xac
+---@field m_special boolean : 0xb0
+---@field m_passiveCache boolean : 0xb1
+---@field m_addCostumeOnPickup boolean : 0xb2
+---@field m_hidden boolean : 0xb3
+---@field m_persistentEffect boolean : 0xb4
+---@field m_clearEffectsOnRemove boolean : 0xb5
+---@field m_unkShort integer : 0xb6
+---@field m_tags integer : 0xb8
+---@field m_quality integer : 0xc0
+---@field m_craftingQuality integer : 0xc4
+---@field m_initCharge integer : 0xc8
+---@field m_wispConfig WispConfigComponent : 0xcc
+---@field m_locustConfig LocustComponent : 0xd0
+---@field m_modANM2Frame integer : 0xd4
+---@field m_mod ModEntryComponent : 0xd8
+
+---@class CardConfigComponent
+---@field m_id Card | integer : 0x0
+---@field m_achievementId Achievement | integer : 0x4
+---@field m_name string : 0x8
+---@field m_description string : 0x20
+---@field m_hudAnim string : 0x38
+---@field m_greedModeAllowed boolean : 0x50
+---@field m_pickupSubtype integer : 0x54
+---@field m_pocketItemType PocketItemType | integer : 0x58
+---@field m_announcerVoice integer : 0x5c
+---@field m_announcerDelay integer : 0x60
+---@field m_mimicCharge integer : 0x64
+---@field m_mod ModEntryComponent : 0x68
+---@field m_moddedCardFrontANM2 Sprite : 0x6c

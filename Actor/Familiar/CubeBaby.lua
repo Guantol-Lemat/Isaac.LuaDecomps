@@ -5,7 +5,7 @@ local MathUtils = require("General.Math")
 local EntityRules = require("Entity.Common.Rules")
 local FamiliarRules = require("Entity.Familiar.Rules")
 local FamiliarCollisionCommon = require("Entity.Familiar.Collision.Common")
-local HitListUtils = require("Entity.System.HitList.Utils")
+local HitListUtils = require("Entity.HitList")
 local EntityRefComponent = require("Entity.System.EntityRef.Component")
 
 --#endregion

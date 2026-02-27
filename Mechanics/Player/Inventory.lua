@@ -6,6 +6,13 @@
 
 ---@param myContext Context.Common
 ---@param player EntityPlayerComponent
+---@param trinketId TrinketType | integer
+---@return integer
+local function GetTrinketMultiplier(myContext, player, trinketId)
+end
+
+---@param myContext Context.Common
+---@param player EntityPlayerComponent
 ---@param collectibleId CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
@@ -23,6 +30,7 @@ local Module = {}
 
 --#region Module
 
+Module.GetTrinketMultiplier = GetTrinketMultiplier
 Module.HasCollectible = HasCollectible
 Module.HasTrinket = HasTrinket
 

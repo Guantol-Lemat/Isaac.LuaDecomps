@@ -1,12 +1,29 @@
 ---@class IsaacUtils
 local Module = {}
 
-local s_DirectionUnitVector = {
+local DIRECTION_UNIT_VECTOR = {
     [Direction.LEFT + 1] = Vector(-1.0, 0.0),
     [Direction.UP + 1] = Vector(0.0, -1.0),
     [Direction.RIGHT + 1] = Vector(1.0, 0.0),
     [Direction.DOWN + 1] = Vector(0.0, 1.0),
 }
+
+local DIRECTION_TO_MOVE_ACTION = {
+    [Direction.LEFT + 1] = ButtonAction.ACTION_LEFT,
+    [Direction.UP + 1] = ButtonAction.ACTION_UP,
+    [Direction.RIGHT + 1] = ButtonAction.ACTION_RIGHT,
+    [Direction.DOWN + 1] = ButtonAction.ACTION_DOWN,
+}
+
+---@param vector Vector
+---@return Direction | integer
+local function GetVectorDirection(vector)
+    if math.abs(vector.X) > math.abs(vector.Y) then
+        return vector.X < 0.0 and Direction.LEFT or Direction.RIGHT
+    else
+        return vector.Y < 0.0 and Direction.UP or Direction.DOWN
+    end
+end
 
 ---@param direction Direction
 ---@return Vector
@@ -15,8 +32,14 @@ local function GetAxisAlignedUnitVectorFromDirection(direction)
         return Vector(0, 0)
     end
 
-    local vector = s_DirectionUnitVector[direction + 1]
+    local vector = DIRECTION_UNIT_VECTOR[direction + 1]
     return Vector(vector.X, vector.Y)
+end
+
+---@param direction Direction | integer
+---@return ButtonAction | integer
+local function GetDirectionToMoveAction(direction)
+    return DIRECTION_TO_MOVE_ACTION[direction + 1]
 end
 
 ---@return integer
@@ -57,15 +80,47 @@ end
 local function AchievementUnlocksDisallowed(isaac, ignoreModRestrictions)
 end
 
+---@param isaac IsaacManager
+---@param action ButtonAction| integer
+---@param controllerIdx integer
+---@param entity EntityComponent?
+---@return boolean
+local function IsActionTriggered(isaac, action, controllerIdx, entity)
+
+end
+
+---@param isaac IsaacManager
+---@param action ButtonAction| integer
+---@param controllerIdx integer
+---@param entity EntityComponent?
+---@return boolean
+local function IsActionPressed(isaac, action, controllerIdx, entity)
+
+end
+
+---@param isaac IsaacManager
+---@param action ButtonAction| integer
+---@param controllerIdx integer
+---@param entity EntityComponent?
+---@return number
+local function GetActionValue(isaac, action, controllerIdx, entity)
+
+end
+
 --#region Module
 
 Module.IsInterpolation = IsInterpolation
+Module.GetDirectionToMoveAction = GetDirectionToMoveAction
+Module.GetVectorDirection = GetVectorDirection
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
 Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
 Module.PlaySound = PlaySound
 Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
+Module.IsActionTriggered = IsActionTriggered
+Module.IsActionPressed = IsActionPressed
+Module.GetActionValue = GetActionValue
 
 --#endregion
 

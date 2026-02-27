@@ -137,7 +137,7 @@
 ---@field m_movementVector Vector : 0x1578
 ---@field m_tearsOffset Vector : 0x1580
 ---@field m_recentMovementVector Vector : 0x1588
----@field m_slipperyCountdown integer : 0x1590
+---@field m_slippery_strength integer : 0x1590
 ---@field m_velocityBeforeUpdate Vector : 0x1594
 ---@field m_fireInputDeque_qqq unknown : 0x159c
 ---@field m_lastDamageSource EntityRefComponent : 0x15b0
@@ -260,7 +260,7 @@
 ---@field m_salvation_effect EntityPtrComponent : 0x1d98
 ---@field m_darkArts_halo EntityPtrComponent : 0x1d9c
 ---@field m_mars_cooldown integer : 0x1da0
----@field m_mars_moveDirection integer : 0x1da4
+---@field m_mars_tapDirection integer : 0x1da4
 ---@field m_mars_framesSinceLastTap integer : 0x1da8
 ---@field m_toothAndNail_frameCycle integer : 0x1dac
 ---@field m_poisonCloud_timer integer : 0x1db0
@@ -273,7 +273,7 @@
 ---@field m_rb_luck number : 0x1dcc
 ---@field m_4_5Volt_cooldown integer : 0x1dd0
 ---@field m_rEmpress_activeCount integer : 0x1dd4
----@field m_rChariotRelated integer : 0x1dd8
+---@field m_reverseChariot_moveCooldown integer : 0x1dd8
 ---@field m_rSunRelated integer : 0x1ddc
 ---@field m_rTemperance_pillColor PillColor | integer : 0x1de0
 ---@field m_revelations_chargeTimer integer : 0x1de4
@@ -288,7 +288,7 @@
 ---@field m_forgotten_birthrightDestination integer : 0x1e08
 ---@field m_forgotten_birthrightPosition Vector : 0x1e0c
 ---@field m_echoChamber_queue unknown : 0x1e18
----@field m_suplex_state integer : 0x1e2c
+---@field m_suplex_state SuplexState | integer : 0x1e2c
 ---@field m_suplex_aimCountdown integer : 0x1e30
 ---@field m_suplex_targetPos Vector : 0x1e34
 ---@field m_suplexRelatedPos Vector : 0x1e3c
