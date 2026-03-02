@@ -111,10 +111,8 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     local curse = CurseUtils.GetCurses(myContext, level)
     local curseOfLabyrinth = (curse & LevelCurse.CURSE_OF_LABYRINTH) ~= 0
 
-    local localStageId = StageUtils.GetStageID(myContext, level)
     local stageId = RoomConfigUtils.GetStageId(stage, stageType, mode)
     local preChapter4 = stage < LevelStage.STAGE4_1
-    local preChapter6 = stage < LevelStage.STAGE6
     local isAltPath = LevelUtils.IsAltPath(level)
     local effectiveStage = isAltPath and stage + 1 or stage
 
@@ -426,7 +424,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
             local roomData = nil
             local diceRecoveryCondition = PlayerManagerUtils.GetNumKeys(playerManager)
             local diceAllowed = not roomFilter[RoomType.ROOM_DICE]
-            if (rng:RandomInt(50) == 0 or (rng:RandomInt(5) == 0 and PlayerManagerUtils.GetNumKeys(playerManager))) and diceAllowed then
+            if (rng:RandomInt(50) == 0 or (rng:RandomInt(5) == 0 and diceRecoveryCondition)) and diceAllowed then
                 roomData = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_DICE, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, -1, mode)
             else
                 roomData = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_SACRIFICE, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, -1, mode)
@@ -1050,10 +1048,6 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
         end
     end
 
-    -- Variable Reset, since we succeeded
-    game.m_gameStateFlags = gameStateFlags | (GameStateFlag.STATE_DONATION_SLOT_BLOWN | GameStateFlag.STATE_SHOPKEEPER_KILLED)
-    game.m_donationModGreed = 0
-
     -- SurpriseMiniboss Evaluation
     do
         local greedAvailable = (gameStateFlags & (GameStateFlag.STATE_GREED_SPAWNED | GameStateFlag.STATE_SUPERGREED_SPAWNED)) == 0
@@ -1089,6 +1083,10 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
             surpriseShopRoom.m_flags = surpriseShopRoom.m_flags | RoomDescriptor.FLAG_SURPRISE_MINIBOSS
         end
     end
+
+    -- Variable Reset, since we succeeded
+    game.m_gameStateFlags = gameStateFlags | (GameStateFlag.STATE_DONATION_SLOT_BLOWN | GameStateFlag.STATE_SHOPKEEPER_KILLED)
+    game.m_donationModGreed = 0
 
     -- Place OffGridRooms
     local errorRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_ERROR_IDX, Dimension.CURRENT)
