@@ -21,6 +21,7 @@
 ---@field m_generationRNG RNG
 ---@field m_devilAngelRoomRNG RNG
 ---@field m_dungeonPlacementSeed integer
+---@field m_perlinMap number[][] -- [2][169]
 ---@field m_hasBossChallenge boolean
 ---@field m_isDevilRoomDisabled boolean
 ---@field m_isInitializing boolean

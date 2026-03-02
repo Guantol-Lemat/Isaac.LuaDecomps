@@ -4,16 +4,15 @@
 
 --#endregion
 
----@class BossPoolPickLogic
-local Module = {}
-
----@param myContext BossPoolContext.GetBoss
+---@param myContext Context.Common
 ---@param bossPool BossPoolComponent
 ---@param stage LevelStage | integer
 ---@param stageType StageType | integer
 ---@return BossType
 local function GetBossId(myContext, bossPool, stage, stageType)
 end
+
+local Module = {}
 
 --#region Module
 

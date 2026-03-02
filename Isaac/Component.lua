@@ -12,7 +12,7 @@
 ---@field m_sfxManager SoundManagerComponent : 0x29de0
 ---@field m_options OptionsComponent : 0x29df8
 ---@field m_itemConfig ItemConfigComponent : 0x29e84
----@field m_challengeParams ChallengeParamComponent[] : 0x29f7c
+---@field m_challengeParams ChallengeParamsComponent[] : 0x29f7c
 ---@field m_challengeParamsCount integer : 0x29f80
 ---@field m_entityConfig EntityConfigComponent : 0x29f88
 ---@field m_modManager ModManagerComponent : 0x29fd8

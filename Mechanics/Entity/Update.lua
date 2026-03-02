@@ -31,7 +31,7 @@ local Module = {}
 
 --#region Module
 
-
+Module.Update = Update
 
 --#endregion
 

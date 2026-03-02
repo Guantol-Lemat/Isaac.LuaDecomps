@@ -98,14 +98,14 @@ local function AnyoneIsPlayerType(playerManager, playerType)
     return not not FirstPlayerByType(playerManager, playerType)
 end
 
----@param myContext InventoryContext.HasCollectible
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param collectibleType CollectibleType
 ---@return EntityPlayerComponent?
 local function FirstCollectibleOwner(myContext, manager, collectibleType)
 end
 
----@param myContext InventoryContext.HasCollectible
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param collectibleType CollectibleType
 ---@return boolean
@@ -113,7 +113,7 @@ local function AnyoneHasCollectible(myContext, manager, collectibleType)
     return not not FirstCollectibleOwner(myContext, manager, collectibleType)
 end
 
----@param myContext InventoryContext.GetTrinketMultiplier
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param trinket TrinketType
 ---@return integer
@@ -135,14 +135,14 @@ local function AnyoneHasTrinket(myContext, manager, trinket)
     return not not FirstTrinketOwner(myContext, manager, trinket)
 end
 
----@param myContext InventoryContext.HasCollectible
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param playerType PlayerType | integer
 ---@return EntityPlayerComponent?
 local function FirstBirthrightOwner(myContext, manager, playerType)
 end
 
----@param myContext InventoryContext.HasCollectible
+---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param playerType PlayerType | integer
 ---@return boolean
