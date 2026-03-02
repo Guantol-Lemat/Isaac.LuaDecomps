@@ -40,11 +40,26 @@ end
 local function IsTaggedCollectible(itemConfig, collectibleId, tags)
 end
 
+---@param item ItemConfigItemComponent
+---@return boolean
+local function IsCollectible(item)
+    local itemType = item.m_itemType
+    return itemType == ItemType.ITEM_PASSIVE or itemType == ItemType.ITEM_ACTIVE or itemType == ItemType.ITEM_FAMILIAR
+end
+
+---@param item ItemConfigItemComponent
+---@return boolean
+local function IsTrinket(item)
+    return item.m_itemType == ItemType.ITEM_TRINKET
+end
+
 --#region Module
 
 Module.GetCollectible = GetCollectible
 Module.GetNullItem = GetNullItem
 Module.IsTaggedCollectible = IsTaggedCollectible
+Module.IsCollectible = IsCollectible
+Module.IsTrinket = IsTrinket
 
 --#endregion
 

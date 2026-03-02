@@ -105,6 +105,15 @@ Module.eItemAnimation = {
     SHOOT_ALT = 3,
 }
 
+---@enum eItemFilterFlag
+Module.eItemFilterFlag = {
+    MODE_BLACKLIST = 1 << 0,
+    CHECK_ACHIEVEMENT = 1 << 1,
+    CHECK_MODIFIERS = 1 << 2,
+    ITEM_FILTER = 1 << 3,
+    ALL = 0xff,
+}
+
 ---@enum eShopItemType
 Module.eShopItemType = {
     HEART_FULL = 0,
@@ -140,6 +149,7 @@ Module.eSpecialDailyRuns = {
     SATORU_IWATA_S_BIRTHDAY = 18,
     CHRISTMAS = 19,
     I_FORGOT_DAY = 38,
+    G_FUEL_ISAAC_FLAVOURS_LAUNCH = 53,
 }
 
 ---@enum eDoorFlags

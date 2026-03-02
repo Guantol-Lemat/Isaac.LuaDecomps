@@ -15,7 +15,7 @@ local RoomConfigUtils = require("Config.Room.Utils")
 local RoomConfigRules = require("Config.Room.Rules")
 local BossPoolUtils = require("Game.Pools.BossPool.Utils")
 local BossPoolPick = require("Game.Pools.BossPool.PickLogic")
-local PersistentDataUtils = require("Admin.PersistentData.Utils")
+local Progress = require("Isaac.PersistentGameData.Progress")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local LevelGeneratorModule = require("Game.Level.LevelGenerator.Component")
@@ -252,10 +252,10 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
 
     local shopAllowed = shopAvailable and not roomFilter[RoomType.ROOM_SHOP] and game.m_victoryRun_currentLap < 3
     if shopAllowed then
-        local shopLvl1 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV1)
-        local shopLvl2 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
-        local shopLvl3 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
-        local shopLvl4 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
+        local shopLvl1 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV1)
+        local shopLvl2 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
+        local shopLvl3 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
+        local shopLvl4 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
 
         local oddUpgrades = 0
         if shopLvl1 then
@@ -401,7 +401,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
                 return false
             end
 
-            local necessaryCondition = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.PLANETARIUMS)
+            local necessaryCondition = Progress.Unlocked(myContext, persistentGameData, Achievement.PLANETARIUMS)
             if not necessaryCondition then
                 return false
             end
@@ -475,10 +475,10 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
         -- Place Library
         do
             local roomData = nil
-            local shopLvl1 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV1)
-            local shopLvl2 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
-            local shopLvl3 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
-            local shopLvl4 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
+            local shopLvl1 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV1)
+            local shopLvl2 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
+            local shopLvl3 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
+            local shopLvl4 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
 
             local shopLvl = shopLvl4 and 4 or shopLvl3 and 3 or shopLvl2 and 2 or shopLvl1 and 1 or 0
             local roomSubtype = rng:RandomInt(shopLvl + 1)
@@ -589,11 +589,11 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
                 rng:Next() -- emulate the seed you would have gotten from normal pool selection
             else
                 local superMinibossChance = 80
-                if PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.WOMB) then
+                if Progress.Unlocked(myContext, persistentGameData, Achievement.WOMB) then
                     superMinibossChance = 30
                 end
 
-                if PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.EVERYTHING_IS_TERRIBLE) then
+                if Progress.Unlocked(myContext, persistentGameData, Achievement.EVERYTHING_IS_TERRIBLE) then
                     superMinibossChance = 10
                 end
 
@@ -899,7 +899,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     local hasForgottenGrave = stage == LevelStage.STAGE6 and stageType == StageType.STAGETYPE_ORIGINAL
     if hasForgottenGrave then
         local roomData = nil
-        if PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.FORGOTTEN) then
+        if Progress.Unlocked(myContext, persistentGameData, Achievement.FORGOTTEN) then
             roomData = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_DEFAULT, RoomShape.NUM_ROOMSHAPES, 3, 9, 1, 10, 0, -1, mode)
         else
             roomData = RoomConfigUtils.GetRoom(roomConfig, StbType.SPECIAL_ROOMS, RoomType.ROOM_DEFAULT, 3, mode)
@@ -1131,9 +1131,9 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     RoomDescriptorUtils.InitSeeds(portalRoom, rng)
     portalRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.BLUE_WOMB, RoomType.ROOM_DEFAULT, RoomShape.NUM_ROOMSHAPES, 0, -1, 0, 0, 0, 1, mode)
 
-    local shopLvl2 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
-    local shopLvl3 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
-    local shopLvl4 = PersistentDataUtils.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
+    local shopLvl2 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV2)
+    local shopLvl3 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV3)
+    local shopLvl4 = Progress.Unlocked(myContext, persistentGameData, Achievement.STORE_UPGRADE_LV4)
 
     local evenUpgrades = 1
     if shopLvl2 then
@@ -1195,7 +1195,7 @@ local function GenerateDungeon(myContext, level, extraRNG)
     local altPath = LevelUtils.IsAltPath(level)
     local hasMirrorDimension = QuestUtils.HasMirrorDimension(myContext, level)
     local hasAbandonedMineshaft = QuestUtils.HasAbandonedMineshaft(myContext, level)
-    local hasPhotoDoor = QuestUtils.HasPhotoDoor(myContext, level) and PersistentDataUtils.Unlocked(myContext, persistentData, Achievement.STRANGE_DOOR)
+    local hasPhotoDoor = QuestUtils.HasPhotoDoor(myContext, level) and Progress.Unlocked(myContext, persistentData, Achievement.STRANGE_DOOR)
     local curseOfLabyrinth = (curses & LevelCurse.CURSE_OF_LABYRINTH) ~= 0
     local curseOfLost = (curses & LevelCurse.CURSE_OF_THE_LOST) ~= 0
     local curseOfGiant = (curses & LevelCurse.CURSE_OF_GIANT) ~= 0
