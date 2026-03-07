@@ -138,6 +138,11 @@ local function AddCollectibleEffect(myContext, temporaryEffects, collectibleId, 
     AddEffect(myContext, temporaryEffects, effect, addCostume, count)
 end
 
+---@param myContext Context.Common
+---@param temporaryEffects TemporaryEffectsComponent
+local function ClearEffects(myContext, temporaryEffects)
+end
+
 --#region Module
 
 Module.AddEffect = AddEffect
@@ -148,6 +153,7 @@ Module.GetNullEffect = GetNullEffect
 Module.HasCollectibleEffect = HasCollectibleEffect
 Module.HasTrinketEffect = HasTrinketEffect
 Module.HasNullEffect = HasNullEffect
+Module.ClearEffects = ClearEffects
 
 --#endregion
 
