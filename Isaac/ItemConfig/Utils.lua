@@ -53,6 +53,11 @@ local function IsTrinket(item)
     return item.m_itemType == ItemType.ITEM_TRINKET
 end
 
+---@param item ItemConfigItemComponent
+---@return string
+local function GetDisplayName(item)
+end
+
 --#region Module
 
 Module.GetCollectible = GetCollectible
@@ -60,6 +65,7 @@ Module.GetNullItem = GetNullItem
 Module.IsTaggedCollectible = IsTaggedCollectible
 Module.IsCollectible = IsCollectible
 Module.IsTrinket = IsTrinket
+Module.GetDisplayName = GetDisplayName
 
 --#endregion
 

@@ -14,6 +14,13 @@ local function IsNetPlay(netManager)
 end
 
 ---@param netManager NetManagerComponent
+---@param idx integer
+---@return boolean
+local function IsIdxLocalPlayer(netManager, idx)
+
+end
+
+---@param netManager NetManagerComponent
 ---@param userId UserId
 ---@return NetInputDeviceComponent?
 local function GetDeviceByUserId(netManager, userId)
@@ -22,6 +29,7 @@ end
 --#region Module
 
 Module.IsNetPlay = IsNetPlay
+Module.IsIdxLocalPlayer = IsIdxLocalPlayer
 Module.GetDeviceByUserId = GetDeviceByUserId
 
 --#endregion

@@ -1,5 +1,9 @@
 ---@class EntityConfigComponent
----@field m_map table<integer, EntityConfig.EntityComponent?>
+---@field m_map table<integer, EntityConfig.EntityComponent> : 0x0
+---@field m_players EntityConfig.PlayerComponent[] : 0x8
+---@field m_babies EntityConfig.BabyComponent[] : 0x14
+---@field m_bosses EntityConfig.BossComponent[] : 0x20
+---@field m_edenHair string[] : 0x2c
 
 ---@class EntityConfig.EntityComponent
 ---@field id integer
@@ -46,3 +50,45 @@
 ---@class EntityConfig.DevolveComponent
 
 ---@class EntityConfig.BestiaryComponent
+
+---@class EntityConfig.PlayerComponent
+---@field m_id PlayerType | integer : 0x0
+---@field m_name string : 0x4
+---@field m_skinPath string : 0x1c
+---@field m_nameImagePath string : 0x34
+---@field m_portraitPath string : 0x4c
+---@field m_unkString string : 0x64
+---@field m_extraPortraitPath string : 0x7c
+---@field m_costumeSuffixName string : 0x94
+---@field m_costumeID integer : 0xac
+---@field m_heart integer : 0xb0
+---@field m_armor integer : 0xb4
+---@field m_blackHeart integer : 0xb8
+---@field m_coins integer : 0xbc
+---@field m_bombs integer : 0xc0
+---@field m_keys integer : 0xc4
+---@field m_card integer : 0xc8
+---@field m_pill integer : 0xcc
+---@field m_canShoot boolean : 0xd0
+---@field m_collectibles integer[] : 0xd4
+---@field m_trinket TrinketType | integer : 0xe0
+---@field m_skinColor SkinColor | integer : 0xe4
+---@field m_achievementID Achievement | integer : 0xe8
+---@field m_brokenHeart integer : 0xec
+---@field m_pocketItemID CollectibleType | integer : 0xf0
+---@field m_birthrightDescription string : 0xf4
+---@field m_bskinParent string : 0x10c
+---@field m_bskinParentID_qqq integer : 0x124
+---@field m_hidden boolean : 0x128
+---@field m_modEntry ModEntryComponent : 0x12c
+---@field m_renderCustomBackground boolean : 0x130
+---@field m_moddedMenuBackgroundANM2 Sprite : 0x134
+---@field m_moddedPortraitANM2 Sprite : 0x138
+---@field m_moddedDeathScreenANM2 Sprite : 0x13c
+---@field m_moddedCoopMenuANM2 Sprite : 0x140
+---@field m_moddedControlsANM2 Sprite : 0x144
+
+
+---@class EntityConfig.BabyComponent
+
+---@class EntityConfig.BossComponent

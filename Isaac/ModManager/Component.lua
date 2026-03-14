@@ -1,1 +1,3 @@
+---@class ModManagerComponent
+
 ---@class ModEntryComponent

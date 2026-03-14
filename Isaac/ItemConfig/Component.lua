@@ -60,3 +60,15 @@
 ---@field m_mimicCharge integer : 0x64
 ---@field m_mod ModEntryComponent : 0x68
 ---@field m_moddedCardFrontANM2 Sprite : 0x6c
+
+---@class CostumeComponent
+---@field m_id NullItemID | integer : 0x0
+---@field m_anm2Path string : 0x4
+---@field m_priority integer : 0x1c
+---@field m_hasOverlay boolean : 0x20
+---@field m_isFlying boolean : 0x21
+---@field m_hasSkinAlt boolean : 0x22
+---@field m_skinColor integer : 0x24
+---@field m_overwriteColor boolean : 0x28
+---@field m_forceHeadColor boolean : 0x29
+---@field m_forceBodyColor boolean : 0x2a

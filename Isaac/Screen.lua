@@ -12,6 +12,9 @@ local s_height = 0
 local s_pointScale = 2.0
 local s_displayPixelsPerPoint = 1.0
 
+---@param position Vector
+---@param snapToClosest boolean
+---@return Vector
 local function GetRenderPosition(position, snapToClosest)
     local x = (s_width - 338.0) * 0.5 + (position.X - 60.0) * 0.65
     local y = (s_height - 182.0) * 0.5 + (position.Y - 140.0) * 0.65

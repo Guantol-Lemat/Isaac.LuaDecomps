@@ -146,6 +146,7 @@ Module.eRoomConfigFlag = {
 
 ---@enum eSpecialDailyRuns
 Module.eSpecialDailyRuns = {
+    HALLOWEEN = 13,
     SATORU_IWATA_S_BIRTHDAY = 18,
     CHRISTMAS = 19,
     I_FORGOT_DAY = 38,

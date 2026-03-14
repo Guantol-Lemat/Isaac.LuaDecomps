@@ -107,6 +107,12 @@ local function GetActionValue(isaac, action, controllerIdx, entity)
 
 end
 
+---@param position Vector
+---@return Vector
+local function GetRenderDistance(position)
+    return position * 0.65
+end
+
 --#region Module
 
 Module.IsInterpolation = IsInterpolation
@@ -121,6 +127,7 @@ Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
 Module.IsActionTriggered = IsActionTriggered
 Module.IsActionPressed = IsActionPressed
 Module.GetActionValue = GetActionValue
+Module.GetRenderDistance = GetRenderDistance
 
 --#endregion
 

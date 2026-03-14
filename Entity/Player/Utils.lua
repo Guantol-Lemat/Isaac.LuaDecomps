@@ -1,6 +1,10 @@
 --#region Dependencies
 
-local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
+local TemporaryEffectsUtils = require("Game.TemporaryEffects.Utils")
+local RoomUtils = require("Game.Room.Utils")
+local SpriteUtils = require("General.Sprite")
+local NetPlayUtils = require("Isaac.NetManager.Utils")
+local PlayerInventory = require("Mechanics.Player.Inventory")
 
 --#endregion
 
@@ -22,6 +26,18 @@ local PLAYER_HEALTH = {
     [PlayerType.PLAYER_KEEPER_B] = HealthType.COIN,
     [PlayerType.PLAYER_THEFORGOTTEN] = HealthType.BONE
 }
+
+---@param myContext Context.Manager
+---@param player EntityPlayerComponent
+---@return boolean
+local function IsLocalPlayer(myContext, player)
+    local netplayManager = myContext.manager.m_netPlayManager
+    if not NetPlayUtils.IsNetPlay(netplayManager) then
+        return true
+    end
+
+    return NetPlayUtils.IsIdxLocalPlayer(netplayManager, player.m_controllerIndex)
+end
 
 ---@param player EntityPlayerComponent
 ---@return EntityPlayerComponent
@@ -148,8 +164,43 @@ local function GetCollectibleCount(player)
 end
 
 ---@param player EntityPlayerComponent
+---@return boolean
 local function IsExtraAnimationFinished(player)
     return not player.m_isPlayingExtraAnimation and not player.m_isPlayingItemNullAnimation
+end
+
+---@param player EntityPlayerComponent
+---@return boolean
+local function IsHoldingItem(player)
+end
+
+---@param player EntityPlayerComponent
+---@return boolean
+local function IsHeldItemVisible(player)
+    if not IsHoldingItem(player) then
+        return false
+    end
+
+    local nullFrame = SpriteUtils.GetNullFrame(player.m_bodySprite, 0)
+    return nullFrame ~= nil and nullFrame:IsVisible()
+end
+
+---@param player EntityPlayerComponent
+---@return boolean
+local function IsFullSpriteRendering(player)
+    if TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, CollectibleType.COLLECTIBLE_MEGA_MUSH) then
+        return false
+    end
+
+    if not IsExtraAnimationFinished(player) then
+        return false
+    end
+
+    if IsHoldingItem(player) and not IsHeldItemVisible(player) then
+        return false
+    end
+
+    return true
 end
 
 ---@param player EntityPlayerComponent
@@ -169,8 +220,51 @@ local function TearsUpToFireDelay(tearsUp)
     return 30.0 / tearsUp - 1.0
 end
 
+---@param myContext Context.Common
+---@param player EntityPlayer
+local function ResetItemState(myContext, player)
+end
+
+---@param myContext Context.Common
+---@param itemId integer
+local function CanRerollCollectible(myContext, itemId)
+end
+
+---@param myContext Context.Game
+---@param player EntityPlayerComponent
+---@return Vector
+local function GetFlyingOffset(myContext, player)
+    if RoomUtils.IsDungeon(myContext.game.m_level.m_room) or not player.m_canFly then
+        return Vector(0, 0)
+    end
+
+    return Vector(0.0, -4.0)
+end
+
+---@param myContext Context.Common
+---@param player EntityPlayerComponent
+---@return boolean
+local function IsHeadless(myContext, player)
+    if PlayerInventory.HasCollectible(myContext, player, CollectibleType.COLLECTIBLE_GUILLOTINE, false) then
+        return true
+    end
+
+    local temporaryEffects = player.m_temporaryEffects
+    local temporaryHeadless = TemporaryEffectsUtils.HasCollectibleEffect(temporaryEffects, CollectibleType.COLLECTIBLE_SCISSORS) or
+        TemporaryEffectsUtils.HasCollectibleEffect(temporaryEffects, CollectibleType.COLLECTIBLE_GUILLOTINE) or
+        TemporaryEffectsUtils.HasNullEffect(temporaryEffects, NullItemID.ID_INTRUDER) or
+        TemporaryEffectsUtils.HasCollectibleEffect(temporaryEffects, CollectibleType.COLLECTIBLE_DECAP_ATTACK)
+
+    if temporaryHeadless then
+        return true
+    end
+
+    return false
+end
+
 --#region Module
 
+Module.IsLocalPlayer = IsLocalPlayer
 Module.IsMainPlayerCharacter = IsMainPlayerCharacter
 Module.GetMainTwin = GetMainTwin
 Module.IsMainTwin = IsMainTwin
@@ -178,6 +272,9 @@ Module.IsHologram = IsHologram
 Module.GetEffectTarget = GetEffectTarget
 Module.HasInstantDeathCurse = HasInstantDeathCurse
 Module.IsExtraAnimationFinished = IsExtraAnimationFinished
+Module.IsHoldingItem = IsHoldingItem
+Module.IsHeldItemVisible = IsHeldItemVisible
+Module.IsFullSpriteRendering = IsFullSpriteRendering
 Module.PlayExtraAnimation = PlayExtraAnimation
 Module.GetHealthType = GetHealthType
 Module.GetEffectiveMaxHearts = GetEffectiveMaxHearts
@@ -186,6 +283,9 @@ Module.GetCollectibleRNG = GetCollectibleRNG
 Module.GetCollectibleCount = GetCollectibleCount
 Module.FireDelayToTearsUp = FireDelayToTearsUp
 Module.TearsUpToFireDelay = TearsUpToFireDelay
+Module.ResetItemState = ResetItemState
+Module.GetFlyingOffset = GetFlyingOffset
+Module.IsHeadless = IsHeadless
 
 --#endregion
 
