@@ -139,7 +139,7 @@ local SpriteUtils = require("General.Sprite")
 ---@field m_recentMovementVector Vector : 0x1588
 ---@field m_slippery_strength integer : 0x1590
 ---@field m_velocityBeforeUpdate Vector : 0x1594
----@field m_fireInputDeque_qqq unknown : 0x159c
+---@field m_fireInputs unknown : 0x159c
 ---@field m_lastDamageSource EntityRefComponent : 0x15b0
 ---@field m_lastDamageFlags DamageFlag | integer : 0x15d8
 ---@field m_totalDamageTaken integer : 0x15e4
@@ -302,8 +302,8 @@ local SpriteUtils = require("General.Sprite")
 ---@field m_wispCollectibleList table<integer, integer> : 0x1e7c
 ---@field m_tossedRelated number : 0x1e84
 ---@field m_tossedRelated2 number : 0x1e88
----@field m_hemoptysis_lastFireDirection integer : 0x1e8c
----@field m_hemoptysis_framesSinceTrigger integer : 0x1e90
+---@field m_doubleFireTap_lastDirection integer : 0x1e8c
+---@field m_doubleFireTap_framesSinceTrigger integer : 0x1e90
 ---@field m_divineIntervention_cooldown integer : 0x1e94
 ---@field m_divineIntervention_effect EntityPtrComponent : 0x1e98
 ---@field m_tempEffectTreeThing Set<integer> : 0x1ea8

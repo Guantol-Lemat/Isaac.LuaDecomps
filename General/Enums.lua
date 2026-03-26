@@ -150,6 +150,7 @@ Module.eSpecialDailyRuns = {
     SATORU_IWATA_S_BIRTHDAY = 18,
     CHRISTMAS = 19,
     I_FORGOT_DAY = 38,
+    TELL_A_JOKE_DAY = 42,
     G_FUEL_ISAAC_FLAVOURS_LAUNCH = 53,
 }
 

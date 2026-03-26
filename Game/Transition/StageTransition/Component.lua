@@ -1,1 +1,2 @@
 ---@class StageTransitionComponent
+---@field m_mode integer : 0x0
