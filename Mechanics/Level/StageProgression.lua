@@ -296,12 +296,12 @@ local function get_next_stage(context, level)
     end
 
     if newStage == LevelStage.STAGE5 then
-        local room = context:GetRoom()
-        if room.m_gridIdx == GridRooms.ROOM_BLUE_WOOM_IDX then
+        local level = context:GetLevel()
+        if level.m_gridIdx == GridRooms.ROOM_BLUE_WOOM_IDX then
             return LevelStage.STAGE4_3, StageType.STAGETYPE_ORIGINAL
         end
 
-        if room.m_gridIdx == GridRooms.ROOM_THE_VOID_IDX then
+        if level.m_gridIdx == GridRooms.ROOM_THE_VOID_IDX then
             return LevelStage.STAGE7, StageType.STAGETYPE_ORIGINAL
         end
 

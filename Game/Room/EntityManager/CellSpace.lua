@@ -9,7 +9,7 @@
 ---@param position Vector
 ---@param radius number
 ---@param partitions EntityPartition | integer
----@return ELComponent
+---@return Component.EL
 local function QueryRadius(myContext, manager, position, radius, partitions)
 end
 

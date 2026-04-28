@@ -1,13 +1,95 @@
 ---@class EntityNPCComponent : EntityComponent
----@field m_state NpcState | integer
----@field m_stateFrame integer
----@field m_statusEffectSprite Sprite
----@field m_pauseTimer integer
----@field m_totalDamageTaken number
----@field m_champion_id integer
----@field m_champion_isChampion boolean
----@field m_appear_frameCount integer
----@field m_appear_originalState NpcState | integer
----@field m_possessor_controllerIdx integer
----@field m_possessor_aim Vector
----@field m_possessor_crosshair EntityPtrComponent
+---@field m_stateFrame integer : 0x360
+---@field m_pathfinder Component.Pathfinder : 0x364
+---@field m_state NpcState | integer : 0xab4
+---@field m_appear_originalState NpcState | integer : 0xab8
+---@field m_genericIntStorage integer : 0xabc
+---@field m_appear_frameCount integer : 0xac0
+---@field m_customState integer : 0xac4
+---@field m_isLowCollider boolean : 0xac8
+---@field m_collider EntityPtrComponent : 0xacc
+---@field m_peeperFattyRelated_1 integer : 0xad0
+---@field m_damageEntries2_qqq Component.DamageEntry[] : 0xad8
+---@field m_damageRelated_qqq number : 0xae4
+---@field m_stickyBombDeathSpawnRelated integer : 0xae8
+---@field m_unkDeathSpawnChampionFlag integer : 0xaec
+---@field m_projectileCooldown integer : 0xaf0
+---@field m_projectileDelay integer : 0xaf4
+---@field m_championProjectileCooldown_qqq integer : 0xaf8
+---@field m_championSpeedMult? number : 0xafc
+---@field m_V1 Vector : 0xb00
+---@field m_V2 Vector : 0xb08
+---@field m_I1 integer : 0xb10
+---@field m_I2 integer : 0xb14
+---@field m_delirium_bossType EntityType | integer : 0xb18
+---@field m_delirium_bossVariant integer : 0xb1c
+---@field m_delirium_transformationTimer integer : 0xb20
+---@field m_delirium_remainingAttacks integer : 0xb22
+---@field m_delirium_npcState integer : 0xb23
+---@field m_delirium_attackID integer : 0xb28
+---@field m_delirium_attackAngle integer : 0xb2c
+---@field m_delirium_flags integer : 0xb30
+---@field m_unkDeliriumRef EntityPtrComponent : 0xb38
+---@field m_entityRef EntityPtrComponent : 0xb3c
+---@field m_deque1 unknown[] : 0xb40
+---@field m_deque2 Vector[] : 0xb54
+---@field m_deque3 Vector[] : 0xb68
+---@field m_npcTargetPos Vector : 0xb7c
+---@field m_someEvisCordThing number : 0xb84
+---@field m_npcScale number : 0xb88
+---@field m_canShutDoors boolean : 0xb8c
+---@field m_isBoss boolean : 0xb8d
+---@field m_shieldStrength number : 0xb90
+---@field m_shieldInterval integer : 0xb94
+---@field m_shieldDeque unknown[] : 0xb98
+---@field m_totalDamageTaken number : 0xbac
+---@field m_addedToBestiary boolean : 0xbb0
+---@field m_champion_isChampion boolean : 0xbb3
+---@field m_champion_id ChampionColor | integer : 0xbb4
+---@field m_transparencyTime integer : 0xbb8
+---@field m_transparencyState integer : 0xbbc
+---@field m_transparencyAlpha? number : 0xbc0
+---@field m_championRegenTimer integer : 0xbc4
+---@field m_onDeathEnemySpawnCount? integer : 0xbc6
+---@field m_bossColorIdx integer : 0xbc8
+---@field m_groupIdx integer : 0xbcc
+---@field m_camoColor Color : 0xbd0
+---@field m_dirtColor Color : 0xbfc
+---@field m_statusEffectSprite Sprite : 0xc28
+---@field m_possessorRelatedANM2 Sprite : 0xd3c
+---@field m_hitList HitListComponent : 0xe50
+---@field m_hitlist_qqq HitListComponent : 0xe5c
+---@field m_cordFlagRelated? integer : 0xe68
+---@field m_possessor_controllerIdx integer : 0xe6c
+---@field m_possessor_aim Vector : 0xe70
+---@field m_possessor_crosshair EntityPtrComponent : 0xe78
+---@field m_parentNotPlayerControlled_qqq boolean : 0xe7c
+---@field m_walkFrameDir Vector : 0xe80
+---@field m_forcedTarget EntityPtrComponent : 0xe88
+---@field m_forcedTargetDuration integer : 0xe8c
+---@field m_sirenPlayerEntity EntityPtrComponent : 0xe90
+---@field m_healthRelated number : 0xe94
+---@field m_unkScaleUsedByLokiVariant number : 0xe98
+---@field m_poopChampionLastGridIdx integer : 0xe9c
+---@field m_pickupGhost_entity EntityPtrComponent : 0xea0
+---@field m_unkEntity EntityPtrComponent : 0xea8
+
+---@class Component.Pathfinder
+---@field m_entity EntityComponent : 0x0
+---@field m_targetRelated1 Vector : 0x4
+---@field m_targetRelated2 Vector : 0xc
+---@field m_direction_qqq Direction | integer : 0x14
+---@field m_unkCounter integer : 0x18
+---@field m_framecount_qqq integer : 0x1c
+---@field m_gridIndex integer : 0x20
+---@field m_interpFrameRelated number : 0x24
+---@field m_countdown_qqq integer : 0x28
+---@field m_unk_pathmarkers_qqq (PathMarker | integer)[] [448] : 0x2c
+---@field m_hasDirectPath boolean : 0x72c
+---@field m_unkBool boolean : 0x72d
+---@field m_posBackup_qqq Vector : 0x730
+---@field m_canCrushRocks boolean : 0x738
+---@field m_evadeMovementCountdown integer : 0x73c
+---@field m_unkFloat2 number : 0x740
+---@field m_unkFloat number : 0x744
+---@field m_tree integer[] : 0x748

@@ -60,6 +60,10 @@ end
 local function RandomFloat()
 end
 
+---@return Vector
+local function RandomVector()
+end
+
 ---@param myContext Context.Common
 ---@param soundId SoundEffect | integer
 ---@param volume number
@@ -122,6 +126,7 @@ Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirec
 Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
+Module.RandomVector = RandomVector
 Module.PlaySound = PlaySound
 Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
 Module.IsActionTriggered = IsActionTriggered

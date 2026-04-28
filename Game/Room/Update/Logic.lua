@@ -41,15 +41,15 @@ local function Update(myContext, room)
         -- initialization
     end
 
-    if room.m_genesisItems_Countdown > -1 then
-        if room.m_genesisItems_Countdown == 0 and level.m_roomIdx == GridRooms.ROOM_GENESIS_IDX then
+    if room.m_genesisItems_countdown > -1 then
+        if room.m_genesisItems_countdown == 0 and level.m_roomIdx == GridRooms.ROOM_GENESIS_IDX then
             -- update genesis Items
         end
 
-        room.m_genesisItems_Countdown = room.m_genesisItems_Countdown - 1
+        room.m_genesisItems_countdown = room.m_genesisItems_countdown - 1
     end
 
-    room.m_ghost_Persists = PlayerManagerUtils.AnyoneHasCollectible(myContext, playerManager, CollectibleType.COLLECTIBLE_VADE_RETRO)
+    room.m_ghost_shouldPersist = PlayerManagerUtils.AnyoneHasCollectible(myContext, playerManager, CollectibleType.COLLECTIBLE_VADE_RETRO)
 
     local shouldUpdatePitchSlide = TemporaryEffectsUtils.HasCollectibleEffect(temporaryEffects, CollectibleType.COLLECTIBLE_ASTRAL_PROJECTION)
     if shouldUpdatePitchSlide then
@@ -91,7 +91,7 @@ local function Update(myContext, room)
         -- update ambush
     end
 
-    if room.m_cardAgainstHumanity_IsActive then
+    if room.m_cardAgainstHumanity_isActive then
         -- update card against humanity
     end
 
@@ -185,23 +185,23 @@ local function Update(myContext, room)
     -- update greed mode
     -- update ambient sounds
 
-    if room.m_shopRestock_Countdown > 0 then
-        local countdown = room.m_shopRestock_Countdown - 1
+    if room.m_shopRestock_countdown > 0 then
+        local countdown = room.m_shopRestock_countdown - 1
         if countdown <= 0 then
             countdown = -1
             -- restock partial
         end
 
-        room.m_shopRestock_Countdown = countdown
+        room.m_shopRestock_countdown = countdown
     end
 
     if roomType == RoomType.ROOM_SHOP and PlayerManagerUtils.AnyoneHasCollectible(myContext, playerManager, CollectibleType.COLLECTIBLE_COUPON) then
         -- coupon effect
     end
 
-    if room.m_curseOfTower_Countdown > 0 then
+    if room.m_curseOfTower_countdown > 0 then
         -- update m_curseOfTower
-        room.m_curseOfTower_Countdown = room.m_curseOfTower_Countdown - 1
+        room.m_curseOfTower_countdown = room.m_curseOfTower_countdown - 1
     end
 
     if room.m_pickupVision_Invalidate then

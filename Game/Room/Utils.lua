@@ -7,15 +7,15 @@ local LevelUtils = require("Game.Level.Utils")
 ---@class RoomContext.IsCurrentRoomLastBoss
 ---@field level LevelComponent
 
----@param myContext RoomContext.GetFrameCount
+---@param ctx Context.Game
 ---@param room RoomComponent
 ---@return integer
-local function GetFrameCount(myContext, room)
+local function GetFrameCount(ctx, room)
     if not room.m_isInitialized then
         return -1
     end
 
-    return myContext.frameCount - room.m_initialFrameCount
+    return ctx.game.m_frameCount - room.m_initialFrameCount
 end
 
 ---@param room RoomComponent

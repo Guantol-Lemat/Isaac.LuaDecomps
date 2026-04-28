@@ -2,7 +2,7 @@
 
 local IsaacSFX = require("Admin.Sound.Rules")
 local VectorUtils = require("General.Math.VectorUtils")
-local ColorUtils = require("General.Color")
+local ColorUtils = require("General.VanillaAPI.Color")
 local BlendModeUtils = require("Admin.Graphics.BlendMode")
 local GameRules = require("Game.Rules")
 local GameSpawn = require("Game.Spawn")

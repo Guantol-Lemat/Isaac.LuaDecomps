@@ -1,7 +1,24 @@
 ---@class EntityEffectComponent : EntityComponent
----@field m_state integer
----@field m_minRadius number
----@field m_maxRadius number
----@field m_timeout integer
----@field m_lifeSpan integer
----@field m_fallingSpeed number
+---@field m_height number : 0x360
+---@field m_fallingSpeed number : 0x364
+---@field m_fallingAccel number : 0x368
+---@field m_varData integer[] [4] : 0x370
+---@field m_damageRelated number : 0x380
+---@field m_damage_qqq number : 0x384
+---@field m_spewerFrameRelated integer : 0x388
+---@field m_spewerCountdown integer : 0x38c
+---@field m_spewerStateRelated integer : 0x390
+---@field m_spewerParentRelated EntityPtrComponent : 0x394
+---@field m_spewerRelated number : 0x398
+---@field m_state integer : 0x3a0
+---@field m_minRadius number : 0x3a4
+---@field m_maxRadius number : 0x3a8
+---@field m_timeout integer : 0x3ac
+---@field m_lifeSpan integer : 0x3b0
+---@field m_isFollowing boolean : 0x3b4
+---@field m_parentOffset Vector : 0x3b8
+---@field m_damageSource integer : 0x3c0
+---@field m_rotation number : 0x3c4
+---@field m_fScale number : 0x3c8
+---@field m_hitList HitListComponent : 0x3cc
+---@field m_extraData Component.ExtraData : 0x3d8

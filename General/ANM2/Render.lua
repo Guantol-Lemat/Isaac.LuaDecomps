@@ -3,7 +3,7 @@
 local Enums = require("General.Enums")
 local BitsetUtils = require("General.Bitset")
 local VectorUtils = require("General.Math.VectorUtils")
-local ColorUtils = require("General.Color")
+local ColorUtils = require("General.VanillaAPI.Color")
 local ShaderUtils = require("General.Shader.Utils")
 
 local GraphicsAdmin = require("Admin.Graphics.Admin")

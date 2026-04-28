@@ -19,7 +19,7 @@ end
 ---@param subtype integer
 ---@param cache boolean
 ---@param ignoreFriendly boolean
----@return ELComponent
+---@return Component.EL
 local function QueryType(entityList, entityType, variant, subtype, cache, ignoreFriendly)
 end
 

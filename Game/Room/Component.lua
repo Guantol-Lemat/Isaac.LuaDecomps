@@ -1,32 +1,100 @@
 ---@class RoomComponent
----@field m_type RoomType | integer
----@field m_roomDescriptor RoomDescriptorComponent
----@field m_gridIdx GridRooms | integer
----@field m_entityList EntityManagerComponent
----@field m_bossId BossType | integer
----@field m_secondBossId BossType | integer
----@field m_bossCount integer
----@field m_surpriseMiniboss boolean
----@field m_gridEntityList table<integer, GridEntityComponent?>
----@field m_gridWidth integer
----@field m_gridHeight integer
----@field m_gridPaths integer[]
----@field m_temporaryEffects TemporaryEffectsComponent
----@field m_backdrop BackdropComponent
----@field m_waterAmount number
----@field m_waterLerpColorCountdown integer
----@field m_renderScrollOffset Vector
----@field m_initialFrameCount integer
----@field m_clearDelay integer
----@field m_slowdownDuration integer
----@field m_shopRestock_Countdown integer
----@field m_curseOfTower_Countdown integer
----@field m_genesisItems_Countdown integer
----@field m_cardAgainstHumanity_IsActive boolean
----@field m_ghost_Persists boolean
----@field m_pickupVision_Invalidate boolean
----@field m_damoclesItems_Invalidate boolean
----@field m_babyPlum_mercyTimer integer
----@field m_isInitialized boolean
----@field m_interpolatedPositions boolean
----@field m_shouldRenderPits boolean
+---@field m_isInitialized boolean : 0x0
+---@field m_isFirstVisit boolean : 0x1
+---@field m_roomDescriptor RoomDescriptorComponent : 0x4
+---@field m_type RoomType | integer : 0x8
+---@field m_gridWidth integer : 0xc
+---@field m_gridHeight integer : 0x10
+---@field m_topLeftBound Vector : 0x14
+---@field m_bottomRightBound Vector : 0x1c
+---@field m_gridEntityList (GridEntityComponent?)[] [448] : 0x24
+---@field m_doors GridEntityDoor[] [8] : 0x724
+---@field m_slotGridIdxs integer[] [8] : 0x744
+---@field m_tintedRockIdx integer : 0x764
+---@field m_dungeonRockIdx integer : 0x768
+---@field m_gridPaths integer[] [456] : 0x76c
+---@field m_clearDelay integer : 0x11ec
+---@field m_initialFrameCount integer : 0x11f0
+---@field m_cardAgainstHumanity_isActive boolean : 0x11f4
+---@field m_teleporterRelated? boolean : 0x11f5
+---@field m_shouldPreRenderPits boolean : 0x11f6
+---@field m_pCamera Component.Camera : 0x11f8
+---@field m_renderSurfaceTopLeft Vector : 0x11fc
+---@field m_renderScrollOffset Vector : 0x1204
+---@field m_redHeartDamage boolean : 0x120c
+---@field m_brokenWatch_state integer : 0x1210
+---@field m_entityCount_qqq integer : 0x1214
+---@field m_entityList EntityManagerComponent : 0x1218
+---@field m_fxLayers Component.FXLayers : 0x1798
+---@field m_bossId BossType | integer : 0x1d1c
+---@field m_secondBossId BossType | integer : 0x1d20
+---@field m_deathsListTarget EntityPtrComponent : 0x1d24
+---@field m_deathsListInactive boolean : 0x1d28
+---@field m_lastDeathsListEnemyPos Vector : 0x1d2c
+---@field m_backdrop BackdropComponent : 0x1d34
+---@field m_entityLightSprite Sprite : 0x6d34
+---@field m_spotlightSprite_qqq Sprite : 0x6e48
+---@field m_shop_level integer : 0x6f5c
+---@field m_shopRestock_countdown integer : 0x6f60
+---@field m_shopItemDeque unknown[] : 0x6f64
+---@field m_ambientSFX_fireBurn number : 0x6f78
+---@field m_ambientSFX_insectSwarmLoop number : 0x6f7c
+---@field m_ambientSFX_megaBlastLoop number : 0x6f80
+---@field m_ambientSFX_tarLoop number : 0x6f84
+---@field m_ambientSFX_bloodLaserLoop number : 0x6f88
+---@field m_ambientSFX_waterFlowLoop number : 0x6f8c
+---@field m_ambientSFX_lavaLoop number : 0x6f90
+---@field m_ambientSFX_waterFlowLarge number : 0x6f94
+---@field m_ambientSFX_portalLoop number : 0x6f98
+---@field m_ambientSFX_minecartLoop number : 0x6f9c
+---@field m_ambientSFX_flamethrowerLoop number : 0x6fa0
+---@field m_ambientSFX_dogmaBlackholeLoop number : 0x6fa4
+---@field m_ambientSFX_dogmaRingLoop number : 0x6fa8
+---@field m_ambientSFX_dogmaPreacher number : 0x6fac
+---@field m_ambientSFX_ballAndChainLoop number : 0x6fb0
+---@field m_ambientSFX_animaRattle number : 0x6fb4
+---@field m_shockwaveParams Component.ShockwaveParams[] [2] : 0x6fb8
+---@field m_shockwaveRelated integer : 0x6ff0
+---@field m_satanRadialANM2 Sprite : 0x6ff4
+---@field m_wallBloodDuration integer : 0x7108
+---@field m_wallBloodCount integer : 0x710c
+---@field m_interpolatedPositions boolean : 0x7114
+---@field m_bossCount integer : 0x7118
+---@field m_surpriseMiniboss boolean : 0x711c
+---@field m_hasTriggerPressurePlates boolean : 0x711d
+---@field m_slowdownDuration integer : 0x7120
+---@field m_curseOfTower_countdown integer : 0x7124
+---@field m_removeGridEntityTree unknown : 0x7128
+---@field m_removedGridEntitiesRelated unknown : 0x712c
+---@field m_greedWaveRemainingTime integer : 0x7130
+---@field m_waterAmount number : 0x7134
+---@field m_waterColor KColor : 0x7138
+---@field m_waterColorMult KColor : 0x7148
+---@field m_waterLerpTargetColor KColor : 0x7158
+---@field m_waterLerpTargetColorMult KColor : 0x7168
+---@field m_waterLerpColorDuration integer : 0x7178
+---@field m_waterLerpColorCountdown integer : 0x717c
+---@field m_firstEnemyDead boolean : 0x7184
+---@field m_pacifist_qqq boolean : 0x7185
+---@field m_floorColor Color : 0x7188
+---@field m_wallColor Color : 0x71b4
+---@field m_shovelQuestMomFootstepSFXTimer integer : 0x71e0
+---@field m_corpseList Component.CorpseList : 0x71e4
+---@field m_entityLightRelated integer[] : 0x71ec
+---@field m_temporaryEffects TemporaryEffectsComponent : 0x71f4
+---@field m_outputTree_qqq integer[] [10] : 0x720c
+---@field m_outputRelatedStruct integer[][] [12][10] : 0x725c
+---@field m_babyPlum_mercyTimer integer : 0x72d4
+---@field m_rainPosThing number[][] [6][4] : 0x72d8
+---@field m_numRainEffects integer : 0x7338
+---@field m_rainStrength number : 0x733c
+---@field m_stopRain boolean : 0x7340
+---@field m_waterCurrent Vector : 0x7344
+---@field m_railManager Component.RailManager : 0x734c
+---@field m_lavaIntensity number : 0x7624
+---@field m_redKey_outlines EntityPtrComponent[] [8] : 0x7628
+---@field m_genesisItems_countdown integer : 0x7648
+---@field m_ghost_shouldPersist boolean : 0x764c
+---@field m_damoclesItems_invalidate boolean : 0x764d
+---@field m_hellBackdrop Component.HellBackdrop : 0x7650
+---@field m_pickupVision_invalidate boolean : 0x7778

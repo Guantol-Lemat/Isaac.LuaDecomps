@@ -30,7 +30,7 @@ local DAMOCLES_OFFSETS = {
 
 ---@param room RoomComponent
 local function Invalidate(room)
-    room.m_damoclesItems_Invalidate = true
+    room.m_damoclesItems_invalidate = true
 end
 
 ---@param room RoomComponent
@@ -82,7 +82,7 @@ end
 ---@param myContext DamoclesItemsContext.Update
 ---@param room RoomComponent
 local function Update(myContext, room)
-    if not room.m_damoclesItems_Invalidate then
+    if not room.m_damoclesItems_invalidate then
         return
     end
 
@@ -231,7 +231,7 @@ local function Update(myContext, room)
     end
 
     PickupInitLogic.EndIgnoreModifiers()
-    room.m_damoclesItems_Invalidate = false
+    room.m_damoclesItems_invalidate = false
 end
 
 --#region Module

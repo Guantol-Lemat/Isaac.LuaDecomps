@@ -26,6 +26,19 @@ Module.eBabyVariant = {
     WRINKLY_BABY = 3,
 }
 
+---@enum eHauntVariant
+Module.eHauntVariant = {
+    HAUNT = 0,
+    LIL_HAUNT = 10,
+}
+
+---@enum eHauntSubtype
+Module.eHauntSubtype = {
+    NORMAL = 0,
+    CHAMPION_BLACK = 1,
+    CHAMPION_PINK = 2,
+}
+
 ---@enum eFallenVariant
 Module.eFallenVariant = {
     THE_FALLEN = 0,

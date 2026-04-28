@@ -24,9 +24,9 @@
 ---@field HandleCollision fun(self: EntityComponent, myContext: Context.Common, collider: EntityComponent, low: boolean): boolean
 ---@field ResetColor fun(self: EntityComponent)
 ---@field LoadEntityConfig fun(self: EntityComponent, myContext: Context.Common)
----@field m_damageEntries DamageEntryComponent[] : 0x8
----@field m_currentFrameDamage number : 0x14
----@field m_damageFlagsTaken DamageFlag | integer : 0x18
+---@field m_damage_entries Component.DamageEntry[] : 0x8
+---@field m_damage_damageTaken number : 0x14
+---@field m_damage_flagsTaken DamageFlag | integer : 0x18
 ---@field m_index integer : 0x20
 ---@field m_collisionIndex integer : 0x24
 ---@field m_type EntityType | integer : 0x28
@@ -135,7 +135,7 @@
 ---@class HitListComponent
 ---@field m_lists integer[]
 
----@class DamageEntryComponent
+---@class Component.DamageEntry
 ---@field damage number : 0x0
 ---@field damageFlags DamageFlag | integer : 0x8
 ---@field source EntityRefComponent : 0x10
