@@ -1,2 +1,39 @@
----@class BackdropComponent
----@field m_type BackdropType
+---@class Component.Backdrop
+---@field m_floorSurface ImageComponent : 0x0
+---@field m_wallSurface ImageComponent : 0x8
+---@field m_floorSurface2 ImageComponent : 0x10
+---@field m_tempBackdropSurface ImageComponent : 0x18
+---@field m_image1 ImageComponent : 0x24
+---@field m_waterImage ImageComponent : 0x2c
+---@field m_image2 ImageComponent : 0x34
+---@field m_floorSprite_qqq Sprite : 0x3c
+---@field m_type BackdropType | integer : 0x150
+---@field m_entries Component.Backdrop.Entry[] [61] : 0x154
+---@field m_underwaterTopLeft_qqq Vector : 0x4ca0
+---@field m_underwaterBottomRight_qqq Vector : 0x4ca8
+---@field m_rng RNG : 0x4cb0
+---@field m_seed_qqq integer : 0x4cc0
+---@field m_wallDetailSprite_qqq Sprite : 0x4cc4
+---@field m_controlsSprite Sprite : 0x4dd8
+---@field m_controlsButtonsSprite Sprite : 0x4eec
+
+---@class Component.Backdrop.Entry
+---@field m_id BackdropType | integer : 0x0
+---@field m_gfx string : 0x4
+---@field m_gfx_water string : 0x1c
+---@field m_gfx_lFloor string : 0x34
+---@field m_gfx_nFloor string : 0x4c
+---@field m_walls integer : 0x64
+---@field m_wallVariants integer : 0x68
+---@field m_floorID_qqq integer : 0x6c
+---@field m_floorVariants integer : 0x70
+---@field m_isFullImage boolean : 0x74
+---@field m_gfx_props string : 0x78
+---@field m_gfx_rocks string : 0x90
+---@field m_gfx_pit string : 0xa8
+---@field m_gfx_waterPit string : 0xc0
+---@field m_gfx_bridge string : 0xd8
+---@field m_gfx_door string : 0xf0
+---@field m_gfx_holeInWall string : 0x108
+---@field m_gfx_spikes string : 0x120
+---@field m_waterPitMode boolean[] [2] : 0x138

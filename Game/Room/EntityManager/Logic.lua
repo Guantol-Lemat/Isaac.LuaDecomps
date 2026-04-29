@@ -214,7 +214,7 @@ local function Update(context, entityManager, isTransition)
     end
 
     local manager = context.manager
-    if not manager.m_options.m_enableInterpolation then
+    if not manager.m_options.m_interpolation_enabled then
         local players = playerManager.m_players
         for i = 1, #players, 1 do
             -- TODO: Interpolation Update and GridCollision

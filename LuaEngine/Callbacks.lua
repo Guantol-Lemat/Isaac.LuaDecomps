@@ -14,6 +14,12 @@
 local function PreUseItem(collectibleType, rng, player, useFlags, activeSlot, customVarData)
 end
 
+---@param cardType Card | integer
+---@param player EntityPlayerComponent
+---@param useFlags UseFlag | integer
+local function UseCard(cardType, player, useFlags)
+end
+
 --- The arguments are read only, internally the callbacks will get a copy of their value.
 ---@param rng RNG
 ---@param position Vector
@@ -30,6 +36,7 @@ local Module = {}
 --#region Module
 
 Module.PreUseItem = PreUseItem
+Module.UseCard = UseCard
 Module.SpawnClearAward = SpawnClearAward
 Module.PostKnifeUpdate = PostKnifeUpdate
 

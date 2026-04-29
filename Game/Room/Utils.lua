@@ -199,6 +199,22 @@ local function FindFreePickupSpawnPosition(room, position, initialStep, avoidAct
 end
 
 ---@param room RoomComponent
+---@param gridIdx integer
+---@param force boolean
+---@return boolean
+local function CanSpawnObstacleAtPosition(room, gridIdx, force)
+end
+
+---@param room RoomComponent
+---@param position Vector
+---@param force boolean
+---@return boolean
+local function CanSpawnObstacleAtWorldPosition(room, position, force)
+    local gridIdx = GetGridIdx(room, position)
+    return CanSpawnObstacleAtPosition(room, gridIdx, force)
+end
+
+---@param room RoomComponent
 ---@return RenderMode
 local function GetRenderMode(room)
 end
@@ -235,6 +251,8 @@ Module.GetGridEntity = GetGridEntity
 Module.GetGridEntityFromPos = GetGridEntityFromPos
 Module.FindFreeTilePosition = FindFreeTilePosition
 Module.FindFreePickupSpawnPosition = FindFreePickupSpawnPosition
+Module.CanSpawnObstacleAtPosition = CanSpawnObstacleAtPosition
+Module.CanSpawnObstacleAtWorldPosition = CanSpawnObstacleAtWorldPosition
 Module.GetRenderMode = GetRenderMode
 Module.GetSeededCollectible = GetSeededCollectible
 

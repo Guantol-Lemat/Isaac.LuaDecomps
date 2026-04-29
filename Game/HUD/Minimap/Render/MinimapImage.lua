@@ -582,7 +582,7 @@ local switch_pickup_icon = {
         local cardConfig = cardList[pickup.subtype + 1]
 
         local flag = eRoomContentFlag.PICKUP_TAROTCARD
-        if cardConfig and cardConfig.m_pocketItemType == 2 then -- rune
+        if cardConfig and cardConfig.m_cardType == 2 then -- rune
             flag = eRoomContentFlag.PICKUP_RUNE
         end
 

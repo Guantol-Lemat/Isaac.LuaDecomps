@@ -100,7 +100,7 @@ local function Render(context, hud)
 
     -- draw achievement unlock, difficulty, victory lap destination and greed break chance
 
-    if renderPlayerStats and options.m_enableFoundHUD then
+    if renderPlayerStats and options.m_foundHUD_enabled then
         local renderPos = Vector(currentRenderPos.X, currentRenderPos.Y + 16.0)
         StatHUDRender.Render(context, hud.m_statHUD, renderPos)
     end

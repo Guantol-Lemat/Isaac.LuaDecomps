@@ -31,7 +31,7 @@
 ---@field m_deathsListTarget EntityPtrComponent : 0x1d24
 ---@field m_deathsListInactive boolean : 0x1d28
 ---@field m_lastDeathsListEnemyPos Vector : 0x1d2c
----@field m_backdrop BackdropComponent : 0x1d34
+---@field m_backdrop Component.Backdrop : 0x1d34
 ---@field m_entityLightSprite Sprite : 0x6d34
 ---@field m_spotlightSprite_qqq Sprite : 0x6e48
 ---@field m_shop_level integer : 0x6f5c

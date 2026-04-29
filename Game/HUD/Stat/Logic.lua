@@ -42,7 +42,7 @@ end
 ---@param hud StatHUDComponent
 local function Update(context, hud)
     local options = context:GetOptions()
-    if not options.m_enableFoundHUD then
+    if not options.m_foundHUD_enabled then
         return
     end
 

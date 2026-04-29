@@ -23,6 +23,14 @@ end
 local function IsDangerousCrushableOrWalkable(myContext, gridEntity)
 end
 
+---@param gridType GridEntityType | integer
+local function IsHighPriority(gridType)
+    return gridType == GridEntityType.GRID_TRAPDOOR or
+        gridType == GridEntityType.GRID_STAIRS or
+        gridType == GridEntityType.GRID_PRESSURE_PLATE or
+        gridType == GridEntityType.GRID_TELEPORTER
+end
+
 local Module = {}
 
 --#region Module
@@ -30,6 +38,7 @@ local Module = {}
 Module.GetPosition = GetPosition
 Module.IsEasyCrushableOrWalkable = IsEasyCrushableOrWalkable
 Module.IsDangerousCrushableOrWalkable = IsDangerousCrushableOrWalkable
+Module.IsHighPriority = IsHighPriority
 
 --#endregion
 

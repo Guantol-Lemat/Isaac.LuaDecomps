@@ -54,8 +54,8 @@
 ---@field m_hudAnim string : 0x38
 ---@field m_greedModeAllowed boolean : 0x50
 ---@field m_pickupSubtype integer : 0x54
----@field m_pocketItemType PocketItemType | integer : 0x58
----@field m_announcerVoice integer : 0x5c
+---@field m_cardType integer : 0x58
+---@field m_announcerVoice SoundEffect | integer : 0x5c
 ---@field m_announcerDelay integer : 0x60
 ---@field m_mimicCharge integer : 0x64
 ---@field m_mod ModEntryComponent : 0x68

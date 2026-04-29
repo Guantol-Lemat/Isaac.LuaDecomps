@@ -27,6 +27,13 @@ local function GetCollectible(myContext, itemConfig, collectibleId)
 end
 
 ---@param itemConfig ItemConfigComponent
+---@param cardId Card | integer
+---@return CardConfigComponent
+local function GetCard(itemConfig, cardId)
+    return itemConfig.m_cardList[cardId + 1]
+end
+
+---@param itemConfig ItemConfigComponent
 ---@param nullItemId NullItemID | integer
 ---@return ItemConfigItemComponent?
 local function GetNullItem(itemConfig, nullItemId)
@@ -62,6 +69,7 @@ end
 
 Module.GetCollectible = GetCollectible
 Module.GetNullItem = GetNullItem
+Module.GetCard = GetCard
 Module.IsTaggedCollectible = IsTaggedCollectible
 Module.IsCollectible = IsCollectible
 Module.IsTrinket = IsTrinket

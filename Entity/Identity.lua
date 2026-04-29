@@ -66,4 +66,10 @@ Module.eCultistVariant = {
     BONE_TRAP = 10,
 }
 
+---@enum eReverseExplosionSubtype
+Module.eReverseExplosionSubtype = {
+    EXPLOSION = 0,
+    DEBRIS = 1,
+}
+
 return Module

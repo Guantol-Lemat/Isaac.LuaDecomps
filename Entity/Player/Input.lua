@@ -18,7 +18,7 @@ local Module = {}
 ---@param options OptionsComponent
 ---@param player EntityPlayerComponent
 local function UsesMouseControls(options, player)
-    return player.m_controllerIndex == 0 and options.m_mouseControlsEnabled
+    return player.m_controllerIndex == 0 and options.m_mouseControls_enabled
 end
 
 ---@param player EntityPlayerComponent

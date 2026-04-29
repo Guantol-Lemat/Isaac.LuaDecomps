@@ -16,14 +16,15 @@ local Module = {}
 local function Spawn(myContext, game, entityType, variant, subtype, seed, position, velocity, spawner)
 end
 
----@param myContext RoomContext.SpawnGridEntity
+---@param myContext Context.Common
+---@param room RoomComponent
 ---@param gridIdx integer
 ---@param gridType GridEntityType | integer
 ---@param variant integer
 ---@param seed integer
 ---@param varData integer
 ---@return GridEntityComponent
-local function SpawnGridEntity(myContext, gridIdx, gridType, variant, seed, varData)
+local function SpawnGridEntity(myContext, room, gridIdx, gridType, variant, seed, varData)
 end
 
 --#region Module

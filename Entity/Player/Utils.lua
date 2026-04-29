@@ -159,6 +159,13 @@ local function GetCollectibleRNG(player, id)
 end
 
 ---@param player EntityPlayerComponent
+---@param id Card | integer
+---@return RNG
+local function GetCardRNG(player, id)
+    return player.m_cardRNG[id + 1]
+end
+
+---@param player EntityPlayerComponent
 ---@return integer
 local function GetCollectibleCount(player)
 end
@@ -262,6 +269,22 @@ local function IsHeadless(myContext, player)
     return false
 end
 
+---@param ctx Context.Manager
+---@param player EntityPlayerComponent
+---@param id Card | integer
+---@param animation string
+local function AnimateCard(ctx, player, id, animation)
+end
+
+---@param ctx Context.Common
+---@param player EntityPlayerComponent
+---@param id SoundEffect | integer
+---@param soundDelay integer
+---@param frameDelay integer
+---@param volume number
+local function PlayDelayedSfx(ctx, player, id, soundDelay, frameDelay, volume)
+end
+
 --#region Module
 
 Module.IsLocalPlayer = IsLocalPlayer
@@ -280,12 +303,15 @@ Module.GetHealthType = GetHealthType
 Module.GetEffectiveMaxHearts = GetEffectiveMaxHearts
 Module.GetFocusEntity = GetFocusEntity
 Module.GetCollectibleRNG = GetCollectibleRNG
+Module.GetCardRNG = GetCardRNG
 Module.GetCollectibleCount = GetCollectibleCount
 Module.FireDelayToTearsUp = FireDelayToTearsUp
 Module.TearsUpToFireDelay = TearsUpToFireDelay
 Module.ResetItemState = ResetItemState
 Module.GetFlyingOffset = GetFlyingOffset
 Module.IsHeadless = IsHeadless
+Module.AnimateCard = AnimateCard
+Module.PlayDelayedSfx = PlayDelayedSfx
 
 --#endregion
 

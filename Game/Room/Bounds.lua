@@ -31,6 +31,13 @@ end
 local function ScreenWrapPosition(room, position, topLeftX, topLeftY, bottomRightX, bottomRightY)
 end
 
+---@param room RoomComponent
+---@param position Vector
+---@param margin number
+---@return boolean
+local function IsPositionInRoom(room, position, margin)
+end
+
 local Module = {}
 
 --#region Module
@@ -38,6 +45,7 @@ local Module = {}
 Module.GetLRoomAreaDesc = GetLRoomAreaDesc
 Module.GetClampedPosition = GetClampedPosition
 Module.ScreenWrapPosition = ScreenWrapPosition
+Module.IsPositionInRoom = IsPositionInRoom
 
 --#endregion
 
