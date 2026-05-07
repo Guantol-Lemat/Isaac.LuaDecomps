@@ -17,10 +17,10 @@ local eVisageVariant = EntityIdentity.eVisageVariant
 local Module = {}
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 ---@return boolean? override
 local function hook_pre_evaluate_take_damage(context, player, damage, damageFlags, source, damageCountdown)
@@ -62,10 +62,10 @@ local function hook_pre_evaluate_take_damage(context, player, damage, damageFlag
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 ---@return boolean? override
 local function hook_pre_take_damage(context, player, damage, damageFlags, source, damageCountdown)
@@ -85,10 +85,10 @@ local function hook_pre_take_damage(context, player, damage, damageFlags, source
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 ---@return boolean? override
 local function hook_pre_apply_damage(context, player, damage, damageFlags, source, damageCountdown)
@@ -100,10 +100,10 @@ local function hook_pre_apply_damage(context, player, damage, damageFlags, sourc
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 local function hook_apply_damage_effects(context, player, damage, damageFlags, source, damageCountdown)
     -- Steal Coin effect
@@ -165,10 +165,10 @@ local function hook_apply_damage_effects(context, player, damage, damageFlags, s
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 local function hook_post_take_damage_effects(context, player, damage, damageFlags, source, damageCountdown)
     -- CURSED_EYE
@@ -184,10 +184,10 @@ local function hook_post_take_damage_effects(context, player, damage, damageFlag
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 local function hook_post_take_damage(context, player, damage, damageFlags, source, damageCountdown)
     -- update_golden_hearts
@@ -196,11 +196,11 @@ local function hook_post_take_damage(context, player, damage, damageFlags, sourc
     -- T.Eden Reroll
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param context Context
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 ---@return boolean? override
 local function TakeDamage(player, context, damage, damageFlags, source, damageCountdown)

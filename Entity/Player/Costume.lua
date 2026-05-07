@@ -31,14 +31,14 @@ local SKIN_COLOR_SUFFIX = {
 local s_rebuildingCostumeMap = false
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
----@param item ItemConfigItemComponent
+---@param player Component.Entity.Player
+---@param item Component.ItemConfig.Item
 ---@param itemStateOnly boolean
 local function AddCostume(myContext, player, item, itemStateOnly) end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
----@param item ItemConfigItemComponent
+---@param player Component.Entity.Player
+---@param item Component.ItemConfig.Item
 local function RemoveCostume(myContext, player, item) end
 
 ---@param myContext Context.Manager
@@ -104,7 +104,7 @@ local function translate_costume_sprite_path(myContext, path, skinColor, playerT
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function rebuild_costume_map(myContext, player)
     if (player.m_variant == PlayerVariant.CO_OP_BABY or player.m_isCoopGhost) or s_rebuildingCostumeMap then
         return
@@ -185,7 +185,7 @@ local function rebuild_costume_map(myContext, player)
 
         if jupiterBody ~= NullItemID.ID_NULL then
             local costume = ItemConfigUtils.GetNullItem(itemConfig, jupiterBody)
-            ---@cast costume ItemConfigItemComponent
+            ---@cast costume Component.ItemConfig.Item
             AddCostume(myContext, player, costume, false)
         end
     end
@@ -195,7 +195,7 @@ local function rebuild_costume_map(myContext, player)
     -- sync samson berserk
     if samsonBerserk ~= hasBerserk then
         local costume = ItemConfigUtils.GetNullItem(itemConfig, NullItemID.ID_BERSERK_SAMSON)
-        ---@cast costume ItemConfigItemComponent
+        ---@cast costume Component.ItemConfig.Item
         if samsonBerserk then
             AddCostume(myContext, player, costume, false)
         else
@@ -466,8 +466,8 @@ local function rebuild_costume_map(myContext, player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
----@param item ItemConfigItemComponent
+---@param player Component.Entity.Player
+---@param item Component.ItemConfig.Item
 ---@param itemStateOnly boolean
 AddCostume = function (myContext, player, item, itemStateOnly)
     if player.m_variant == PlayerVariant.CO_OP_BABY or player.m_isCoopGhost then
@@ -490,7 +490,7 @@ AddCostume = function (myContext, player, item, itemStateOnly)
         local collectibleType, num, costume = table.unpack(COSTUME_MODIFIERS[modifier])
         if PlayerInventory.NumCollectibleHeld(myContext, player, collectibleType, false) >= num then
             local newCostume = ItemConfigUtils.GetNullItem(myContext.manager.m_itemConfig, costume)
-            ---@cast newCostume ItemConfigItemComponent
+            ---@cast newCostume Component.ItemConfig.Item
             item = newCostume -- will crash if the null item doesn't exist.
         end
     end
@@ -503,7 +503,7 @@ AddCostume = function (myContext, player, item, itemStateOnly)
 
     local affectsBackwardPlayer = player.m_valid and (item.m_tags & ItemConfig.TAG_LAZ_SHARED) ~= 0
     local backupPlayer = player.m_backupPlayer.ref
-    ---@cast backupPlayer EntityPlayerComponent?
+    ---@cast backupPlayer Component.Entity.Player?
     if affectsBackwardPlayer and backupPlayer then
         AddCostume(myContext, backupPlayer, item, itemStateOnly)
     end
@@ -594,17 +594,17 @@ AddCostume = function (myContext, player, item, itemStateOnly)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
----@param item ItemConfigItemComponent
+---@param player Component.Entity.Player
+---@param item Component.ItemConfig.Item
 RemoveCostume = function(myContext, player, item)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function ClearCostumes(player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function InitPlayerSkin(myContext, player)
 end
 

@@ -1,0 +1,5 @@
+---@class Component.QueuedItemData
+---@field item Component.ItemConfig.Item : 0x0
+---@field charge integer : 0x4
+---@field flags integer : 0x8
+---@field varData integer : 0xc

@@ -2,7 +2,7 @@
 local Module = {}
 
 ---@param context Context
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param saveState EntitySaveStateComponent
 ---@return EntitySaveStateComponent
 local function SaveState(context, entity, saveState)

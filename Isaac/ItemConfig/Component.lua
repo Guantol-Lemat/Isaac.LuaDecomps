@@ -1,7 +1,7 @@
----@class ItemConfigComponent
----@field m_collectibleList ItemConfigItemComponent[] : 0x0
----@field m_trinketList ItemConfigItemComponent[] : 0xc
----@field m_nullItemList ItemConfigItemComponent[] : 0x18
+---@class Component.ItemConfig.Item
+---@field m_collectibleList Component.ItemConfig.Item[] : 0x0
+---@field m_trinketList Component.ItemConfig.Item[] : 0xc
+---@field m_nullItemList Component.ItemConfig.Item[] : 0x18
 ---@field m_cardList CardConfigComponent[] : 0x24
 ---@field m_pillEffectList PillEffectComponent[] : 0x30
 ---@field m_collectibleNameMap table<string, integer> : 0x3c
@@ -9,7 +9,7 @@
 ---@field m_itemFilter function[] : 0xd0
 ---@field m_wisps WispConfigComponent[] : 0xe4
 
----@class ItemConfigItemComponent
+---@class Component.ItemConfig.Item
 ---@field m_itemType ItemType | integer : 0x0
 ---@field m_id CollectibleType | TrinketType | NullItemID | integer : 0x4
 ---@field m_name string : 0x8

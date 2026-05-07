@@ -4,7 +4,7 @@
 
 --#endregion
 
----@param game GameComponent
+---@param game Component.Game
 ---@param ending Ending | integer
 local function End(game, ending)
 end

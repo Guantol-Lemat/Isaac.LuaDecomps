@@ -39,7 +39,7 @@ local LIL_HAUNT_PHANTOM_DAMAGE_COLOR = Color(1.0, 1.0, 1.0, 0.2, 0.0, 0.0, 0.0, 
 local SPLAT_COLOR = Color(0.0, 0.0, 0.0, 0.3, 0.8, 0.8, 0.8, 0.0, 0.0, 0.0, 0.0)
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function update_haunt(ctx, npc)
     local ctx_game = ctx.game
     local state = npc.m_state
@@ -312,7 +312,7 @@ local function update_haunt(ctx, npc)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function update_lil_haunt(ctx, npc)
     local state = npc.m_state
     AiUtils.SetChargeBar(npc, false, 0.0, 60.0, npc.m_stateFrame)
@@ -525,7 +525,7 @@ local function update_lil_haunt(ctx, npc)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function UpdateAI(ctx, npc)
     local ctx_game = ctx.game
 

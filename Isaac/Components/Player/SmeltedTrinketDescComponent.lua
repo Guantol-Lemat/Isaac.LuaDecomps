@@ -1,0 +1,3 @@
+---@class Component.SmeltedTrinketDesc
+---@field amount integer : 0x0
+---@field goldenAmount integer : 0x2

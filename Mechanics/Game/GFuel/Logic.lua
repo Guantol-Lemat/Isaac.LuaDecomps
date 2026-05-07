@@ -13,7 +13,7 @@ local WeaponParamsRules = require("Weapon.Common.Params.Rules")
 ---@class GFuelLogic
 local Module = {}
 
----@alias GFuelLogic._SWITCH_WeaponTearFireFX fun(context: Context, owner: EntityPlayerComponent, baseVelocity: Vector, tearHitParams: TearHitParamsComponent)
+---@alias GFuelLogic._SWITCH_WeaponTearFireFX fun(context: Context, owner: Component.Entity.Player, baseVelocity: Vector, tearHitParams: TearHitParamsComponent)
 
 ---@type GFuelLogic._SWITCH_WeaponTearFireFX
 local function gunShotSpreadFX(context)
@@ -82,7 +82,7 @@ local switch_WeaponTearFireFX = {
 }
 
 ---@param context Context
----@param owner EntityPlayerComponent
+---@param owner Component.Entity.Player
 ---@param position Vector
 ---@param baseVelocity Vector
 ---@param gFuelWeapon integer
@@ -96,7 +96,7 @@ local function ApplyTearFireFX(context, owner, position, baseVelocity, gFuelWeap
 
     local seed = context:Random()
     local muzzleFlash = GameSpawn.Spawn(context, EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, seed, muzzlePosition, VectorUtils.VectorZero, nil)
-    ---@cast muzzleFlash EntityEffectComponent
+    ---@cast muzzleFlash Component.Entity.Effect
     muzzleFlash.m_timeout = 2
     muzzleFlash.m_lifeSpan = 2
     muzzleFlash.m_positionOffset = Vector(0.0, -20.0)
@@ -135,7 +135,7 @@ local function ApplyTearFireFX(context, owner, position, baseVelocity, gFuelWeap
 
     seed = context:Random()
     local casing = GameSpawn.Spawn(context, EntityType.ENTITY_EFFECT, EffectVariant.WOOD_PARTICLE, 0, seed, position, casingVelocity, nil)
-    ---@cast casing EntityEffectComponent
+    ---@cast casing Component.Entity.Effect
 
     sprite = casing.m_sprite
     sprite:Load("gfx/promo/gfuel/effects/casing.anm2", true)

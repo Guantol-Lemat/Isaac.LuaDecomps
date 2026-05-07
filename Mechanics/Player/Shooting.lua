@@ -29,19 +29,19 @@ local function switch_item_state_update(itemState)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return WeaponModifier | integer
 local function get_weapon_modifiers(myContext, player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param shootingInput Vector
 local function do_zit_effect(myContext, player, shootingInput)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param shootingInput Vector
 ---@param isShooting boolean
 local function fire(myContext, player, shootingInput, isShooting)
@@ -86,7 +86,7 @@ local function fire(myContext, player, shootingInput, isShooting)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function ControlShooting(myContext, player)
     local game = myContext.game
 

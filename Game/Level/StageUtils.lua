@@ -28,7 +28,7 @@ local CHAPTER_4_RED_REDEMPTION_TYPES = {
     {StageType.STAGETYPE_WOTL, StageType.STAGETYPE_WOTL, StageType.STAGETYPE_WOTL, StageType.STAGETYPE_WOTL, StageType.STAGETYPE_AFTERBIRTH},
 }
 
----@param level LevelComponent
+---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@return StageType?
 local function get_red_redemption_stage_type(level, idx)
@@ -68,8 +68,8 @@ local function get_red_redemption_stage_type(level, idx)
     end
 
     local localMap = isChapter4 and CHAPTER_4_RED_REDEMPTION_TYPES or PRE_CHAPTER_4_RED_REDEMPTION_TYPES
-    local perlinWeightRow = level.m_perlinMap[1][idx + 1] * 5.0
-    local perlinWeightColumn = level.m_perlinMap[2][idx + 1] * 5.0
+    local perlinWeightRow = level.m_perlinMaps[1][idx + 1] * 5.0
+    local perlinWeightColumn = level.m_perlinMaps[2][idx + 1] * 5.0
 
     perlinWeightRow = MathUtils.Clamp(perlinWeightRow, 0, 4.99)
     perlinWeightColumn = MathUtils.Clamp(perlinWeightColumn, 0, 4.99)
@@ -81,7 +81,7 @@ local function get_red_redemption_stage_type(level, idx)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@return StageType | integer
 local function GetLocalStageType(myContext, level, idx)
@@ -96,7 +96,7 @@ local function GetLocalStageType(myContext, level, idx)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return StbType | integer
 local function GetStageID(myContext, level)
     local game = myContext.game
@@ -113,7 +113,7 @@ local function GetStageID(myContext, level)
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsNextStageAvailable(myContext, level)
     local game = myContext.game
@@ -196,7 +196,7 @@ end
 
 ---@param challenge Challenge | integer
 ---@param challengeParams ChallengeParamsComponent
----@param level LevelComponent
+---@param level Component.Level
 ---@param effectiveStage LevelStage | integer
 local function TrapDoorHindersChallenge(challenge, challengeParams, level, effectiveStage)
     if not challengeParams.m_isSecretPath then
@@ -220,7 +220,7 @@ local function TrapDoorHindersChallenge(challenge, challengeParams, level, effec
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function CanSpawnTrapDoor(myContext, level)
     if QuestUtils.IsMirrorWorld(myContext, level) then

@@ -1,15 +1,15 @@
 ---@class Context.Manager
----@field manager IsaacManager
+---@field manager Component.Manager
 
 ---@class Context.Game
----@field game GameComponent
+---@field game Component.Game
 
 ---@class Context.Common : Context.Manager, Context.Game
----@field manager IsaacManager
----@field game GameComponent
+---@field manager Component.Manager
+---@field game Component.Game
 
 ---@class Context.Room
----@field room RoomComponent
+---@field room Component.Room
 
 ---@class Context.Seeds
 ---@field seeds SeedsComponent

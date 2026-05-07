@@ -12,7 +12,7 @@ local function normalize_planetarium_chance(chance)
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@return number
 local function GetPlanetariumChance(myContext, level)
     local stage = LevelUtils.IsAltPath(level) and level.m_stage + 1 or level.m_stage

@@ -8,7 +8,7 @@ local Events = MySprite.Events
 
 --#endregion
 
----@class WidowComponent : EntityNPCComponent
+---@class WidowComponent : Component.Entity.Npc
 ---@field m_jumpVelocity Vector -- V1
 
 ---@class WidoCommonLogic

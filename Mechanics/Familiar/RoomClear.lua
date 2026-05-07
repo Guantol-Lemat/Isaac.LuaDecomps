@@ -4,7 +4,7 @@
 
 --#endregion
 
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 ---@param pickup PickupVariant
 ---@param progressRate number
 ---@param guaranteeThreshold number
@@ -28,7 +28,7 @@ local function try_award_pickup(familiar, pickup, progressRate, guaranteeThresho
     -- Reward pickup
 end
 
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 local function TriggerRoomClear(familiar)
     if not familiar.m_exists then
         return

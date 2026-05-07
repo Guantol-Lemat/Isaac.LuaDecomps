@@ -26,17 +26,17 @@ local eItemOverlayState = Enums.eItemOverlayState
 ---@class GameUpdateLogic
 local Module = {}
 
----@param game GameComponent
+---@param game Component.Game
 local function color_modifier_approach(game)
     -- TODO: code approach
 end
 
----@param game GameComponent
+---@param game Component.Game
 local function fadeout_update(game)
     -- TODO: code update
 end
 
----@param game GameComponent
+---@param game Component.Game
 local function Update(game)
     local gameRead = game
     local gameWrite = game

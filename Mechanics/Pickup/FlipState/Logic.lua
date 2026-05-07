@@ -12,7 +12,7 @@ local PickupSaveStateComponent = require("Entity.Pickup.SaveState.Component")
 local Module = {}
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function InitFlipState(context, pickup)
     pickup.m_flipCollectibleSprite:Reset()
 
@@ -47,7 +47,7 @@ local function InitFlipState(context, pickup)
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@return boolean
 local function TryFlip(context, pickup)
     local oldFlipState = pickup.m_flipState

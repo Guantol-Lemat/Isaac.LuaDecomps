@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param shotDirection Vector
 ---@param ignoreModifiers boolean
 ---@return Vector
@@ -13,17 +13,17 @@ local function GetTearMovementInheritance(myContext, player, shotDirection, igno
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param weaponType WeaponType | integer
 ---@param damageScale number
 ---@param tearDisplacement integer
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@return TearHitParamsComponent
 local function GetTearHitParams(myContext, player, weaponType, damageScale, tearDisplacement, source)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param weaponType WeaponType | integer
 ---@return MultiShotParamsComponent
 local function GetMultiShotParams(myContext, player, weaponType)

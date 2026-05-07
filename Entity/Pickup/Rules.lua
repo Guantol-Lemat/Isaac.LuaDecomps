@@ -71,7 +71,7 @@ local function IsBlindEffectActive(context)
 end
 
 ---@param context Context
----@param entity EntityPickupComponent
+---@param entity Component.Entity.Pickup
 ---@param type EntityType | integer
 ---@param variant PickupVariant | integer
 ---@param subtype integer
@@ -83,7 +83,7 @@ local function Morph(context, entity, type, variant, subtype, keepPrice, keepSee
 end
 
 ---@param context Context
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@param velocityType ePickVelType
 ---@param rng RNG?

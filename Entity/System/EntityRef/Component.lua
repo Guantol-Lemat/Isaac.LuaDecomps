@@ -1,5 +1,5 @@
----@class EntityRefComponent
----@field entity EntityComponent?
+---@class Component.EntityRef
+---@field entity Component.Entity?
 ---@field type EntityType | integer
 ---@field variant integer
 ---@field spawnerType EntityType | integer
@@ -9,8 +9,8 @@
 local Module = {}
 
 
----@param entity EntityComponent
----@return EntityRefComponent
+---@param entity Component.Entity
+---@return Component.EntityRef
 local function Create(entity)
 end
 

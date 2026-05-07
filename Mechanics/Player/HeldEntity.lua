@@ -5,13 +5,13 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param velocity Vector
 local function ThrowHeldEntity(myContext, player, velocity)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param direction Vector
 local function TryForgottenThrow(myContext, player, direction)
 end

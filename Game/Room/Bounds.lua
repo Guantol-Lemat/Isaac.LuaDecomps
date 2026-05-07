@@ -6,12 +6,12 @@
 
 ---@class LRoomAreaDescComponent
 
----@param room RoomComponent
+---@param room Component.Room
 ---@return LRoomAreaDescComponent
 local function GetLRoomAreaDesc(room)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@param topLeftX number
 ---@param topLeftY number
@@ -21,7 +21,7 @@ end
 local function GetClampedPosition(room, position, topLeftX, topLeftY, bottomRightX, bottomRightY)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@param topLeftX number
 ---@param topLeftY number
@@ -31,7 +31,7 @@ end
 local function ScreenWrapPosition(room, position, topLeftX, topLeftY, bottomRightX, bottomRightY)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@param margin number
 ---@return boolean

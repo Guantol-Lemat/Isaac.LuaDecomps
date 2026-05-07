@@ -227,7 +227,7 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
         end
     end
 
-    ---@type EntityComponent
+    ---@type Component.Entity
     local primaryParent = primaryKnife.m_parent.ref
     local holderAngle = 0.0
 
@@ -335,7 +335,7 @@ local function update_base(closure, myContext, knife)
 
     -- get pivotRadius
     local pivotRadius = isSword and 0.1 or isClub and 4.0 or 30.0
-    ---@type EntityComponent
+    ---@type Component.Entity
     local parent = knife.m_parent.ref
 
     local tear = EntityCast.ToTear(parent)
@@ -554,7 +554,7 @@ end
 
 ---@param myContext Context.Common
 ---@param knife EntityKnifeComponent
----@param player EntityPlayerComponent?
+---@param player Component.Entity.Player?
 local function damage_grid(myContext, knife, player)
     local room = myContext.game.m_level.m_room
     local gridIdx = RoomGrid.GetGridIdx(room, knife.m_position)

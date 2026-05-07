@@ -1,12 +1,12 @@
----@class PlayerHUDComponent
----@field m_player EntityPlayerComponent : 0x0
+---@class Component.PlayerHUD
+---@field m_player Component.Entity.Player : 0x0
 ---@field m_hud HUDComponent : 0x4
 ---@field m_playerHudIndex integer : 0x8
 ---@field m_redHeartFlashCountdown integer : 0xc
 ---@field m_heartInfo HeartHudComponent[] [24] : 0x10
----@field m_activeItem ActiveItemDescComponent[] [4] : 0x190
+---@field m_activeItem Component.ActiveItemDesc[] [4] : 0x190
 ---@field m_trinket TrinketHudComponent[] [2] : 0x200
----@field m_pocketItem PocketItemComponent[] [4] : 0x220
+---@field m_pocketItem Component.PocketItem[] [4] : 0x220
 ---@field m_hasHolyMantle boolean : 0x690
 ---@field m_inventoryVector_qqq InventoryStruct[] : 0x694
 ---@field m_invalidateItemHistory boolean : 0x6a0

@@ -35,7 +35,7 @@ local G_FUEL_BLACKLIST = TableUtils.CreateDictionary({
 })
 
 ---@param myContext Context.Common
----@param item ItemConfigItemComponent
+---@param item Component.ItemConfig.Item
 ---@param flags eItemFilterFlag | integer
 local function IsAvailable(myContext, item, flags)
     if item.m_hidden then

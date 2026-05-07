@@ -8,7 +8,7 @@ local TemporaryEffects = require("Entity.Player.Inventory.TemporaryEffects")
 local Module = {}
 
 ---@param context InventoryContext.HasCollectible
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectible CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
@@ -16,7 +16,7 @@ local function HasCollectible(context, player, collectible, ignoreModifiers)
 end
 
 ---@param context InventoryContext.HasCollectible
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectible CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean

@@ -11,7 +11,7 @@ local Module = {}
 ---@field forceUnlock boolean
 
 ---@param admin Admin
----@param game GameComponent
+---@param game Component.Game
 ---@return PersistentDataContext.Unlocked
 local function BuildUnlockedContext(admin, game)
     local forceUnlock = admin.m_state == 2 and (game.m_dailyChallenge.m_id ~= 0 or game.m_isDebug)

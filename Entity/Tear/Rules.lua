@@ -8,7 +8,7 @@
 local Module = {}
 
 ---@param context Context
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@param collisionPoint Vector
 ---@return boolean
 local function DamageGrid(context, tear, collisionPoint)

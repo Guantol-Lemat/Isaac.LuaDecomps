@@ -5,7 +5,7 @@
 --#endregion
 
 ---@class Context.EffectUpdate : Context.Common
----@field entity EntityEffectComponent
+---@field entity Component.Entity.Effect
 
 ---@class Mechanics.Effect.Update
 local Module = {}

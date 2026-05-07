@@ -84,7 +84,7 @@ local eRoomContentFlag = {
     GRID_STAIRS = 1 << 14,
 }
 
----@param level LevelComponent
+---@param level Component.Level
 ---@param room RoomDescriptorComponent
 local function should_render_outline(level, room, x, y)
     ---@type RoomDataComponent
@@ -359,7 +359,7 @@ local switch_room_type_icon = {
     ---@type SWITCH_RoomTypeIcon
     [RoomType.ROOM_TREASURE] = function (context, room, _)
         local level = context:GetLevel()
-        if GameUtils.IsGreedMode(context:GetGame()) and level.m_greedGoldTreasureIdx ~= room.m_gridIdx then
+        if GameUtils.IsGreedMode(context:GetGame()) and level.m_greed_goldTreasureRoomIdx ~= room.m_gridIdx then
             return eRoomIcon.TREASURE_GREED
         end
 

@@ -8,12 +8,12 @@
 local Module = {}
 
 ---@param myContext LevelGenerationContext.GenerateMirrorWorld
----@param level LevelComponent
+---@param level Component.Level
 local function GenerateMirrorWorld(myContext, level)
 end
 
 ---@param myContext LevelGenerationContext.GenerateMinesDungeon
----@param level LevelComponent
+---@param level Component.Level
 local function GenerateMinesDungeon(myContext, level)
 end
 

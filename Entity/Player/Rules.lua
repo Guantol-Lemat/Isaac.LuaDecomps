@@ -9,7 +9,7 @@ local TemporaryEffectsUtils = require("Game.TemporaryEffects.TemporaryEffects")
 local Module = {}
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsLocalPlayer(context, player)
     local netplayManager = context:GetNetplayManager()
@@ -21,12 +21,12 @@ local function IsLocalPlayer(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
----@param realPlayer EntityPlayerComponent
----@return EntityPlayerComponent
+---@param player Component.Entity.Player
+---@param realPlayer Component.Entity.Player
+---@return Component.Entity.Player
 local function hook_get_real_player(context, player, realPlayer)
     local twin = player.m_twinPlayer.ref
-    ---@cast twin EntityPlayerComponent?
+    ---@cast twin Component.Entity.Player?
     if player.m_playerType == PlayerType.PLAYER_THESOUL_B and twin then
         realPlayer = twin
     end
@@ -35,8 +35,8 @@ local function hook_get_real_player(context, player, realPlayer)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
----@return EntityPlayerComponent
+---@param player Component.Entity.Player
+---@return Component.Entity.Player
 local function GetEffectTarget(context, player)
     local realPlayer = player
     realPlayer = hook_get_real_player(context, player, realPlayer)
@@ -44,13 +44,13 @@ local function GetEffectTarget(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function CanCrushRocks(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param gridEntity GridEntityComponent
 ---@param collisionClass GridCollisionClass
 ---@return boolean

@@ -71,23 +71,23 @@ local function get_void_bosses()
     return list
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return Set<integer>
 local function build_secret_room_index_blacklist(level)
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return Set<integer>
 local function build_ultrasecret_room_index_blacklist(level)
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return Set<integer>
 local function build_specialnormal_room_index_blacklist(level)
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@param levelGenerator LevelGeneratorComponent
 ---@param minDifficulty integer
 ---@param maxDifficulty integer
@@ -1174,7 +1174,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@param extraRNG RNG
 local function GenerateDungeon(myContext, level, extraRNG)
     local isaac = myContext.manager

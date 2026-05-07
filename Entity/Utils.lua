@@ -8,13 +8,13 @@ local GameUtils = require("Game.Utils")
 local Module = {}
 
 ---@param myContext Context.Game
----@param entity EntityComponent
+---@param entity Component.Entity
 local function GetFrameCount(myContext, entity)
     return myContext.game.m_frameCount - entity.m_spawnFrame
 end
 
 ---@param myContext Context.Common
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param interval integer
 ---@param offset integer
 ---@return boolean
@@ -28,7 +28,7 @@ local function IsFrame(myContext, entity, interval, offset)
 end
 
 ---@param myContext Context.Common
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param interval number
 ---@param offset number
 ---@return boolean
@@ -43,63 +43,63 @@ local function IsTimeScaledFrame(myContext, entity, interval, offset)
     return frameDelta > 0
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param flags integer | EntityFlag
 ---@return boolean
 local function HasFlags(entity, flags)
     return (entity.m_flags & flags) == flags
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param flags integer | EntityFlag
 ---@return boolean
 local function HasAnyFlag(entity, flags)
     return (entity.m_flags & flags) ~= 0
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param flags integer | EntityFlag
 local function AddFlags(entity, flags)
     entity.m_flags = entity.m_flags | flags
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param flags integer | EntityFlag
 local function ClearFlags(entity, flags)
     entity.m_flags = entity.m_flags & ~flags
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param tags EntityTag | integer
 ---@return boolean
 local function HasConfigTags(entity, tags)
     return (entity.m_config.tags & tags) == tags
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param tags EntityTag | integer
 ---@return boolean
 local function HasAnyConfigTags(entity, tags)
     return (entity.m_config.tags & tags) ~= 0
 end
 
----@param entity EntityComponent
----@param target EntityComponent?
+---@param entity Component.Entity
+---@param target Component.Entity?
 local function SetTarget(entity, target)
 end
 
----@param entity EntityComponent
----@param parent EntityComponent?
+---@param entity Component.Entity
+---@param parent Component.Entity?
 local function SetParent(entity, parent)
 end
 
----@param entity EntityComponent
----@param child EntityComponent?
+---@param entity Component.Entity
+---@param child Component.Entity?
 local function SetChild(entity, child)
 end
 
----@param entity EntityComponent
----@return EntityComponent
+---@param entity Component.Entity
+---@return Component.Entity
 local function GetLastParent(entity)
     local lastParent = entity
     local parent = entity.m_parent.ref
@@ -112,8 +112,8 @@ local function GetLastParent(entity)
     return lastParent
 end
 
----@param entity EntityComponent
----@return EntityComponent
+---@param entity Component.Entity
+---@return Component.Entity
 local function GetLastSpawner(entity)
     local lastSpawner = entity
     local spawner = entity.m_spawnerEntity.ref
@@ -126,8 +126,8 @@ local function GetLastSpawner(entity)
     return lastSpawner
 end
 
----@param entityPtr EntityPtrComponent
----@param newRef EntityComponent?
+---@param entityPtr Component.EntityPtr
+---@param newRef Component.Entity?
 local function SetEntityReference(entityPtr, newRef)
     local currentRef = entityPtr.ref
     if currentRef then
@@ -141,7 +141,7 @@ local function SetEntityReference(entityPtr, newRef)
     end
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param velocity Vector
 ---@param ignoreTimescale boolean
 local function AddVelocity(entity, velocity, ignoreTimescale)
@@ -159,38 +159,38 @@ end
 local function GetMovementDirection(vector)
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return Direction
 local function GetVelocityDirection(entity)
     return GetMovementDirection(entity.m_velocity)
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param size number
 ---@param sizeMulti Vector
 ---@param numGridCollisionPoints integer
 local function SetSize(entity, size, sizeMulti, numGridCollisionPoints)
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return boolean
 local function IsEnemy(entity)
     local type = entity.m_type
     return 10 <= type and type < 1000
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return boolean
 local function IsVulnerableEnemy(entity)
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return boolean
 local function DoesEntityShareStatus(entity)
 end
 
----@param entity EntityComponent
----@return EntityComponent
+---@param entity Component.Entity
+---@return Component.Entity
 local function GetStatusEffectTarget(entity)
 end
 

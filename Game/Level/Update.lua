@@ -7,7 +7,7 @@ local RoomUpdate = require("Game.Room.Update.Logic")
 ---@class LevelUpdateLogic
 local Module = {}
 
----@param level LevelComponent
+---@param level Component.Level
 local function Update(level)
     RoomUpdate.Update(context, level.m_room)
 end

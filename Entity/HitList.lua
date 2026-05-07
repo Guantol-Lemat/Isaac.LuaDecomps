@@ -1,25 +1,25 @@
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return integer
 local function get_hit_list_index(entity)
 end
 
----@param hitList HitListComponent
+---@param hitList Component.HitList
 ---@param index integer
 local function insert(hitList, index)
 end
 
----@param hitList HitListComponent
----@param entity EntityComponent
+---@param hitList Component.HitList
+---@param entity Component.Entity
 local function InsertEntity(hitList, entity)
 end
 
----@param hitList HitListComponent
----@param entity EntityComponent
+---@param hitList Component.HitList
+---@param entity Component.Entity
 ---@return boolean
 local function Contains(hitList, entity)
 end
 
----@param hitList HitListComponent
+---@param hitList Component.HitList
 local function Clear(hitList)
     for i = #hitList, 1, -1 do
         hitList[i] = nil

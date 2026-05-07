@@ -4,7 +4,7 @@
 
 --#endregion
 
----@param game GameComponent
+---@param game Component.Game
 ---@param position Vector
 ---@param force number
 ---@param radius number

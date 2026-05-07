@@ -11,12 +11,12 @@ local Log = require("General.Log")
 ---@class BossLifecycle
 local Module = {}
 
----@param room RoomComponent
+---@param room Component.Room
 local function Reset(room)
     room.m_bossCount = 0
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@return integer
 local function GetAliveBossesCount(room)
     local entityList = room.m_entityList
@@ -24,7 +24,7 @@ local function GetAliveBossesCount(room)
     return math.max(aliveBosses, 0)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 local function UpdateBossCount(room)
     local aliveBossesCount = GetAliveBossesCount(room)
 
@@ -35,16 +35,16 @@ local function UpdateBossCount(room)
     room.m_bossCount = aliveBossesCount
 end
 
----@param room RoomComponent
----@param entity EntityNPCComponent
+---@param room Component.Room
+---@param entity Component.Entity.Npc
 local function TriggerBossSpawn(room, entity)
     if entity then
         room.m_bossCount = room.m_bossCount + 1
     end
 end
 
----@param room RoomComponent
----@param entity EntityNPCComponent
+---@param room Component.Room
+---@param entity Component.Entity.Npc
 ---@return boolean skipTrigger
 local function hook_pre_trigger_boss_death(room, entity)
     if entity.m_type == EntityType.ENTITY_BIG_HORN then
@@ -57,14 +57,14 @@ local function hook_pre_trigger_boss_death(room, entity)
     return false
 end
 
----@param room RoomComponent
----@param entity EntityNPCComponent
+---@param room Component.Room
+---@param entity Component.Entity.Npc
 local function hook_post_trigger_boss_death(room, entity)
     -- Angel Death Key Spawn
 end
 
----@param room RoomComponent
----@param entity EntityNPCComponent
+---@param room Component.Room
+---@param entity Component.Entity.Npc
 local function TriggerBossDeath(room, entity)
     if hook_pre_trigger_boss_death(room, entity) then
         return

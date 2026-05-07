@@ -12,7 +12,7 @@ local CurseRules = require("Mechanics.Level.Curse.Rules")
 local Module = {}
 
 ---@param myContext LevelContext.PlaceRoomContext
----@param level LevelComponent
+---@param level Component.Level
 ---@param levelGenRoom LevelGeneratorRoomComponent
 ---@param roomData RoomDataComponent
 ---@param seed integer
@@ -21,14 +21,14 @@ local function PlaceRoom(myContext, level, levelGenRoom, roomData, seed)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param stage LevelStage | integer
 ---@param stageType StageType | integer
 local function SetStage(context, level, stage, stageType)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param curses LevelCurse | integer
 ---@return boolean
 local function HasCurses(context, level, curses)
@@ -37,7 +37,7 @@ local function HasCurses(context, level, curses)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param stage LevelStage
 ---@return LevelStage
 local function hook_effective_stage(context, level, stage)
@@ -49,7 +49,7 @@ local function hook_effective_stage(context, level, stage)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@return LevelStage
 local function GetEffectiveStage(context, level)
     local stage = level.m_stage
@@ -58,13 +58,13 @@ local function GetEffectiveStage(context, level)
 end
 
 ---@param myContext LevelContext.GetStageId
----@param level LevelComponent
+---@param level Component.Level
 ---@return StbType | integer
 local function GetStageId(myContext, level)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param sticky boolean
 local function ShowName(context, level, sticky)
 end

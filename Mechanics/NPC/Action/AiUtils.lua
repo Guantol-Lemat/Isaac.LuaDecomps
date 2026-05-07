@@ -6,7 +6,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 
 local VECTOR_ZERO = VectorUtils.VectorZero
 
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param param_2 boolean
 ---@param param_3 number
 ---@param param_4 number
@@ -15,14 +15,14 @@ local function SetChargeBar(npc, param_2, param_3, param_4, param_5)
 end
 
 ---@param ctx Context.Game
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param distanceLimit number
 ---@return Vector
 local function CalcTargetPosition(ctx, npc, distanceLimit)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param param_2 number
 ---@param param_3 boolean
 ---@param param_4 integer
@@ -31,27 +31,27 @@ local function CanShootPlayer(ctx, npc, param_2, param_3, param_4)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
----@return EntityComponent
+---@param npc Component.Entity.Npc
+---@return Component.Entity
 local function GetPlayerTarget(ctx, npc)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param unk number
 ---@return Vector
 local function GetMovementInput(ctx, npc, unk)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param unk number
 ---@return Vector
 local function GetShootingInput(ctx, npc, unk)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param force boolean
 local function UpdatePlayerAim(ctx, npc, force)
     if npc.m_possessor_controllerIdx == -1 then
@@ -69,11 +69,11 @@ end
 
 ---@param ctx Context.Common
 ---@param position Vector
----@param spawner EntityComponent
+---@param spawner Component.Entity
 ---@param targetPosition Vector
 ---@param big boolean
 ---@param yOffset number
----@return EntityNPCComponent
+---@return Component.Entity.Npc
 local function ThrowSpider(ctx, position, spawner, targetPosition, big, yOffset)
 end
 

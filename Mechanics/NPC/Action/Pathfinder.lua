@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param ctx Context.Game
----@param pathfinder Component.Pathfinder
+---@param pathfinder Component.Npc.Pathfinder
 ---@param ignoreStatusEffects boolean
 local function MoveRandomlyBoss(ctx, pathfinder, ignoreStatusEffects)
 end

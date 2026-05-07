@@ -20,19 +20,19 @@ local function ToRoomIdx(coordinates)
     return -1
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@param idx integer
 ---@return RoomDescriptorComponent
 local function GetRoomByListIdx(level, idx)
     return level.m_roomList[idx + 1]
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsAltPath(level)
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsCorpseEntrance(level)
 end
@@ -47,20 +47,20 @@ local function GetFloor(stage, stageType)
     return stage
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@return RoomDescriptorComponent
 local function GetCurrentRoomDesc(level)
     return level.m_room.m_roomDescriptor
 end
 
----@param level LevelComponent
+---@param level Component.Level
 local function reset_room_list(level)
 
 end
 
----@param level LevelComponent
+---@param level Component.Level
 local function reset_dimension_lookup(level)
-    local dimensionLookup = level.m_dimensionLookups
+    local dimensionLookup = level.m_roomLookup
 
     for i = 1, GridRooms.MAX_GRID_ROOMS, 1 do
         local dimension = i // 169
@@ -72,12 +72,12 @@ end
 
 
 
----@param level LevelComponent
+---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
 ---@return RoomDescriptorComponent
 local function get_dimension_room_by_idx(level, idx, dimension)
-    local roomListIdx = level.m_dimensionLookups[dimension][idx]
+    local roomListIdx = level.m_roomLookup[dimension][idx]
     if roomListIdx == -1 then
         return s_defaultRoom
     end
@@ -85,7 +85,7 @@ local function get_dimension_room_by_idx(level, idx, dimension)
     return level.m_roomList[roomListIdx]
 end
 
----@param level LevelComponent
+---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
 ---@return RoomDescriptorComponent

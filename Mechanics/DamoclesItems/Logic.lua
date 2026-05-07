@@ -28,13 +28,13 @@ local DAMOCLES_OFFSETS = {
     {Vector(0, 0), Vector(0, 1)},
 }
 
----@param room RoomComponent
+---@param room Component.Room
 local function Invalidate(room)
     room.m_damoclesItems_invalidate = true
 end
 
----@param room RoomComponent
----@param damoclesItems EntityPickupComponent[]
+---@param room Component.Room
+---@param damoclesItems Component.Entity.Pickup[]
 ---@param gridMap integer[]
 ---@param offsets Pair<Vector, Vector>
 ---@return boolean
@@ -80,7 +80,7 @@ local function check_spawn_offsets(room, damoclesItems, gridMap, offsets)
 end
 
 ---@param myContext DamoclesItemsContext.Update
----@param room RoomComponent
+---@param room Component.Room
 local function Update(myContext, room)
     if not room.m_damoclesItems_invalidate then
         return
@@ -89,7 +89,7 @@ local function Update(myContext, room)
     local itemConfig = myContext.itemConfig
 
     PickupInitLogic.StartIgnoreModifiers()
-    ---@type EntityPickupComponent[]
+    ---@type Component.Entity.Pickup[]
     local damoclesItems = {}
 
     ---@type integer[]

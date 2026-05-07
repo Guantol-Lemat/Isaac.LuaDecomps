@@ -129,8 +129,8 @@ local function ShouldSaveEntity(type, variant, subtype, spawnerType, isClear)
 end
 
 ---@param context Context
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param savingMinecartEntity boolean
 ---@return EntitySaveStateComponent?
 local function SaveEntity(context, room, entity, savingMinecartEntity)

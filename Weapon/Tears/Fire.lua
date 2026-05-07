@@ -32,7 +32,7 @@ local Module = {}
 
 ---@param context Context
 ---@param weapon WeaponTearsComponent
----@param playerOwner EntityPlayerComponent?
+---@param playerOwner Component.Entity.Player?
 ---@return integer tearDisplacement
 local function get_weapon_tear_displacement(context, weapon, playerOwner)
     if not playerOwner then
@@ -80,7 +80,7 @@ end
 
 ---@param context Context
 ---@param weapon WeaponTearsComponent
----@param playerOwner EntityPlayerComponent?
+---@param playerOwner Component.Entity.Player?
 ---@param tearDisplacement integer
 ---@param desyncedEyes boolean
 ---@param mainEye boolean
@@ -167,7 +167,7 @@ end
 
 ---@param context Context
 ---@param weapon WeaponTearsComponent
----@param playerOwner EntityPlayerComponent?
+---@param playerOwner Component.Entity.Player?
 ---@return number
 local function get_tear_spread(context, weapon, playerOwner)
     local weaponModifiers = weapon.m_weaponModifiers

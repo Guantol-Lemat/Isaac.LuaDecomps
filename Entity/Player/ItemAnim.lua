@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectible CollectibleType | integer
 ---@param checkBodyLayer boolean
 ---@param animation string

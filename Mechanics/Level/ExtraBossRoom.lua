@@ -5,7 +5,7 @@ local GameUtils = require("Game.Utils")
 --#endregion
 
 ---@class LevelContext.GetExtraBossRoomStage
----@field game GameComponent
+---@field game Component.Game
 
 ---@param myContext LevelContext.GetExtraBossRoomStage
 ---@param stage LevelStage | integer

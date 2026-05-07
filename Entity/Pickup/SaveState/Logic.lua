@@ -10,7 +10,7 @@ local FlipStateData = require("Mechanics.Pickup.FlipState.Data")
 local Module = {}
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 local function hook_pickup_save_state(context, pickup, saveState)
     CoopExtraItemData.SaveState(pickup, saveState)
@@ -18,7 +18,7 @@ local function hook_pickup_save_state(context, pickup, saveState)
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 ---@return PickupSaveStateComponent
 local function SaveState(context, pickup, saveState)

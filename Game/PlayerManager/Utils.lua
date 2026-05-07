@@ -9,7 +9,7 @@ local Module = {}
 
 ---@param playerManager PlayerManagerComponent
 ---@param index integer
----@return EntityPlayerComponent
+---@return Component.Entity.Player
 local function GetPlayer(playerManager, index)
     local players = playerManager.m_players
     local numPlayers = #players
@@ -77,7 +77,7 @@ end
 
 ---@param playerManager PlayerManagerComponent
 ---@param playerType PlayerType | integer
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function FirstPlayerByType(playerManager, playerType)
     local players = playerManager.m_players
     local numPlayers = #players
@@ -101,7 +101,7 @@ end
 ---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param collectibleType CollectibleType
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function FirstCollectibleOwner(myContext, manager, collectibleType)
 end
 
@@ -123,7 +123,7 @@ end
 ---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param trinket TrinketType
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function FirstTrinketOwner(myContext, manager, trinket)
 end
 
@@ -138,7 +138,7 @@ end
 ---@param myContext Context.Common
 ---@param manager PlayerManagerComponent
 ---@param playerType PlayerType | integer
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function FirstBirthrightOwner(myContext, manager, playerType)
 end
 

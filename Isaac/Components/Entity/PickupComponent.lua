@@ -1,0 +1,29 @@
+---@class Component.Entity.Pickup : Component.Entity
+---@field m_priceANM2 Sprite : 0x360
+---@field m_charge integer : 0x474
+---@field m_optionsPickupIndex integer : 0x478
+---@field m_touched boolean : 0x47c
+---@field m_probablyUnkBool boolean : 0x47d
+---@field m_isBlind boolean : 0x47e
+---@field m_payToPlay boolean : 0x47f
+---@field m_price ShopItemPrice | integer : 0x480
+---@field m_autoUpdatePrice boolean : 0x484
+---@field m_shopItemId integer : 0x488
+---@field m_timeout integer : 0x48c
+---@field m_wait integer : 0x490
+---@field m_variantRelated integer : 0x494
+---@field m_stickyNickelRelated integer : 0x498
+---@field m_dropDelay integer : 0x4a0
+---@field m_camoColor_qqq Color : 0x4a4
+---@field m_state integer : 0x4d0
+---@field m_coopExtra_collectedItems integer : 0x4d4
+---@field m_unkEntRef3_qqq Component.Entity : 0x4d8
+---@field m_pickupGhost_qqq Component.Entity.Effect : 0x4dc
+---@field m_megaChestCollectible Component.Entity.Pickup[] [2] : 0x4e0
+---@field m_activeVarData integer : 0x4e8
+---@field m_cycle_collectibleList integer[] [8] : 0x4ec
+---@field m_cycle_cycleNum integer : 0x50c
+---@field m_visibilityDelayTimer_qqq integer : 0x510
+---@field m_flip_saveState Component.EntitySaveState? : 0x514
+---@field m_flip_collectibleSprite Sprite : 0x51c
+---@field m_unkChestYOffset number : 0x630

@@ -11,8 +11,8 @@ local HitListUtils = require("Entity.HitList")
 ---@class FamiliarCollisionCommon
 local Module = {}
 
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean
 local function CanCollideWithEnemy(entity, collider, low)
@@ -32,15 +32,15 @@ local function CanCollideWithEnemy(entity, collider, low)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 local function TriggerSpinCollision(context, entity, collider)
     
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 local function HandleSpinCollision(context, entity, collider, low)
     if CanCollideWithEnemy(entity, collider, low) and EntityUtils.HasFlags(entity, EntityFlag.FLAG_SPIN) then
@@ -48,8 +48,8 @@ local function HandleSpinCollision(context, entity, collider, low)
     end
 end
 
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean
 local function EvaluateCollisionDamage(entity, collider, low)
@@ -57,8 +57,8 @@ local function EvaluateCollisionDamage(entity, collider, low)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param multiplier number
 local function TriggerCollisionDamage(context, entity, collider, multiplier)
     local damage = multiplier * entity.m_collisionDamage
@@ -67,8 +67,8 @@ local function TriggerCollisionDamage(context, entity, collider, multiplier)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@param multiplier number
 local function HandleCollisionDamage(context, entity, collider, low, multiplier)
@@ -79,8 +79,8 @@ local function HandleCollisionDamage(context, entity, collider, low, multiplier)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean? collisionOccurred
 local function HandleProjectileCollision(context, entity, collider, low)

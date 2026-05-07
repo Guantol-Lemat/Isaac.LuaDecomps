@@ -1,0 +1,19 @@
+---@class Component.Npc.Pathfinder
+---@field m_entity Component.Entity : 0x0
+---@field m_targetRelated1 Vector : 0x4
+---@field m_targetRelated2 Vector : 0xc
+---@field m_direction_qqq Direction | integer : 0x14
+---@field m_unkCounter integer : 0x18
+---@field m_framecount_qqq integer : 0x1c
+---@field m_gridIndex integer : 0x20
+---@field m_interpFrameRelated number : 0x24
+---@field m_countdown_qqq integer : 0x28
+---@field m_unk_pathmarkers_qqq (PathMarker | integer)[] [448] : 0x2c
+---@field m_hasDirectPath boolean : 0x72c
+---@field m_unkBool boolean : 0x72d
+---@field m_posBackup_qqq Vector : 0x730
+---@field m_canCrushRocks boolean : 0x738
+---@field m_evade_movementCountdown integer : 0x73c
+---@field m_evade_searchTolerance number : 0x740
+---@field m_evade_stress number : 0x744
+---@field m_tree integer[] : 0x748

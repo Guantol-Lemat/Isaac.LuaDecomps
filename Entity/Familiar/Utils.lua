@@ -23,8 +23,8 @@ local function get_orbit_data(layer)
 end
 
 ---@param context FamiliarContext.GetOrbitTarget
----@param familiar EntityFamiliarComponent
----@return EntityComponent
+---@param familiar Component.Entity.Familiar
+---@return Component.Entity
 local function GetOrbitTarget(context, familiar)
     local variant = familiar.m_variant
     if variant == FamiliarVariant.BLUE_FLY or variant == FamiliarVariant.WISP then
@@ -35,7 +35,7 @@ local function GetOrbitTarget(context, familiar)
     end
 
     local player = familiar.m_player
-    ---@type EntityComponent
+    ---@type Component.Entity
     local target = player
     if not Inventory.HasCollectible(context, player, CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES, false) then
         return target
@@ -56,7 +56,7 @@ local function GetOrbitTarget(context, familiar)
 end
 
 ---@param context FamiliarContext.GetOrbitPosition
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 ---@param position Vector
 ---@return Vector
 local function GetOrbitPosition(context, familiar, position)

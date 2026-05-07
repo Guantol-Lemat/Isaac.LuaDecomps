@@ -21,7 +21,7 @@ local MINIBOSS_TYPES = TableUtils.CreateDictionary({
     EntityType.ENTITY_PRIDE
 })
 
----@param entity EntityNPCComponent
+---@param entity Component.Entity.Npc
 local function IsMiniboss(entity)
     local type = entity.m_type
     if MINIBOSS_TYPES[type] then
@@ -40,7 +40,7 @@ local function IsMiniboss(entity)
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param soundId SoundEffect | integer
 ---@param volume number
 ---@param frameDelay integer
@@ -60,7 +60,7 @@ end
 ---@param spriteOffset Vector
 ---@param color Color
 ---@param velocity Vector
----@return EntityEffectComponent
+---@return Component.Entity.Effect
 local function MakeBloodEffect(ctx, subtype, pos, spriteOffset, color, velocity)
     local seed = IsaacUtils.Random()
 
@@ -78,8 +78,8 @@ local function MakeBloodEffect(ctx, subtype, pos, spriteOffset, color, velocity)
     return effect
 end
 
----@param npc EntityNPCComponent
----@return EntityNPCComponent?
+---@param npc Component.Entity.Npc
+---@return Component.Entity.Npc?
 local function GetParentNPC(npc)
     local parent = npc.m_parent.ref
     if parent then

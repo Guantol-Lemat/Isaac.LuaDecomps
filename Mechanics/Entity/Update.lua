@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param entity EntityComponent
+---@param entity Component.Entity
 local function Update(myContext, entity)
     -- TODO
 

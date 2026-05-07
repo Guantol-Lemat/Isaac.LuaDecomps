@@ -8,7 +8,7 @@ local EntityUpdate = require("Entity.Common.Update")
 local Module = {}
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 local function hook_pre_interpolate(context, entity)
     -- lil brimstone interpolate
     -- incubus interpolate
@@ -17,12 +17,12 @@ local function hook_pre_interpolate(context, entity)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 local function hook_post_interpolate(context, entity)
     -- decap attack interpolate
 end
 
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 ---@param context Context
 local function Interpolate(entity, context)
     hook_pre_interpolate(context, entity)

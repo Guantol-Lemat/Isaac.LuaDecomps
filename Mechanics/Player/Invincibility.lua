@@ -10,7 +10,7 @@ local Module = {}
 ---@class InvincibilityContext.HasInvincibility
 
 ---@param context InvincibilityContext.HasInvincibility
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param flags DamageFlag | integer
 local function HasInvincibility(context, player, flags)
 end

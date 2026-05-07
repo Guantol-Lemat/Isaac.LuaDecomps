@@ -4,8 +4,8 @@
 
 --#endregion
 
----@param player EntityPlayerComponent
----@param gameState GameStatePlayerComponent
+---@param player Component.Entity.Player
+---@param gameState Component.GameStatePlayer
 local function RestoreGameState(player, gameState)
 end
 

@@ -1,0 +1,25 @@
+---@class Component.Entity.Bomb : Component.Entity
+---@field m_explosionCountdown1 integer : 0x360
+---@field m_explosionCountdown2 integer : 0x364
+---@field m_explosionDamage number : 0x368
+---@field m_fallSpeed number : 0x36c
+---@field m_fallAccel number : 0x370
+---@field m_numFlatStoneBounces integer : 0x374
+---@field m_rocketAngle number : 0x378
+---@field m_rocketSpeed number : 0x37c
+---@field m_unkCountdown1 integer : 0x380
+---@field m_unkCountdown2 integer : 0x382
+---@field m_scale number : 0x384
+---@field m_tearFlags BitSet128 : 0x388
+---@field m_isFetus boolean : 0x398
+---@field m_radiusMulti number : 0x39c
+---@field m_unkStickyTearEntity Component.Entity : 0x3a0
+---@field m_bombNum_qqq integer : 0x3a4
+---@field m_unkCountdown3 integer : 0x3a8
+---@field m_unkCountdown4 integer : 0x3ac
+---@field m_prismTouched boolean : 0x3b0
+---@field m_skipUpdate_qqq boolean : 0x3b1
+---@field m_loadCostumesRelated integer : 0x3b2
+---@field m_costumeANM2s_qqq Sprite[] [5] : 0x3b4
+---@field m_hitList Component.HitList : 0x918
+---@field m_spooky integer : 0x924

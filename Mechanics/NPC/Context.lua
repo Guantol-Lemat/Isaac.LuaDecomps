@@ -1,8 +1,8 @@
 ---@class NpcMechanicsContext.Update: NpcMechanicsContext.Appear
----@field game GameComponent
----@field room RoomComponent
+---@field game Component.Game
+---@field room Component.Room
 ---@field sfxManager SfxManagerComponent
 
 ---@class NpcMechanicsContext.Appear : GameContext.Spawn, IsaacContext.PlaySound
----@field game GameComponent
+---@field game Component.Game
 ---@field sfxManager SfxManagerComponent

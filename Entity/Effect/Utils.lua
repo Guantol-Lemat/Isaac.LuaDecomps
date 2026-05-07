@@ -4,7 +4,7 @@ local EntityUtils = require("Entity.Utils")
 
 --#endregion
 
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 ---@param minRadius number
 ---@param maxRadius number
 local function SetRadii(entity, minRadius, maxRadius)
@@ -12,15 +12,15 @@ local function SetRadii(entity, minRadius, maxRadius)
     entity.m_maxRadius = maxRadius
 end
 
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 ---@param timeout integer
 local function SetTimeout(entity, timeout)
     entity.m_timeout = timeout
     entity.m_lifeSpan = timeout
 end
 
----@param effect EntityEffectComponent
----@param parent EntityComponent
+---@param effect Component.Entity.Effect
+---@param parent Component.Entity
 local function FollowParent(effect, parent)
     EntityUtils.SetEntityReference(effect.m_parent, parent)
     effect.m_isFollowing = true

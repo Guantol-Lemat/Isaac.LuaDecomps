@@ -6,7 +6,7 @@ local RoomUtils = require("Room.Utils")
 --#endregion
 
 ---@param context Context
----@param entity EntityComponent
+---@param entity Component.Entity
 local function interpolate_grid_collide(context, entity)
     if entity.m_type == EntityType.ENTITY_PLAYER then
         --PlayerCollideWithGrid(context, entity, true)
@@ -16,11 +16,11 @@ local function interpolate_grid_collide(context, entity)
 end
 
 ---@param myContext Context.Common
----@param entity EntityComponent
+---@param entity Component.Entity
 local function Update(myContext, entity)
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param context Context
 local function Interpolate(entity, context)
     if EntityUtils.HasFlags(entity, EntityFlag.FLAG_NO_INTERPOLATE) then

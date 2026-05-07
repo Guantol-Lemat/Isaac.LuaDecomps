@@ -1,2 +1,2 @@
 ---@class DamoclesItemsContext.Update : GameContext.Spawn
----@field itemConfig ItemConfigComponent
+---@field itemConfig Component.ItemConfig.Item

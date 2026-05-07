@@ -36,7 +36,7 @@ local STONE_TRAR_VARIANTS = TableUtils.CreateDictionary({
 ---@class TearScaleLogic._SWITCH_ResetSpriteScaleReturns
 ---@field spriteSize number
 
----@alias TearScaleLogic._SWITCH_ResetSpriteScale fun(tear: EntityTearComponent, variant: TearVariant, returns: TearScaleLogic._SWITCH_ResetSpriteScaleReturns)
+---@alias TearScaleLogic._SWITCH_ResetSpriteScale fun(tear: Component.Entity.Tear, variant: TearVariant, returns: TearScaleLogic._SWITCH_ResetSpriteScaleReturns)
 
 ---@type TearScaleLogic._SWITCH_ResetSpriteScale
 local function base_tear_sprite_scale(tear, variant, returns)
@@ -139,7 +139,7 @@ local switch_ResetSpriteScale = {
 }
 
 ---@param myContext Context.Seeds
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 local function reset_sprite_scale(myContext, tear)
     local seeds = myContext.seeds
 
@@ -203,7 +203,7 @@ local function reset_sprite_scale(myContext, tear)
 end
 
 ---@param myContext Context.Seeds
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@param scale number
 local function SetScale(myContext, tear, scale)
     scale = math.max(scale, 0.01)
@@ -213,12 +213,12 @@ local function SetScale(myContext, tear, scale)
 end
 
 ---@param myContext Context.Game
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@param height number
 local function SetHeight(myContext, tear, height)
 end
 
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@param flags TearFlags | BitSet128
 local function SetTearFlags(tear, flags)
 end

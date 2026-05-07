@@ -16,12 +16,12 @@ local VectorUtils = require("General.Math.VectorUtils")
 local Module = {}
 
 ---@param options OptionsComponent
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function UsesMouseControls(options, player)
     return player.m_controllerIndex == 0 and options.m_mouseControls_enabled
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function can_disable_player_movement(player)
     local playerType = player.m_playerType
@@ -42,7 +42,7 @@ local function can_disable_player_movement(player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function should_block_movement(context, player)
     if not can_disable_player_movement(player) then
@@ -57,7 +57,7 @@ local function should_block_movement(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param movementInput Vector
 ---@return Vector
 local function hook_movement_input(context, player, movementInput)
@@ -90,7 +90,7 @@ local function hook_movement_input(context, player, movementInput)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return Vector
 local function GetMovementInput(context, player)
     if should_block_movement(context , player) then
@@ -111,7 +111,7 @@ local function GetMovementInput(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param shootingInput Vector
 ---@return Vector
 local function hook_shooting_input(context, player, shootingInput)
@@ -142,7 +142,7 @@ local function hook_shooting_input(context, player, shootingInput)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return Vector
 local function GetShootingInput(context, player)
     local left = InputRules.GetActionValue(context, ButtonAction.ACTION_SHOOTLEFT, player.m_controllerIndex, player)
@@ -159,7 +159,7 @@ local function GetShootingInput(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return Vector
 local function GetMouseShootingInput(context, player)
     local options = context:GetOptions()

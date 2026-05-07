@@ -11,7 +11,7 @@ local ScreenRules = require("Admin.Screen.Rules")
 local Module = {}
 
 ---@param context Context
----@param game GameComponent
+---@param game Component.Game
 local function InterpolationUpdate(context, game)
     local consoleUpdated = false
     -- local consoleUpdated = Console:Update()
@@ -33,13 +33,13 @@ local function InterpolationUpdate(context, game)
 end
 
 ---@param context Context
----@param game GameComponent
+---@param game Component.Game
 ---@param duration integer
 local function ShakeScreen(context, game, duration)
 end
 
 ---@param context Context
----@param game GameComponent
+---@param game Component.Game
 ---@return ChallengeParamsComponent
 local function GetChallengeParams(context, game)
     local dailyChallenge = game.m_dailyChallenge

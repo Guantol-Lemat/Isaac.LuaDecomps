@@ -9,7 +9,7 @@ local function GetSeededCollectible(context, seed, noDecrease)
 end
 
 ---@param context Context
----@param room RoomComponent
+---@param room Component.Room
 ---@param pit GridEntityComponent?
 ---@param source GridEntityComponent?
 ---@return boolean
@@ -17,8 +17,8 @@ local function TryMakeBridge(context, room, pit, source)
 end
 
 ---@param context Context
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param position Vector
 ---@return GridCollisionClass
 local function GetSpecialGridCollision(context, room, entity, position)

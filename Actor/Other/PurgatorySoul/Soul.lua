@@ -10,7 +10,7 @@ local SpawnLogic = require("Game.Spawn")
 local Module = {}
 
 ---@param context Context
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 local function setup_trail(context, entity)
     local seed = context:Random()
     local trail = SpawnLogic.Spawn(context, EntityType.ENTITY_EFFECT, EffectVariant.SPRITE_TRAIL, 0, seed, entity.m_position, Vector(0, 0), entity)

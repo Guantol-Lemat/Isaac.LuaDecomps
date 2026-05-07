@@ -167,7 +167,7 @@ local function is_afterbirth_available_greed(context, persistentData, stage)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function get_next_stage(context, level)
     local game = context:GetGame()
     local stage = level.m_stage
@@ -321,7 +321,7 @@ local function get_next_stage(context, level)
 end
 
 ---@param myContext Context.Common
----@param level LevelComponent
+---@param level Component.Level
 ---@param stage LevelStage | integer
 ---@param stageType StageType | integer
 local function SetStage(myContext, level, stage, stageType)
@@ -353,7 +353,7 @@ local function SetStage(myContext, level, stage, stageType)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function SetNextStage(context, level)
     local stage, stageType = get_next_stage(context, level)
     SetStage(context, level, stage, stageType)

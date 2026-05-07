@@ -18,7 +18,7 @@ local eMyVariant = EntityIdentity.eCultistVariant
 ---@class CultistAi
 local Module = {}
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_idle_movement(cultist, blackboard)
     local timescale = cultist.m_timeScale
@@ -38,7 +38,7 @@ local function update_idle_movement(cultist, blackboard)
     cultist.m_velocity = cultist.m_velocity + directionVector * randomSpeed
 end
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_attack_movement(cultist, blackboard)
     local attackSpeedFactor = blackboard.attackSpeedFactor
@@ -62,14 +62,14 @@ local function update_attack_movement(cultist, blackboard)
     blackboard.attackSpeedFactor = blackboard.attackSpeedFactor - 0.1 * cultist.m_timeScale
 end
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_summon_movement(cultist, blackboard)
     -- snap to target position
     cultist.m_velocity = cultist.m_targetPosition - cultist.m_position
 end
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_idle(cultist, blackboard)
     local sprite = cultist.m_sprite
@@ -91,7 +91,7 @@ local function update_idle(cultist, blackboard)
     end
 end
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_attack(cultist, blackboard)
     cultist.m_friction = cultist.m_friction * 0.7
@@ -100,7 +100,7 @@ local function update_attack(cultist, blackboard)
     -- TODO: Rest of attack
 end
 
----@param cultist EntityNPCComponent
+---@param cultist Component.Entity.Npc
 ---@param blackboard Cultist.Blackboard
 local function update_summon(cultist, blackboard)
     cultist.m_friction = cultist.m_friction * 0.7

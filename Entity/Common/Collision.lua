@@ -34,7 +34,7 @@ local function IsForcedCollision()
 end
 
 ---@param context Context
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param interpolate boolean
 ---@param gridCollisionClass GridCollisionClass | integer
 ---@return EntityGridCollisionClass | integer
@@ -47,7 +47,7 @@ local function hook_pre_collide_with_grid(context, entity, interpolate, gridColl
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param gridEntity GridEntityComponent
 ---@param collisionClass GridCollisionClass
 local function hook_on_player_grid_collision(context, player, gridEntity, collisionClass)
@@ -67,8 +67,8 @@ local function hook_on_player_grid_collision(context, player, gridEntity, collis
     end
 end
 
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param clampedRoomPosition Vector
 ---@param collidingAxis "X" | "Y"
 ---@param interpolate boolean
@@ -94,8 +94,8 @@ local function single_wall_axis_class(room, entity, clampedRoomPosition, collidi
     entity.m_position[collidingAxis] = clampedRoomPosition[collidingAxis]
 end
 
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param clampedRoomPosition Vector
 ---@param interpolate boolean
 local function bullet_grid_collision_class(room, entity, clampedRoomPosition, interpolate)
@@ -135,8 +135,8 @@ local function bullet_grid_collision_class(room, entity, clampedRoomPosition, in
 end
 
 ---@param context Context
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param gridCollisionClass EntityGridCollisionClass
 ---@param interpolate boolean
 ---@return Vector collisionDirection
@@ -204,8 +204,8 @@ local function evaluate_grid_collision(context, room, entity, gridCollisionClass
     return collisionDirection
 end
 
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param pushBack Vector
 ---@return Vector? pushBack
 local function tear_grid_push_back_adjust(room, entity, pushBack)
@@ -230,8 +230,8 @@ local function tear_grid_push_back_adjust(room, entity, pushBack)
     return pushBack
 end
 
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 local function npc_grid_manual_push_back(room, entity)
     local shift = entity.m_sizeMulti * entity.m_size - 20.0
     local position = entity.m_position
@@ -249,8 +249,8 @@ local function npc_grid_manual_push_back(room, entity)
 end
 
 ---@param context Context
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param pushBackStrength number -- this is always a negative value, as such in order to increase the strength you must use subtractions
 ---@param basePushBack number -- this is always a negative value
 ---@return number? pushBackStrength
@@ -283,8 +283,8 @@ local function hook_on_grid_collision(context, room, entity, pushBackStrength, b
     end
 end
 
----@param room RoomComponent
----@param entity EntityComponent
+---@param room Component.Room
+---@param entity Component.Entity
 ---@param collisionClass EntityGridCollisionClass | integer
 ---@param collisionDirection Vector
 ---@param velocityStrength number
@@ -350,7 +350,7 @@ local function grid_collision_adjust_position(room, entity, collisionClass, coll
 end
 
 ---@param context Context
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param interpolate boolean
 local function CollideWithGrid(context, entity, interpolate)
     if not interpolate then
@@ -465,8 +465,8 @@ local function CollideWithGrid(context, entity, interpolate)
 end
 
 ---@param context Context
----@param room RoomComponent
----@param player EntityPlayerComponent
+---@param room Component.Room
+---@param player Component.Entity.Player
 ---@param interpolate boolean
 local function evaluate_player_beast_dungeon_wall_collision(context, room, player, interpolate)
     local position = player.m_position
@@ -487,8 +487,8 @@ local function evaluate_player_beast_dungeon_wall_collision(context, room, playe
 end
 
 ---@param context Context
----@param room RoomComponent
----@param player EntityPlayerComponent
+---@param room Component.Room
+---@param player Component.Entity.Player
 ---@param interpolate boolean
 local function evaluate_player_wall_collision(context, room, player, interpolate)
     local position = player.m_position
@@ -511,8 +511,8 @@ local function evaluate_player_wall_collision(context, room, player, interpolate
 end
 
 ---@param context Context
----@param room RoomComponent
----@param player EntityPlayerComponent
+---@param room Component.Room
+---@param player Component.Entity.Player
 ---@param interpolate boolean
 ---@return Vector collisionDirection
 local function evaluate_player_grid_collision(context, room, player, interpolate)
@@ -542,8 +542,8 @@ local function evaluate_player_grid_collision(context, room, player, interpolate
 end
 
 ---@param context Context
----@param room RoomComponent
----@param player EntityPlayerComponent
+---@param room Component.Room
+---@param player Component.Entity.Player
 ---@param collisionDirection Vector
 local function player_grid_collision_adjust_position(context, room, player, collisionDirection)
     local upperBound = (collisionDirection * player.m_sizeMulti):Length() * player.m_size -- a distance that is going to be in the collision
@@ -583,7 +583,7 @@ local function player_grid_collision_adjust_position(context, room, player, coll
 end
 
 ---@param context Context
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param interpolate boolean
 local function PlayerCollideWithGrid(context, entity, interpolate)
     local player = EntityUtils.ToPlayer(entity)

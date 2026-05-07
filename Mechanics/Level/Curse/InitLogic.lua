@@ -16,7 +16,7 @@ local eSpecialDailyRuns = Enums.eSpecialDailyRuns
 local Module = {}
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@param chance integer
 ---@return integer
@@ -45,7 +45,7 @@ local function hook_evaluate_curse_chance(context, level, rng, chance)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@param block boolean
 ---@return boolean override
@@ -73,7 +73,7 @@ local function hook_block_evaluate_curse(context, level, rng, block)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@return integer chance, boolean blocked
 local function evaluate_curse(context, level, rng)
@@ -90,7 +90,7 @@ local function evaluate_curse(context, level, rng)
     return chance, block
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_labyrinth(context, level)
     if CurseUtils.CanStageHaveCurseOfLabyrinth(context, level.m_stage) then
         return LevelCurse.CURSE_OF_LABYRINTH
@@ -99,7 +99,7 @@ local function set_curse_of_labyrinth(context, level)
     return 0
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_the_lost(context)
     if CurseUtils.CanHaveCurseOfTheLost(context) then
         return LevelCurse.CURSE_OF_THE_LOST
@@ -108,17 +108,17 @@ local function set_curse_of_the_lost(context)
     return 0
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_darkness(context)
     return LevelCurse.CURSE_OF_DARKNESS
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_unknown(context)
     return LevelCurse.CURSE_OF_THE_UNKNOWN
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_maze(context)
     if CurseUtils.CanHaveCurseOfMaze(context) then
         return LevelCurse.CURSE_OF_MAZE
@@ -127,7 +127,7 @@ local function set_curse_of_maze(context)
     return 0
 end
 
----@type fun(context: Context, level: LevelComponent): LevelCurse | integer
+---@type fun(context: Context, level: Component.Level): LevelCurse | integer
 local function set_curse_of_blind(context)
     if CurseUtils.CanHaveCurseOfBlind(context) then
         return LevelCurse.CURSE_OF_BLIND
@@ -147,7 +147,7 @@ local SWITCH_OUTCOME_TO_CURSE_SETTER = {
 }
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@return LevelCurse | integer
 local function pick_curse(context, level, rng)
@@ -157,7 +157,7 @@ local function pick_curse(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@param curses LevelCurse | integer
 ---@return LevelCurse | integer
@@ -179,7 +179,7 @@ local function hook_post_get_curse(context, level, rng, curses)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 ---@return LevelCurse | integer
 local function get_curse_flags(context, level, rng)
@@ -204,7 +204,7 @@ local function get_curse_flags(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function Init(context, level, rng)
     level.m_curses = get_curse_flags(context, level, rng)

@@ -34,7 +34,7 @@ end
 ---@param position Vector
 ---@param velocity Vector
 ---@param flags integer
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@param damageMultiplier number
 ---@param startPositionFactor number
 local function FireTear(context, weapon, position, velocity, flags, source, damageMultiplier, startPositionFactor)

@@ -10,7 +10,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 ---@class TearDeathLogic
 local Module = {}
 
----@alias TearDeathLogic._SWITCH_TearSplash fun(tear: EntityTearComponent, returns: TearDeathLogic._SWITCH_TearSplashReturns)
+---@alias TearDeathLogic._SWITCH_TearSplash fun(tear: Component.Entity.Tear, returns: TearDeathLogic._SWITCH_TearSplashReturns)
 
 ---@class TearDeathLogic._SWITCH_TearSplashReturns
 ---@field splashEffect EffectVariant | integer
@@ -74,7 +74,7 @@ local switch_TearSplash = {
 }
 
 ---@param context TearMechanicsContext.TriggerDeath
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@param splashEffect EffectVariant
 ---@param splashSubtype integer
 ---@param splashScale number
@@ -114,7 +114,7 @@ local function do_splash_effect(context, tear, splashEffect, splashSubtype, spla
 end
 
 ---@param context TearMechanicsContext.TriggerDeath
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 ---@return boolean shouldExit
 local function TriggerDeath(context, tear)
     ---@type TearVariant

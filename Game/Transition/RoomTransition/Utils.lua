@@ -11,11 +11,11 @@ end
 local function GetAlpha(roomTransition)
 end
 
----@param game GameComponent
+---@param game Component.Game
 ---@param roomIdx GridRooms | integer
 ---@param direction Direction
 ---@param animation RoomTransitionAnim
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param dimension integer
 local function StartRoomTransition(game, roomIdx, direction, animation, player, dimension)
 end

@@ -28,7 +28,7 @@ local PLAYER_HEALTH = {
 }
 
 ---@param myContext Context.Manager
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsLocalPlayer(myContext, player)
     local netplayManager = myContext.manager.m_netPlayManager
@@ -39,11 +39,11 @@ local function IsLocalPlayer(myContext, player)
     return NetPlayUtils.IsIdxLocalPlayer(netplayManager, player.m_controllerIndex)
 end
 
----@param player EntityPlayerComponent
----@return EntityPlayerComponent
+---@param player Component.Entity.Player
+---@return Component.Entity.Player
 local function GetMainTwin(player)
     local twin = player.m_twinPlayer.ref
-    ---@cast twin EntityPlayerComponent
+    ---@cast twin Component.Entity.Player
 
     if not twin or player.m_playerIndex <= twin.m_playerIndex then
         return player
@@ -52,19 +52,19 @@ local function GetMainTwin(player)
     return twin
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsMainTwin(player)
     return player == GetMainTwin(player)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsMainPlayerCharacter(player)
     return player.m_parent == nil and IsMainTwin(player)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsHologram(player)
     if not player.m_exists then
@@ -83,13 +83,13 @@ local function IsHologram(player)
     return true
 end
 
----@param player EntityPlayerComponent
----@return EntityPlayerComponent
+---@param player Component.Entity.Player
+---@return Component.Entity.Player
 local function GetEffectTarget(player)
     local effectTarget = player
 
     local twin = player.m_twinPlayer.ref
-    ---@cast twin EntityPlayerComponent?
+    ---@cast twin Component.Entity.Player?
     if player.m_playerType == PlayerType.PLAYER_THESOUL_B and twin then
         effectTarget = twin
     end
@@ -97,7 +97,7 @@ local function GetEffectTarget(player)
     return effectTarget
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function HasInstantDeathCurse(player)
     if TemporaryEffectsUtils.HasNullEffect(player.m_temporaryEffects, NullItemID.ID_LOST_CURSE) then
@@ -111,13 +111,13 @@ local function HasInstantDeathCurse(player)
     return false
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return HealthType
 local function GetHealthType(player)
     return PLAYER_HEALTH[player.m_playerType] or HealthType.RED
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return HealthType
 local function GetEffectiveMaxHearts(player)
     local healthType = GetHealthType(player)
@@ -128,8 +128,8 @@ local function GetEffectiveMaxHearts(player)
     return player.m_maxHearts + player.m_boneHearts * 2
 end
 
----@param player EntityPlayerComponent
----@return EntityComponent?
+---@param player Component.Entity.Player
+---@return Component.Entity?
 local function GetFocusEntity(player)
     if player.m_marked_targetEntity then
         return player.m_marked_targetEntity.ref
@@ -151,37 +151,37 @@ local function GetFocusEntity(player)
     return nil
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param id CollectibleType | integer
 ---@return RNG
 local function GetCollectibleRNG(player, id)
     return player.m_collectibleRNG[id + 1]
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param id Card | integer
 ---@return RNG
 local function GetCardRNG(player, id)
     return player.m_cardRNG[id + 1]
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return integer
 local function GetCollectibleCount(player)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsExtraAnimationFinished(player)
     return not player.m_isPlayingExtraAnimation and not player.m_isPlayingItemNullAnimation
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsHoldingItem(player)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsHeldItemVisible(player)
     if not IsHoldingItem(player) then
@@ -192,7 +192,7 @@ local function IsHeldItemVisible(player)
     return nullFrame ~= nil and nullFrame:IsVisible()
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsFullSpriteRendering(player)
     if TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, CollectibleType.COLLECTIBLE_MEGA_MUSH) then
@@ -210,7 +210,7 @@ local function IsFullSpriteRendering(player)
     return true
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param animation string
 local function PlayExtraAnimation(player, animation)
 end
@@ -238,7 +238,7 @@ local function CanRerollCollectible(myContext, itemId)
 end
 
 ---@param myContext Context.Game
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return Vector
 local function GetFlyingOffset(myContext, player)
     if RoomUtils.IsDungeon(myContext.game.m_level.m_room) or not player.m_canFly then
@@ -249,7 +249,7 @@ local function GetFlyingOffset(myContext, player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function IsHeadless(myContext, player)
     if PlayerInventory.HasCollectible(myContext, player, CollectibleType.COLLECTIBLE_GUILLOTINE, false) then
@@ -270,14 +270,14 @@ local function IsHeadless(myContext, player)
 end
 
 ---@param ctx Context.Manager
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param id Card | integer
 ---@param animation string
 local function AnimateCard(ctx, player, id, animation)
 end
 
 ---@param ctx Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param id SoundEffect | integer
 ---@param soundDelay integer
 ---@param frameDelay integer

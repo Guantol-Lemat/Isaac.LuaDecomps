@@ -2,7 +2,7 @@
 local Module = {}
 
 ---@param context Context
----@param slot EntitySlotComponent
+---@param slot Component.Entity.Slot
 local function CreateDropsFromExplosion(context, slot)
 end
 

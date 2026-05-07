@@ -7,7 +7,7 @@ local RoomUtils = require("Room.Utils")
 ---@class GridEntityUtils
 local Module = {}
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridEntity GridEntityComponent
 ---@return Vector
 local function GetPosition(room, gridEntity)

@@ -13,16 +13,16 @@ local Module = {}
 ---@class BishopProtectionContext.TriggerProtectPlayer
 
 ---@param context BishopProtectionContext.FindClosestBishop
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param isFriendly boolean
----@return EntityComponent?
+---@return Component.Entity?
 ---@return Vector distance
 local function FindClosestBishop(context, entity, isFriendly)
 end
 
 ---@param context BishopProtectionContext.TriggerProtectPlayer
----@param bishop EntityComponent
----@param player EntityPlayerComponent
+---@param bishop Component.Entity
+---@param player Component.Entity.Player
 local function TriggerProtectPlayer(context, bishop, player)
 end
 

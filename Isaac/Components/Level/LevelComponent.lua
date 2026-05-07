@@ -1,0 +1,48 @@
+---@class Component.Level
+---@field m_stage LevelStage | integer : 0x0
+---@field m_stageType StageType | integer : 0x4
+---@field m_hasBossChallenge boolean : 0x8
+---@field m_isDevilRoomDisabled boolean : 0x9
+---@field m_curses LevelCurse | integer : 0xc
+---@field m_heartPicked boolean : 0x10
+---@field m_canSeeEverything boolean : 0x11
+---@field m_roomList Component.RoomDescriptor[] [507] : 0x14
+---@field m_offGridRooms Component.RoomDescriptor[] [18] : 0x16c7c
+---@field m_roomLookup integer[][] [3][169] : 0x1796c
+---@field m_currentDimensionLookup integer[] : 0x18158
+---@field m_roomCount integer : 0x1815c
+---@field m_startingRoomIdx GridRooms | integer : 0x18160
+---@field m_generationRNG RNG : 0x18164
+---@field m_devilAngelRoomRNG RNG : 0x18174
+---@field m_angelRoomChanceMod number : 0x18184
+---@field m_unkImage Component.Image : 0x18188
+---@field m_room Component.Room : 0x18190
+---@field m_roomIdx GridRooms | integer : 0x18194
+---@field m_lastRoomIdx GridRooms | integer : 0x18198
+---@field m_dimension Dimension | integer : 0x1819c
+---@field m_lastDimension Dimension | integer : 0x181a0
+---@field m_lastBossListIdx GridRooms | integer : 0x181a4
+---@field m_leaveDoor DoorSlot | integer : 0x181a8
+---@field m_enterDoor DoorSlot | integer : 0x181ac
+---@field m_dungeonReturnPos Vector : 0x181b0
+---@field m_dungeonRoomIdx GridRooms | integer : 0x181b8
+---@field m_dungeonPlacementSeed integer : 0x181bc
+---@field m_deliriumListIdx integer : 0x181c0
+---@field m_greedModeWave integer : 0x181c4
+---@field m_greedWaveSeed integer[] [12] : 0x181c8
+---@field m_saveStateGreedWave integer : 0x181f8
+---@field m_greedWaveLevel integer : 0x181fc
+---@field m_greed_goldTreasureRoomIdx GridRooms | integer : 0x18200
+---@field m_greedWavedWithoutRedHeartDamage integer : 0x18204
+---@field m_portal Component.Portal[] [2] : 0x18208
+---@field m_glitterBombPickups integer : 0x18220
+---@field m_mamaMegaStartPos Vector : 0x18224
+---@field m_levelStateFlag LevelStateFlag | integer : 0x1822c
+---@field m_isInitializing boolean : 0x18230
+---@field m_myosotisPickups Component.EntitySaveState[] : 0x18234
+---@field m_perlinMaps number[][] [2][169] : 0x18240
+---@field m_backupLastDoorSlot DoorSlot | integer : 0x18788
+---@field m_backupRoomIdx GridRooms | integer : 0x1878c
+---@field m_backupDimension Dimension | integer : 0x18790
+---@field m_backupLastRoomIdx GridRooms | integer : 0x18794
+---@field m_backupLastDimension integer : 0x18798

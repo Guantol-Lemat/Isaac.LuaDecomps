@@ -12,7 +12,7 @@ local CollectibleSprite = require("Entity.Pickup.Sprite.Collectible")
 local Module = {}
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param hasFlip boolean
 local function handle_sprite_setup(context, pickup, hasFlip)
     local shouldShow = true
@@ -45,7 +45,7 @@ local function handle_sprite_setup(context, pickup, hasFlip)
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param hasFlip boolean
 local function UpdateGraphics(context, pickup, hasFlip)
     handle_sprite_setup(context, pickup, hasFlip)
@@ -59,7 +59,7 @@ local function __init_flicker_rng()
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@return number collectibleLayerOffset
 local function RenderGraphics(context, pickup, screenPosition)
     local sprite = pickup.m_flipCollectibleSprite

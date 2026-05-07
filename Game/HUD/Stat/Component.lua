@@ -4,7 +4,7 @@
 ---@field m_combineDeals boolean
 
 ---@class HudPlayerStatsComponent
----@field m_player EntityPlayerComponent?
+---@field m_player Component.Entity.Player?
 ---@field m_speed HudStatComponent
 ---@field m_tears HudStatComponent
 ---@field m_damage HudStatComponent

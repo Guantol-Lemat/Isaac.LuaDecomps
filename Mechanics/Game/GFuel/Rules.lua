@@ -2,7 +2,7 @@
 local Module = {}
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return integer
 local function GetGFuelWeaponType(context, player)
 end

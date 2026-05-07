@@ -1,15 +1,15 @@
 ---@class EntityRules
 local Module = {}
 
----@param game GameComponent
----@param entity EntityComponent
+---@param game Component.Game
+---@param entity Component.Entity
 local function GetFrameCount(game, entity)
     return game.m_frameCount - entity.m_spawnFrame
 end
 
 ---@param context Context
----@param entity EntityComponent
----@param source EntityRefComponent
+---@param entity Component.Entity
+---@param source Component.EntityRef
 ---@param duration integer
 ---@param slowValue number
 ---@param slowColor Color

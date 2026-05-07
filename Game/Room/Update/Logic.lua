@@ -18,7 +18,7 @@ local eMode = Enums.eMode
 local Module = {}
 
 ---@param myContext RoomUpdateContext.Update
----@param room RoomComponent
+---@param room Component.Room
 local function Update(myContext, room)
     local game = myContext.game
     local level = myContext.level

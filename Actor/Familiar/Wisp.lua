@@ -13,10 +13,10 @@ local VectorZero = VectorUtils.VectorZero
 local Module = {}
 
 ---@class FamiliarWispContext.Update : FamiliarContext.GetOrbitTarget, FamiliarContext.GetOrbitPosition
----@field room RoomComponent
+---@field room Component.Room
 
 ---@param context FamiliarWispContext.Update
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 local function update_motion(context, familiar)
     local familiarRead = familiar
     local familiarWrite = familiar
@@ -92,7 +92,7 @@ local function update_motion(context, familiar)
 end
 
 ---@param context FamiliarWispContext.Update
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 local function UpdateAi(context, familiar)
     local familiarRead = familiar
     local familiarWrite = familiar

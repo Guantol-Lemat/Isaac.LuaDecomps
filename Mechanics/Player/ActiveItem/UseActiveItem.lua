@@ -18,10 +18,10 @@ local ProceduralEffects = require("Mechanics.Game.ProceduralItems.Effects")
 ---@field animate boolean
 ---@field remove boolean
 
----@alias Player.UseActiveItem.Signature fun(closure: Player.UseActiveItem.Closure, myContext: Context.Common, player: EntityPlayerComponent)
+---@alias Player.UseActiveItem.Signature fun(closure: Player.UseActiveItem.Closure, myContext: Context.Common, player: Component.Entity.Player)
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectible CollectibleType | integer
 ---@param useFlags UseFlag | integer
 ---@param activeSlot ActiveSlot | integer

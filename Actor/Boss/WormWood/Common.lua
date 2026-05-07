@@ -4,7 +4,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 
 --#endregion
 
----@class WormWoodComponent : EntityNPCComponent
+---@class WormWoodComponent : Component.Entity.Npc
 ---@field m_fallingSpeed number -- V1.x
 ---@field m_height number -- V1.y
 ---@field m_positionQueue Vector[]

@@ -7,7 +7,7 @@ local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 
 --#endregion
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return GridEntityComponent?
 local function GetGridEntity(room, gridIdx)
@@ -18,7 +18,7 @@ local function GetGridEntity(room, gridIdx)
     return nil
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return integer
 local function GetGridPath(room, gridIdx)
@@ -38,7 +38,7 @@ local function ToGridTile(position)
     return Vector(x, y)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@return integer
 local function GetGridIdx(room, position)
@@ -53,7 +53,7 @@ local function GetGridIdx(room, position)
     return x + y * width
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param tile Vector
 ---@return integer
 local function GetGridIndexByTile(room, tile)
@@ -68,7 +68,7 @@ local function GetGridIndexByTile(room, tile)
     return x + y * width
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return Vector
 local function GetGridPosition(room, gridIdx)
@@ -79,7 +79,7 @@ local function GetGridPosition(room, gridIdx)
     return Vector(x, y)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return GridCollisionClass | integer
 local function GetGridCollision(room, gridIdx)
@@ -108,19 +108,19 @@ local function GetGridCollision(room, gridIdx)
     return GridCollisionClass.COLLISION_SOLID
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@return GridCollisionClass | integer
 local function GetGridCollisionAtPos(room, position)
     return GetGridCollision(room, GetGridIdx(room, position))
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 local function DamageGrid(room, gridIdx)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param pit GridEntityComponent?
 ---@param rock GridEntityComponent?
 ---@return boolean
@@ -128,7 +128,7 @@ local function TryMakeBridge(room, pit, rock)
 end
 
 ---@param myContext Context.Common
----@param room RoomComponent
+---@param room Component.Room
 ---@param pos1 Vector
 ---@param pos2 Vector
 ---@param mode LineCheckMode

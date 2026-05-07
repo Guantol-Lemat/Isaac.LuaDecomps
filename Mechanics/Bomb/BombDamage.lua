@@ -7,7 +7,7 @@ local RoomUtils = require("Game.Room.Utils")
 ---@class BombDamageLogic
 local Module = {}
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@param radius number
 ---@return Set<integer>
@@ -65,12 +65,12 @@ local function get_grid_indexes(room, position, radius)
     return gridIndexesSet
 end
 
----@param game GameComponent
+---@param game Component.Game
 ---@param position Vector
 ---@param damage number
 ---@param radius number
 ---@param linCheck boolean
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@param tearFlags TearFlags | BitSet128
 ---@param damageFlags DamageFlag | integer
 ---@param damageSource boolean

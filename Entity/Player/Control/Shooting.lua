@@ -15,7 +15,7 @@ local ShootingControls = require("Entity.Player.Control.Shooting.Controls")
 local Module = {}
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param controls ShootingControls -- can be modified
 local function hook_pre_update_shooting_controls(context, player, controls)
     if player.m_variant == PlayerVariant.CO_OP_BABY and player.m_babySkin == BabySubType.BABY_YBAB then
@@ -57,7 +57,7 @@ local function hook_pre_weapons_update()
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function update_weapons(context, player)
     local weaponModifiers = get_weapon_modifiers(context, player)
     hook_pre_weapons_update()
@@ -109,7 +109,7 @@ local function update_item_state()
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function Update(context, player)
     -- something related to player.m_target
 

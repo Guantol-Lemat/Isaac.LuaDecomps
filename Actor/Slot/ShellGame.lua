@@ -8,8 +8,8 @@ local Inventory = require("Game.Inventory.Inventory")
 local Module = {}
 
 ---@param context Context
----@param slot EntitySlotComponent
----@param player EntityPlayerComponent
+---@param slot Component.Entity.Slot
+---@param player Component.Entity.Player
 local function UpdateDispensePrize(context, slot, player)
     -- Play Animation
 

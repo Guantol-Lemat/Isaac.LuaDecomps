@@ -1,0 +1,5 @@
+---@class Component.CostumeMapEntry
+---@field index integer : 0x0
+---@field layerID integer : 0x4
+---@field priority integer : 0x8
+---@field isBodyLayer boolean : 0xc

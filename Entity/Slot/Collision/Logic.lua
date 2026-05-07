@@ -17,8 +17,8 @@ local ePayCostFlags = {
     NO_COLLISION = 1 << 1,
 }
 
----@param slot EntitySlotComponent
----@param collider EntityPlayerComponent
+---@param slot Component.Entity.Slot
+---@param collider Component.Entity.Player
 ---@return integer flags
 local function hook_slot_pay_cost(slot, collider)
     local flags = 0
@@ -27,8 +27,8 @@ local function hook_slot_pay_cost(slot, collider)
 end
 
 ---@param context Context
----@param slot EntitySlotComponent
----@param collider EntityPlayerComponent
+---@param slot Component.Entity.Slot
+---@param collider Component.Entity.Player
 local function hook_collision_setup(context, slot, collider)
     local game = context:GetGame()
     local sfxManager = context:GetSFXManager()
@@ -84,8 +84,8 @@ local function hook_collision_setup(context, slot, collider)
     end
 end
 
----@param slot EntitySlotComponent
----@param collider EntityComponent
+---@param slot Component.Entity.Slot
+---@param collider Component.Entity
 local function evaluate_collision_result(slot, collider)
     local colliderType = collider.m_type
 
@@ -100,9 +100,9 @@ local function evaluate_collision_result(slot, collider)
     return false
 end
 
----@param slot EntitySlotComponent
+---@param slot Component.Entity.Slot
 ---@param context Context
----@param collider EntityComponent
+---@param collider Component.Entity
 local function HandleCollision(slot, context, collider)
     local forcedCollision = CollisionCommon.IsForcedCollision()
 

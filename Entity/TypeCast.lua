@@ -1,147 +1,147 @@
----@param entity EntityComponent
----@return EntityPlayerComponent
+---@param entity Component.Entity
+---@return Component.Entity.Player
 local function StaticToPlayer(entity)
-    ---@cast entity EntityPlayerComponent
+    ---@cast entity Component.Entity.Player
     return entity
 end
 
----@param entity EntityComponent
----@return EntityTearComponent
+---@param entity Component.Entity
+---@return Component.Entity.Tear
 local function StaticToTear(entity)
-    ---@cast entity EntityTearComponent
+    ---@cast entity Component.Entity.Tear
     return entity
 end
 
----@param entity EntityComponent
----@return EntityFamiliarComponent
+---@param entity Component.Entity
+---@return Component.Entity.Familiar
 local function StaticToFamiliar(entity)
-    ---@cast entity EntityFamiliarComponent
+    ---@cast entity Component.Entity.Familiar
     return entity
 end
 
----@param entity EntityComponent
----@return EntityBombComponent
+---@param entity Component.Entity
+---@return Component.Entity.Bomb
 local function StaticToBomb(entity)
-    ---@cast entity EntityBombComponent
+    ---@cast entity Component.Entity.Bomb
     return entity
 end
 
----@param entity EntityComponent
----@return EntityPickupComponent
+---@param entity Component.Entity
+---@return Component.Entity.Pickup
 local function StaticToPickup(entity)
-    ---@cast entity EntityPickupComponent
+    ---@cast entity Component.Entity.Pickup
     return entity
 end
 
----@param entity EntityComponent
----@return EntitySlotComponent
+---@param entity Component.Entity
+---@return Component.Entity.Slot
 local function StaticToSlot(entity)
-    ---@cast entity EntitySlotComponent
+    ---@cast entity Component.Entity.Slot
     return entity
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return EntityLaserComponent
 local function StaticToLaser(entity)
     ---@cast entity EntityLaserComponent
     return entity
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return EntityKnifeComponent
 local function StaticToKnife(entity)
     ---@cast entity EntityKnifeComponent
     return entity
 end
 
----@param entity EntityComponent
----@return EntityProjectileComponent
+---@param entity Component.Entity
+---@return Component.Entity.Projectile
 local function StaticToProjectile(entity)
-    ---@cast entity EntityProjectileComponent
+    ---@cast entity Component.Entity.Projectile
     return entity
 end
 
----@param entity EntityComponent
----@return EntityNPCComponent
+---@param entity Component.Entity
+---@return Component.Entity.Npc
 local function StaticToNPC(entity)
-    ---@cast entity EntityNPCComponent
+    ---@cast entity Component.Entity.Npc
     return entity
 end
 
----@param entity EntityComponent
----@return EntityEffectComponent
+---@param entity Component.Entity
+---@return Component.Entity.Effect
 local function StaticToEffect(entity)
-    ---@cast entity EntityEffectComponent
+    ---@cast entity Component.Entity.Effect
     return entity
 end
 
----@param entity EntityComponent
----@return EntityPlayerComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Player?
 local function ToPlayer(entity)
     if entity.m_type == EntityType.ENTITY_PLAYER then
-        ---@cast entity EntityPlayerComponent
+        ---@cast entity Component.Entity.Player
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityTearComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Tear?
 local function ToTear(entity)
     if entity.m_type == EntityType.ENTITY_TEAR then
-        ---@cast entity EntityTearComponent
+        ---@cast entity Component.Entity.Tear
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityFamiliarComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Familiar?
 local function ToFamiliar(entity)
     if entity.m_type == EntityType.ENTITY_FAMILIAR then
-        ---@cast entity EntityFamiliarComponent
+        ---@cast entity Component.Entity.Familiar
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityBombComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Bomb?
 local function ToBomb(entity)
     if entity.m_type == EntityType.ENTITY_BOMB then
-        ---@cast entity EntityBombComponent
+        ---@cast entity Component.Entity.Bomb
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityPickupComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Pickup?
 local function ToPickup(entity)
     if entity.m_type == EntityType.ENTITY_PICKUP then
-        ---@cast entity EntityPickupComponent
+        ---@cast entity Component.Entity.Pickup
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntitySlotComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Slot?
 local function ToSlot(entity)
     if entity.m_type == EntityType.ENTITY_SLOT then
-        ---@cast entity EntitySlotComponent
+        ---@cast entity Component.Entity.Slot
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return EntityLaserComponent?
 local function ToLaser(entity)
     if entity.m_type == EntityType.ENTITY_LASER then
@@ -152,7 +152,7 @@ local function ToLaser(entity)
     return nil
 end
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@return EntityKnifeComponent?
 local function ToKnife(entity)
     if entity.m_type == EntityType.ENTITY_KNIFE then
@@ -163,33 +163,33 @@ local function ToKnife(entity)
     return nil
 end
 
----@param entity EntityComponent
----@return EntityProjectileComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Projectile?
 local function ToProjectile(entity)
     if entity.m_type == EntityType.ENTITY_PROJECTILE then
-        ---@cast entity EntityProjectileComponent
+        ---@cast entity Component.Entity.Projectile
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityNPCComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Npc?
 local function ToNPC(entity)
     if entity.m_type >= 10 and entity.m_type ~= EntityType.ENTITY_EFFECT then
-        ---@cast entity EntityNPCComponent
+        ---@cast entity Component.Entity.Npc
         return entity
     end
 
     return nil
 end
 
----@param entity EntityComponent
----@return EntityEffectComponent?
+---@param entity Component.Entity
+---@return Component.Entity.Effect?
 local function ToEffect(entity)
     if entity.m_type == EntityType.ENTITY_EFFECT then
-        ---@cast entity EntityEffectComponent
+        ---@cast entity Component.Entity.Effect
         return entity
     end
 

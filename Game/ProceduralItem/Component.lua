@@ -4,11 +4,11 @@
 ---@field m_image2 ImageComponent : 0x14
 
 ---@class ProceduralItemComponent
----@field m_config ItemConfigItemComponent : 0x0
+---@field m_config Component.ItemConfig.Item : 0x0
 ---@field m_id integer : 0x4
 ---@field m_bits? integer : 0x8
 ---@field m_sfx_qqq unknown : 0xc
----@field m_randomItem ItemConfigItemComponent : 0x10
+---@field m_randomItem Component.ItemConfig.Item : 0x10
 ---@field m_damage number : 0x14
 ---@field m_fireDelay number : 0x18
 ---@field m_speed number : 0x1c
@@ -19,8 +19,8 @@
 
 ---@class ProceduralEffectComponent
 
----@class ProceduralItemInventoryComponent
----@field m_player EntityPlayerComponent : 0x0
+---@class Component.ProceduralItemInventory
+---@field m_player Component.Entity.Player : 0x0
 ---@field m_id_iterator integer[] : 0x4
 ---@field m_count integer : 0x8
 ---@field m_itemList (CollectibleType | integer)[] : 0xc

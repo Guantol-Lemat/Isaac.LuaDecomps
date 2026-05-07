@@ -14,7 +14,7 @@ local CardEffects = require("Mechanics.Player.Card.CardEffects")
 
 ---@class Context.Player.UseCard : Context.Common
 ---@field card_rng RNG
----@field player EntityPlayerComponent
+---@field player Component.Entity.Player
 
 ---@param ctx Context.Player.UseCard
 ---@param cardType Card | integer
@@ -31,7 +31,7 @@ local switch_card_effect = {
 }
 
 ---@param ctx Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param cardType Card | integer
 ---@param useFlags UseFlag | integer
 local function UseCard(ctx, player, cardType, useFlags)

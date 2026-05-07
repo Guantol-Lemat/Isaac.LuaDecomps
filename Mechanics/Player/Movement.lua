@@ -40,7 +40,7 @@ local WALK_ANIMATION = {
 }
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return Vector
 local function GetMovementInput(myContext, player)
     local playerType = player.m_playerType
@@ -84,7 +84,7 @@ local function GetMovementInput(myContext, player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function jupiter_update(myContext, player, targetVelocity)
     if VectorUtils.Equals(targetVelocity, VectorZero) then
         if player.m_velocity:Length() < 1.0 then
@@ -154,7 +154,7 @@ local function jupiter_update(myContext, player, targetVelocity)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param direction Direction | integer
 local function update_mars_direction(myContext, player, direction)
     local currentTapDirection = player.m_mars_tapDirection
@@ -181,12 +181,12 @@ local function update_mars_direction(myContext, player, direction)
 
     local itemConfig = myContext.manager.m_itemConfig
     local marsCostume = ItemConfigUtils.GetNullItem(itemConfig, NullItemID.ID_MARS)
-    ---@cast marsCostume ItemConfigItemComponent
+    ---@cast marsCostume Component.ItemConfig.Item
     PlayerCostume.RemoveCostume(myContext, player, marsCostume)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function ControlMovement(myContext, player)
     if player.m_tossedPosYOffsetRelated < 0.0 or player.m_positionOffset.Y < 0.0 then
         return

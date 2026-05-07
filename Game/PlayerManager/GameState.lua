@@ -10,12 +10,12 @@ local EntityUtils = require("Entity.Utils")
 ---@param playerManager PlayerManagerComponent
 ---@param gameState GameStateComponent
 ---@param manageLifecycle boolean
----@return table<integer, EntityPlayerComponent>
+---@return table<integer, Component.Entity.Player>
 local function compute_player_state_map(playerManager, gameState, manageLifecycle)
-    ---@type table<integer, EntityPlayerComponent>
+    ---@type table<integer, Component.Entity.Player>
     local playerStateMap = {}
 
-    ---@type EntityPlayerComponent[]
+    ---@type Component.Entity.Player[]
     local playerList = {}
     local players = playerManager.m_players
     for i = 1, #players, 1 do
@@ -80,7 +80,7 @@ local TWIN_PLAYERS = {
 }
 
 ---@param gameState GameStateComponent
----@param playerStateMap table<integer, EntityPlayerComponent>
+---@param playerStateMap table<integer, Component.Entity.Player>
 ---@param index integer
 local function try_restore_twin_relation(gameState, playerStateMap, index)
     local player = playerStateMap[index]

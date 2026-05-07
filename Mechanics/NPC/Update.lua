@@ -11,8 +11,8 @@ local VectorZero = VectorUtils.VectorZero
 ---@class NPCUpdateLogic
 local Module = {}
 
----@param room RoomComponent
----@param entity EntityNPCComponent
+---@param room Component.Room
+---@param entity Component.Entity.Npc
 ---@return number
 local function get_time_scale(room, entity)
     local timeScale = 1.0
@@ -23,12 +23,12 @@ local function get_time_scale(room, entity)
 end
 
 ---@param context NpcMechanicsContext.Update
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function update_status_effect_sprite(context, npc)
 end
 
 ---@param context NpcMechanicsContext.Update
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function Update(context, npc)
     local npcRead = npc
     local npcWrite = npc

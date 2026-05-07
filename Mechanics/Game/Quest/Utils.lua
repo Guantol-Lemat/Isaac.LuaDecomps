@@ -10,7 +10,7 @@ local CurseUtils = require("Mechanics.Level.Curse.Utils")
 local Module = {}
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsBackwardsPath(myContext, level)
     local game = myContext.game
@@ -30,7 +30,7 @@ local function IsBackwardsPath(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function HasMirrorDimension(myContext, level)
     if IsBackwardsPath(myContext, level) then
@@ -46,14 +46,14 @@ local function HasMirrorDimension(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsMirrorWorld(myContext, level)
     return level.m_dimension == Dimension.KNIFE_PUZZLE and HasMirrorDimension(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function HasAbandonedMineshaft(myContext, level)
     if IsBackwardsPath(myContext, level) then
@@ -69,14 +69,14 @@ local function HasAbandonedMineshaft(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsAbandonedMineshaft(myContext, level)
     return level.m_dimension == Dimension.MINESHAFT and HasAbandonedMineshaft(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function HasPhotoDoor(myContext, level)
     if IsBackwardsPath(myContext, level) then
@@ -92,7 +92,7 @@ local function HasPhotoDoor(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsBackwardsPathEntrance(myContext, level)
     if IsBackwardsPath(myContext, level) then
@@ -112,8 +112,8 @@ local function IsBackwardsPathEntrance(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param room RoomComponent
----@param level LevelComponent
+---@param room Component.Room
+---@param level Component.Level
 ---@return boolean
 local function IsRoomBackwardsPathEntrance(myContext, room, level)
     if room.m_type ~= RoomType.ROOM_BOSS then

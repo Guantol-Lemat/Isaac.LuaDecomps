@@ -8,7 +8,7 @@ local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
 
 local Module = {}
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param collectible CollectibleType | integer
 ---@return TemporaryEffectComponent?
 local function GetCollectibleEffect(temporaryEffects, collectible)
@@ -29,7 +29,7 @@ local function GetCollectibleEffect(temporaryEffects, collectible)
     return nil
 end
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param trinket TrinketType | integer
 ---@return TemporaryEffectComponent?
 local function GetTrinketEffect(temporaryEffects, trinket)
@@ -49,7 +49,7 @@ local function GetTrinketEffect(temporaryEffects, trinket)
     return nil
 end
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param nullItem NullItemID | integer
 ---@return TemporaryEffectComponent?
 local function GetNullEffect(temporaryEffects, nullItem)
@@ -69,21 +69,21 @@ local function GetNullEffect(temporaryEffects, nullItem)
     return nil
 end
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param collectible CollectibleType | integer
 ---@return boolean
 local function HasCollectibleEffect(temporaryEffects, collectible)
     return GetCollectibleEffect(temporaryEffects, collectible) ~= nil
 end
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param trinket TrinketType | integer
 ---@return boolean
 local function HasTrinketEffect(temporaryEffects, trinket)
     return GetTrinketEffect(temporaryEffects, trinket) ~= nil
 end
 
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param nullItem NullItemID | integer
 ---@return boolean
 local function HasNullEffect(temporaryEffects, nullItem)
@@ -91,7 +91,7 @@ local function HasNullEffect(temporaryEffects, nullItem)
 end
 
 ---@param myContext Context.Common
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param effect TemporaryEffectComponent
 ---@param addCostume boolean
 ---@param count integer
@@ -126,20 +126,20 @@ local function AddEffect(myContext, temporaryEffects, effect, addCostume, count)
 end
 
 ---@param myContext Context.Common
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 ---@param collectibleId CollectibleType | integer
 ---@param addCostume boolean
 ---@param count integer
 local function AddCollectibleEffect(myContext, temporaryEffects, collectibleId, addCostume, count)
     local itemConfig = myContext.manager.m_itemConfig
     local config = ItemConfigUtils.GetCollectible(myContext, itemConfig, collectibleId)
-    ---@cast config ItemConfigItemComponent
+    ---@cast config Component.ItemConfig.Item
     local effect = TemporaryEffectsFactory.NewTemporaryEffect(config)
     AddEffect(myContext, temporaryEffects, effect, addCostume, count)
 end
 
 ---@param myContext Context.Common
----@param temporaryEffects TemporaryEffectsComponent
+---@param temporaryEffects Component.TemporaryEffects
 local function ClearEffects(myContext, temporaryEffects)
 end
 

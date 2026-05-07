@@ -26,16 +26,16 @@ local VectorZero = VectorUtils.VectorZero
 --#endregion
 
 ---@class RoomContext.SpawnClearAward : Context.Common, GameContext.Spawn, RoomContext.SpawnGridEntity, PersistentDataContext.RecordPlayerCompletion, LevelContext.GetExtraBossRoomStage, LevelContext.Curses
----@field manager IsaacManager
+---@field manager Component.Manager
 ---@field persistentGameData PersistentDataComponent
 ---@field achievementOverlay AchievementOverlayComponent
----@field game GameComponent
----@field level LevelComponent
+---@field game Component.Game
+---@field level Component.Level
 ---@field playerManager PlayerManagerComponent
 ---@field itemPool ItemPoolComponent
 
 --- This is similar to Room::GetCenterPos but not quite.
----@param room RoomComponent
+---@param room Component.Room
 ---@param shape RoomShape | integer
 ---@return Vector
 local function get_award_position(room, shape)
@@ -57,20 +57,20 @@ local function get_award_position(room, shape)
     return RoomUtils.GetGridPosition(room, gridIdx)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param position Vector
 ---@return Vector
 local function fix_award_position(room, position)
     -- TODO
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return integer
 local function fix_trapdoor_pos(room, gridIdx)
 end
 
----@param room RoomComponent
+---@param room Component.Room
 ---@param gridIdx integer
 ---@return integer
 local function fix_heaven_light_pos(room, gridIdx)
@@ -78,7 +78,7 @@ local function fix_heaven_light_pos(room, gridIdx)
 end
 
 ---@param myContext RoomContext.SpawnClearAward
----@param room RoomComponent
+---@param room Component.Room
 ---@param rng RNG
 local function trigger_unique_boss_award(myContext, room, rng)
     local persistentGameData = myContext.persistentGameData
@@ -137,7 +137,7 @@ local function trigger_unique_boss_award(myContext, room, rng)
 end
 
 ---@param myContext RoomContext.SpawnClearAward
----@param room RoomComponent
+---@param room Component.Room
 ---@param rng RNG
 ---@param awardPosition Vector
 ---@param stage LevelStage | integer
@@ -210,7 +210,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
 
     ---@param collectibleId CollectibleType | integer
     ---@param position Vector
-    ---@return EntityPickupComponent
+    ---@return Component.Entity.Pickup
     local function spawn_collectible(collectibleId, position)
         position = fix_award_position(room, position)
 
@@ -226,7 +226,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
     end
 
     ---@param position Vector
-    ---@return EntityPickupComponent
+    ---@return Component.Entity.Pickup
     local function spawn_void_collectible(position)
         local randomPool = rng:RandomInt(17)
         if randomPool == 16 then
@@ -247,7 +247,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
 
     ---@param collectibleId CollectibleType | integer
     ---@param position Vector
-    ---@return EntityPickupComponent
+    ---@return Component.Entity.Pickup
     local function spawn_photograph(collectibleId, position)
         fix_award_position(room, position)
         local ent = SpawnLogic.Spawn(myContext, EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, collectibleId, rng:Next(), position, VectorZero, nil)
@@ -586,7 +586,7 @@ local function handle_boss_completion(myContext, room, rng, awardPosition, stage
 end
 
 ---@param myContext RoomContext.SpawnClearAward
----@param room RoomComponent
+---@param room Component.Room
 ---@param rng RNG
 ---@param awardPosition Vector
 local function spawn_boss_room_clear_award(myContext, room, rng, awardPosition)
@@ -655,7 +655,7 @@ local function spawn_boss_room_clear_award(myContext, room, rng, awardPosition)
 end
 
 ---@param myContext RoomContext.SpawnClearAward
----@param room RoomComponent
+---@param room Component.Room
 ---@param rng RNG
 ---@param awardPosition Vector
 local function spawn_clear_award(myContext, room, rng, awardPosition)
@@ -691,7 +691,7 @@ local function spawn_clear_award(myContext, room, rng, awardPosition)
 end
 
 ---@param myContext RoomContext.SpawnClearAward
----@param room RoomComponent
+---@param room Component.Room
 local function SpawnClearAward(myContext, room)
     local roomDescriptor = room.m_roomDescriptor
 

@@ -11,7 +11,7 @@ local VectorZero = VectorUtils.VectorZero
 ---@class FamiliarFingerLogic
 local Module = {}
 
----@param familiar EntityFamiliarComponent
+---@param familiar Component.Entity.Familiar
 local function Update(familiar)
     local player = familiar.m_player
     local aimDirection = player.m_aimDirection

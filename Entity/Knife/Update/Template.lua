@@ -13,7 +13,7 @@ local Module = {}
 
 ---@param knife EntityKnifeComponent
 ---@param context Context
----@param player EntityPlayerComponent?
+---@param player Component.Entity.Player?
 local function update_held_rotation(knife, context, player)
     local game = context:GetGame()
 
@@ -35,7 +35,7 @@ end
 ---@param knife EntityKnifeComponent
 ---@param context Context
 ---@param primaryKnife EntityKnifeComponent
----@param player EntityPlayerComponent?
+---@param player Component.Entity.Player?
 ---@param pivotRadius number
 local function update_held_knife(knife, context, primaryKnife, player, pivotRadius)
     if knife == primaryKnife then
@@ -49,7 +49,7 @@ local function update_held_knife(knife, context, primaryKnife, player, pivotRadi
 
     -- distance related evaluations
 
-    ---@type EntityComponent
+    ---@type Component.Entity
     local primaryParent = primaryKnife.m_parent
     knife.m_position = MathUtils.PolarToCartesian(pivotRadius, knife.m_effectiveRotation) + primaryParent.m_position
     knife.m_holderPosition = primaryParent.m_position
@@ -59,7 +59,7 @@ end
 ---@param knife EntityKnifeComponent
 ---@param context Context
 ---@param primaryKnife EntityKnifeComponent
----@param player EntityPlayerComponent?
+---@param player Component.Entity.Player?
 local function update_thrown_knife(knife, context, primaryKnife, player)
     if primaryKnife == knife then
         -- update rotation
@@ -116,7 +116,7 @@ end
 
 ---@param knife EntityKnifeComponent
 ---@param context Context
----@param player EntityPlayerComponent?
+---@param player Component.Entity.Player?
 local function update_knife(knife, context, player)
     local primaryKnife = KnifeUtils.GetPrimaryKnife(knife)
     -- check weapon

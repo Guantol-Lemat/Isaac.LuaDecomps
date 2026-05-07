@@ -7,7 +7,7 @@
 ---@class NpcAi
 local Module = {}
 
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function UpdateAi(npc)
 end
 

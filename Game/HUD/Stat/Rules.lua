@@ -9,7 +9,7 @@ local PlayerRules = require("Entity.Player.Rules")
 local Module = {}
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param shouldEvaluate boolean
 ---@return boolean
 local function hook_evaluate_player_has_stats_hud(context, player, shouldEvaluate)
@@ -25,7 +25,7 @@ local function hook_evaluate_player_has_stats_hud(context, player, shouldEvaluat
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function evaluate_player_has_stats_hud(context, player)
     if not PlayerRules.IsLocalPlayer(context, player) then
@@ -47,7 +47,7 @@ end
 
 ---@param context Context
 ---@param statHud StatHUDComponent
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return integer?
 local function GetPlayerId(context, statHud, player)
     if not evaluate_player_has_stats_hud(context, player) then

@@ -11,7 +11,7 @@ local SeedsUtils = require("Admin.Seeds.Utils")
 local Module = {}
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function hook_pre_level_reset(context, level)
     local game = context:GetGame()
     BitsetUtils.Clear(game.m_gameStateFlags, GameStateFlag.STATE_SECRET_PATH)
@@ -20,7 +20,7 @@ local function hook_pre_level_reset(context, level)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function hook_on_level_reset(context, level)
     -- portal reset
     -- greed wave without hearts picked
@@ -40,12 +40,12 @@ local function hook_on_level_reset(context, level)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function level_reset(context, level)
     -- not everything here is actually reset in the same step, some of these should actually be in init_level_data
     -- but they were all placed together for cohesion and because nothing here uses the generationRNG.
 
-    level.m_currentDimensionLookup = level.m_dimensionLookups[Dimension.NORMAL + 1]
+    level.m_currentDimensionLookup = level.m_roomLookup[Dimension.NORMAL + 1]
     level.m_dimension = Dimension.NORMAL
     level.m_lastDimension = Dimension.NORMAL
     level.m_levelStateFlags = 0
@@ -59,7 +59,7 @@ local function level_reset(context, level)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function hook_init_level_data(context, level, rng)
     CurseInitLogic.Init(context, level, rng)
@@ -67,7 +67,7 @@ local function hook_init_level_data(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function hook_pre_generate_layout(context, level, rng)
     -- clear generated rooms
@@ -75,7 +75,7 @@ local function hook_pre_generate_layout(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function hook_post_generate_layout(context, level, rng)
     level.m_dungeonPlacementSeed = level.m_generationRNG:Next()
@@ -83,7 +83,7 @@ local function hook_post_generate_layout(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function generate_layout(context, level, rng)
     -- reset current stage id weights
@@ -94,7 +94,7 @@ local function generate_layout(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 ---@param rng RNG
 local function init_level_data(context, level, rng)
     level.m_curses = 0
@@ -102,7 +102,7 @@ local function init_level_data(context, level, rng)
 end
 
 ---@param context Context
----@param level LevelComponent
+---@param level Component.Level
 local function Init(context, level)
     hook_pre_level_reset(context, level)
     level.m_isInitializing = true

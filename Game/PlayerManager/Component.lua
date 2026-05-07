@@ -1,3 +1,3 @@
 ---@class PlayerManagerComponent
----@field m_players EntityPlayerComponent[]
----@field m_possessors EntityPlayerComponent[]
+---@field m_players Component.Entity.Player[]
+---@field m_possessors Component.Entity.Player[]

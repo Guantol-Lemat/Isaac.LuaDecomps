@@ -9,13 +9,13 @@ local CollectiblePool = require("Game.Pools.ItemPool.CollectiblePool")
 ---@class CoopExtraItemLogic
 local Module = {}
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function MakePickupCoopExtra(pickup)
     pickup.m_coopExtra_collectedItems = 0
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function grant_extra_item(context, pickup)
     local itemPool = context:GetItemPool()
     local seed = pickup.m_dropRNG:Next()
@@ -24,7 +24,7 @@ local function grant_extra_item(context, pickup)
 end
 
 ---@param context Context
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function HandleGrantExtraItem(context, pickup)
     local playerManager = context:GetPlayerManager()
     if not PlayerManagerUtils.IsCoopPlay(playerManager) or pickup.m_subtype ~= CollectibleType.COLLECTIBLE_NULL then

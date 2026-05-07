@@ -16,7 +16,7 @@ local eVisageVariant = EntityIdentity.eVisageVariant
 --#endregion
 
 ---@param context PlayerContext.TakeDamage
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damageFlags DamageFlag | integer
 ---@return boolean
 local function try_dull_razor_wisp(context, player, damageFlags)
@@ -27,7 +27,7 @@ local function handle_white_fire_damage()
 end
 
 ---@param context PlayerContext.TakeDamage
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function t_eden_glitch(context, player)
     local playerRead = player
     local playerWrite = player
@@ -62,10 +62,10 @@ end
 local Module = {}
 
 ---@param context PlayerContext.TakeDamage
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param damage number
 ---@param damageFlags DamageFlag | integer
----@param source EntityRefComponent
+---@param source Component.EntityRef
 ---@param damageCountdown integer
 ---@return boolean
 local function TakeDamage(context, player, damage, damageFlags, source, damageCountdown)
@@ -76,7 +76,7 @@ local function TakeDamage(context, player, damage, damageFlags, source, damageCo
     do
         if playerRead.m_playerType == PlayerType.PLAYER_THESOUL_B then
             local twin = playerRead.m_twinPlayer.ref
-            ---@cast twin EntityPlayerComponent?
+            ---@cast twin Component.Entity.Player?
             if twin and not Inventory.HasCollectible(context, twin, CollectibleType.COLLECTIBLE_ISAACS_HEART, false) then
                 return TakeDamage(context, twin, damage, damageFlags | DamageFlag.DAMAGE_ISSAC_HEART, source, damageCountdown)
             end

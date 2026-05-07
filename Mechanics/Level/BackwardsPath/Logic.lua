@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return boolean
 local function IsBackwardsPath(myContext, level)
     local game = myContext.game
@@ -21,7 +21,7 @@ local function IsBackwardsPath(myContext, level)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@param stage LevelStage | integer
 local function SaveBackwardsStage(myContext, level, stage)
 end

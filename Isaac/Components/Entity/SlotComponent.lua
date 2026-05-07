@@ -1,0 +1,11 @@
+---@class Component.Entity.Slot : Component.Entity
+---@field m_state integer : 0x360
+---@field m_prizeType PickupVariant | integer : 0x364
+---@field m_shellGameAnimationIndex integer : 0x368
+---@field m_timeout integer : 0x36a
+---@field m_donationValue integer : 0x36c
+---@field m_triggerTimer integer : 0x370
+---@field m_unkShort1 integer : 0x374
+---@field m_touch integer : 0x376
+---@field m_prizeAnm2_qqq Sprite : 0x378
+---@field m_prizeCollectible CollectibleType | integer : 0x48c

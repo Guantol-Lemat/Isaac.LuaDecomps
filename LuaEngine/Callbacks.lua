@@ -6,7 +6,7 @@
 
 ---@param collectibleType CollectibleType | integer
 ---@param rng RNG
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param useFlags UseFlag | integer
 ---@param activeSlot ActiveSlot
 ---@param customVarData integer
@@ -15,7 +15,7 @@ local function PreUseItem(collectibleType, rng, player, useFlags, activeSlot, cu
 end
 
 ---@param cardType Card | integer
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param useFlags UseFlag | integer
 local function UseCard(cardType, player, useFlags)
 end

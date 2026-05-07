@@ -11,7 +11,7 @@ local Module = {}
 ---@param weaponType WeaponType
 ---@param damageScale number
 ---@param tearDisplacement integer
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@return TearHitParamsComponent
 local function GetTearHitParams(context, weaponType, damageScale, tearDisplacement, source)
 end

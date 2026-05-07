@@ -73,39 +73,39 @@ end
 local function PlaySound(myContext, soundId, volume, frameDelay, loop, pitch)
 end
 
----@param isaac IsaacManager
+---@param isaac Component.Manager
 local function IsInterpolation(isaac)
     return isaac.m_frameCount % 2 == 1
 end
 
----@param isaac IsaacManager
+---@param isaac Component.Manager
 ---@param ignoreModRestrictions boolean
 ---@return boolean
 local function AchievementUnlocksDisallowed(isaac, ignoreModRestrictions)
 end
 
----@param isaac IsaacManager
+---@param isaac Component.Manager
 ---@param action ButtonAction| integer
 ---@param controllerIdx integer
----@param entity EntityComponent?
+---@param entity Component.Entity?
 ---@return boolean
 local function IsActionTriggered(isaac, action, controllerIdx, entity)
 
 end
 
----@param isaac IsaacManager
+---@param isaac Component.Manager
 ---@param action ButtonAction| integer
 ---@param controllerIdx integer
----@param entity EntityComponent?
+---@param entity Component.Entity?
 ---@return boolean
 local function IsActionPressed(isaac, action, controllerIdx, entity)
 
 end
 
----@param isaac IsaacManager
+---@param isaac Component.Manager
 ---@param action ButtonAction| integer
 ---@param controllerIdx integer
----@param entity EntityComponent?
+---@param entity Component.Entity?
 ---@return number
 local function GetActionValue(isaac, action, controllerIdx, entity)
 

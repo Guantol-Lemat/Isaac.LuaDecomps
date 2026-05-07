@@ -1,0 +1,39 @@
+---@class Component.Entity.Familiar : Component.Entity
+---@field m_player Component.Entity.Player : 0x360
+---@field m_originalPlayer Component.Entity.Player : 0x364
+---@field m_delayMoveBuffer Vector[] [60] : 0x368
+---@field m_moveDelayedRelated integer : 0x548
+---@field m_pathfinder Component.Npc.Pathfinder : 0x54c
+---@field m_fireCooldown integer : 0xc9c
+---@field m_blinkTime integer : 0xca0
+---@field m_moveDir Direction | integer : 0xca4
+---@field m_shootDir integer : 0xca8
+---@field m_lastDir integer : 0xcac
+---@field m_orbitAngleOffset number : 0xcb0
+---@field m_orbitDistance Vector : 0xcb4
+---@field m_orbitSpeed number : 0xcbc
+---@field m_orbitLayer integer : 0xcc0
+---@field m_isFollower boolean : 0xcc4
+---@field m_isDelayed boolean : 0xcc5
+---@field m_unkWispBool_qqq boolean : 0xcc6
+---@field m_coins integer : 0xcc8
+---@field m_hearts integer : 0xccc
+---@field m_keys integer : 0xcd0
+---@field m_state integer : 0xcd4
+---@field m_roomClearCount integer : 0xcd8
+---@field m_ductTape_tapedPosition Vector : 0xcdc
+---@field m_varData_qqq integer : 0xce4
+---@field m_hitList Component.HitList : 0xce8
+---@field m_unkInt integer : 0xcf4
+---@field m_bluppyNPC_qqq Component.Entity : 0xcf8
+---@field m_weapon Component.Weapon : 0xcfc
+---@field m_isLilDelirum boolean : 0xd00
+---@field m_chargeBar Sprite : 0xd04
+---@field m_umbilicalBabyData Component.UmbilicalBabyData : 0xe18
+---@field m_Item Component.ItemConfig.Item : 0xe20
+---@field m_unkEntity_charmRelated Component.Entity : 0xe24
+---@field m_dirtColor Color : 0xe28
+---@field m_wispCollectibleType CollectibleType | integer : 0xe54
+---@field m_randomizedFrameCount_qqq integer : 0xe5c
+---@field m_wispCleaveScale number : 0xe64
+---@field m_unkWispHealthRelated number : 0xe68

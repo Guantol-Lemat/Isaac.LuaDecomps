@@ -12,11 +12,11 @@ local Screen = require("Isaac.Screen")
 local Module = {}
 
 ---@class EntityManagerContext.Update
----@field manager IsaacManager
----@field game GameComponent
+---@field manager Component.Manager
+---@field game Component.Game
 ---@field netManager NetManagerComponent
 
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param isTransition boolean
 ---@return boolean
 local function should_update_entity(entity, isTransition)
@@ -40,7 +40,7 @@ end
 ---@field damageTakenThisFrame number
 
 ---@param context EntityManagerContext.Update
----@param entity EntityComponent
+---@param entity Component.Entity
 ---@param isTransition boolean
 ---@param enemyMetadata EntityManagerLogic.detail.EnemyMetadata
 local function update_entity(context, entity, isTransition, enemyMetadata)

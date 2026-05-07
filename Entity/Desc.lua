@@ -1,4 +1,4 @@
----@class EntityDescComponent
+---@class Component.EntityDesc
 ---@field type EntityType | integer : 0x0
 ---@field variant integer : 0x4
 ---@field subType integer : 0x8

@@ -16,8 +16,8 @@ local Events = MySpriteUtils.Events
 local Module = {}
 
 ---@param context Context
----@param slot EntitySlotComponent
----@param player EntityPlayerComponent
+---@param slot Component.Entity.Slot
+---@param player Component.Entity.Player
 local function UpdateDispensePrize(context, slot, player)
     local sprite = slot.m_sprite
     sprite:Play(Animations.PRIZE, false)

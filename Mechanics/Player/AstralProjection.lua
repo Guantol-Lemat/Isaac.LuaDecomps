@@ -10,7 +10,7 @@ local Module = {}
 ---@class AstralProjectionContext.TryEndAstralProjection
 
 ---@param context AstralProjectionContext.TryEndAstralProjection
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function TryEndAstralProjection(context, player)
 end

@@ -17,7 +17,7 @@ local function EndIgnoreModifiers()
     s_IgnoreModifiers = s_IgnoreModifiers - 1
 end
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param shopId integer
 local function MakeShopItem(pickup, shopId)
 end

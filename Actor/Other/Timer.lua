@@ -8,7 +8,7 @@
 ---@param delay integer
 ---@param time integer
 ---@param persistent boolean
----@return EntityEffectComponent
+---@return Component.Entity.Effect
 local function CreateTimer(func, delay, time, persistent)
 end
 

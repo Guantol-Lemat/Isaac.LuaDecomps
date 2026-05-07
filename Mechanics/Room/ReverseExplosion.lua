@@ -16,7 +16,7 @@ local eReverseExplosionSubtype = EntityIdentity.eReverseExplosionSubtype
 local VECTOR_ZERO = Vector(0, 0)
 
 ---@param ctx Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param seed integer
 local function TriggerEffect(ctx, player, seed)
     local ctx_game = ctx.game
@@ -120,7 +120,7 @@ local function TriggerEffect(ctx, player, seed)
 
             local cell_position = RoomUtils.GetGridPosition(room, cell_idx)
             local cell_distanceFromExplosion = cell_position:Distance(reverseExplosion_position)
-            -- if too distant distant, don't spawn but reduce weight
+            -- if too distant don't spawn but reduce weight
             if cell_distanceFromExplosion > 75.0 then
                 grid_weights[cell_idx + 1] = 1
                 goto continue
@@ -159,7 +159,7 @@ local function TriggerEffect(ctx, player, seed)
 end
 
 ---@param ctx Context.Common
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 local function update_explosion(ctx, entity)
     if entity.m_timeout <= 0 and not entity.m_visible then
         entity.m_visible = true
@@ -173,7 +173,7 @@ local function update_explosion(ctx, entity)
 end
 
 ---@param ctx Context.Common
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 local function spawn_rock(ctx, entity)
     local room = ctx.game.m_level.m_room
     if not RoomUtils.CanSpawnObstacleAtWorldPosition(room, entity.m_position, false) then
@@ -198,7 +198,7 @@ local function spawn_rock(ctx, entity)
 end
 
 ---@param ctx Context.Common
----@param entity EntityEffectComponent
+---@param entity Component.Entity.Effect
 local function update_debris(ctx, entity)
     -- make visible and setup sprite
     if entity.m_timeout <= 0 and not entity.m_visible then

@@ -10,7 +10,7 @@ local PlayerUtils = require("Entity.Player.Utils")
 local Module = {}
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 ---@param multiplier number
 ---@return number
 local function hook_get_multiplier(context, entity, multiplier)
@@ -39,7 +39,7 @@ local function hook_get_multiplier(context, entity, multiplier)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 ---@return number
 local function GetMultiplier(context, entity)
     local multiplier = 1.0
@@ -48,7 +48,7 @@ local function GetMultiplier(context, entity)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 ---@return boolean
 local function CanBlockProjectiles(context, entity)
 end

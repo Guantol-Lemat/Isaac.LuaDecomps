@@ -45,8 +45,8 @@ local function point_segment_distance_sq(point, segmentStart, segmentEnd)
 end
 
 ---@param point Vector
----@param bezier BezierPointComponent
----@param otherBezier BezierPointComponent
+---@param bezier Component.BezierPoint
+---@param otherBezier Component.BezierPoint
 ---@param samples integer
 ---@return number distance
 ---@return number closestPointFactor
@@ -78,8 +78,8 @@ local function distance_from_bezier_sq(point, bezier, otherBezier, samples)
 end
 
 ---@param point Vector
----@param bezier BezierPointComponent
----@param otherBezier BezierPointComponent
+---@param bezier Component.BezierPoint
+---@param otherBezier Component.BezierPoint
 ---@return number distance
 ---@return number closestPointFactor
 local function DistanceFromBezierSq(point, bezier, otherBezier)

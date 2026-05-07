@@ -1,20 +1,20 @@
 ---@class FlipStateData
 local Module = {}
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function InitData(pickup)
     pickup.m_flipState = nil
     pickup.m_flipCollectibleSprite = Sprite()
 end
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 local function SaveState(pickup, saveState)
     -- The game does not perform a copy of the original save state
     saveState.flipState = pickup.m_flipState
 end
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 local function RestoreState(pickup, saveState)
     pickup.m_flipState = saveState.flipState

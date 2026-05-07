@@ -1,0 +1,42 @@
+---@class EntityKnifeComponent : Component.Entity
+---@field m_tearFlags TearFlags | BitSet128 : 0x360
+---@field m_unkTearFlags TearFlags | BitSet128 : 0x370
+---@field m_knifeScale number : 0x380
+---@field m_knifeDepthOffset number : 0x384
+---@field m_rotation number : 0x388
+---@field m_rotationOffset number : 0x38c
+---@field m_effectiveRotation number : 0x390
+---@field m_distance number : 0x394
+---@field m_knifeVelocity number : 0x398
+---@field m_holderPosition Vector : 0x39c
+---@field m_startPos_qqq Vector : 0x3a4
+---@field m_maxDistance number : 0x3ac
+---@field m_charge number : 0x3b0
+---@field m_isFlying boolean : 0x3b4
+---@field m_isSwinging boolean : 0x3b5
+---@field m_meleeSwingInputHeld_qqq boolean : 0x3b6
+---@field m_unkBool boolean : 0x3b7
+---@field m_homingLaser Component.Laser.HomingLaser : 0x3b8
+---@field m_unkFloat2 number : 0x410
+---@field m_pathOffset number : 0x414
+---@field m_pathFollowSpeed number 0x418
+---@field m_hydroBounce_height number : 0x41c
+---@field m_hydroBounce_gravitySpeed number : 0x420
+---@field m_0x424 number : 0x424
+---@field m_hitList Component.HitList : 0x428
+---@field m_setFalseBySpinAttack boolean : 0x434
+---@field m_prism_applied boolean : 0x435
+---@field m_multidimensional_applied boolean : 0x436
+---@field m_hitListBool boolean : 0x437
+---@field m_swordCharged boolean : 0x438 -- sword has reached max charge for spin attack
+---@field m_usedByUpdateBoneSwing boolean : 0x439
+---@field m_spinAttack_isActive boolean : 0x43a
+---@field m_activeItemFireRelated integer : 0x43c
+---@field m_spinAttack_remainingMultiShot integer : 0x440
+---@field m_notchedAxe Component.EntityPtr : 0x444
+---@field m_swingEntity Component.EntityPtr : 0x448
+---@field m_techXLaser Component.EntityPtr : 0x44c
+---@field m_technologyLaser Component.EntityPtr : 0x450
+---@field m_distanceRelated_qqq number : 0x454
+---@field m_splitDistance number : 0x464
+---@field m_hitboxRotation number : 0x468 -- used when handling collision for physics

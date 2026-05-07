@@ -2,12 +2,12 @@
 local Module = {}
 
 ---@param context Context
----@param game GameComponent
+---@param game Component.Game
 local function ShowFortuneGeneral(context, game)
 end
 
 ---@param context Context
----@param game GameComponent
+---@param game Component.Game
 local function ShowFortuneSeed(context, game)
 end
 

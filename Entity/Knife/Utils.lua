@@ -15,7 +15,7 @@ local function HasTearFlags(knife, flags)
 end
 
 ---@param knife EntityKnifeComponent
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function GetPlayer(knife)
     local parent = knife.m_parent
     if parent and parent.m_type == EntityType.ENTITY_KNIFE then
@@ -56,7 +56,7 @@ end
 ---@param knife EntityKnifeComponent
 ---@return EntityKnifeComponent
 local function GetPrimaryKnife(knife)
-    ---@type EntityComponent
+    ---@type Component.Entity
     local entity = knife
     while entity.m_parent.ref and entity.m_parent.ref.m_type == EntityType.ENTITY_KNIFE do
         entity = entity.m_parent.ref

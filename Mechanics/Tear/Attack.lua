@@ -8,7 +8,7 @@
 ---@param position Vector
 ---@param radius number
 ---@param damage number
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@param flags TearFlags | BitSet128
 local function TearSplashDamage(myContext, position, radius, damage, source, flags)
 end

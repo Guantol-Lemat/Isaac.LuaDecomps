@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectibleId CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
@@ -13,14 +13,14 @@ local function NumCollectibleHeld(myContext, player, collectibleId, ignoreModifi
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param trinketId TrinketType | integer
 ---@return integer
 local function GetTrinketMultiplier(myContext, player, trinketId)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param collectibleId CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
@@ -28,7 +28,7 @@ local function HasCollectible(myContext, player, collectibleId, ignoreModifiers)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param trinketId TrinketType | integer
 ---@param ignoreModifiers boolean
 local function HasTrinket(myContext, player, trinketId, ignoreModifiers)

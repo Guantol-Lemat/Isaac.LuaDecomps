@@ -1,18 +1,18 @@
 ---@class CoopExtraItemData
 local Module = {}
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 local function InitData(pickup)
     pickup.m_coopExtra_collectedItems = -1
 end
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 local function SaveState(pickup, saveState)
     saveState.collectedCoopItems = pickup.m_coopExtra_collectedItems
 end
 
----@param pickup EntityPickupComponent
+---@param pickup Component.Entity.Pickup
 ---@param saveState PickupSaveStateComponent
 local function RestoreState(pickup, saveState)
     pickup.m_coopExtra_collectedItems = saveState.collectedCoopItems

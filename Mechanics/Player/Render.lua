@@ -16,7 +16,7 @@ local VectorZero = VectorUtils.VectorZero
 
 local s_PlayerHologramRNG = RNG(424658093, 31)
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return {shouldRender: boolean, renderBeforePlayer: boolean, pos: Vector, scale: Vector, rotation:number}
 local function get_held_entity_render_data(player)
     local heldEntity = player.m_heldEntity.ref
@@ -75,7 +75,7 @@ local function get_held_entity_render_data(player)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param frameScale Vector
 ---@param framePos Vector
 ---@param frameRotation number
@@ -104,7 +104,7 @@ local function render_held_entity(myContext, player, playerRenderOffset, frameSc
     sprite.Rotation = originalRotation
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param layer integer
 ---@param offset Vector
 local function render_individual_layer(player, layer, offset)
@@ -119,7 +119,7 @@ local function render_individual_layer(player, layer, offset)
     end
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param position Vector
 local function RenderGlow(player, position)
     if not player.m_visible then
@@ -134,7 +134,7 @@ local function RenderGlow(player, position)
     render_individual_layer(player, layer, position)
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param position Vector
 local function RenderHeadBack(player, position)
     if not player.m_visible then
@@ -150,7 +150,7 @@ local function RenderHeadBack(player, position)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param position Vector
 local function RenderHead(myContext, player, position)
     if not player.m_visible then
@@ -174,7 +174,7 @@ local function RenderHead(myContext, player, position)
     end
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param position Vector
 local function RenderTop(player, position)
     if not player.m_visible then
@@ -190,7 +190,7 @@ local function RenderTop(player, position)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param position Vector
 local function RenderBody(myContext, player, position)
     if not player.m_visible then
@@ -243,7 +243,7 @@ local function RenderBody(myContext, player, position)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param offset Vector
 ---@param real boolean
 local function render_player_sprite(myContext, player, offset, real)
@@ -320,7 +320,7 @@ local function render_player_sprite(myContext, player, offset, real)
 end
 
 ---@param myContext Context.Common
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@param offset Vector
 local function Render(myContext, player, offset)
     local target = player.m_target.ref

@@ -1,0 +1,8 @@
+---@class Component.ActiveItemDesc
+---@field item CollectibleType | integer : 0x0
+---@field activeCharge integer : 0x4
+---@field batteryCharge integer : 0x8
+---@field subCharge integer : 0xc
+---@field timeRechargeCooldown integer : 0x10
+---@field partialCharge integer : 0x14
+---@field activeVarData integer : 0x18

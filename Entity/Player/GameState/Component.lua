@@ -1,4 +1,4 @@
----@class GameStatePlayerComponent
+---@class Component.GameStatePlayer
 ---@field m_playerType PlayerType | integer
 ---@field m_controllerIdx integer
 ---@field m_backupOwnerIdx integer -- treated as offset from current state in the playerManager.players list (0 if this is not a backup player)
@@ -8,7 +8,7 @@
 
 ---@class GameStatePlayer.FamiliarData
 
----@class ConsumableDataComponent
+---@class Component.ConsumableData
 ---@field m_coins integer : 0x0
 ---@field m_keys integer : 0x4
 ---@field m_bombs integer : 0x8
@@ -28,11 +28,11 @@
 ---@class GameStatePlayerComponentModule
 local Module = {}
 
----@param saveState GameStatePlayerComponent
+---@param saveState Component.GameStatePlayer
 local function Init(saveState)
 end
 
----@return GameStatePlayerComponent
+---@return Component.GameStatePlayer
 local function Create()
     local saveState = {}
     Init(saveState)

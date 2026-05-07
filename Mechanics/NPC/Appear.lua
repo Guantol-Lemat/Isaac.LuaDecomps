@@ -16,7 +16,7 @@ local VectorZero = VectorUtils.VectorZero
 local Module = {}
 
 ---@param context NpcMechanicsContext.Appear
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function init_npc(context, npc)
     local npcRead = npc
     local npcWrite = npc
@@ -53,7 +53,7 @@ local function init_npc(context, npc)
 end
 
 ---@param context NpcMechanicsContext.Appear
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function spawn_poof(context, npc)
     local npcRead = npc
     local npcWrite = npc
@@ -94,7 +94,7 @@ local function spawn_poof(context, npc)
     end
 end
 
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function appear(npc)
     local npcRead = npc
     local npcWrite = npc
@@ -115,7 +115,7 @@ local function appear(npc)
     end
 end
 
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@return boolean
 local function should_trigger_appear_end(npc)
     local sprite = npc.m_sprite
@@ -136,7 +136,7 @@ local function should_trigger_appear_end(npc)
 end
 
 ---@param context NpcMechanicsContext.Appear
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 local function Update(context, npc)
     local npcRead = npc
     local npcWrite = npc

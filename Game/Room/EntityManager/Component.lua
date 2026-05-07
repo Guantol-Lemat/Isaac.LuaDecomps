@@ -21,7 +21,7 @@
 ---@field variant integer
 ---@field subType integer
 
----@alias Component.EL EntityComponent[]
+---@alias Component.EL Component.Entity[]
 
 local Module = {}
 

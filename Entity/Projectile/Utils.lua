@@ -1,7 +1,7 @@
 ---@class ProjectileUtils
 local Module = {}
 
----@param entity EntityProjectileComponent
+---@param entity Component.Entity.Projectile
 ---@param flags ProjectileFlags | integer
 local function HasProjectileFlags(entity, flags)
     return (entity.m_projectileFlags & flags) == flags

@@ -16,7 +16,7 @@ local Module = {}
 local SLOWING_COLOR = Color(1.0, 1.0, 1.0, 1.3, 40, 40, 40)
 
 ---@param context Context
----@param entity EntityFamiliarComponent
+---@param entity Component.Entity.Familiar
 local function get_collision_multiplier(context, entity)
     local multiplier = FamiliarRules.GetMultiplier(context, entity)
 
@@ -27,8 +27,8 @@ local function get_collision_multiplier(context, entity)
     return multiplier
 end
 
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 local function handle_player_redirect(entity, collider)
     local playerSpeed = collider.m_velocity:Length()
     if playerSpeed <= 2.0 then
@@ -42,8 +42,8 @@ local function handle_player_redirect(entity, collider)
 end
 
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param multiplier number
 local function trigger_collision_damage(context, entity, collider, multiplier)
     HitListUtils.InsertEntity(entity.m_hitList, collider)

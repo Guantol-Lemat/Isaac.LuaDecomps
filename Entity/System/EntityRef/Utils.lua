@@ -1,19 +1,19 @@
 ---@class EntityRefUtils
 local Module = {}
 
----@param entityRef EntityRefComponent
+---@param entityRef Component.EntityRef
 ---@return boolean
 local function IsCharmed(entityRef)
     return (entityRef.flags & 1) ~= 0
 end
 
----@param entityRef EntityRefComponent
+---@param entityRef Component.EntityRef
 ---@return boolean
 local function IsFriendly(entityRef)
     return (entityRef.flags & 2) ~= 0
 end
 
----@param entityRef EntityRefComponent
+---@param entityRef Component.EntityRef
 ---@return boolean
 local function IsWeak(entityRef)
     return (entityRef.flags & 4) ~= 0

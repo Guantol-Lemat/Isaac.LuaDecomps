@@ -1,11 +1,11 @@
 ---@class TearMechanicsContext.Update : TearContext.SetHeight, TearMechanicsContext.TriggerDeath
----@field game GameComponent
----@field room RoomComponent
+---@field game Component.Game
+---@field room Component.Room
 ---@field seeds SeedsComponent
 ---@field isDungeon boolean
 
 ---@class TearMechanicsContext.TriggerDeath : GameContext.Spawn
----@field game GameComponent
+---@field game Component.Game
 
 ---@class TearMechanicsContext.ResetSpriteScale
 ---@field seeds SeedsComponent

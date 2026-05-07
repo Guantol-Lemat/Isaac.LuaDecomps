@@ -8,9 +8,9 @@
 local Module = {}
 
 ---@param myContext Context.Game
----@param itemConfig ItemConfigComponent
+---@param itemConfig Component.ItemConfig.Item
 ---@param collectibleId CollectibleType | integer
----@return ItemConfigItemComponent?
+---@return Component.ItemConfig.Item?
 local function GetCollectible(myContext, itemConfig, collectibleId)
     if collectibleId < CollectibleType.COLLECTIBLE_NULL then
         local proceduralItemManager = myContext.game.m_proceduralItemManager
@@ -26,41 +26,41 @@ local function GetCollectible(myContext, itemConfig, collectibleId)
     return itemConfig.m_collectibleList[collectibleId + 1]
 end
 
----@param itemConfig ItemConfigComponent
+---@param itemConfig Component.ItemConfig.Item
 ---@param cardId Card | integer
 ---@return CardConfigComponent
 local function GetCard(itemConfig, cardId)
     return itemConfig.m_cardList[cardId + 1]
 end
 
----@param itemConfig ItemConfigComponent
+---@param itemConfig Component.ItemConfig.Item
 ---@param nullItemId NullItemID | integer
----@return ItemConfigItemComponent?
+---@return Component.ItemConfig.Item?
 local function GetNullItem(itemConfig, nullItemId)
     return itemConfig.m_nullItemList[nullItemId + 1]
 end
 
----@param itemConfig ItemConfigComponent
+---@param itemConfig Component.ItemConfig.Item
 ---@param collectibleId CollectibleType | integer
 ---@param tags integer
 ---@return boolean
 local function IsTaggedCollectible(itemConfig, collectibleId, tags)
 end
 
----@param item ItemConfigItemComponent
+---@param item Component.ItemConfig.Item
 ---@return boolean
 local function IsCollectible(item)
     local itemType = item.m_itemType
     return itemType == ItemType.ITEM_PASSIVE or itemType == ItemType.ITEM_ACTIVE or itemType == ItemType.ITEM_FAMILIAR
 end
 
----@param item ItemConfigItemComponent
+---@param item Component.ItemConfig.Item
 ---@return boolean
 local function IsTrinket(item)
     return item.m_itemType == ItemType.ITEM_TRINKET
 end
 
----@param item ItemConfigItemComponent
+---@param item Component.ItemConfig.Item
 ---@return string
 local function GetDisplayName(item)
 end

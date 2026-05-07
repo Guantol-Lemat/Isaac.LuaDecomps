@@ -38,7 +38,7 @@ local function NewProjectileParams()
 end
 
 ---@param ctx Context.Common
----@param npc EntityNPCComponent
+---@param npc Component.Entity.Npc
 ---@param pos Vector
 ---@param velocity Vector
 ---@param mode ProjectileMode | integer

@@ -1,4 +1,4 @@
----@class HistoryComponent
+---@class Component.History
 ---@field m_items HistoryItemComponent[] : 0x0
 ---@field m_readOnly boolean : 0xc
 

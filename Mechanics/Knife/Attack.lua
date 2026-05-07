@@ -7,7 +7,7 @@
 ---@param myContext Context.Common
 ---@param knife EntityKnifeComponent
 ---@param direction Vector
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@param offset number
 local function InitHomingPath(myContext, knife, direction, source, offset)
 end

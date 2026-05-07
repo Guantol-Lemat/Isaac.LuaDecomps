@@ -16,10 +16,10 @@ end
 ---@param position Vector
 ---@param velocity Vector
 ---@param flags eFireTearFlags | integer
----@param source EntityComponent?
+---@param source Component.Entity?
 ---@param damageMultiplier number
 ---@param startPositionFactor number
----@return EntityTearComponent
+---@return Component.Entity.Tear
 local function FireTear(myContext, weapon, position, velocity, flags, source, damageMultiplier, startPositionFactor)
 end
 
@@ -28,7 +28,7 @@ end
 ---@param position Vector
 ---@param velocity Vector
 ---@param positionOffset Vector
----@return EntityEffectComponent
+---@return Component.Entity.Effect
 local function FireBrimstoneBall(myContext, weapon, position, velocity, positionOffset)
 end
 
@@ -36,13 +36,13 @@ end
 ---@param weapon WeaponComponent
 ---@param position Vector
 ---@param velocity Vector
----@return EntityBombComponent
+---@return Component.Entity.Bomb
 local function FireBomb(myContext, weapon, position, velocity)
 end
 
 ---@param myContext Context.Common
 ---@param weapon WeaponComponent
----@param parent EntityComponent?
+---@param parent Component.Entity?
 ---@param variant KnifeVariant
 ---@param persistent boolean
 ---@return EntityKnifeComponent

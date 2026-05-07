@@ -1,0 +1,17 @@
+---@class Component.Entity.Projectile : Component.Entity
+---@field m_height number : 0x360
+---@field m_fallingSpeed number : 0x364
+---@field m_fallingAccel number : 0x368
+---@field m_damage number : 0x36c
+---@field m_fScale number : 0x370
+---@field m_homingStrength number : 0x374
+---@field m_curvingStrength number : 0x378
+---@field m_acceleration number : 0x37c
+---@field m_projectileFlags integer : 0x388
+---@field m_wiggleFrameOffset integer : 0x394
+---@field m_changeFlags integer : 0x398
+---@field m_changeVelocity number : 0x3a0
+---@field m_changeTimeout integer : 0x3a4
+---@field m_unk_vec_1 Vector : 0x3a8
+---@field m_unk_vec_2 Vector : 0x3b0
+---@field m_paramsInterpFunc unknown : 0x3b8

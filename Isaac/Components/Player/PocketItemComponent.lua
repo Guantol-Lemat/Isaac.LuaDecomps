@@ -1,0 +1,3 @@
+---@class Component.PocketItem
+---@field id integer : 0x0
+---@field type integer : 0x4

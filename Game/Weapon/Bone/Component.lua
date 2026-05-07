@@ -1,2 +1,2 @@
 ---@class WeaponBoneComponent
----@field m_knives EntityPtrComponent[] [4] : 0x44
+---@field m_knives Component.EntityPtr[] [4] : 0x44

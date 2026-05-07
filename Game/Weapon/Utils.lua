@@ -10,7 +10,7 @@ local VectorZero = VectorUtils.VectorZero
 --#endregion
 
 ---@param weapon WeaponComponent
----@return EntityPlayerComponent?
+---@return Component.Entity.Player?
 local function GetPlayer(weapon)
     local owner = weapon.m_owner
     if not owner then
@@ -56,7 +56,7 @@ local function GetPeeBurstCooldown(weapon)
 end
 
 ---@param weapon WeaponComponent
----@return EntityComponent?
+---@return Component.Entity?
 local function GetMarkedTarget(weapon)
     local player = GetPlayer(weapon)
     return player and player.m_marked_targetEntity.ref or nil

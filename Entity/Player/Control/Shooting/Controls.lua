@@ -22,7 +22,7 @@ local Module = {}
 ---@field isShooting boolean
 ---@field shootingInput Vector
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean
 local function are_controls_enabled(player)
     if not player.m_controlsEnabled or player.m_controlsCooldown > 0 then
@@ -40,7 +40,7 @@ local function are_controls_enabled(player)
     return true
 end
 
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 local function can_shoot(player)
     if not PlayerUtils.IsExtraAnimationFinished(player) and player.m_sprite:IsFinished(PlayerAnimations.LIFT_ITEM) then
         return false
@@ -81,7 +81,7 @@ local function is_weapon_fire_direction_acceptable(weapon, shootingInput, opposi
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return boolean isShooting
 ---@return Vector shootingInput
 local function evaluate_shooting_controls(context, player)
@@ -120,7 +120,7 @@ local function evaluate_shooting_controls(context, player)
 end
 
 ---@param context Context
----@param player EntityPlayerComponent
+---@param player Component.Entity.Player
 ---@return ShootingControls
 local function GetShootingControls(context, player)
     ---@type ShootingControls

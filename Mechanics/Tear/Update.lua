@@ -15,8 +15,8 @@ local TearDeath = require("Mechanics.Tear.TearDeath")
 ---@class TearUpdateLogic
 local Module = {}
 
----@param room RoomComponent
----@param entity EntityTearComponent
+---@param room Component.Room
+---@param entity Component.Entity.Tear
 ---@return number
 local function get_time_scale(room, entity)
     local timeScale = 1.0
@@ -29,7 +29,7 @@ local function get_time_scale(room, entity)
 end
 
 ---@param context Context
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 local function bounce_tear(context, tear)
     local spectralTears = TearUtils.HasAnyTearFlag(tear, TearFlags.TEAR_SPECTRAL)
     tear.m_gridCollisionClass = spectralTears and EntityGridCollisionClass.GRIDCOLL_WALLS or EntityGridCollisionClass.GRIDCOLL_NOPITS
@@ -56,7 +56,7 @@ local function bounce_tear(context, tear)
 end
 
 ---@param context TearMechanicsContext.Update
----@param tear EntityTearComponent
+---@param tear Component.Entity.Tear
 local function Update(context, tear)
     local room = context.room
     local IsDungeon = context.isDungeon

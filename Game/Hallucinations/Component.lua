@@ -1,4 +1,4 @@
----@class HallucinationsComponent
+---@class Component.Hallucinations
 ---@field m_playerRecord PlayerRecordComponent[] : 0x0
 ---@field m_currentRecord integer : 0x8 -- the game uses a list to store records, so this is actually the current list node, as long as this is not the head the hallucination must be rendered
 ---@field m_sprite Sprite : 0xc

@@ -61,7 +61,7 @@ local function CanHaveCurseOfBlind(myContext)
 end
 
 ---@param myContext Context.Game
----@param level LevelComponent
+---@param level Component.Level
 ---@return LevelCurse | integer
 local function GetCurses(myContext, level)
     local curses = level.m_curses

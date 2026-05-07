@@ -9,15 +9,15 @@ local CollisionCommon = require("Entity.Familiar.Collision.Common")
 ---@class FamiliarCollisionHooks
 ---@field HandleBehavior FamiliarCollisionHook.HandleBehavior
 
----@alias FamiliarCollisionHook.HandleBehavior fun(context: Context, entity: EntityFamiliarComponent, collider: EntityComponent, low: boolean): boolean?
+---@alias FamiliarCollisionHook.HandleBehavior fun(context: Context, entity: Component.Entity.Familiar, collider: Component.Entity, low: boolean): boolean?
 
 ---@class FamiliarCollisionTemplate
 local Module = {}
 
 ---@param template FamiliarCollisionHooks
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean?
 local function hook_behavior(template, context, entity, collider, low)
@@ -31,8 +31,8 @@ end
 
 ---@param template FamiliarCollisionHooks
 ---@param context Context
----@param entity EntityFamiliarComponent
----@param collider EntityComponent
+---@param entity Component.Entity.Familiar
+---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean
 local function HandleCollision(template, context, entity, collider, low)
