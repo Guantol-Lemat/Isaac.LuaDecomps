@@ -4,6 +4,10 @@
 
 --#endregion
 
+---@param npc Component.Entity.Npc
+local function PostNpcInit(npc)
+end
+
 ---@param collectibleType CollectibleType | integer
 ---@param rng RNG
 ---@param player Component.Entity.Player
@@ -35,6 +39,7 @@ local Module = {}
 
 --#region Module
 
+Module.PostNpcInit = PostNpcInit
 Module.PreUseItem = PreUseItem
 Module.UseCard = UseCard
 Module.SpawnClearAward = SpawnClearAward

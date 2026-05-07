@@ -9,6 +9,7 @@
 ---@field m_isLowCollider boolean : 0xac8
 ---@field m_collider Component.EntityPtr : 0xacc
 ---@field m_peeperFattyRelated_1 integer : 0xad0
+---@field field_0xad4 unknown : 0xad4
 ---@field m_damageEntries2_qqq Component.DamageEntry[] : 0xad8
 ---@field m_damageRelated_qqq number : 0xae4
 ---@field m_stickyBombDeathSpawnRelated integer : 0xae8
@@ -16,7 +17,7 @@
 ---@field m_projectileCooldown integer : 0xaf0
 ---@field m_projectileDelay integer : 0xaf4
 ---@field m_championProjectileCooldown_qqq integer : 0xaf8
----@field m_championSpeedMult? number : 0xafc
+---@field m_champion_speedMult? number : 0xafc
 ---@field m_V1 Vector : 0xb00
 ---@field m_V2 Vector : 0xb08
 ---@field m_I1 integer : 0xb10
@@ -39,11 +40,13 @@
 ---@field m_npcScale number : 0xb88
 ---@field m_canShutDoors boolean : 0xb8c
 ---@field m_isBoss boolean : 0xb8d
+---@field field_0xb8e unknown : 0xb8e
 ---@field m_shieldStrength number : 0xb90
 ---@field m_shieldInterval integer : 0xb94
 ---@field m_shieldDeque unknown[] : 0xb98
 ---@field m_totalDamageTaken number : 0xbac
 ---@field m_addedToBestiary boolean : 0xbb0
+---@field field_0xbb1 unknown : 0xbb1 -- undefined2 in init (possible 2 booleans being initialized with 1 op)
 ---@field m_champion_isChampion boolean : 0xbb3
 ---@field m_champion_id ChampionColor | integer : 0xbb4
 ---@field m_transparencyTime integer : 0xbb8
@@ -72,4 +75,5 @@
 ---@field m_unkScaleUsedByLokiVariant number : 0xe98
 ---@field m_poopChampionLastGridIdx integer : 0xe9c
 ---@field m_pickupGhost_entity Component.EntityPtr : 0xea0
+---@field m_unkEntityPtr Component.EntityPtr : 0xea4
 ---@field m_unkEntity Component.EntityPtr : 0xea8

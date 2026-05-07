@@ -1,2 +1,2 @@
----@class Interface.EntityNPC
+---@class Interface.Entity_NPC
 return {}

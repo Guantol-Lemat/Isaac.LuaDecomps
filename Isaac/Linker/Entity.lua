@@ -424,6 +424,10 @@ function Stub.CanInstakillOnBossDeath(entity, unused) end
 ---@return boolean
 function Stub.CanDevolve(entity) end
 
+---@param entityPtr Component.EntityPtr
+---@param entity Component.Entity?
+function Stub.set_entity_ref(entityPtr, entity) end
+
 ---@param entity Component.Entity
 ---@param Parent Component.Entity
 function Stub.SetParent(entity, Parent) end
@@ -1010,6 +1014,7 @@ Interface.DoesEntityShareStatus = Stub.DoesEntityShareStatus
 Interface.IsValidTarget = Stub.IsValidTarget
 Interface.CanInstakillOnBossDeath = Stub.CanInstakillOnBossDeath
 Interface.CanDevolve = Stub.CanDevolve
+Interface.set_entity_ref = Stub.set_entity_ref
 Interface.SetParent = Stub.SetParent
 Interface.SetChild = Stub.SetChild
 Interface.SetTarget = Stub.SetTarget

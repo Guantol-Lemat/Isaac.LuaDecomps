@@ -597,6 +597,10 @@ function Stub.SpawnClearAward(ctx, room) end
 ---@param room Component.Room
 function Stub.update_card_against_humanity(ctx, room) end
 
+---@param room Component.Room
+---@param Boss Component.Entity.Npc
+function Stub.TriggerBossSpawn(room, Boss) end
+
 ---@param ctx Context.Common
 ---@param room Component.Room
 ---@param Boss Component.Entity.Npc
@@ -1335,6 +1339,7 @@ Interface.fix_trapdoor_pos = Stub.fix_trapdoor_pos
 Interface.GetClearAwardVariant = Stub.GetClearAwardVariant
 Interface.SpawnClearAward = Stub.SpawnClearAward
 Interface.update_card_against_humanity = Stub.update_card_against_humanity
+Interface.TriggerBossSpawn = Stub.TriggerBossSpawn
 Interface.TriggerBossDeath = Stub.TriggerBossDeath
 Interface.update_ambient_sounds = Stub.update_ambient_sounds
 Interface.update_greed_mode = Stub.update_greed_mode

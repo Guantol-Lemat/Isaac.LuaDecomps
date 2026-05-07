@@ -123,14 +123,10 @@
 ---@field m_dropRNG RNG : 0x334
 ---@field m_initSeed integer : 0x344
 ---@field m_childTimescale_qqq integer : 0x348
----@field m_childRelated1 integer : 0x34c
----@field m_childRelated2 integer : 0x350
+---@field m_childRelated Vector : 0x34c
 ---@field m_pitfallState integer : 0x354
 ---@field m_pitfallRelated integer : 0x358
 ---@field m_luaData table : 0x35c -- the lua table returned by GetData()
-
----@class Component.EntityPtr
----@field ref Component.Entity?
 
 ---@class Component.HitList
 ---@field m_lists integer[]

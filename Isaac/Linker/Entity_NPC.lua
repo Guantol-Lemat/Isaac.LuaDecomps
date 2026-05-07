@@ -1,5 +1,11 @@
----@class Inreface.Entity_NPC
+---@class Interface.Entity_NPC
 local Interface = require("Isaac.Interface.Entity_NPC")
+
+--#region
+
+local NpcInit = require("Isaac.Gameplay.Npc.NpcInit")
+
+--#endregion
 
 --#region Stub
 
@@ -180,14 +186,6 @@ function Stub.Free(ctx, npc) end
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
 function Stub.destructor(ctx, npc) end
-
----@param ctx Context.Common
----@param npc Component.Entity.Npc
----@param param_1 integer
----@param param_2 integer
----@param param_3 integer
----@param param_4 integer
-function Stub.Init(ctx, npc, param_1, param_2, param_3, param_4) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
@@ -689,7 +687,7 @@ Interface.IsChampion = Stub.IsChampion
 Interface.Constructor = Stub.Constructor
 Interface.Free = Stub.Free
 Interface.destructor = Stub.destructor
-Interface.Init = Stub.Init
+Interface.Init = NpcInit.Init
 Interface.Remove = Stub.Remove
 Interface.ClearReferences = Stub.ClearReferences
 Interface.CheckPlayerProximity = Stub.CheckPlayerProximity
