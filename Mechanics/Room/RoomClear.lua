@@ -27,11 +27,11 @@ local VectorZero = VectorUtils.VectorZero
 
 ---@class RoomContext.SpawnClearAward : Context.Common, GameContext.Spawn, RoomContext.SpawnGridEntity, PersistentDataContext.RecordPlayerCompletion, LevelContext.GetExtraBossRoomStage, LevelContext.Curses
 ---@field manager Component.Manager
----@field persistentGameData PersistentDataComponent
+---@field persistentGameData Component.PersistentGameData
 ---@field achievementOverlay AchievementOverlayComponent
 ---@field game Component.Game
 ---@field level Component.Level
----@field playerManager PlayerManagerComponent
+---@field playerManager Component.PlayerManager
 ---@field itemPool ItemPoolComponent
 
 --- This is similar to Room::GetCenterPos but not quite.

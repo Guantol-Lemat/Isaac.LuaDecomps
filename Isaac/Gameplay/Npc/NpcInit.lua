@@ -2,9 +2,13 @@
 
 local EntityPtrComponent = require("Isaac.Components.Entity.EntityPtrComponent")
 local IEntity = require("Isaac.Interface.Entity")
+local IEntityNpc = require("Isaac.Interface.Entity_NPC")
 local INpcPathfinder = require("Isaac.Interface.NPC_Pathfinder")
 local IRoom = require("Isaac.Interface.Room")
+local Log = require("General.Log")
 local LuaCallbacks = require("LuaEngine.Callbacks")
+
+local ChampionSetup = require("Isaac.Gameplay.Npc.ChampionSetup")
 
 --#endregion
 
@@ -105,12 +109,40 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     LuaCallbacks.PostNpcInit(npc)
 end
 
+---@param ctx Context.Common
+---@param npc Component.Entity.Npc
+local function LoadEntityConfig(ctx, npc)
+    npc.m_isBoss = false
+
+    IEntity.load_entity_config(ctx, npc)
+
+    if not npc.m_config then
+        Log.LogMessage(0, string.format("[warn] No entity config for NPC %d.%d\n", npc.m_type, npc.m_variant))
+        return
+    end
+
+    IEntityNpc.load_graphics(ctx, npc, true)
+
+    local sprite = npc.m_sprite
+    sprite.Scale = Vector(1, 1)
+    sprite:SetAnimation(sprite:GetDefaultAnimationName(), true)
+
+    local config = npc.m_config
+    npc.m_canShutDoors = config.canShutDoors
+    npc.m_isBoss = config.isBoss
+    npc.m_shieldStrength = config.shieldStrength
+    npc.m_shieldInterval = config.shieldFrames
+
+    ChampionSetup.ChampionSetup(ctx, npc)
+end
+
 ---@class Gameplay.NpcInit
 local Module = {}
 
 --#region Module
 
 Module.Init = Init
+Module.LoadEntityConfig = LoadEntityConfig
 
 --#endregion
 

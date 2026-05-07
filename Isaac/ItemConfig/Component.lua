@@ -44,7 +44,7 @@
 ---@field m_wispConfig WispConfigComponent : 0xcc
 ---@field m_locustConfig LocustComponent : 0xd0
 ---@field m_modANM2Frame integer : 0xd4
----@field m_mod ModEntryComponent : 0xd8
+---@field m_mod Component.ModEntry : 0xd8
 
 ---@class CardConfigComponent
 ---@field m_id Card | integer : 0x0
@@ -58,7 +58,7 @@
 ---@field m_announcerVoice SoundEffect | integer : 0x5c
 ---@field m_announcerDelay integer : 0x60
 ---@field m_mimicCharge integer : 0x64
----@field m_mod ModEntryComponent : 0x68
+---@field m_mod Component.ModEntry : 0x68
 ---@field m_moddedCardFrontANM2 Sprite : 0x6c
 
 ---@class CostumeComponent

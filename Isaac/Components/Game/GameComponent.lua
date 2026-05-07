@@ -7,7 +7,7 @@
 ---@field m_roomTransition RoomTransitionComponent : 0x1b6c0
 ---@field m_stageTransition StageTransitionComponent : 0x1ba0c
 ---@field m_fortuneRNG RNG : 0x1ba30
----@field m_playerManager PlayerManagerComponent : 0x1ba40
+---@field m_playerManager Component.PlayerManager : 0x1ba40
 ---@field m_seeds SeedsComponent : 0x1bb04
 ---@field m_console ConsoleComponent : 0x1bb60
 ---@field m_itemOverlay ItemOverlayComponent : 0x1bcc0

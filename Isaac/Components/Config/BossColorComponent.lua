@@ -1,0 +1,6 @@
+---@class Component.EntityConfig.BossColor
+---@field m_string1 string : 0x2c
+---@field m_anm2Path string : 0x44
+---@field m_string3 string : 0x5c
+---@field m_scaleMulti number : 0x74
+---@field m_hpMulti number : 0x78

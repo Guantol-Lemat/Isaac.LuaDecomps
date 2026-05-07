@@ -4,18 +4,18 @@
 
 --#endregion
 
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param playerType PlayerType | integer
 ---@return Component.Entity.Player
 local function SpawnCoPlayer(manager, playerType)
 end
 
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param player Component.Entity.Player
 local function RemoveCoPlayer(manager, player)
 end
 
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param player Component.Entity.Player
 ---@param other Component.Entity.Player
 local function ReplacePlayer(manager, player, other)

@@ -6,16 +6,16 @@ local eState = Enums.eState
 --#endregion
 
 ---@class PersistentDataContext.RecordPlayerCompletion
----@field playerManager PlayerManagerComponent
----@field persistentGameData PersistentDataComponent
+---@field playerManager Component.PlayerManager
+---@field persistentGameData Component.PersistentGameData
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param achievement Achievement | integer
 local function TryUnlock(persistentGameData, achievement)
 end
 
 ---@param myContext Context.Common
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param achievement Achievement | integer
 ---@return boolean
 local function Unlocked(myContext, persistentGameData, achievement)
@@ -42,13 +42,13 @@ local function Unlocked(myContext, persistentGameData, achievement)
     return forceUnlock
 end
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param event EventCounter | integer
 ---@param value integer
 local function IncreaseEventCounter(persistentGameData, event, value)
 end
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param event EventCounter | integer
 ---@return integer
 local function GetEventCounter(persistentGameData, event)
@@ -60,12 +60,12 @@ end
 local function RecordPlayerCompletion(myContext, completionType)
 end
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param bossId BossType | integer
 local function AddBoss(persistentGameData, bossId)
 end
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param stage LevelStage
 local function AddStageCompleted(persistentGameData, stage)
     if persistentGameData.m_readOnly then

@@ -7,7 +7,7 @@ local PlayerUtils = require("Entity.Player.Utils")
 ---@class PlayerManagerUtils
 local Module = {}
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@param index integer
 ---@return Component.Entity.Player
 local function GetPlayer(playerManager, index)
@@ -22,19 +22,19 @@ local function GetPlayer(playerManager, index)
     return players[index + 1]
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@return integer
 local function GetNumCoins(playerManager)
     return GetPlayer(playerManager, 0).m_numCoins
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@return integer
 local function GetNumKeys(playerManager)
     return GetPlayer(playerManager, 0).m_numKeys
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@return boolean
 local function IsCoopPlay(playerManager)
     local players = playerManager.m_players
@@ -54,12 +54,12 @@ local function IsCoopPlay(playerManager)
     return playerCount > 1
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 local function ReviveCoopPlayers(playerManager)
 
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@return number
 local function GetNumCoopPlayers(playerManager)
     local players = playerManager.m_players
@@ -75,7 +75,7 @@ local function GetNumCoopPlayers(playerManager)
     return playerCount
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@param playerType PlayerType | integer
 ---@return Component.Entity.Player?
 local function FirstPlayerByType(playerManager, playerType)
@@ -91,7 +91,7 @@ local function FirstPlayerByType(playerManager, playerType)
     return nil
 end
 
----@param playerManager PlayerManagerComponent
+---@param playerManager Component.PlayerManager
 ---@param playerType PlayerType | integer
 ---@return boolean
 local function AnyoneIsPlayerType(playerManager, playerType)
@@ -99,14 +99,14 @@ local function AnyoneIsPlayerType(playerManager, playerType)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param collectibleType CollectibleType
 ---@return Component.Entity.Player?
 local function FirstCollectibleOwner(myContext, manager, collectibleType)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param collectibleType CollectibleType
 ---@return boolean
 local function AnyoneHasCollectible(myContext, manager, collectibleType)
@@ -114,21 +114,21 @@ local function AnyoneHasCollectible(myContext, manager, collectibleType)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param trinket TrinketType
 ---@return integer
 local function GetTrinketMultiplier(myContext, manager, trinket)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param trinket TrinketType
 ---@return Component.Entity.Player?
 local function FirstTrinketOwner(myContext, manager, trinket)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param trinket TrinketType
 ---@return boolean
 local function AnyoneHasTrinket(myContext, manager, trinket)
@@ -136,21 +136,21 @@ local function AnyoneHasTrinket(myContext, manager, trinket)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param playerType PlayerType | integer
 ---@return Component.Entity.Player?
 local function FirstBirthrightOwner(myContext, manager, playerType)
 end
 
 ---@param myContext Context.Common
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param playerType PlayerType | integer
 ---@return boolean
 local function AnyoneHasBirthright(myContext, manager, playerType)
     return not not FirstBirthrightOwner(myContext, manager, playerType)
 end
 
----@param manager PlayerManagerComponent
+---@param manager Component.PlayerManager
 ---@param all boolean
 ---@return boolean
 local function HasFullHeartsSoulHearts(manager, all)

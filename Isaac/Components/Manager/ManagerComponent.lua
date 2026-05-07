@@ -3,7 +3,7 @@
 ---@field m_state integer : 0x8
 ---@field m_previousState_qqq integer : 0xc
 ---@field m_currentSaveSlot integer : 0x10
----@field m_persistentGameData PersistentDataComponent : 0x14
+---@field m_persistentGameData Component.PersistentGameData : 0x14
 ---@field m_gameState GameStateComponent : 0xf34
 ---@field m_cutsceneManager CutsceneComponent : 0x20a00
 ---@field m_nightmareScene NightmareSceneComponent : 0x211bc

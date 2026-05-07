@@ -8,7 +8,7 @@
 local Module = {}
 
 ---@param context Context
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param achievement Achievement
 ---@return boolean
 local function IsUnlocked(context, persistentData, achievement)

@@ -11,7 +11,7 @@ local Module = {}
 ---@class InventoryContext.SharedCollectibleAndTrinket : PersistentDataContext.Unlocked, ItemConfigContext.GetCollectible
 ---@field level Component.Level -- Trinket
 ---@field room Component.Room -- Collectible
----@field persistentGameData PersistentDataComponent -- Collectible
+---@field persistentGameData Component.PersistentGameData -- Collectible
 ---@field itemConfig Component.ItemConfig.Item -- Collectible
 ---@field proceduralItemManager ProceduralItemManagerComponent
 ---@field seeds SeedsComponent -- Collectible

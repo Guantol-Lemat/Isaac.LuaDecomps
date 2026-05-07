@@ -6,14 +6,14 @@
 ---@class Context
 ---@field GetAdmin fun(self: Context): Admin
 ---@field GetStaticContext fun(self: Context): StaticContext
----@field GetPersistentGameData fun(self: Context): PersistentDataComponent
+---@field GetPersistentGameData fun(self: Context): Component.PersistentGameData
 ---@field GetItemConfig fun(self: Context): Component.ItemConfig.Item
 ---@field GetRoomConfig fun(self: Context): RoomConfigComponent
 ---@field GetGame fun(self: Context): Component.Game
 ---@field GetLevel fun(self: Context): Component.Level
 ---@field GetRoom fun(self: Context): Component.Room
 ---@field GetChallengeParams fun(self: Context, challenge: Challenge | integer): ChallengeParamsComponent
----@field GetPlayerManager fun(self: Context): PlayerManagerComponent
+---@field GetPlayerManager fun(self: Context): Component.PlayerManager
 ---@field GetPlayer fun(self: Context, playerIndex: integer): Component.Entity.Player
 ---@field GetItemPool fun(self: Context): ItemPoolComponent
 ---@field GetBossPool fun(self: Context): BossPoolComponent

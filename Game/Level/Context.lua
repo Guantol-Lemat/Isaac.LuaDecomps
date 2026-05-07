@@ -17,16 +17,16 @@ local Module = {}
 ---@field inChallenge boolean
 
 ---@class LevelContext.IsStageAvailable : InventoryContext.HasCollectible, PersistentDataContext.Unlocked
----@field playerManager PlayerManagerComponent
----@field persistentGameData PersistentDataComponent
+---@field playerManager Component.PlayerManager
+---@field persistentGameData Component.PersistentGameData
 ---@field mode integer
 ---@field challengeParams ChallengeParamsComponent
 ---@field inChallenge boolean
 ---@field forceUnlock boolean
 
 ---@class LevelContext.CanSpawnTrapDoor : LevelContext.IsStageAvailable, LevelContext.IsNextStageAvailable, QuestContext.HasMirrorDimension, QuestContext.IsBackwardsPathEntrance
----@field playerManager PlayerManagerComponent
----@field persistentGameData PersistentDataComponent
+---@field playerManager Component.PlayerManager
+---@field persistentGameData Component.PersistentGameData
 ---@field mode integer
 ---@field curses LevelCurse | integer
 ---@field gameStateFlags GameStateFlag | integer

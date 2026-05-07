@@ -87,7 +87,7 @@
 ---@field m_burnDamage number : 0x27c
 ---@field m_spawnFrame integer : 0x280
 ---@field m_spawnGridIdx integer : 0x284
----@field m_config EntityConfigComponent : 0x288
+---@field m_config Component.EntityConfig.Entity : 0x288
 ---@field m_targetPosition Vector : 0x28c
 ---@field m_position Vector : 0x294
 ---@field m_preInterpolatePosition Vector : 0x29c

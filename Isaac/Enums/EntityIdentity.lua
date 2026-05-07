@@ -26,6 +26,20 @@ Module.eBabyVariant = {
     WRINKLY_BABY = 3,
 }
 
+---@enum eMomBossColor
+Module.eMomBossColor = {
+    NORMAL = 0,
+    BLUE = 1,
+    RED = 2,
+    MAUSOLEUM = 3
+}
+
+---@enum eMomsHeartBossColor
+Module.eMomsHeartBossColor = {
+    NORMAL = 0,
+    MAUSOLEUM = 1,
+}
+
 ---@enum eHauntVariant
 Module.eHauntVariant = {
     HAUNT = 0,

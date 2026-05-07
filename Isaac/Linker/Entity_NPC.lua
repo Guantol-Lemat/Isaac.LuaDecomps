@@ -235,12 +235,8 @@ function Stub.try_load_alt_anim(ctx, npc, string) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
----@param Init_qqq boolean
-function Stub.load_graphics(ctx, npc, Init_qqq) end
-
----@param ctx Context.Common
----@param npc Component.Entity.Npc
-function Stub.load_entity_config(ctx, npc) end
+---@param loadAnm2 boolean
+function Stub.load_graphics(ctx, npc, loadAnm2) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
@@ -697,7 +693,7 @@ Interface.translate_gfx_path_hell = Stub.translate_gfx_path_hell
 Interface.translate_gfx_path = Stub.translate_gfx_path
 Interface.try_load_alt_anim = Stub.try_load_alt_anim
 Interface.load_graphics = Stub.load_graphics
-Interface.load_entity_config = Stub.load_entity_config
+Interface.load_entity_config = NpcInit.LoadEntityConfig
 Interface.deathspawn_kill = Stub.deathspawn_kill
 Interface.Kill = Stub.Kill
 Interface.KillUnique = Stub.KillUnique

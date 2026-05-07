@@ -1,12 +1,12 @@
 ---@class RoomUpdateContext.Update : RoomContext.GetFrameCount, InventoryContext.HasCollectible, LevelContext.GetStageId, DamoclesItemsContext.Update
 ---@field game Component.Game
 ---@field level Component.Level
----@field playerManager PlayerManagerComponent
+---@field playerManager Component.PlayerManager
 ---@field musicManager MusicManagerComponent
 ---@field ambush AmbushComponent
 ---@field frameCount integer
 ---@field room Component.Room
----@field persistentGameData PersistentDataComponent
+---@field persistentGameData Component.PersistentGameData
 ---@field itemConfig Component.ItemConfig.Item
 ---@field proceduralItemManager ProceduralItemManagerComponent
 ---@field seeds SeedsComponent

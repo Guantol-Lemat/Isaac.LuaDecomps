@@ -4,7 +4,7 @@ local Log = require("General.Log")
 
 --#endregion
 
----@param persistentGameData PersistentDataComponent
+---@param persistentGameData Component.PersistentGameData
 ---@param value boolean
 local function SetReadOnly(persistentGameData, value)
     local valueString = value and "True" or "False"

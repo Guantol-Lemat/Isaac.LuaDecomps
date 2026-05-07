@@ -83,7 +83,7 @@ local switch_GreedStageProgression = {
     end
 }
 
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param stage LevelStage
 ---@return boolean
 local function is_wotl_available(context, persistentData, stage)
@@ -100,7 +100,7 @@ local function is_wotl_available(context, persistentData, stage)
     return false
 end
 
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param stage LevelStage
 ---@return boolean
 local function is_afterbirth_available(context, persistentData, stage)
@@ -117,7 +117,7 @@ local function is_afterbirth_available(context, persistentData, stage)
     return false
 end
 
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param stage LevelStage
 ---@return boolean
 local function is_repentance_b_available(context, persistentData, stage)
@@ -132,7 +132,7 @@ local function is_repentance_b_available(context, persistentData, stage)
     return false
 end
 
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param stage LevelStage
 ---@return boolean
 local function is_wotl_available_greed(context, persistentData, stage)
@@ -149,7 +149,7 @@ local function is_wotl_available_greed(context, persistentData, stage)
     return false
 end
 
----@param persistentData PersistentDataComponent
+---@param persistentData Component.PersistentGameData
 ---@param stage LevelStage
 ---@return boolean
 local function is_afterbirth_available_greed(context, persistentData, stage)

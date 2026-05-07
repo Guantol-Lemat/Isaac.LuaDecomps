@@ -82,7 +82,7 @@ local Module = {}
 ---@field gibAmount string? -- integer
 ---@field gibFlags string?
 
----@param entity EntityConfig.EntityComponent
+---@param entity Component.EntityConfig.Entity
 ---@param node Xml.Entities2.Node.Entity
 local function parse_entity(entity, node)
     local attributes = node._attr
@@ -129,7 +129,7 @@ local function parse_entity(entity, node)
 
     local champion = attributes.champion
     if champion then
-        entity.isChampion = champion == "1"
+        entity.canBeChampion = champion == "1"
     end
 
     local collisionRadius = attributes.collisionRadius
@@ -142,7 +142,7 @@ end
 
 ---@param entityConfig EntityConfigComponent
 ---@param filePath string
----@param mod ModEntryComponent?
+---@param mod Component.ModEntry?
 local function Load(entityConfig, filePath, mod)
     local document = XmlParser.Parse(filePath)
     ---@cast document Xml.Entities2.Document?
@@ -179,7 +179,7 @@ local function Load(entityConfig, filePath, mod)
             goto continue
         end
 
-        ---@type EntityConfig.EntityComponent
+        ---@type Component.EntityConfig.Entity
         local config
         -- local config = new EntityConfigEntity
         parse_entity(config, entity)

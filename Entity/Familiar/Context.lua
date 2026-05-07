@@ -1,7 +1,7 @@
 ---@class FamiliarContext.GetOrbitTarget : InventoryContext.HasCollectible
 ---@field level Component.Level
 ---@field room Component.Room
----@field persistentGameData PersistentDataComponent
+---@field persistentGameData Component.PersistentGameData
 ---@field itemConfig Component.ItemConfig.Item
 ---@field proceduralItemManager ProceduralItemManagerComponent
 ---@field seeds SeedsComponent
@@ -16,7 +16,7 @@
 ---@field isInterpolation boolean
 ---@field level Component.Level
 ---@field room Component.Room
----@field persistentGameData PersistentDataComponent
+---@field persistentGameData Component.PersistentGameData
 ---@field itemConfig Component.ItemConfig.Item
 ---@field proceduralItemManager ProceduralItemManagerComponent
 ---@field seeds SeedsComponent

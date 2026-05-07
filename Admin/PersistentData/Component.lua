@@ -1,4 +1,4 @@
----@class PersistentDataComponent
+---@class Component.PersistentGameData
 ---@field m_achievements boolean[]
 ---@field m_eventCounters integer[]
 ---@field m_itemsCollection boolean[]
@@ -12,7 +12,7 @@
 ---@class PersistentDataComponentUtils
 local Module = {}
 
----@return PersistentDataComponent
+---@return Component.PersistentGameData
 local function Create()
 end
 
