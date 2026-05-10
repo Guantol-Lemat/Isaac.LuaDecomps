@@ -65,7 +65,7 @@ function Stub.GetLevel(game) end
 ---@param variant integer
 ---@param position Vector
 ---@param velocity Vector
----@param spawner Component.Entity
+---@param spawner Component.Entity?
 ---@param subtype integer
 ---@param seed integer
 ---@return Component.Entity
@@ -360,7 +360,7 @@ function Stub.MoveToRandomRoom(ctx, game, IAmErrorRoom, Seed, Player) end
 ---@param Variant integer
 ---@param Position Vector
 ---@param Velocity Vector
----@param Spawner Component.Entity
+---@param Spawner Component.Entity?
 ---@param Subtype integer
 ---@param Seed integer
 ---@param Force_qqq boolean

@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param direction Vector
 ---@param source Component.Entity?
 ---@param offset number
@@ -13,22 +13,22 @@ local function InitHomingPath(myContext, knife, direction, source, offset)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function DoShootEffects(myContext, knife)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function Shoot(myContext, knife, charge, range)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function UpdateBoneSwing(myContext, knife)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param multiShotCount integer
 ---@param startFrame integer
 local function SpinAttack(myContext, knife, multiShotCount, startFrame)

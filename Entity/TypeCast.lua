@@ -41,16 +41,16 @@ local function StaticToSlot(entity)
 end
 
 ---@param entity Component.Entity
----@return EntityLaserComponent
+---@return Component.Entity.Laser
 local function StaticToLaser(entity)
-    ---@cast entity EntityLaserComponent
+    ---@cast entity Component.Entity.Laser
     return entity
 end
 
 ---@param entity Component.Entity
----@return EntityKnifeComponent
+---@return Component.Entity.Knife
 local function StaticToKnife(entity)
-    ---@cast entity EntityKnifeComponent
+    ---@cast entity Component.Entity.Knife
     return entity
 end
 
@@ -142,10 +142,10 @@ local function ToSlot(entity)
 end
 
 ---@param entity Component.Entity
----@return EntityLaserComponent?
+---@return Component.Entity.Laser?
 local function ToLaser(entity)
     if entity.m_type == EntityType.ENTITY_LASER then
-        ---@cast entity EntityLaserComponent
+        ---@cast entity Component.Entity.Laser
         return entity
     end
 
@@ -153,10 +153,10 @@ local function ToLaser(entity)
 end
 
 ---@param entity Component.Entity
----@return EntityKnifeComponent?
+---@return Component.Entity.Knife?
 local function ToKnife(entity)
     if entity.m_type == EntityType.ENTITY_KNIFE then
-        ---@cast entity EntityKnifeComponent
+        ---@cast entity Component.Entity.Knife
         return entity
     end
 

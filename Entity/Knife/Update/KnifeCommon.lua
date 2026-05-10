@@ -11,7 +11,7 @@ local Module = {}
 ---@type WeaponType
 local NECESSARY_WEAPON = WeaponType.WEAPON_KNIFE
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return number
 local function GetPivotRadius(knife)
     local parent = knife.m_parent
@@ -24,7 +24,7 @@ local function GetPivotRadius(knife)
     return 30.0
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function UpdateSprite(knife)
     local renderRotation = MathUtils.NormalizeAngle(knife.m_hitboxRotation - 90.0)
     local sprite = knife.m_sprite

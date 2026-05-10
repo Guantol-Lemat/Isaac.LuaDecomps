@@ -1,11 +1,11 @@
 --#region Dependencies
 
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local GameSpawn = require("Game.Spawn")
 local RoomUtils = require("Game.Room.Utils")
 local RoomBounds = require("Game.Room.Bounds")
 local EntityCast = require("Entity.TypeCast")
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local EffectUtils = require("Entity.Effect.Utils")
 local GridEntityUtils = require("GridEntity.Utils")
 local BackdropUtils = require("Isaac.Backdrop.Utils")

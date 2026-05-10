@@ -8,7 +8,7 @@ local SpriteUtils = require("General.Sprite")
 ---@class CommonUpdateUtils
 local Module = {}
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function UpdateSwingingKnifeSprite(knife, primaryParent)
     if not knife.m_isFlying then
         local sprite = knife.m_sprite

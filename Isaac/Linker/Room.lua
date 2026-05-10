@@ -335,10 +335,9 @@ function Stub.GetMusicPitch(ctx, room) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
----@param unused Vector
 ---@param entity Component.Entity
 ---@return number
-function Stub.GetTimeScale(ctx, room, unused, entity) end
+function Stub.GetTimeScale(ctx, room, entity) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -493,9 +492,9 @@ function Stub.GetLaserTarget(room, Pos, Dir) end
 ---@param GridPathThreshold integer
 ---@param IgnoreWalls boolean
 ---@param IgnoreCrushable boolean
----@param resultPos Vector
 ---@return boolean
-function Stub.CheckLine(ctx, room, Pos1, Pos2, Mode, GridPathThreshold, IgnoreWalls, IgnoreCrushable, resultPos) end
+---@return Vector
+function Stub.CheckLine(ctx, room, Pos1, Pos2, Mode, GridPathThreshold, IgnoreWalls, IgnoreCrushable) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room

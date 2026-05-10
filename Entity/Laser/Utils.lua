@@ -4,7 +4,7 @@
 
 --#endregion
 
----@param laser EntityLaserComponent
+---@param laser Component.Entity.Laser
 ---@param angle number
 local function SetAngle(laser, angle)
 end
@@ -17,7 +17,7 @@ end
 ---@param posOffset Vector
 ---@param source Component.Entity?
 ---@param force boolean
----@return EntityLaserComponent
+---@return Component.Entity.Laser
 local function ShootAngle(myContext, variant, sourcePos, angle, timeout, posOffset, source, force)
 end
 

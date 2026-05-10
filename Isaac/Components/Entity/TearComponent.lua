@@ -27,6 +27,10 @@
 ---@field m_stick_timer integer : 0x3d4
 ---@field m_chainTear2 Component.EntityPtr : 0x3e4
 ---@field m_chainTear1 Component.EntityPtr : 0x3e8
+---@field m_fetus_knifeEntity Component.EntityPtr : 0x3ec
+---@field m_entRef_2 Component.EntityPtr : 0x3f0
+---@field m_fetus_techXEntity Component.EntityPtr : 0x3f4
+---@field m_fetus_techFireCooldown integer : 0x3f8
 ---@field m_tearGlowSprite Sprite : 0x3fc
 ---@field m_tearEffectSprite Sprite : 0x510
 ---@field m_deadEye_sprite Sprite : 0x624

@@ -76,6 +76,10 @@ function Stub.DisableCanTriggerStreakEnd(tear) end
 ---@param param_2 Component.Entity
 function Stub.hitlist_something(param_1_00, param_2) end
 
+---@param tear Component.Entity.Tear
+---@return Component.Entity.Player?
+function Stub.GetPlayer(tear) end
+
 ---@param param_1 integer
 ---@return boolean
 function Stub.CheckStrangeAttractorCond(param_1) end
@@ -295,6 +299,7 @@ Interface.IsPrismTouched = Stub.IsPrismTouched
 Interface.SetPrismTouched = Stub.SetPrismTouched
 Interface.DisableCanTriggerStreakEnd = Stub.DisableCanTriggerStreakEnd
 Interface.hitlist_something = Stub.hitlist_something
+Interface.GetPlayer = Stub.GetPlayer
 Interface.CheckStrangeAttractorCond = Stub.CheckStrangeAttractorCond
 Interface.constructor = Stub.constructor
 Interface.Free = Stub.Free
@@ -313,7 +318,7 @@ Interface.get_render_height = Stub.get_render_height
 Interface.SetScale = Stub.SetScale
 Interface.SetTearFlags = Stub.SetTearFlags
 Interface.trigger_collision = Stub.trigger_collision
-Interface.ResetSpriteScale = Stub.ResetSpriteScale
+Interface.reset_sprite_scale = Stub.ResetSpriteScale
 Interface.GetHasParentTear = Stub.GetHasParentTear
 Interface.explode_balloon_qqq = Stub.explode_balloon_qqq
 Interface.Render = Stub.Render

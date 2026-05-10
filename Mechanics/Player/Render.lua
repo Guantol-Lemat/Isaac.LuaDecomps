@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local Screen = require("Isaac.Screen")
 local VectorUtils = require("General.Math.VectorUtils")
 local RoomUtils = require("Game.Room.Utils")

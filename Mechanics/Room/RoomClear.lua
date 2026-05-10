@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local VectorUtils = require("General.Math.VectorUtils")
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local RoomUtils = require("Game.Room.Utils")
 local LuaCallbacks = require("LuaEngine.Callbacks")
 local GameUtils = require("Game.Utils")

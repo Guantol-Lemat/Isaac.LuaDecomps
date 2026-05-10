@@ -24,7 +24,7 @@
 ---@field m_redHeartDamage boolean : 0x120c
 ---@field m_brokenWatch_state integer : 0x1210
 ---@field m_entityCount_qqq integer : 0x1214
----@field m_entityList EntityManagerComponent : 0x1218
+---@field m_entityList Component.EntityList : 0x1218
 ---@field m_fxLayers Component.FXLayers : 0x1798
 ---@field m_bossId BossType | integer : 0x1d1c
 ---@field m_secondBossId BossType | integer : 0x1d20

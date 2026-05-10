@@ -4,17 +4,17 @@
 
 --#endregion
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function Wiggle(knife)
 end
 
 ---@param myContext Context.Room
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function HomeIn(myContext, knife)
 end
 
 ---@param myContext Context.Room
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function ScreenWrap(myContext, knife)
 end
 

@@ -3,12 +3,12 @@
 local TableUtils = require("General.Table")
 local MathUtils = require("General.Math")
 local VectorUtils = require("General.Math.VectorUtils")
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local Callbacks = require("LuaEngine.Callbacks")
 local EntityUtils = require("Entity.Utils")
 local EntityCast = require("Entity.TypeCast")
 local EntityUpdate = require("Entity.Common.Update")
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local KnifeUtils = require("Entity.Knife.Utils")
 local KnifeMovement = require("Mechanics.Knife.Movement")
 local KnifeAttack = require("Mechanics.Knife.Attack")
@@ -80,7 +80,7 @@ end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param pivotRadius number
 local function update_base_normal(closure, myContext, knife, pivotRadius)
     local requiredWeapon, isClub, isSword = update_closure_unpack(closure)
@@ -218,7 +218,7 @@ local function update_base_normal(closure, myContext, knife, pivotRadius)
             -- play appropriate animation
             local direction = Vector.FromAngle(knife.m_effectiveRotation)
             local movementDirection = EntityUtils.GetMovementDirection(direction)
-            local animationSet = knife.m_swordCharged and SWORD_CHARGED_ANIMATIONS or SWORD_IDLE_ANIMATIONS
+            local animationSet = knife.m_sword_isCharged and SWORD_CHARGED_ANIMATIONS or SWORD_IDLE_ANIMATIONS
             knife.m_sprite:Play(animationSet[movementDirection + 1], false)
         end
 
@@ -321,14 +321,14 @@ end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return boolean? Remove
 local function update_base_ludovico(closure, myContext, knife)
 end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return boolean? Remove
 local function update_base(closure, myContext, knife)
     local _, isClub, isSword = update_closure_unpack(closure)
@@ -496,7 +496,7 @@ end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return boolean? Remove
 local function update_projectile(closure, myContext, knife)
     local requiredWeapon, isClub, isSword = update_closure_unpack(closure)
@@ -505,7 +505,7 @@ end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return boolean? Remove
 local function update_3(closure, myContext, knife)
     local requiredWeapon, isClub, isSword = update_closure_unpack(closure)
@@ -514,7 +514,7 @@ end
 
 ---@param closure table
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return boolean? Remove
 local function update_club_hitbox(closure, myContext, knife)
     local requiredWeapon, isClub, isSword = update_closure_unpack(closure)
@@ -528,7 +528,7 @@ local switch_update = {
 }
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param knifeData table
 local function update_hit_list_clear(myContext, knife, knifeData)
     local isClub, isSword = table.unpack(knifeData, 2)
@@ -553,7 +553,7 @@ local function update_hit_list_clear(myContext, knife, knifeData)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param player Component.Entity.Player?
 local function damage_grid(myContext, knife, player)
     local room = myContext.game.m_level.m_room
@@ -607,7 +607,7 @@ local function damage_grid(myContext, knife, player)
 end
 
 ---@param myContext Context.Common
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function Update(myContext, knife)
     local interpolationUpdate = knife.m_interpolated
     if interpolationUpdate then

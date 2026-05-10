@@ -1,4 +1,4 @@
----@class EntityLaserComponent : Component.Entity
+---@class Component.Entity.Laser : Component.Entity
 ---@field m_parentOffset Vector : 0x360
 ---@field m_startAngleDegrees number : 0x368
 ---@field m_angleDegrees number : 0x36c

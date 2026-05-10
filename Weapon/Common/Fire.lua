@@ -48,7 +48,7 @@ end
 ---@param leftEye boolean
 ---@param oneHit boolean
 ---@param damageMultiplier number
----@return EntityLaserComponent
+---@return Component.Entity.Laser
 local function FireTechLaser(context, weapon, position, offsetId, velocity, leftEye, oneHit, damageMultiplier)
 end
 

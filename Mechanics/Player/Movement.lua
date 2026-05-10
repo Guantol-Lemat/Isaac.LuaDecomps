@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local MathUtils = require("General.Math")
 local VectorUtils = require("General.Math.VectorUtils")
 local ItemConfigUtils = require("Isaac.ItemConfig.Utils")

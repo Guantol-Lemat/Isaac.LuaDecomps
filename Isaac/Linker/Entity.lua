@@ -195,23 +195,23 @@ function Stub.IsSlot(entity) end
 function Stub.GetSprite(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Familiar
+---@return Component.Entity.Familiar?
 function Stub.ToFamiliar(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Laser
+---@return Component.Entity.Laser?
 function Stub.ToLaser(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Npc
+---@return Component.Entity.Npc?
 function Stub.ToNPC(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Pickup
+---@return Component.Entity.Pickup?
 function Stub.ToPickup(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Tear
+---@return Component.Entity.Tear?
 function Stub.ToTear(entity) end
 
 ---@param entity Component.Entity
@@ -262,11 +262,11 @@ function Stub.GetIndex(entity) end
 function Stub.IsFriendly(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Player
+---@return Component.Entity.Player?
 function Stub.ToPlayer(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Effect
+---@return Component.Entity.Effect?
 function Stub.ToEffect(entity) end
 
 ---@param entity Component.Entity
@@ -286,7 +286,7 @@ function Stub.GetTargetPosition(entity) end
 function Stub.IsEffect(entity) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Projectile
+---@return Component.Entity.Projectile?
 function Stub.ToProjectile(entity) end
 
 ---@param entity Component.Entity
@@ -357,7 +357,7 @@ function Stub.GetDropSeed(entity) end
 function Stub.SetCollisionDamage(entity, param_1) end
 
 ---@param entity Component.Entity
----@return Component.Entity.Knife
+---@return Component.Entity.Knife?
 function Stub.ToKnife(entity) end
 
 ---@param entity Component.Entity
@@ -429,19 +429,19 @@ function Stub.CanDevolve(entity) end
 function Stub.set_entity_ref(entityPtr, entity) end
 
 ---@param entity Component.Entity
----@param Parent Component.Entity
+---@param Parent Component.Entity?
 function Stub.SetParent(entity, Parent) end
 
 ---@param entity Component.Entity
----@param Child Component.Entity
+---@param Child Component.Entity?
 function Stub.SetChild(entity, Child) end
 
 ---@param entity Component.Entity
----@param Target Component.Entity
+---@param Target Component.Entity?
 function Stub.SetTarget(entity, Target) end
 
 ---@param entity Component.Entity
----@param Spawner Component.Entity
+---@param Spawner Component.Entity?
 function Stub.SetSpawnerEntity(entity, Spawner) end
 
 ---@param ctx Context.Common
@@ -501,7 +501,7 @@ function Stub.SetSize(entity, size, sizeMulti, numGridCollisionPoints) end
 function Stub.IsEnemy(entity) end
 
 ---@param entity Component.Entity
----@param targetee_qqq Component.Entity
+---@param targetee_qqq Component.Entity?
 ---@return boolean
 function Stub.IsVulnerableEnemy(entity, targetee_qqq) end
 

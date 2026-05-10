@@ -7,14 +7,14 @@ local EntityUtils = require("Entity.Utils")
 ---@class KnifeUtils
 local Module = {}
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param flags TearFlags | BitSet128
 ---@return boolean
 local function HasTearFlags(knife, flags)
     return (knife.m_tearFlags & flags) == flags
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return Component.Entity.Player?
 local function GetPlayer(knife)
     local parent = knife.m_parent
@@ -53,8 +53,8 @@ local function GetPlayer(knife)
     return nil
 end
 
----@param knife EntityKnifeComponent
----@return EntityKnifeComponent
+---@param knife Component.Entity.Knife
+---@return Component.Entity.Knife
 local function GetPrimaryKnife(knife)
     ---@type Component.Entity
     local entity = knife
@@ -77,7 +77,7 @@ local BASE_TYPE = {
     [KnifeVariant.TECH_SWORD] = KnifeVariant.SPIRIT_SWORD,
 }
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@return KnifeVariant | integer
 local function GetBaseType(knife)
     local variant = knife.m_variant

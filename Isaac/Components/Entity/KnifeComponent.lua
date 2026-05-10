@@ -1,4 +1,4 @@
----@class EntityKnifeComponent : Component.Entity
+---@class Component.Entity.Knife : Component.Entity
 ---@field m_tearFlags TearFlags | BitSet128 : 0x360
 ---@field m_unkTearFlags TearFlags | BitSet128 : 0x370
 ---@field m_knifeScale number : 0x380
@@ -28,10 +28,11 @@
 ---@field m_prism_applied boolean : 0x435
 ---@field m_multidimensional_applied boolean : 0x436
 ---@field m_hitListBool boolean : 0x437
----@field m_swordCharged boolean : 0x438 -- sword has reached max charge for spin attack
+---@field m_sword_isCharged boolean : 0x438 -- sword has reached max charge for spin attack
 ---@field m_usedByUpdateBoneSwing boolean : 0x439
 ---@field m_spinAttack_isActive boolean : 0x43a
----@field m_activeItemFireRelated integer : 0x43c
+---@field m_swing_remaining integer : 0x43c
+---@field m_swing_frameCount integer : 0x43e
 ---@field m_spinAttack_remainingMultiShot integer : 0x440
 ---@field m_notchedAxe Component.EntityPtr : 0x444
 ---@field m_swingEntity Component.EntityPtr : 0x448

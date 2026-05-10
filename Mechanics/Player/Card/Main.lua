@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local QuestUtils = require("Mechanics.Game.Quest.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local PlayerInventory = require("Mechanics.Player.Inventory")

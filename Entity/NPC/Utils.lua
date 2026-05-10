@@ -1,8 +1,8 @@
 --#region Dependencies
 
 local TableUtils = require("General.Table")
-local Identity = require("Entity.Identity")
-local IsaacUtils = require("Isaac.Utils")
+local Identity = require("Isaac.Enums.EntityIdentity")
+local IsaacUtils = require("Isaac.Utils.Common")
 local EntityCast = require("Entity.TypeCast")
 local GameSpawn = require("Game.Spawn")
 local EntityManagerUtils = require("Game.Room.EntityManager.Utils")
@@ -92,7 +92,7 @@ end
 ---@param ctx Context.Game
 ---@param entityType EntityType | integer
 ---@param variant integer
----@return Component.EL
+---@return Component.EntityList.EL
 local function QueryNPCsType(ctx, entityType, variant)
     local entityList = ctx.game.m_level.m_room.m_entityList
     return EntityManagerUtils.QueryType(entityList, entityType, variant, -1, false, false)

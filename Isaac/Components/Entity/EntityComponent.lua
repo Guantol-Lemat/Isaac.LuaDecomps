@@ -128,9 +128,6 @@
 ---@field m_pitfallRelated integer : 0x358
 ---@field m_luaData table : 0x35c -- the lua table returned by GetData()
 
----@class Component.HitList
----@field m_lists integer[]
-
 ---@class Component.DamageEntry
 ---@field damage number : 0x0
 ---@field damageFlags DamageFlag | integer : 0x8

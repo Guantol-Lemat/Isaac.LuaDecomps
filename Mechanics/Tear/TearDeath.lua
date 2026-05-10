@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local SpawnLogic = require("Game.Spawn")
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local EntityUtils = require("Entity.Utils")
 local VectorUtils = require("General.Math.VectorUtils")
 

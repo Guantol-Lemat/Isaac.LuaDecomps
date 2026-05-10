@@ -64,51 +64,15 @@ end
 local function RandomVector()
 end
 
----@param myContext Context.Common
----@param soundId SoundEffect | integer
----@param volume number
----@param frameDelay integer
----@param loop boolean
----@param pitch integer
-local function PlaySound(myContext, soundId, volume, frameDelay, loop, pitch)
-end
-
----@param isaac Component.Manager
-local function IsInterpolation(isaac)
-    return isaac.m_frameCount % 2 == 1
-end
-
----@param isaac Component.Manager
----@param ignoreModRestrictions boolean
----@return boolean
-local function AchievementUnlocksDisallowed(isaac, ignoreModRestrictions)
-end
-
----@param isaac Component.Manager
----@param action ButtonAction| integer
----@param controllerIdx integer
----@param entity Component.Entity?
----@return boolean
-local function IsActionTriggered(isaac, action, controllerIdx, entity)
-
-end
-
----@param isaac Component.Manager
----@param action ButtonAction| integer
----@param controllerIdx integer
----@param entity Component.Entity?
----@return boolean
-local function IsActionPressed(isaac, action, controllerIdx, entity)
-
-end
-
----@param isaac Component.Manager
----@param action ButtonAction| integer
----@param controllerIdx integer
----@param entity Component.Entity?
+---@param friction number
+---@param timescale number
 ---@return number
-local function GetActionValue(isaac, action, controllerIdx, entity)
+local function TimeScaledFriction(friction, timescale)
+    if timescale == 1.0 then
+        return friction
+    end
 
+    return friction / ((friction + timescale) - friction * timescale)
 end
 
 ---@param position Vector
@@ -119,7 +83,6 @@ end
 
 --#region Module
 
-Module.IsInterpolation = IsInterpolation
 Module.GetDirectionToMoveAction = GetDirectionToMoveAction
 Module.GetVectorDirection = GetVectorDirection
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
@@ -127,11 +90,7 @@ Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
 Module.RandomVector = RandomVector
-Module.PlaySound = PlaySound
-Module.AchievementUnlocksDisallowed = AchievementUnlocksDisallowed
-Module.IsActionTriggered = IsActionTriggered
-Module.IsActionPressed = IsActionPressed
-Module.GetActionValue = GetActionValue
+Module.TimeScaledFriction = TimeScaledFriction
 Module.GetRenderDistance = GetRenderDistance
 
 --#endregion

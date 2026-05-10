@@ -178,9 +178,9 @@ function Stub.Copy(laser, param_1, param_2) end
 ---@param AngleDegrees number
 ---@param Timeout integer
 ---@param PosOffset Vector
----@param Source Component.Entity
+---@param Source Component.Entity?
 ---@param Force boolean
----@return Component.Entity.Laser
+---@return Component.Entity.Laser?
 function Stub.ShootAngle(ctx, Variant, SourcePos, AngleDegrees, Timeout, PosOffset, Source, Force) end
 
 ---@param laser Component.Entity.Laser
@@ -319,8 +319,8 @@ function Stub.spawn_impact(ctx, laser) end
 function Stub.reset_sprite_scale(laser) end
 
 ---@param laser Component.Entity.Laser
----@param param_2 number
-function Stub.SetScale(laser, param_2) end
+---@param scale number
+function Stub.SetScale(laser, scale) end
 
 ---@param laser Component.Entity.Laser
 ---@param param_1 boolean

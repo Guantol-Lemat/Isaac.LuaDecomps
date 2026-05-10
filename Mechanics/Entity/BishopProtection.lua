@@ -8,7 +8,7 @@
 local Module = {}
 
 ---@class BishopProtectionContext.FindClosestBishop
----@field entityManager EntityManagerComponent
+---@field entityManager Component.EntityList
 
 ---@class BishopProtectionContext.TriggerProtectPlayer
 

@@ -45,7 +45,7 @@ end
 ---@param parent Component.Entity?
 ---@param variant KnifeVariant
 ---@param persistent boolean
----@return EntityKnifeComponent
+---@return Component.Entity.Knife
 local function FireBoneClub(myContext, weapon, parent, variant, persistent)
 end
 

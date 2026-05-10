@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local BitSetUtils = require("General.Bitset")
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local CoPlayerSprite = require("Entity.Player.Sprite.CoPlayer")
 local PlayerUtils = require("Entity.Player.Utils")
 local PlayerRules = require("Entity.Player.Rules")

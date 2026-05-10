@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local EntityUtils = require("Entity.Utils")
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local PlayerRules = require("Entity.Player.Rules")
 local RoomUtils = require("Room.Utils")
 local RoomRules = require("Room.Rules")

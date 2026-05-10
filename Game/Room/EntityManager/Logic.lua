@@ -131,7 +131,7 @@ local function render_backdrop_entities(entityManager)
 end
 
 ---@param context EntityManagerContext.Update
----@param entityManager EntityManagerComponent
+---@param entityManager Component.EntityList
 ---@param isTransition boolean
 local function Update(context, entityManager, isTransition)
     local game = context.game

@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local EntityUtils = require("Entity.Utils")
 local EntityCast = require("Entity.TypeCast")
 local NpcUtils = require("Entity.NPC.Utils")
@@ -9,7 +9,7 @@ local NpcFireProjectile = require("Mechanics.NPC.Action.FireProjectile")
 local NpcPathfinder = require("Mechanics.NPC.Action.Pathfinder")
 local EffectUtils = require("Entity.Effect.Utils")
 local LaserUtils = require("Entity.Laser.Utils")
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local GameSpawn = require("Game.Spawn")
 local RoomUtils = require("Game.Room.Utils")
 local RoomBounds = require("Game.Room.Bounds")

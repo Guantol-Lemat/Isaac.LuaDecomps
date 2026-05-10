@@ -41,6 +41,31 @@ function Stub.GetPrismApplied(knife) end
 function Stub.SetRotationOffset(knife, Offset) end
 
 ---@param knife Component.Entity.Knife
+---@return boolean
+function Stub.IsSwinging(knife) end
+
+---@param knife Component.Entity.Knife
+---@return boolean
+function Stub.GetIsMeleeSwingInputHeld_qqq(knife)
+end
+
+---@param knife Component.Entity.Knife
+---@param swingCount integer
+function Stub.PrepareSwing(knife, swingCount) end
+
+---@param knife Component.Entity.Knife
+---@return number
+function Stub.GetCharge(knife) end
+
+---@param knife Component.Entity.Knife
+---@param charge number
+function Stub.SetCharge(knife, charge) end
+
+---@param knife Component.Entity.Knife
+---@param charged boolean
+function Stub.SetSwordCharged(knife, charged) end
+
+---@param knife Component.Entity.Knife
 ---@param param_1 unknown
 function Stub.GetTearFlags(knife, param_1) end
 
@@ -56,7 +81,7 @@ function Stub.GetRotationOffset(knife) end
 function Stub.LUA_GetRenderZ(knife) end
 
 ---@param knife Component.Entity.Knife
----@return /Enums/eKnifeVariant
+---@return KnifeVariant | integer
 function Stub.GetBaseType(knife) end
 
 ---@param knife Component.Entity.Knife
@@ -177,9 +202,9 @@ function Stub.Swing(ctx, knife) end
 
 ---@param ctx Context.Common
 ---@param knife Component.Entity.Knife
----@param param_1 integer
----@param param_2 integer
-function Stub.SpinAttack(ctx, knife, param_1, param_2) end
+---@param attackCount integer
+---@param startAnimFrame integer
+function Stub.SpinAttack(ctx, knife, attackCount, startAnimFrame) end
 
 ---@param ctx Context.Common
 ---@param knife Component.Entity.Knife
@@ -213,6 +238,12 @@ Interface.IsFlying = Stub.IsFlying
 Interface.SetPathFollowSpeed = Stub.SetPathFollowSpeed
 Interface.GetPrismApplied = Stub.GetPrismApplied
 Interface.SetRotationOffset = Stub.SetRotationOffset
+Interface.IsSwinging = Stub.IsSwinging
+Interface.GetIsMeleeSwingInputHeld_qqq = Stub.GetIsMeleeSwingInputHeld_qqq
+Interface.PrepareSwing = Stub.PrepareSwing
+Interface.GetCharge = Stub.GetCharge
+Interface.SetCharge = Stub.SetCharge
+Interface.SetSwordCharged = Stub.SetSwordCharged
 Interface.GetTearFlags = Stub.GetTearFlags
 Interface.GetKnifeDistance = Stub.GetKnifeDistance
 Interface.GetRotationOffset = Stub.GetRotationOffset

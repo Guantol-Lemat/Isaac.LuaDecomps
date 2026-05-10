@@ -2,8 +2,8 @@
 
 local MathUtils = require("General.Math")
 local VectorUtils = require("General.Math.VectorUtils")
-local IsaacUtils = require("Isaac.Utils")
-local EntityIdentity = require("Entity.Identity")
+local IsaacUtils = require("Isaac.Utils.Common")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 
 local VectorZero = VectorUtils.VectorZero
 local eMyVariant = EntityIdentity.eCultistVariant

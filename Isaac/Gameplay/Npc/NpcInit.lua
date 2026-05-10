@@ -96,8 +96,8 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     npc.m_childRelated = Vector(0, 0)
     npc.field_0xbb1 = 0
     npc.m_camoColor = Color()
-    npc.m_hitList.m_lists = {}
-    npc.m_hitlist_qqq.m_lists = {}
+    npc.m_hitList.m_list = {}
+    npc.m_hitlist_qqq.m_list = {}
     INpcPathfinder.Reset(npc.m_pathfinder)
 
     if npc.m_isBoss then

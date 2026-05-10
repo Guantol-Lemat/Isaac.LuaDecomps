@@ -6,7 +6,7 @@ local FlipStateGraphics = require("Mechanics.Pickup.FlipState.Graphics")
 
 ---@class StaticContext
 ---@field FLIP_COLLECTIBLE_FLICKER_RNG RNG
----@field WEAPON_TEARS_TECH_LASERS EntityLaserComponent[]
+---@field WEAPON_TEARS_TECH_LASERS Component.Entity.Laser[]
 
 ---@class StaticContextUtils
 local Module = {}

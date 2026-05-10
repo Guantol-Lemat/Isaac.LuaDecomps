@@ -1,9 +1,9 @@
 --#region Dependencies
 
-local IsaacUtils = require("Isaac.Utils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local PlayerUtils = require("Entity.Player.Utils")
 local EntityRefUtils = require("Entity.System.EntityRef.Utils")
-local EntityIdentity = require("Entity.Identity")
+local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local Inventory = require("Game.Inventory.Inventory")
 local BishopProtection = require("Mechanics.Entity.BishopProtection")
 local Invincibility = require("Mechanics.Player.Invincibility")

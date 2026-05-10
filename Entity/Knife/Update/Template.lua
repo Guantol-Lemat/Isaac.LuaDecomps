@@ -11,7 +11,7 @@ local MathUtils = require("General.Math")
 ---@class KnifeUpdateTemplate
 local Module = {}
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
 ---@param player Component.Entity.Player?
 local function update_held_rotation(knife, context, player)
@@ -32,9 +32,9 @@ local function update_held_rotation(knife, context, player)
     knife.m_effectiveRotation = MathUtils.InterpolateAngle(knife.m_effectiveRotation, targetRotation, interpolationFactor)
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
----@param primaryKnife EntityKnifeComponent
+---@param primaryKnife Component.Entity.Knife
 ---@param player Component.Entity.Player?
 ---@param pivotRadius number
 local function update_held_knife(knife, context, primaryKnife, player, pivotRadius)
@@ -56,9 +56,9 @@ local function update_held_knife(knife, context, primaryKnife, player, pivotRadi
     knife.m_hitboxRotation = (knife.m_position - primaryParent.m_position):GetAngleDegrees()
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
----@param primaryKnife EntityKnifeComponent
+---@param primaryKnife Component.Entity.Knife
 ---@param player Component.Entity.Player?
 local function update_thrown_knife(knife, context, primaryKnife, player)
     if primaryKnife == knife then
@@ -114,7 +114,7 @@ local function update_thrown_knife(knife, context, primaryKnife, player)
     -- brimstone synergy
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
 ---@param player Component.Entity.Player?
 local function update_knife(knife, context, player)
@@ -156,7 +156,7 @@ local function update_knife(knife, context, player)
     -- evaluate another remove
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
 local function update_0(knife, context)
     -- get unk multipler
@@ -178,7 +178,7 @@ local function update_0(knife, context)
     end
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
 local function main_update(knife, context)
     local subtype = knife.m_subtype
@@ -193,7 +193,7 @@ local function main_update(knife, context)
     end
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 ---@param context Context
 local function Update(knife, context)
     if not knife.m_interpolated then

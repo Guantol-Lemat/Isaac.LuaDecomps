@@ -31,7 +31,7 @@ end
 local function SpawnClearAward(rng, position)
 end
 
----@param knife EntityKnifeComponent
+---@param knife Component.Entity.Knife
 local function PostKnifeUpdate(knife)
 end
 

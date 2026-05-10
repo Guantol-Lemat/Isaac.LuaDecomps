@@ -5,11 +5,11 @@
 --#endregion
 
 ---@param myContext Context.Game
----@param manager EntityManagerComponent
+---@param manager Component.EntityList
 ---@param position Vector
 ---@param radius number
 ---@param partitions EntityPartition | integer
----@return Component.EL
+---@return Component.EntityList.EL
 local function QueryRadius(myContext, manager, position, radius, partitions)
 end
 
