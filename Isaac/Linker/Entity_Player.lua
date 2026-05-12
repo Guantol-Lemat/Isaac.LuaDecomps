@@ -1130,11 +1130,11 @@ function Stub.ClearTemporaryEffects(ctx, player) end
 ---@param player Component.Entity.Player
 ---@param Position Vector
 ---@param Velocity Vector
----@param Flags integer
----@param Source Component.Entity
+---@param flags eFireTearFlags | integer
+---@param source Component.Entity?
 ---@param DamageMultiplier number
 ---@return Component.Entity.Tear
-function Stub.FireTear(ctx, player, Position, Velocity, Flags, Source, DamageMultiplier) end
+function Stub.FireTear(ctx, player, Position, Velocity, flags, source, DamageMultiplier) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -1720,7 +1720,7 @@ function Stub.GetExtraLives(player) end
 ---@param WeaponType WeaponType | integer
 ---@param DamageScale number
 ---@param TearDisplacement integer
----@param Source Component.Entity
+---@param Source Component.Entity?
 ---@return Component.Entity.Player.TearParams
 function Stub.GetTearHitParams(ctx, player, WeaponType, DamageScale, TearDisplacement, Source) end
 

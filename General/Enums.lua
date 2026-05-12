@@ -245,6 +245,13 @@ Module.eItemOverlayState = {
     ACTIVE = 2,
 }
 
+---@enum eFireTearFlags
+Module.eFireTearFlags = {
+    CANNOT_BE_EYE = 1 << 0,
+    NO_TRACTOR_BEAM = 1 << 1,
+    CANNOT_TRIGGER_STREAK_END = 1 << 2,
+}
+
 ---@enum eCoopStat
 Module.eCoopStat = {
     STAT_STAGE_TRANSITION = 0,

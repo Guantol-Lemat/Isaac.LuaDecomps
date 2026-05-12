@@ -1,0 +1,14 @@
+---@class Component.Entity.Player.TearParams
+---@field tearVariant TearVariant | integer : 0x0
+---@field bombVariant BombVariant | integer : 0x4
+---@field tearColor Color : 0x8
+---@field unk unknown : 0x34
+---@field tearFlags TearFlags | BitSet128 : 0x38
+---@field tearDamage number : 0x48
+---@field tearScale number : 0x4c
+---@field tearHeight number : 0x50
+---@field knockback number : 0x54
+---@field height number : 0x58
+---@field speed number : 0x5c
+---@field unk3 integer : 0x60
+---@field velocityMult number : 0x64

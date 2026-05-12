@@ -34,6 +34,6 @@
 ---@field shieldStrength number : 0xe0
 ---@field shieldFrames integer : 0xe4
 ---@field inBestiary boolean : 0xe8
----@field bestiaryEntry Component.EntityConfig.Bestiary[] : 0xec
+---@field bestiaryEntry Component.EntityConfig.Entity.Bestiary : 0xec
 ---@field modEntry Component.ModEntry? : 0x160
 ---@field hasPortrait boolean : 0x164

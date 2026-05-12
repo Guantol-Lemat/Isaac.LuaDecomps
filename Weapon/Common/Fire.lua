@@ -7,13 +7,6 @@
 ---@class WeaponFireLogic
 local Module = {}
 
----@enum eFireTearFlags
-local eFireTearFlags = {
-    CANNOT_BE_EYE = 1 << 0,
-    NO_TRACTOR_BEAM = 1 << 1,
-    CANNOT_TRIGGER_STREAK_END = 1 << 2,
-}
-
 ---@param weapon WeaponComponent
 ---@param context Context
 ---@param shootingInput Vector
@@ -54,7 +47,6 @@ end
 
 --#region Module
 
-Module.eFireTearFlags = eFireTearFlags
 Module.Fire = Fire
 Module.TriggerTearFired = TriggerTearFired
 Module.FireTear = FireTear
