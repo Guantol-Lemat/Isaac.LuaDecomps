@@ -42,5 +42,7 @@
 ---@field m_unkCountdown integer : 0x74c
 ---@field m_unkVector Vector : 0x750
 ---@field m_unkVelocity Vector : 0x758
----@field m_unkVector2 Vector : 0x760
+---@field m_orbit_previousMovementInheritance Vector : 0x760
+---@field m_advancedOrbit_angle number : 0x768
+---@field m_advancedOrbit_initSpeed number : 0x76c
 ---@field m_tearRange number : 0x770

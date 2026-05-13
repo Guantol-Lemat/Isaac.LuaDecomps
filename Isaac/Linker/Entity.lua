@@ -23,6 +23,10 @@ function Stub.GetPosition(entity) end
 
 ---@param entity Component.Entity
 ---@return Vector
+function Stub.GetPreUpdatePosition(entity) end
+
+---@param entity Component.Entity
+---@return Vector
 function Stub.GetVelocity(entity) end
 
 ---@param entity Component.Entity
@@ -56,6 +60,10 @@ function Stub.GetHitPoints(entity) end
 ---@param entity Component.Entity
 ---@return EntityCollisionClass | integer
 function Stub.GetEntityCollisionClass(entity) end
+
+---@param entity Component.Entity
+---@return boolean
+function Stub.IsPlayer(entity) end
 
 ---@param entity Component.Entity
 ---@return boolean
@@ -917,6 +925,7 @@ Interface.GetType = Stub.GetType
 Interface.GetVariant = Stub.GetVariant
 Interface.GetSubType = Stub.GetSubType
 Interface.GetPosition = Stub.GetPosition
+Interface.GetPreUpdatePosition = Stub.GetPreUpdatePosition
 Interface.GetVelocity = Stub.GetVelocity
 Interface.SetPositionOffset = Stub.SetPositionOffset
 Interface.GetPositionOffset = Stub.GetPositionOffset
@@ -926,6 +935,7 @@ Interface.GetSizeMulti = Stub.GetSizeMulti
 Interface.GetMaxHitPoints = Stub.GetMaxHitPoints
 Interface.GetHitPoints = Stub.GetHitPoints
 Interface.GetEntityCollisionClass = Stub.GetEntityCollisionClass
+Interface.IsPlayer = Stub.IsPlayer
 Interface.IsBomb = Stub.IsBomb
 Interface.EntityIsTypeVarSubtype = Stub.EntityIsTypeVarSubtype
 Interface.AddEntityFlags = Stub.AddEntityFlags
