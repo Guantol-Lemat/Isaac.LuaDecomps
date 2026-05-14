@@ -252,6 +252,12 @@ Module.eFireTearFlags = {
     CANNOT_TRIGGER_STREAK_END = 1 << 2,
 }
 
+---@enum eTearDeathFlags
+Module.eTearDeathFlags = {
+    FLAG_5 = 1 << 5,
+    FLAG_6 = 1 << 6,
+}
+
 ---@enum eCoopStat
 Module.eCoopStat = {
     STAT_STAGE_TRANSITION = 0,

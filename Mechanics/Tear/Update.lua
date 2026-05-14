@@ -120,14 +120,14 @@ local function Update(context, tear)
             tear.m_tearFlags = tearFlags
             tear:SetCollisionDamage(context, tear.m_collisionDamage * 3.0 + 9.0)
             tear.m_isDead = true
-            tear.m_deathRelatedFlags = 0x40
+            tear.m_deathFlags = 0x40
         end
     end
 
     if IsDungeon and -5.1 <= tear.m_height and (tear.m_tearRange * 0.6 < tear.m_localFrame) then
         if not ludovico then
             tear.m_isDead = true
-            tear.m_deathRelatedFlags = 0x40
+            tear.m_deathFlags = 0x40
         end
     end
 

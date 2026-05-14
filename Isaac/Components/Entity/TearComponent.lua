@@ -21,7 +21,7 @@
 ---@field m_popRelated integer : 0x3bc
 ---@field m_maybeExists_qqq integer : 0x3be
 ---@field m_fetusBombRelated_qqq integer : 0x3c0
----@field m_deathRelatedFlags integer : 0x3c4
+---@field m_deathFlags integer : 0x3c4
 ---@field m_stick_target Component.EntityPtr : 0x3c8
 ---@field m_stick_diff Vector : 0x3cc
 ---@field m_stick_timer integer : 0x3d4

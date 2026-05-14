@@ -128,7 +128,7 @@ local function TriggerDeath(context, tear)
     local tearFlags = tear.m_tearFlags
     local hydrobounce = (tearFlags & TearFlags.TEAR_HYDROBOUNCE) ~= 0
 
-    if hydrobounce and tear.m_deathRelatedFlags == 0x4 then
+    if hydrobounce and tear.m_deathFlags == 0x4 then
         -- TODO: revive and bounce
     end
 
