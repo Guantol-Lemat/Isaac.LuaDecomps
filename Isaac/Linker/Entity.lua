@@ -182,9 +182,8 @@ function Stub.SetHitPoints(entity, HitPoints) end
 function Stub.SetMaxHitPoints(entity, HitPoints) end
 
 ---@param entity Component.Entity
----@param X number
----@param Y number
-function Stub.SetTargetPosition(entity, X, Y) end
+---@param position Vector
+function Stub.SetTargetPosition(entity, position) end
 
 ---@param entity Component.Entity
 ---@param Class EntityCollisionClass | integer

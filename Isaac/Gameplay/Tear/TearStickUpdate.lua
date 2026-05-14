@@ -201,7 +201,7 @@ local function Update(ctx, tear)
     tear.m_isDead = true
     tear.m_deathFlags = tear.m_deathFlags | eTearDeathFlags.FLAG_6
 
-    local scale = tear.m_baseScale * ctx.sticky_scaleFactor
+    local scale = tear.m_baseScale * ctx.stick_scaleFactor
     scale = math.max(scale, 0.01)
     tear.m_fScale = scale
     IEntityTear.reset_sprite_scale(ctx, tear)

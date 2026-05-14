@@ -171,7 +171,7 @@ local function orbit_update(tear, orbitTarget)
 
     local normalizedDistance = MathUtils.InverseLerp(0.0, orbitRadius, orbitCenterDistance)
     normalizedDistance = MathUtils.Clamp(normalizedDistance, 0.0, 1.0)
-    local orbitSteeringStrength = normalizedDistance ^ normalizedDistance
+    local orbitSteeringStrength = normalizedDistance ^ 2
 
     local velocityAngle = tear.m_velocity:GetAngleDegrees()
     local orbitAngleError = orbitAngle - velocityAngle
