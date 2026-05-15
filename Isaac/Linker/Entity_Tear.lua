@@ -165,7 +165,7 @@ function Stub.SetTearFlags(ctx, tear, flags) end
 
 ---@param ctx Context.Common
 ---@param tear Component.Entity.Tear
----@param Collider Component.Entity
+---@param Collider Component.Entity?
 function Stub.trigger_collision(ctx, tear, Collider) end
 
 ---@param ctx Context.Common
@@ -264,9 +264,9 @@ function Stub.TearSplashDamage(ctx, param_1, param_2, param_3, param_4, param_5)
 
 ---@param ctx Context.Common
 ---@param tear Component.Entity.Tear
----@param param_1 Vector
+---@param position Vector
 ---@return boolean
-function Stub.damage_grid(ctx, tear, param_1) end
+function Stub.damage_grid(ctx, tear, position) end
 
 ---@param variant TearVariant | integer
 ---@return TearVariant | integer

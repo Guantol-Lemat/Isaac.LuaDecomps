@@ -254,6 +254,9 @@ Module.eFireTearFlags = {
 
 ---@enum eTearDeathFlags
 Module.eTearDeathFlags = {
+    FLAG_0 = 1 << 0,
+    FLAG_1 = 1 << 1,
+    FLAG_2 = 1 << 2,
     FLAG_5 = 1 << 5,
     FLAG_6 = 1 << 6,
 }

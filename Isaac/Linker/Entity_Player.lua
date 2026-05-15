@@ -1819,8 +1819,7 @@ function Stub.AddDeadEyeCharge(ctx, player) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
----@param param_1 Component.Entity.Player
-function Stub.ClearDeadEyeCharge(ctx, player, param_1) end
+function Stub.ClearDeadEyeCharge(ctx, player) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player

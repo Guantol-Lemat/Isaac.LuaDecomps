@@ -1,0 +1,7 @@
+---@class Component.GridEntity
+---@field m_desc Component.GridEntityDesc : 0x4
+---@field m_gridIdx integer : 0x24
+---@field m_spawnedFrame integer : 0x28
+---@field m_rng RNG : 0x2c
+---@field m_collisionClass EntityGridCollisionClass | integer : 0x3c
+---@field m_sprite Sprite : 0x40

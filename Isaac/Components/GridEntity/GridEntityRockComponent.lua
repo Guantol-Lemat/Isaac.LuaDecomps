@@ -1,0 +1,6 @@
+---@class Component.GridEntity.Rock : Component.GridEntity
+---@field m_anim string : 0x154
+---@field m_rubbleAnim string : 0x16c
+---@field m_rubbleRelated Vector[] [2] : 0x184
+---@field m_frameCount integer : 0x190
+---@field m_lastState integer : 0x194

@@ -40,7 +40,7 @@ function Stub.GetSpawnSeed(room) end
 
 ---@param room Component.Room
 ---@param idx integer
----@return unknown
+---@return Component.GridEntity?
 function Stub.GetGridEntity(room, idx) end
 
 ---@param room Component.Room
@@ -460,18 +460,18 @@ function Stub.check_player_enter_door(ctx, room) end
 
 ---@param room Component.Room
 ---@param Pos Vector
----@return EntityGridCollisionClass | integer
+---@return GridCollisionClass | integer
 function Stub.GetGridCollisionAtPos(room, Pos) end
 
 ---@param room Component.Room
 ---@param Index integer
----@return EntityGridCollisionClass | integer
+---@return GridCollisionClass | integer
 function Stub.GetGridCollision(room, Index) end
 
 ---@param room Component.Room
 ---@param origin Vector
 ---@param target Vector
----@param collision EntityGridCollisionClass | integer
+---@param collision GridCollisionClass | integer
 ---@param param_4 boolean
 ---@param param_5 boolean
 ---@param retPos Vector
