@@ -1,16 +1,7 @@
---#region Dependencies
-
-
-
---#endregion
-
----@class RNGUtils
-local Module = {}
-
 ---@generic T
 ---@param tbl T[]
 ---@param rng RNG
-local function Shuffle(tbl, rng)
+local function RandomShuffle(tbl, rng)
     for i = #tbl, 1, -1 do
         local swapIdx = rng:RandomInt(i) + 1
         if i ~= swapIdx then
@@ -21,9 +12,12 @@ local function Shuffle(tbl, rng)
     end
 end
 
+---@class Utils.RNG
+local Module = {}
+
 --#region Module
 
-Module.Shuffle = Shuffle
+Module.RandomShuffle = RandomShuffle
 
 --#endregion
 

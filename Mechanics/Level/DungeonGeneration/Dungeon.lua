@@ -152,7 +152,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
         if stage == LevelStage.STAGE7 then
             local numBosses = 5 + rng:RandomInt(4)
             local voidBosses = get_void_bosses()
-            RNGUtils.Shuffle(voidBosses, rng)
+            RNGUtils.RandomShuffle(voidBosses, rng)
 
             for i = 1, numBosses, 1 do
                 roomData = RoomConfigRules.GetRandomBossRoom(myContext, voidBosses[i], rng:Next())
@@ -986,7 +986,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     -- Place quest rooms
     if questRoomCount > 0 then
         local questRoomsRNG = RNG(rng:GetSeed(), 41)
-        RNGUtils.Shuffle(placedRooms, questRoomsRNG)
+        RNGUtils.RandomShuffle(placedRooms, questRoomsRNG)
 
         local defaultStageID = stageId
         if stageId == StbType.DROSS then

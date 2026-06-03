@@ -1,0 +1,15 @@
+---@class Component.LevelGenerator.Room
+---@field m_unkBool boolean : 0x0
+---@field m_generationIndex integer : 0x4
+---@field m_gridPosition Component.XY : 0x8
+---@field m_horizontalSize integer : 0x10
+---@field m_verticalSize integer : 0x14
+---@field m_shape RoomShape | integer : 0x18
+---@field m_doorsMask integer : 0x1c
+---@field m_originDirection integer : 0x20
+---@field m_originDoor DoorSlot | integer : 0x24
+---@field m_linkPosition Component.XY : 0x28
+---@field m_neighbors Set<integer> : 0x30
+---@field m_deadEnd boolean : 0x3c
+---@field m_distanceFromStart integer : 0x40
+---@field m_secret boolean : 0x44
