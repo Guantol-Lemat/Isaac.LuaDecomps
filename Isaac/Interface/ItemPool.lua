@@ -1,0 +1,2 @@
+---@class Interface.ItemPool
+return {}

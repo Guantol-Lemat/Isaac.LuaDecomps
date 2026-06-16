@@ -32,7 +32,7 @@ local VectorZero = VectorUtils.VectorZero
 ---@field game Component.Game
 ---@field level Component.Level
 ---@field playerManager Component.PlayerManager
----@field itemPool ItemPoolComponent
+---@field itemPool Component.ItemPool
 
 --- This is similar to Room::GetCenterPos but not quite.
 ---@param room Component.Room

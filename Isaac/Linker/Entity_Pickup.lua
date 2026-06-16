@@ -1,3 +1,8 @@
+---@class Interface.Entity_Pickup
+local Interface = require("Isaac.Interface.Entity_Pickup")
+
+local PickupLootList = require("Isaac.Gameplay.Pickup.LootList")
+
 --#region Stub
 
 local Stub = {}
@@ -52,12 +57,6 @@ function Stub.SetUnkInt(pickup, param_1) end
 ---@param pickup Component.Entity.Pickup
 ---@param Collectible integer
 function Stub.SetOptionCycleCollectible(pickup, Collectible) end
-
----@param ctx Context.Common
----@param pickup Component.Entity.Pickup
----@param param_2 boolean
----@return Component.LootList
-function Stub.GetLootList(ctx, pickup, param_2) end
 
 ---@param ctx Context.Common
 ---@param seed integer
@@ -336,7 +335,7 @@ Interface.SetDropDelay = Stub.SetDropDelay
 Interface.IsForceBlind = Stub.IsForceBlind
 Interface.SetUnkInt = Stub.SetUnkInt
 Interface.SetOptionCycleCollectible = Stub.SetOptionCycleCollectible
-Interface.GetLootList = Stub.GetLootList
+Interface.GetLootList = PickupLootList.GetLootList
 Interface.SelectPickupType = Stub.SelectPickupType
 Interface.Constructor = Stub.Constructor
 Interface.Free = Stub.Free

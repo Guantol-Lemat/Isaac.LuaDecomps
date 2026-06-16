@@ -1,7 +1,7 @@
 local Module = {}
 
 ---@param context Context
----@param itemPool ItemPoolComponent
+---@param itemPool Component.ItemPool
 ---@param pool ItemPoolType
 ---@param seed integer
 ---@param flags GetCollectibleFlag | integer
@@ -11,7 +11,7 @@ local function GetCollectible(context, itemPool, pool, seed, flags, defaultColle
     
 end
 
----@param itemPool ItemPoolComponent
+---@param itemPool Component.ItemPool
 ---@param collectible CollectibleType | integer
 ---@param checkIfAvailable boolean
 ---@param ignoreModifiers boolean
@@ -19,7 +19,7 @@ end
 local function RemoveCollectible(itemPool, collectible, checkIfAvailable, ignoreModifiers)
 end
 
----@param itemPool ItemPoolComponent
+---@param itemPool Component.ItemPool
 ---@param collectible CollectibleType | integer
 ---@param ignoreAchievement boolean
 local function CanSpawnCollectible(itemPool, collectible, ignoreAchievement)

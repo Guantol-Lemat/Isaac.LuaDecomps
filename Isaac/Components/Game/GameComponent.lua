@@ -2,7 +2,7 @@
 ---@field m_level Component.Level : 0x0
 ---@field m_roomConfig RoomConfigComponent : 0x1879c
 ---@field m_preloader PreloaderComponent : 0x1a5c4
----@field m_itemPool ItemPoolComponent : 0x1a5cc
+---@field m_itemPool Component.ItemPool : 0x1a5cc
 ---@field m_bossPool BossPoolComponent : 0x1adf4
 ---@field m_roomTransition RoomTransitionComponent : 0x1b6c0
 ---@field m_stageTransition StageTransitionComponent : 0x1ba0c
