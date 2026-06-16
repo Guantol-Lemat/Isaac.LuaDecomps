@@ -2,12 +2,12 @@
 
 local Enums = require("General.Enums")
 local Log = require("General.Log")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 local EntityConfigUtils = require("Config.EntityConfig.Utils")
 local PlayerFactory = require("Entity.Player.Component")
 local PlayerInventory = require("Mechanics.Player.Inventory")
 local TemporaryEffectsUtils = require("Game.TemporaryEffects.Utils")
-local ModManager = require("Isaac.ModManager.Module")
+local ModManager = require("Isaac._OLD.ModManager.Module")
 local FileManager = require("Engine.FileManager.Utils")
 
 local eSpecialDailyRuns = Enums.eSpecialDailyRuns
@@ -229,22 +229,45 @@ local function rebuild_costume_map(myContext, player)
             local headIndex = it
             local costumeSprite = costumeSprites[it]
             local item = costumeSprite.m_itemConfig
-            local canApplyCostume = not player.m_hasCurseMistEffect or
-                (item and item.m_itemType == ItemType.ITEM_NULL and item.m_id == playerConfig.m_costumeID)
 
-            if not canApplyCostume then
-                canApplyCostume = (ItemConfigUtils.IsCollectible(item) and item.m_id == CollectibleType.COLLECTIBLE_TRANSCENDENCE) and
-                    TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, CollectibleType.COLLECTIBLE_TRANSCENDENCE)
+            local function can_apply_costume()
+                if player.m_isCoopGhost then
+                    return false
+                end
+
+                local isMegaMush = item and item.m_itemType == ItemType.ITEM_ACTIVE and item.m_id == CollectibleType.COLLECTIBLE_MEGA_MUSH
+
+                -- only apply MEGA MUSH costume when the player has mega mush
+                if isMegaMush and not hasMegaMush then
+                    return false
+                end
+
+                local isAnemic = item and item.m_itemType == ItemType.ITEM_ACTIVE and item.m_id == CollectibleType.COLLECTIBLE_ANEMIC
+
+                -- Don't apply anemic if lazarus
+                if isAnemic and (player.m_playerType == PlayerType.PLAYER_LAZARUS or player.m_playerType == PlayerType.PLAYER_LAZARUS2) then
+                    return false
+                end
+
+                if player.m_hasCurseMistEffect then
+                    local isTranscendence = ItemConfigUtils.IsCollectible(item) and item.m_id == CollectibleType.COLLECTIBLE_TRANSCENDENCE
+                    -- player used Hanged Man during mineshaft
+                    if isTranscendence and TemporaryEffectsUtils.HasCollectibleEffect(player.m_temporaryEffects, CollectibleType.COLLECTIBLE_TRANSCENDENCE) then
+                        return true
+                    end
+
+                    local isPlayerCostume = item and item.m_itemType == ItemType.ITEM_NULL and item.m_id == playerConfig.m_costumeID
+                    if isPlayerCostume then
+                        return true
+                    end
+
+                    return false
+                end
+
+                return true
             end
 
-            if canApplyCostume then
-                canApplyCostume = not player.m_isCoopGhost and
-                    (not hasMegaMush or (item and item.m_itemType == ItemType.ITEM_ACTIVE and item.m_id == CollectibleType.COLLECTIBLE_MEGA_MUSH)) and -- only apply MEGA MUSH costume when the player has mega mush
-                    (not ((item and ItemConfigUtils.IsCollectible(item) and item.m_id == CollectibleType.COLLECTIBLE_ANEMIC)) or
-                    (player.m_playerType ~= PlayerType.PLAYER_LAZARUS or player.m_playerType ~= PlayerType.PLAYER_LAZARUS2)) -- Don't apply anemic if lazarus
-            end
-
-            if not canApplyCostume then
+            if not can_apply_costume() then
                 goto continue
             end
 

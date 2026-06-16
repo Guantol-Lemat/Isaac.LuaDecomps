@@ -1,10 +1,10 @@
 --#region Dependencies
 
-local NetManagerUtils = require("Isaac.NetManager.Utils")
+local NetManagerUtils = require("Isaac._OLD.NetManager.Utils")
 local EntityManagerUtils = require("Game.Room.EntityManager.Utils")
 local EntityUtils = require("Entity.Utils")
 local HudUtils = require("Game.HUD.Utils")
-local Screen = require("Isaac.Screen")
+local Screen = require("Isaac.Utils.Screen")
 
 --#endregion
 

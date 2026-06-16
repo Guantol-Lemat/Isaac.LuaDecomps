@@ -2,7 +2,7 @@
 
 local PlayerUtils = require("Entity.Player.Utils")
 local LuaCallbacks = require("LuaEngine.Callbacks")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 local ProceduralEffects = require("Mechanics.Game.ProceduralItems.Effects")
 
 --#endregion

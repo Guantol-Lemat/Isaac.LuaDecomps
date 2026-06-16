@@ -3,7 +3,7 @@
 local TemporaryEffectsUtils = require("Game.TemporaryEffects.Utils")
 local RoomUtils = require("Game.Room.Utils")
 local SpriteUtils = require("General.Sprite")
-local NetPlayUtils = require("Isaac.NetManager.Utils")
+local NetPlayUtils = require("Isaac._OLD.NetManager.Utils")
 local PlayerInventory = require("Mechanics.Player.Inventory")
 
 --#endregion

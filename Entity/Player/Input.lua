@@ -15,7 +15,7 @@ local VectorUtils = require("General.Math.VectorUtils")
 ---@class PlayerInput
 local Module = {}
 
----@param options OptionsComponent
+---@param options Component.Options
 ---@param player Component.Entity.Player
 local function UsesMouseControls(options, player)
     return player.m_controllerIndex == 0 and options.m_mouseControls_enabled

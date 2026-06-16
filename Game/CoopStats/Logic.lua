@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local NetManagerUtils = require("Isaac.NetManager.Utils")
+local NetManagerUtils = require("Isaac._OLD.NetManager.Utils")
 local Enums = require("General.Enums")
 
 local eCoopStat = Enums.eCoopStat

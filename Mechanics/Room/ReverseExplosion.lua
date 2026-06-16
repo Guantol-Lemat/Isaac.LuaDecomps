@@ -8,7 +8,7 @@ local EntityCast = require("Entity.TypeCast")
 local EntityIdentity = require("Isaac.Enums.EntityIdentity")
 local EffectUtils = require("Entity.Effect.Utils")
 local GridEntityUtils = require("GridEntity.Utils")
-local BackdropUtils = require("Isaac.Backdrop.Utils")
+local BackdropUtils = require("Isaac._OLD.Backdrop.Utils")
 
 --#endregion
 

@@ -1,4 +1,4 @@
----@class NightmareSceneComponent
+---@class Component.NightmareScene
 ---@field m_state integer : 0x0
 ---@field m_frameCount_qqq integer : 0x4
 ---@field m_entryVectorMaybe_qqq unknown[] : 0x8

@@ -1,8 +1,8 @@
----@class Component.ItemConfig.Item
+---@class Component.ItemConfig
 ---@field m_collectibleList Component.ItemConfig.Item[] : 0x0
 ---@field m_trinketList Component.ItemConfig.Item[] : 0xc
 ---@field m_nullItemList Component.ItemConfig.Item[] : 0x18
----@field m_cardList CardConfigComponent[] : 0x24
+---@field m_cardList Component.CardConfig[] : 0x24
 ---@field m_pillEffectList PillEffectComponent[] : 0x30
 ---@field m_collectibleNameMap table<string, integer> : 0x3c
 ---@field m_playerForms PlayerFormComponent[] : 0x44
@@ -28,7 +28,7 @@
 ---@field m_maxCooldown integer : 0x78
 ---@field m_devilPrice integer : 0x7c
 ---@field m_shopPrice integer : 0x7e
----@field m_costume CostumeComponent : 0x80
+---@field m_costume Component.Costume : 0x80
 ---@field m_chargeType integer : 0xac
 ---@field m_special boolean : 0xb0
 ---@field m_passiveCache boolean : 0xb1
@@ -46,7 +46,7 @@
 ---@field m_modANM2Frame integer : 0xd4
 ---@field m_mod Component.ModEntry : 0xd8
 
----@class CardConfigComponent
+---@class Component.CardConfig
 ---@field m_id Card | integer : 0x0
 ---@field m_achievementId Achievement | integer : 0x4
 ---@field m_name string : 0x8
@@ -61,7 +61,7 @@
 ---@field m_mod Component.ModEntry : 0x68
 ---@field m_moddedCardFrontANM2 Sprite : 0x6c
 
----@class CostumeComponent
+---@class Component.Costume
 ---@field m_id NullItemID | integer : 0x0
 ---@field m_anm2Path string : 0x4
 ---@field m_priority integer : 0x1c

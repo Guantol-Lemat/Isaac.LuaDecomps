@@ -2,7 +2,7 @@
 
 local TemporaryEffectsFactory = require("Game.TemporaryEffects.Component")
 local PlayerCostume = require("Entity.Player.Costume")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 
 --#endregion
 

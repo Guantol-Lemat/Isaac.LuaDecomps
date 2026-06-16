@@ -4,7 +4,7 @@ local IsaacUtils = require("Isaac.Utils.Common")
 local QuestUtils = require("Mechanics.Game.Quest.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local PlayerInventory = require("Mechanics.Player.Inventory")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 local LuaCallbacks = require("LuaEngine.Callbacks")
 local Log = require("General.Log")
 

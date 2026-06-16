@@ -6,12 +6,12 @@
 ---@field m_persistentGameData Component.PersistentGameData : 0x14
 ---@field m_gameState GameStateComponent : 0xf34
 ---@field m_cutsceneManager CutsceneComponent : 0x20a00
----@field m_nightmareScene NightmareSceneComponent : 0x211bc
+---@field m_nightmareScene Component.NightmareScene : 0x211bc
 ---@field m_achievementOverlay AchievementOverlayComponent : 0x217a8
 ---@field m_musicManager MusicManagerComponent : 0x29a78
 ---@field m_sfxManager SoundManagerComponent : 0x29de0
----@field m_options OptionsComponent : 0x29df8
----@field m_itemConfig Component.ItemConfig.Item : 0x29e84
+---@field m_options Component.Options : 0x29df8
+---@field m_itemConfig Component.ItemConfig : 0x29e84
 ---@field m_challengeParams ChallengeParamsComponent[] : 0x29f7c
 ---@field m_challengeParamsCount integer : 0x29f80
 ---@field m_entityConfig EntityConfigComponent : 0x29f88

@@ -1,14 +1,14 @@
 --#region Dependencies
 
 local IsaacUtils = require("Isaac.Utils.Common")
-local Screen = require("Isaac.Screen")
+local Screen = require("Isaac.Utils.Screen")
 local VectorUtils = require("General.Math.VectorUtils")
 local RoomUtils = require("Game.Room.Utils")
 local PlayerUtils = require("Entity.Player.Utils")
 local SpriteUtils = require("General.Sprite")
-local SpriteRender = require("Isaac.ANM2.Render")
-local NetPlayUtils = require("Isaac.NetManager.Utils")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local SpriteRender = require("Isaac._OLD.ANM2.Render")
+local NetPlayUtils = require("Isaac._OLD.NetManager.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 local PlayerInventory = require("Mechanics.Player.Inventory")
 
 local VectorZero = VectorUtils.VectorZero

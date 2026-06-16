@@ -6,7 +6,7 @@ local Progress = require("Isaac.PersistentGameData.Progress")
 local SeedsUtils = require("Admin.Seeds.Utils")
 local GameUtils = require("Game.Utils")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")
-local ItemConfigUtils = require("Isaac.ItemConfig.Utils")
+local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 
 local eItemFilterFlag = Enums.eItemFilterFlag
 local eSpecialDailyRuns = Enums.eSpecialDailyRuns

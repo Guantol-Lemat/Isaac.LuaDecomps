@@ -1,4 +1,4 @@
----@class OptionsComponent
+---@class Component.Options
 ---@field m_path string : 0x0
 ---@field m_musicVolume number : 0x18
 ---@field m_sfxVolume number : 0x1c
