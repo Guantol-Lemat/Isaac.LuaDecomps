@@ -9,13 +9,50 @@ Module.eKnifeSubType = {
     CLUB_HITBOX = 4,
 }
 
+---@enum eGaperVariant
+Module.eGaperVariant = {
+    FROWNING_GAPER = 0,
+    GAPER = 1,
+    FLAMING_GAPER = 2,
+    ROTTEN_GAPER = 3,
+}
+
+---@enum eGusherVariant
+Module.eGusherVariant = {
+    GUSHER = 0,
+    PACER = 1
+}
+
+---@enum eFattyVariant
+Module.eFattyVariant = {
+    FATTY = 0,
+    PALE_FATTY = 1,
+    FLAMING_FATTY = 2,
+}
+
+---@enum eConjoinedFattyVariant
+Module.eConjoinedFattyVariant = {
+    CONJOINED_FATTY = 0,
+    BLUE_CONJOINED_FATTY = 1,
+}
+
+---@enum eStoneyVariant
+Module.eStoneyVariant = {
+    STONEY = 0,
+    CROSS_STONEY = 10
+}
+
 ---@enum eFirePlaceVariant
 Module.eFirePlaceVariant = {
     FIRE_PLACE = 0,
     RED_FIRE_PLACE = 1,
     BLUE_FIRE_PLACE = 2,
     PURPLE_FIRE_PLACE = 3,
-    WHITE_FIRE_PLACE = 4
+    WHITE_FIRE_PLACE = 4,
+    MOVABLE_FIRE_PLACE = 10,
+    COAL = 11,
+    MOVABLE_BLUE_FIRE_PLACE = 12,
+    MOVABLE_PURPLE_FIRE_PLACE = 13,
 }
 
 ---@enum eBabyVariant

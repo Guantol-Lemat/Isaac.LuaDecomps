@@ -81,7 +81,7 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     npc.m_groupIdx = -1;
     npc.m_targetPosition = Vector(0, 0)
     npc.m_npcTargetPos = Vector(0, 0)
-    npc.m_someEvisCordThing = 1.0
+    npc.m_F1 = 1.0
     npc.m_V1 = Vector(0, 0)
     npc.m_V2 = Vector(0, 0)
     npc.m_championRegenTimer = 0

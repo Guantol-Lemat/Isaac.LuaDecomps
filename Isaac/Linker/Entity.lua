@@ -281,7 +281,7 @@ function Stub.ToEffect(entity) end
 function Stub.GetLocalFrame(entity) end
 
 ---@param entity Component.Entity
----@return number
+---@return integer
 function Stub.GetFrameDelta(entity) end
 
 ---@param entity Component.Entity

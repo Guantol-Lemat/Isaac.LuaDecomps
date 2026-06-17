@@ -36,7 +36,7 @@
 ---@field m_deque2 Vector[] : 0xb54
 ---@field m_deque3 Vector[] : 0xb68
 ---@field m_npcTargetPos Vector : 0xb7c
----@field m_someEvisCordThing number : 0xb84
+---@field m_F1 number : 0xb84
 ---@field m_npcScale number : 0xb88
 ---@field m_canShutDoors boolean : 0xb8c
 ---@field m_isBoss boolean : 0xb8d

@@ -1,3 +1,16 @@
+---@class Vanilla.AnimationState
+
+---@param sprite Sprite
+---@return Vanilla.AnimationState
+local function GetOverlayAnimState(sprite)
+end
+
+---@param sprite Sprite
+---@param layerId integer
+---@return NullFrame?
+local function GetNullFrameById(sprite, layerId)
+end
+
 ---@param sprite Sprite
 ---@param frameNum number
 local function SetFramePrecise(sprite, frameNum)
@@ -9,12 +22,20 @@ local function SetFramePrecise(sprite, frameNum)
     end
 end
 
+---@param state Vanilla.AnimationState
+---@param animation AnimationData?
+local function ResetAnimationState(state, animation)
+end
+
 ---@class Utils.VanillaApi.Sprite
 local Module = {}
 
 --#region Module
 
+Module.GetOverlayAnimState = GetOverlayAnimState
+Module.GetNullFrameById = GetNullFrameById
 Module.SetFramePrecise = SetFramePrecise
+Module.ResetAnimationState = ResetAnimationState
 
 --#endregion
 
