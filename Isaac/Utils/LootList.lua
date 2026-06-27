@@ -1,3 +1,9 @@
+--#region Dependencies
+
+local IGame = require("Isaac.Interface.Game")
+
+--#endregion
+
 ---@alias Component.LootList Component.LootList.Entry[]
 
 ---@class Component.LootList.Entry
@@ -29,9 +35,26 @@ local function Add(lootList, entryType, variant, subtype, seed, rng)
     table.insert(lootList, entry)
 end
 
+---@param entry Component.LootList.Entry
+---@param ctx Context.Common
+---@param position Vector
+---@param velocity Vector
+---@param spawner Component.Entity?
+---@return Component.Entity
+local function Spawn(entry, ctx, position, velocity, spawner)
+    local seed = entry.rng and entry.rng:Next() or entry.seed
+    IGame.Spawn(
+        ctx, ctx.game,
+        entry.type, entry.variant,
+        position, velocity, spawner,
+        entry.subtype, seed
+    )
+end
+
 --#region Module
 
 Module.Add = Add
+Module.Spawn = Spawn
 
 --#endregion
 

@@ -619,7 +619,7 @@ function Stub.restore_consumable_data(ctx, player, param_1) end
 ---@param player Component.Entity.Player
 ---@param Amount integer
 ---@param Position Vector
----@param Target Component.Entity
+---@param Target Component.Entity?
 ---@return Component.Entity
 function Stub.AddBlueFlies(ctx, player, Amount, Position, Target) end
 

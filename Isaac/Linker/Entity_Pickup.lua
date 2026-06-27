@@ -2,6 +2,7 @@
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
 local PickupLootList = require("Isaac.Gameplay.Pickup.LootList")
+local PickupChest = require("Isaac.Gameplay.Pickup.Chest")
 
 --#region Stub
 
@@ -173,12 +174,6 @@ function Stub.Render(ctx, pickup, offset) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param Player Component.Entity.Player
----@return boolean
-function Stub.TryOpenChest(ctx, pickup, Player) end
-
----@param ctx Context.Common
----@param pickup Component.Entity.Pickup
 function Stub.PlayDropSound(ctx, pickup) end
 
 ---@param ctx Context.Common
@@ -264,7 +259,7 @@ function Stub.CanDuplicate(ctx, pickup) end
 
 ---@param ctx Context.Common
 ---@param position Vector
----@param ePickVelType integer
+---@param ePickVelType ePickVelType | integer
 ---@param RNG RNG
 ---@return Vector
 function Stub.get_random_pickup_velocity(ctx, position, ePickVelType, RNG) end
@@ -357,7 +352,7 @@ Interface.TryThrow = Stub.TryThrow
 Interface.Interpolate = Stub.Interpolate
 Interface.Update = Stub.Update
 Interface.Render = Stub.Render
-Interface.TryOpenChest = Stub.TryOpenChest
+Interface.TryOpenChest = PickupChest.TryOpenChest
 Interface.PlayDropSound = Stub.PlayDropSound
 Interface.PlayPickupSound = Stub.PlayPickupSound
 Interface.GetCoinValue = Stub.GetCoinValue

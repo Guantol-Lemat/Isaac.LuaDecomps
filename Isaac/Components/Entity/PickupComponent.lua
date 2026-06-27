@@ -11,7 +11,7 @@
 ---@field m_shopItemId integer : 0x488
 ---@field m_timeout integer : 0x48c
 ---@field m_wait integer : 0x490
----@field m_variantRelated integer : 0x494
+---@field m_eternalChest_reCloseCountdown integer : 0x494
 ---@field m_stickyNickelRelated integer : 0x498
 ---@field m_dropDelay integer : 0x4a0
 ---@field m_camoColor_qqq Color : 0x4a4
@@ -26,4 +26,5 @@
 ---@field m_visibilityDelayTimer_qqq integer : 0x510
 ---@field m_flip_saveState Component.EntitySaveState? : 0x514
 ---@field m_flip_collectibleSprite Sprite : 0x51c
----@field m_unkChestYOffset number : 0x630
+---@field m_throw_height number : 0x630
+---@field m_throw_speed number : 0x630

@@ -60,8 +60,9 @@ end
 local function RandomFloat()
 end
 
+---@param seed integer
 ---@return Vector
-local function RandomVector()
+local function RandomVector(seed)
 end
 
 ---@param friction number

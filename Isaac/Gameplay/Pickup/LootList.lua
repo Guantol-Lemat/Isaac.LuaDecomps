@@ -8,13 +8,13 @@ local LootListUtils = require("Isaac.Utils.LootList")
 
 --#endregion
 
----@alias PickupLootList.Switch.GetLootList fun(ctx: PickupLootList.Context)
+---@alias PickupLootList.Switch.GetLootList fun(ctx: PickupLootList.Closure)
 
----@alias PickupLootList.Switch.Chest.GetOutcomeLoot fun(ctx: PickupLootList.Context, isLocked: boolean, outcome: integer)
+---@alias PickupLootList.Switch.Chest.GetOutcomeLoot fun(ctx: PickupLootList.Closure, isLocked: boolean, outcome: integer)
 
----@alias PickupLootList.Switch.ChestPickups.GetOutcomeLoot fun(ctx: PickupLootList.Context)
+---@alias PickupLootList.Switch.ChestPickups.GetOutcomeLoot fun(ctx: PickupLootList.Closure)
 
----@class PickupLootList.Context : Context.Common
+---@class PickupLootList.Closure : Context.Common
 ---@field pickup Component.Entity.Pickup
 ---@field lootList Component.LootList
 ---@field rng RNG
@@ -968,7 +968,7 @@ local function GetLootList(ctx, pickup, shouldAdvance)
     local level_isStage6 = level.m_stage == LevelStage.STAGE6
         and not IGame.IsGreedMode(ctx_game)
 
-    ---@type PickupLootList.Context
+    ---@type PickupLootList.Closure
     local myCtx = {
         manager = ctx.manager,
         game = ctx_game,
