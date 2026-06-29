@@ -17,7 +17,7 @@ local Module = {}
 ---@field seeds SeedsComponent -- Collectible
 ---@field frameCount integer -- Both
 ---@field challenge Challenge | integer -- Trinket
----@field dailyChallenge DailyChallengeComponent -- Trinket
+---@field dailyChallenge Component.DailyChallenge -- Trinket
 ---@field defaultPlayer Component.Entity.Player? -- Both
 ---@field forceUnlock boolean
 

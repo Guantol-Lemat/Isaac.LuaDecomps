@@ -31,7 +31,7 @@ local PLAYER_HEALTH = {
 ---@param player Component.Entity.Player
 ---@return boolean
 local function IsLocalPlayer(myContext, player)
-    local netplayManager = myContext.manager.m_netPlayManager
+    local netplayManager = myContext.manager.m_netManager
     if not NetPlayUtils.IsNetPlay(netplayManager) then
         return true
     end

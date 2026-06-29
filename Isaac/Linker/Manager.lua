@@ -1,6 +1,8 @@
 ---@class Interface.Manager
 local Interface = require("Isaac.Interface.Manager")
 
+local StateSetup = require("Isaac.StateSetup")
+
 --#region Stub
 
 local Stub = {}
@@ -10,8 +12,8 @@ local Stub = {}
 function Stub.GetModManager(ctx) end
 
 ---@param ctx Context.Common
----@return unknown
-function Stub.GetNetplayManager(ctx) end
+---@return Component.NetManager
+function Stub.GetNetManager(ctx) end
 
 ---@param ctx Context.Common
 ---@return Component.SoundEffects
@@ -181,6 +183,10 @@ function Stub.InitDailyChallenge(ctx) end
 ---@param ProgressScaredHeart boolean
 function Stub.RestartGame(ctx, seeds, ClearSeedEffects, ProgressScaredHeart) end
 
+---@param manager Component.Manager
+---@return boolean
+function Stub.IsNetPlay(manager) end
+
 ---@param ctx Context.Common
 ---@param manager Component.Manager
 ---@param param_1 Cutscene | integer
@@ -208,11 +214,15 @@ function Stub.cleanup_current_state(ctx, manager) end
 
 ---@param ctx Context.Common
 ---@param manager Component.Manager
-function Stub.execute_start_game(ctx, manager) end
-
----@param ctx Context.Common
----@param manager Component.Manager
 function Stub.execute_start_menu(ctx, manager) end
+
+---@param manager Component.Manager
+---@param ctx Context.Common
+function Stub.execute_show_cutscene(manager, ctx) end
+
+---@param manager Component.Manager
+---@param ctx Context.Common
+function Stub.execute_show_nightmare(manager, ctx) end
 
 ---@param ctx Context.Common
 ---@param manager Component.Manager
@@ -244,7 +254,7 @@ function Stub.RenderButtonIcon(ctx, controllerIdx, param_2, param_3, param_4, po
 --endregion
 
 Interface.GetModManager = Stub.GetModManager
-Interface.GetNetplayManager = Stub.GetNetplayManager
+Interface.GetNetManager = Stub.GetNetManager
 Interface.GetSFXManager = Stub.GetSFXManager
 Interface.GetPersistentGameData = Stub.GetPersistentGameData
 Interface.GetEntityConfig = Stub.GetEntityConfig
@@ -280,13 +290,14 @@ Interface.LoadImage = Stub.LoadImage
 Interface.StartNewGame = Stub.StartNewGame
 Interface.InitDailyChallenge = Stub.InitDailyChallenge
 Interface.RestartGame = Stub.RestartGame
+Interface.IsNetPlay = Stub.IsNetPlay
 Interface.ShowCutscene = Stub.ShowCutscene
 Interface.SaveGameState = Stub.SaveGameState
 Interface.DeleteGameState = Stub.DeleteGameState
 Interface.SaveRerun = Stub.SaveRerun
 Interface.AchievementUnlocksDisallowed = Stub.AchievementUnlocksDisallowed
 Interface.cleanup_current_state = Stub.cleanup_current_state
-Interface.execute_start_game = Stub.execute_start_game
+Interface.execute_start_game = StateSetup.ExecuteStartGame
 Interface.execute_start_menu = Stub.execute_start_menu
 Interface.SetSaveSlot = Stub.SetSaveSlot
 Interface.LoadGameState = Stub.LoadGameState

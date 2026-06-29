@@ -1,12 +1,12 @@
----@class Component.GameStatePlayer
+---@class Component.GameState.Player
 ---@field m_playerType PlayerType | integer
 ---@field m_controllerIdx integer
 ---@field m_backupOwnerIdx integer -- treated as offset from current state in the playerManager.players list (0 if this is not a backup player)
 ---@field m_parentIdx integer -- index in the playerManager.players list (< 0 if this is not a parent)
----@field m_familiarData GameStatePlayer.FamiliarData[]
+---@field m_familiarData GameState.Player.FamiliarData[]
 ---@field m_familiarCount integer
 
----@class GameStatePlayer.FamiliarData
+---@class GameState.Player.FamiliarData
 
 ---@class Component.ConsumableData
 ---@field m_coins integer : 0x0
@@ -28,19 +28,19 @@
 ---@class GameStatePlayerComponentModule
 local Module = {}
 
----@param saveState Component.GameStatePlayer
+---@param saveState Component.GameState.Player
 local function Init(saveState)
 end
 
----@return Component.GameStatePlayer
+---@return Component.GameState.Player
 local function Create()
     local saveState = {}
     Init(saveState)
     return saveState
 end
 
----@param familiarData GameStatePlayer.FamiliarData
----@return GameStatePlayer.FamiliarData
+---@param familiarData GameState.Player.FamiliarData
+---@return GameState.Player.FamiliarData
 local function FamiliarDataCopy(familiarData)
 end
 

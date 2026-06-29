@@ -57,7 +57,7 @@
 ---@field m_fade_speed number : 0x1c31ac
 ---@field m_fade_target integer : 0x1c31b0
 ---@field m_ambush Component.Ambush : 0x1c31b8
----@field m_dailyChallenge DailyChallengeComponent : 0x1c3204
+---@field m_dailyChallenge Component.DailyChallenge : 0x1c3204
 ---@field m_scoreSheet ScoreSheetComponent : 0x1c32b8
 ---@field m_victoryRun_currentLap integer : 0x1c33f8
 ---@field m_victoryRun_prompt GenericPromptComponent : 0x1c33fc

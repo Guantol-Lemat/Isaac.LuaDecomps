@@ -195,7 +195,7 @@ local function IsStageAvailable(myContext, stage, moralPath)
 end
 
 ---@param challenge Challenge | integer
----@param challengeParams ChallengeParamsComponent
+---@param challengeParams Component.ChallengeParam
 ---@param level Component.Level
 ---@param effectiveStage LevelStage | integer
 local function TrapDoorHindersChallenge(challenge, challengeParams, level, effectiveStage)

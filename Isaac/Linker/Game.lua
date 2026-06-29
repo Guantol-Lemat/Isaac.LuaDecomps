@@ -188,8 +188,8 @@ function Stub.GetVictoryLap(game) end
 function Stub.InChallenge(game) end
 
 ---@param ctx Context.Common
----@param game Component.Game
-function Stub.constructor(ctx, game) end
+---@return Component.Game
+function Stub.New(ctx) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
@@ -232,18 +232,21 @@ function Stub.Fadeout(game, Speed, FadeoutTarget) end
 function Stub.Start(ctx, game, playerType, challenge, seeds, difficulty) end
 
 ---@param ctx Context.Common
----@param game Component.Game
----@param unk unknown
+---@param unk unknown -- something relating to net controllers
 ---@param challenge unknown
 ---@param seed Component.Seeds
----@param difficulty Difficulty | integer
----@param state Component.GameState
-function Stub.NetStart(ctx, game, unk, challenge, seed, difficulty, state) end
+---@param initState Component.GameState?
+function Stub.NetStart(ctx, unk, challenge, seed, initState) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
 ---@param daily Component.DailyChallenge
 function Stub.StartDailyChallenge(ctx, game, daily) end
+
+---@param game Component.Game
+---@param ctx Context.Common
+---@param state Component.GameState
+function Stub.StartFromSavedState(game, ctx, state) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
@@ -862,7 +865,7 @@ Interface.GetConsole = Stub.GetConsole
 Interface.GetFont = Stub.GetFont
 Interface.GetVictoryLap = Stub.GetVictoryLap
 Interface.InChallenge = Stub.InChallenge
-Interface.constructor = Stub.constructor
+Interface.New = Stub.New
 Interface.Destructor = Stub.Destructor
 Interface.CreateSurfaces = Stub.CreateSurfaces
 Interface.PostLanguageSwitch = Stub.PostLanguageSwitch
@@ -875,6 +878,7 @@ Interface.Fadeout = Stub.Fadeout
 Interface.Start = Stub.Start
 Interface.NetStart = Stub.NetStart
 Interface.StartDailyChallenge = Stub.StartDailyChallenge
+Interface.StartFromSavedState = Stub.StartFromSavedState
 Interface.StartFromRerunState = Stub.StartFromRerunState
 Interface.StartDebug = Stub.StartDebug
 Interface.NextVictoryLap = Stub.NextVictoryLap

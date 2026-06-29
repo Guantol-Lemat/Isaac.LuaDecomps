@@ -42,6 +42,10 @@ local function GetDirectionToMoveAction(direction)
     return DIRECTION_TO_MOVE_ACTION[direction + 1]
 end
 
+---@param seed integer
+local function InitRandom(seed)
+end
+
 ---@return integer
 local function Random()
 end
@@ -87,6 +91,7 @@ end
 Module.GetDirectionToMoveAction = GetDirectionToMoveAction
 Module.GetVectorDirection = GetVectorDirection
 Module.GetAxisAlignedUnitVectorFromDirection = GetAxisAlignedUnitVectorFromDirection
+Module.InitRandom = InitRandom
 Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat

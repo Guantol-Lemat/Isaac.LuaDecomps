@@ -11,7 +11,7 @@
 ---@field proceduralItemManager ProceduralItemManagerComponent
 ---@field seeds SeedsComponent
 ---@field challenge Challenge | integer -- Trinket
----@field dailyChallenge DailyChallengeComponent -- Trinket
+---@field dailyChallenge Component.DailyChallenge -- Trinket
 ---@field defaultPlayer Component.Entity.Player? -- Both
 ---@field forceUnlock boolean
 ---@field mode integer

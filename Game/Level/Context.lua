@@ -13,14 +13,14 @@ local Module = {}
 ---@field mode integer
 ---@field curses LevelCurse | integer
 ---@field gameStateFlags GameStateFlag | integer
----@field challengeParams ChallengeParamsComponent
+---@field challengeParams Component.ChallengeParam
 ---@field inChallenge boolean
 
 ---@class LevelContext.IsStageAvailable : InventoryContext.HasCollectible, PersistentDataContext.Unlocked
 ---@field playerManager Component.PlayerManager
 ---@field persistentGameData Component.PersistentGameData
 ---@field mode integer
----@field challengeParams ChallengeParamsComponent
+---@field challengeParams Component.ChallengeParam
 ---@field inChallenge boolean
 ---@field forceUnlock boolean
 
@@ -31,7 +31,7 @@ local Module = {}
 ---@field curses LevelCurse | integer
 ---@field gameStateFlags GameStateFlag | integer
 ---@field challenge Challenge | integer
----@field challengeParams ChallengeParamsComponent
+---@field challengeParams Component.ChallengeParam
 ---@field inChallenge boolean
 ---@field forceUnlock boolean
 

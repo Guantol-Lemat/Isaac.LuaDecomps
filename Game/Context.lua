@@ -9,7 +9,7 @@ local Module = {}
 
 ---@class GameContext.Challenge
 ---@field challenge Challenge | integer
----@field dailyChallenge DailyChallengeComponent | integer
+---@field dailyChallenge Component.DailyChallenge | integer
 
 --#region Module
 

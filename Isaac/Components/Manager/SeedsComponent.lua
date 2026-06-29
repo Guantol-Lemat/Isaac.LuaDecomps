@@ -1,0 +1,7 @@
+---@class Component.Seeds
+---@field m_isCustomRun boolean : 0x0
+---@field m_gameStartSeed integer : 0x4
+---@field m_rng RNG : 0x8
+---@field m_stageSeeds integer[] [14] : 0x18
+---@field m_playerInitSeed integer : 0x50
+---@field m_seedEffects Set<(SeedEffect | integer)> : 0x54

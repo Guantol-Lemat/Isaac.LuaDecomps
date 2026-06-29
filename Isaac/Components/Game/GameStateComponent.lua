@@ -1,0 +1,100 @@
+---@class Component.GameState
+---@field m_challenge Challenge | integer : 0x0
+---@field m_isRerun_qqq boolean : 0x4
+---@field m_isConsoleEnabled_qqq boolean : 0x5
+---@field m_difficulty Difficulty | integer : 0x8
+---@field m_gameStateFlagsRelated integer : 0xc
+---@field m_gameStateFlags_qqq boolean[] [49] : 0xe
+---@field m_lastRoomDevilStage integer : 0x40
+---@field m_treasureRoomsVisited integer : 0x44
+---@field m_planetariumsVisited integer : 0x48
+---@field m_stagesWithoutHeartsPicked integer : 0x4c
+---@field m_stagesWithoutDamage integer : 0x50
+---@field m_devilRoomDeals integer : 0x54
+---@field m_schoolbagUnlockTracker integer : 0x58
+---@field m_donationModGreed integer : 0x5c
+---@field m_donationModAngel integer : 0x60
+---@field m_bossRushParTime integer : 0x64
+---@field m_blueWombParTime integer : 0x68
+---@field m_frameCount integer : 0x6c
+---@field m_timeCounter integer : 0x70
+---@field m_BASEMENTseedFloor integer : 0x74
+---@field m_ambush_isActive boolean : 0x78
+---@field m_ambush_currentWave integer : 0x7c
+---@field m_RunTimeLevel integer : 0x80
+---@field m_RunTimeLevelType integer : 0x84
+---@field m_RunTime integer : 0x88
+---@field m_ScoreSheet_fromAddPickup integer : 0x8c
+---@field m_ScoreSheet_fromAddKilledEnemy integer : 0x90
+---@field m_RunEnding integer : 0x94
+---@field m_SumClearedRooms integer : 0x110
+---@field m_ScoreSheet_someKindaArray integer : 0x114
+---@field m_bossesKilled_qqq integer : 0x18c
+---@field m_victoryLap unknown : 0x190
+---@field m_ScoreSheet_submitTime_qqq unknown : 0x191
+---@field m_ScoreSheet_unkShort integer : 0x192
+---@field m_lastLevelWithoutHalfHp integer : 0x194
+---@field m_stage integer : 0x198
+---@field m_stageType integer : 0x19c
+---@field m_startingRoomIdx integer : 0x1a0
+---@field m_lastBossRoomListIdx integer : 0x1a4
+---@field m_floorNum_qqq integer : 0x1a8
+---@field m_dungeonPlacementSeed integer : 0x1ac
+---@field m_devilAngelRoomRNGSeed integer : 0x1b0
+---@field m_angelRoomChanceMod number : 0x1b4
+---@field m_heartPicked boolean : 0x1b8
+---@field m_isDevilRoomDisabled boolean : 0x1b9
+---@field m_canSeeEverything boolean : 0x1ba
+---@field m_hasBossChallenge boolean : 0x1bb
+---@field m_storeGameStateRelated integer : 0x1bc
+---@field m_stateBitfield_qqq boolean[] [24] : 0x1be
+---@field m_greedModeWave integer : 0x1d8
+---@field m_greedWaveSeed integer[] [12] : 0x1dc
+---@field m_silverTreasureRoomIdx GridRooms | integer : 0x20c
+---@field m_saveStateGreedWave integer : 0x210
+---@field m_NightmareScene_progressBar_stageFrame_qqq integer[] [14] : 0x218
+---@field m_roomCount integer : 0x250
+---@field m_roomDescriptors Component.RoomDescriptor[] [525] : 0x254
+---@field m_roomConfig Component.GameState.RoomConfig[] [525] : 0x17bac
+---@field m_roomConfigDeque_qqq unknown[] : 0x19448
+---@field m_roomDescOffsetArray integer[][] [3][169] : 0x1945c
+---@field m_roomIdx GridRooms | integer : 0x19c48
+---@field m_lastRoomIdx GridRooms | integer : 0x19c4c
+---@field m_dimension integer : 0x19c50
+---@field m_lastDimension integer : 0x19c51
+---@field m_dungeonReturnPos Vector : 0x19c54
+---@field m_dungeonRoomIdx GridRooms | integer : 0x19c5c
+---@field m_backupLastDoorSlot DoorSlot | integer : 0x19c60
+---@field m_backupRoomIdx GridRooms | integer : 0x19c64
+---@field m_backupDimension Dimension | integer : 0x19c68
+---@field m_backupLastRoomIdx GridRooms | integer : 0x19c6c
+---@field m_backupLastDimension Dimension | integer : 0x19c70
+---@field m_enterDoor DoorSlot | integer : 0x19c74
+---@field m_portal Component.Portal[] [2] : 0x19c78
+---@field m_startPlayerType integer : 0x19c94
+---@field m_modsActive boolean : 0x19c98
+---@field m_playerCount integer : 0x19c9c
+---@field m_players Component.GameState.Player[] [8] : 0x19ca0
+---@field m_esauJrStates Component.GameState.Player[] [4] : 0x1c9e0
+---@field m_itemPool Component.GameState.ItemPool : 0x1e080
+---@field m_bossPool Component.GameState.BossPool : 0x1e334
+---@field m_seeds Component.Seeds : 0x1e3d8
+---@field m_playerManager_rngSeed integer : 0x1e434
+---@field m_fortuneRNGSeed integer : 0x1e438
+---@field m_lastLevelWithDamage integer : 0x1e43c
+---@field m_magicSkinUses integer : 0x1e440
+---@field m_erasedEnemies Component.ErasedEnemy[] : 0x1e444
+---@field m_encounteredBosses Component.EncounteredBoss[] : 0x1e450
+---@field m_pixelationTimeout integer : 0x1e45c
+---@field m_pixelation_2 integer : 0x1e460
+---@field m_ascentSequenceStarting boolean : 0x1e464
+---@field m_backwardsStageDesc Component.BackwardsStageDesc[] [7] : 0x1e468
+---@field m_deathCertificateLeaveCountdown integer : 0x1fa48
+---@field m_proceduralItems Component.ProceduralItem[] : 0x1fa4c
+---@field m_gameStateFilepath string : 0x1fa60
+---@field m_rerunStateFilepath string : 0x1fa78
+---@field m_loaded boolean : 0x1fa90
+---@field m_loadedRerun unknown : 0x1fa91
+---@field m_cloudGameStateFilepath string : 0x1fa98
+---@field m_cloudRerunStateFilepath string : 0x1fab0
+---@field m_saveFile Engine.File : 0x1fac8

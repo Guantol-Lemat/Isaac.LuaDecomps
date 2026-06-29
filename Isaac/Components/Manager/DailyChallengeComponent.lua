@@ -1,0 +1,6 @@
+---@class Component.DailyChallenge
+---@field m_id integer : 0x0
+---@field m_seed integer : 0x4
+---@field m_isPractice boolean : 0x8
+---@field m_specialDailyChallenge eSpecialDailyRuns | integer : 0xc
+---@field m_challengeParams Component.ChallengeParam : 0x10

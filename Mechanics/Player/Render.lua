@@ -282,7 +282,7 @@ local function render_player_sprite(myContext, player, offset, real)
         end
 
         local renderOutline = real and not isHologram and
-            (NetPlayUtils.IsNetPlay(myContext.manager.m_netPlayManager) and PlayerUtils.IsLocalPlayer(myContext, player))
+            (NetPlayUtils.IsNetPlay(myContext.manager.m_netManager) and PlayerUtils.IsLocalPlayer(myContext, player))
 
         if renderOutline then
             local outlineColor = Color(0.0, 0.0, 0.0, 1.0, 1.0, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0)

@@ -14,7 +14,7 @@ local Module = {}
 ---@class EntityManagerContext.Update
 ---@field manager Component.Manager
 ---@field game Component.Game
----@field netManager NetManagerComponent
+---@field netManager Component.NetManager
 
 ---@param entity Component.Entity
 ---@param isTransition boolean

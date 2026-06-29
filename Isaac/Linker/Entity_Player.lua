@@ -1584,7 +1584,7 @@ function Stub.RestoreGameState_CoPlayerData(player, param_1) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
----@param state Component.GameStatePlayer
+---@param state Component.GameState.Player
 function Stub.RestoreGameState(ctx, player, state) end
 
 ---@param ctx Context.Common
@@ -1594,7 +1594,7 @@ function Stub.check_death(ctx, player) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
----@param PlayerData Component.GameStatePlayer
+---@param PlayerData Component.GameState.Player
 function Stub.RestoreGameState_PostLevelInit(ctx, player, PlayerData) end
 
 ---@param player Component.Entity.Player
@@ -1603,7 +1603,7 @@ function Stub.store_sub_player(player, param_1) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
----@param param_1 Component.GameStatePlayer
+---@param param_1 Component.GameState.Player
 function Stub.StoreGameState(ctx, player, param_1) end
 
 ---@param ctx Context.Common

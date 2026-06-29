@@ -7,7 +7,7 @@ local BitsetUtils = require("General.Bitset")
 ---@class ChallengeParamsUtils
 local Module = {}
 
----@param challengeParams ChallengeParamsComponent
+---@param challengeParams Component.ChallengeParam
 ---@param curses LevelCurse | integer
 ---@return LevelCurse | integer
 local function ApplyCurseModifiers(challengeParams, curses)

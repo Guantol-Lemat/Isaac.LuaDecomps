@@ -335,6 +335,6 @@ local SpriteUtils = require("General.Sprite")
 ---@field m_playerHUD Component.PlayerHUD : 0x1fb4
 ---@field m_startingItems (CollectibleType | integer)[] : 0x1fbc
 ---@field m_hasUnlistedState boolean : 0x1fc8
----@field m_unlistedState Component.GameStatePlayer : 0x1fcc -- used to trigger effects that would occur when restoring this player (since this doesn't exist before replacement)
+---@field m_unlistedState Component.GameState.Player : 0x1fcc -- used to trigger effects that would occur when restoring this player (since this doesn't exist before replacement)
 ---@field m_replacedPlayer Component.Entity.Player? : 0x2574
 ---@field m_activeItemControlRelated boolean : 0x2578

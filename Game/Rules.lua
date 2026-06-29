@@ -40,7 +40,7 @@ end
 
 ---@param context Context
 ---@param game Component.Game
----@return ChallengeParamsComponent
+---@return Component.ChallengeParam
 local function GetChallengeParams(context, game)
     local dailyChallenge = game.m_dailyChallenge
     if dailyChallenge.m_id ~= 0 then

@@ -8,7 +8,7 @@ local EntityUtils = require("Entity.Utils")
 
 --- Ties each GameState playerIdx to an actual EntityPlayer
 ---@param playerManager Component.PlayerManager
----@param gameState GameStateComponent
+---@param gameState Component.GameState
 ---@param manageLifecycle boolean
 ---@return table<integer, Component.Entity.Player>
 local function compute_player_state_map(playerManager, gameState, manageLifecycle)
@@ -79,7 +79,7 @@ local TWIN_PLAYERS = {
     [PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
 }
 
----@param gameState GameStateComponent
+---@param gameState Component.GameState
 ---@param playerStateMap table<integer, Component.Entity.Player>
 ---@param index integer
 local function try_restore_twin_relation(gameState, playerStateMap, index)
@@ -101,7 +101,7 @@ local function try_restore_twin_relation(gameState, playerStateMap, index)
 end
 
 ---@param playerManager Component.PlayerManager
----@param gameState GameStateComponent
+---@param gameState Component.GameState
 local function RestoreGameState(playerManager, gameState)
     local playerStateMap = compute_player_state_map(playerManager, gameState, true)
 

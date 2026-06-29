@@ -10,7 +10,7 @@ local eCoopStat = Enums.eCoopStat
 local Module = {}
 
 ---@class CoopStatsContext.Finalize
----@field netManager NetManagerComponent
+---@field netManager Component.NetManager
 
 ---@param awardDesc CoopAwardDescComponent
 ---@param playerInfos CoopStats.PlayerInfoComponent

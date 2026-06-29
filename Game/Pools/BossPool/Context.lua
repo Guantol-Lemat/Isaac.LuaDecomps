@@ -10,7 +10,7 @@ local Module = {}
 ---@class BossPoolContext.GetBoss
 ---@field persistentGameData Component.PersistentGameData
 ---@field challenge Challenge | integer
----@field dailyChallenge DailyChallengeComponent
+---@field dailyChallenge Component.DailyChallenge
 ---@field mode integer
 
 ---@param context Context

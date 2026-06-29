@@ -1,0 +1,30 @@
+---@class Component.ChallengeParam
+---@field m_name string : 0x0
+---@field m_roomFilter Set<(RoomType | integer)> : 0x18
+---@field m_startingCollectibleList_qqq (CollectibleType | integer)[] : 0x20
+---@field m_startingTrinketSet_qqq (TrinketType | integer)[] : 0x2c
+---@field m_startingPill PillEffect | integer : 0x38
+---@field m_startingCard Card | integer : 0x3c
+---@field m_endStage LevelStage | integer : 0x40
+---@field m_playerType PlayerType | integer : 0x44
+---@field m_achievementsList_qqq integer[] : 0x48
+---@field m_soulHearts integer : 0x54
+---@field m_blackHearts integer : 0x58
+---@field m_hearts integer : 0x5c
+---@field m_maxHearts integer : 0x60
+---@field m_coins integer : 0x64
+---@field m_addDamage_qqq number : 0x68
+---@field m_canShoot boolean : 0x6c
+---@field m_isAltPath boolean : 0x6d
+---@field m_difficulty Difficulty | integer : 0x70
+---@field m_isMegaSatan boolean : 0x74
+---@field m_minFireRate_qqq number : 0x78
+---@field m_maxDamage boolean : 0x7c
+---@field m_minShotSpeed boolean : 0x7d
+---@field m_bigRange boolean : 0x7e
+---@field m_altersEndStage boolean : 0x7f -- consider challenge EndStage and AltPath params
+---@field m_curses LevelCurse | integer : 0x80
+---@field m_curseFilter LevelCurse | integer : 0x84
+---@field m_isSecretPath boolean : 0x88
+---@field m_startingCollectiblesTwinList_qqq (CollectibleType | integer)[] : 0x8c
+---@field m_seeds integer[] : 0x98

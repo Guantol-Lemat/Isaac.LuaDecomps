@@ -8,6 +8,6 @@
 ---@field seeds SeedsComponent
 ---@field frameCount integer
 ---@field challenge Challenge | integer
----@field dailyChallenge DailyChallengeComponent
+---@field dailyChallenge Component.DailyChallenge
 ---@field defaultPlayer Component.Entity.Player?
 ---@field forceUnlock boolean
