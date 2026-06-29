@@ -8,8 +8,8 @@
 ---@field room Component.Room
 ---@field persistentGameData Component.PersistentGameData
 ---@field itemConfig Component.ItemConfig.Item
----@field proceduralItemManager ProceduralItemManagerComponent
----@field seeds SeedsComponent
+---@field proceduralItemManager Component.ProceduralItemManager
+---@field seeds Component.Seeds
 ---@field challenge Challenge | integer -- Trinket
 ---@field dailyChallenge Component.DailyChallenge -- Trinket
 ---@field defaultPlayer Component.Entity.Player? -- Both

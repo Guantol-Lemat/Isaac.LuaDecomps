@@ -1,1 +1,1 @@
----@class PauseScreenComponent
+---@class Component.PauseScreen

@@ -15,7 +15,7 @@
 ---@field m_challengeParams Component.ChallengeParam[] : 0x29f7c
 ---@field m_challengeParamsCount integer : 0x29f80
 ---@field m_entityConfig EntityConfigComponent : 0x29f88
----@field m_modManager ModManagerComponent : 0x29fd8
+---@field m_modManager Component.ModManager : 0x29fd8
 ---@field m_stringTable StringTableComponent : 0x4a234
 ---@field m_stringTable-2 StringTableComponent : 0x4a24c
 ---@field m_frameCount integer : 0x4a264

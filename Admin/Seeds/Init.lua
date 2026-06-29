@@ -7,7 +7,7 @@ local Random = require("General.Random")
 ---@class SeedsInit
 local Module = {}
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@param startSeed integer
 local function SetStartSeed(seeds, startSeed)
     if startSeed == 0 then
@@ -26,7 +26,7 @@ local function SetStartSeed(seeds, startSeed)
     seeds.m_playerSeed = rng:Next()
 end
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@param stage LevelStage
 local function ForgetStageSeed(seeds, stage)
     local stageSeeds = seeds.m_stageSeeds

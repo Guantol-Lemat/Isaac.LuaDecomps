@@ -5,7 +5,7 @@
 --#endregion
 
 ---@param myContext Context.Common
----@param bossPool BossPoolComponent
+---@param bossPool Component.BossPool
 ---@param stage LevelStage | integer
 ---@param stageType StageType | integer
 ---@return BossType

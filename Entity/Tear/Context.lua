@@ -1,3 +1,3 @@
 ---@class TearContext.SetHeight
----@field seeds SeedsComponent
+---@field seeds Component.Seeds
 ---@field isDungeon boolean

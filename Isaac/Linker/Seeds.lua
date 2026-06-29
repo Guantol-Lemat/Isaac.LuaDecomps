@@ -36,8 +36,8 @@ function Stub.GetNextSeed(seeds) end
 function Stub.GetPlayerInitSeed(seeds) end
 
 ---@param seeds Component.Seeds
----@param param_1 unknown
-function Stub.AddSeedEffect(seeds, param_1) end
+---@param seedEffect SeedEffect | integer
+function Stub.AddSeedEffect(seeds, seedEffect) end
 
 ---@param seeds Component.Seeds
 ---@param Stage LevelStage | integer
@@ -106,9 +106,9 @@ function Stub.GetSeedEffect(ctx, param_1) end
 ---@return boolean
 function Stub.IsStringValidSeed(str) end
 
----@param string string
----@param Seed integer
-function Stub.Seed2String(string, Seed) end
+---@param seed integer
+---@return string
+function Stub.Seed2String(seed) end
 
 ---@param str string
 ---@return integer

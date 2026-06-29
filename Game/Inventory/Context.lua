@@ -13,8 +13,8 @@ local Module = {}
 ---@field room Component.Room -- Collectible
 ---@field persistentGameData Component.PersistentGameData -- Collectible
 ---@field itemConfig Component.ItemConfig.Item -- Collectible
----@field proceduralItemManager ProceduralItemManagerComponent
----@field seeds SeedsComponent -- Collectible
+---@field proceduralItemManager Component.ProceduralItemManager
+---@field seeds Component.Seeds -- Collectible
 ---@field frameCount integer -- Both
 ---@field challenge Challenge | integer -- Trinket
 ---@field dailyChallenge Component.DailyChallenge -- Trinket

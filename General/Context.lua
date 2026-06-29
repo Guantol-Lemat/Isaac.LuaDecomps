@@ -12,7 +12,7 @@
 ---@field room Component.Room
 
 ---@class Context.Seeds
----@field seeds SeedsComponent
+---@field seeds Component.Seeds
 
 ---@class Context.Menu
 ---@field menuManager MenuManagerComponent

@@ -1,4 +1,4 @@
----@class ProceduralItemManagerComponent
+---@class Component.ProceduralItemManager
 ---@field m_items ProceduralItemComponent[] : 0x0
 ---@field m_itemImage ImageComponent : 0xc
 ---@field m_image2 ImageComponent : 0x14

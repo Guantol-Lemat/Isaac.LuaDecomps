@@ -104,8 +104,8 @@ local function ExecuteStartGame(manager)
     end
 
     local seeds = manager.m_startSeeds
-    if manager.m_networkPlay and seeds.m_gameStartSeed ~= 0 then
-        IsaacUtils.InitRandom(seeds.m_gameStartSeed)
+    if manager.m_networkPlay and seeds.m_startSeed ~= 0 then
+        IsaacUtils.InitRandom(seeds.m_startSeed)
     end
 
     manager.m_state = eState.STATE_GAME

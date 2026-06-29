@@ -7,7 +7,7 @@
 ---@class PauseScreenUpdateLogic
 local Module = {}
 
----@param pauseScreen PauseScreenComponent
+---@param pauseScreen Component.PauseScreen
 local function Update(pauseScreen)
 end
 

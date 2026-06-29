@@ -4,7 +4,7 @@
 
 --#endregion
 
----@param modManager ModManagerComponent
+---@param modManager Component.ModManager
 ---@param path string
 ---@return string
 local function TryRedirectPath(modManager, path)

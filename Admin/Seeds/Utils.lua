@@ -8,7 +8,7 @@ local StringUtils = require("General.String")
 ---@class SeedsUtils
 local Module = {}
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@param stage LevelStage | integer
 ---@return integer
 local function GetStageSeed(seeds, stage)
@@ -92,13 +92,13 @@ local function String2Seed(stringSeed)
     return seed
 end
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@param seed SeedEffect
 ---@return boolean
 local function HasSeedEffect(seeds, seed)
 end
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@return LevelCurse | integer
 local function GetSpecialSeedPermanentCurses(seeds)
     local curses = 0
@@ -133,7 +133,7 @@ local function GetSpecialSeedPermanentCurses(seeds)
     return curses
 end
 
----@param seeds SeedsComponent
+---@param seeds Component.Seeds
 ---@return LevelCurse | integer
 local function GetSpecialSeedBannedCurses(seeds)
     local curses = 0

@@ -4,6 +4,10 @@
 
 --#endregion
 
+---@param isContinued boolean
+local function PostGameStarted(isContinued)
+end
+
 ---@param npc Component.Entity.Npc
 local function PostNpcInit(npc)
 end
@@ -39,6 +43,7 @@ local Module = {}
 
 --#region Module
 
+Module.PostGameStarted = PostGameStarted
 Module.PostNpcInit = PostNpcInit
 Module.PreUseItem = PreUseItem
 Module.UseCard = UseCard

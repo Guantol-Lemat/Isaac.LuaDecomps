@@ -68,9 +68,9 @@ function Stub.RemoveCoPlayer(ctx, playerManager, player) end
 
 ---@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
----@param player Component.Entity.Player
----@param seed unknown
-function Stub.Init(ctx, playerManager, player, seed) end
+---@param playerType PlayerType | integer
+---@param seed integer
+function Stub.Init(ctx, playerManager, playerType, seed) end
 
 ---@param ctx Context.Common
 ---@param playerManager Component.PlayerManager

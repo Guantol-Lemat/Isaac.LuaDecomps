@@ -1,7 +1,7 @@
 ---@class BossPoolsUtils
 local Module = {}
 
----@param bossPool BossPoolComponent
+---@param bossPool Component.BossPool
 local function ResetLevelBlacklist(bossPool)
     local bossLevelBlacklist = bossPool.m_levelBlacklist
     for i = 1, #bossLevelBlacklist, 1 do
@@ -9,7 +9,7 @@ local function ResetLevelBlacklist(bossPool)
     end
 end
 
----@param bossPool BossPoolComponent
+---@param bossPool Component.BossPool
 local function CommitLevelBlacklist(bossPool)
     local levelBlacklist = bossPool.m_levelBlacklist
     local removedBosses = bossPool.m_removedBosses

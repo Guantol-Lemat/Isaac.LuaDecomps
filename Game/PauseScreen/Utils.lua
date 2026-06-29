@@ -7,7 +7,7 @@
 ---@class PauseScreenUtils
 local Module = {}
 
----@param pauseScreen PauseScreenComponent
+---@param pauseScreen Component.PauseScreen
 local function IsActive(pauseScreen)
 end
 
