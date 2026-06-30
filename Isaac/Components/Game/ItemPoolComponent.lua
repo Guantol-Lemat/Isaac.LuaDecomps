@@ -2,8 +2,8 @@
 ---@field m_seed integer : 0x0
 ---@field m_pools Component.ItemPool.Pool[] [31] : 0x4
 ---@field m_lastPool ItemPoolType | integer : 0x650
----@field m_itemPoolRNG? RNG : 0x654
----@field m_trinketPoolRNG? RNG : 0x664
+---@field m_rng RNG : 0x654
+---@field m_trinketPoolRNG RNG : 0x664
 ---@field m_unusedSpecialItemChance1 number : 0x674
 ---@field m_unusedSpecialItemChance2 number : 0x678
 ---@field m_removedCollectibles boolean[] : 0x67c
@@ -12,4 +12,4 @@
 ---@field m_numAvailableTrinkets integer : 0x798
 ---@field m_pillEffects integer[] [15] : 0x79c
 ---@field m_identifiedPillEffects boolean[] [15] : 0x7d8
----@field m_genesisPool unknown : 0x7e8
+---@field m_genesisItems integer[] [31] : 0x7e8

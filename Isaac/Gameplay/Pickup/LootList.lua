@@ -308,7 +308,7 @@ local Switch_Chest_get_outcome_loot = {
         local rng = ctx.rng
         local entrySeed = rng:Next()
         local flags = ctx.shouldAdvance and 0 or 1
-        local collectible = IItemPool.GetCollectible(ctx, ctx.game.m_itemPool, ItemPoolType.POOL_GOLDEN_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_GOLDEN_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             ctx.lootList,
@@ -345,7 +345,7 @@ local function Chest_get_loot_list(ctx)
     if giveCollectible then
         local entrySeed = rng:Next()
         local flags = shouldAdvance and 0 or 1
-        local collectible = IItemPool.GetCollectible(ctx, ctx_game.m_itemPool, ItemPoolType.POOL_TREASURE, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx_game.m_itemPool, ctx, ItemPoolType.POOL_TREASURE, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             lootList,
@@ -357,7 +357,7 @@ local function Chest_get_loot_list(ctx)
 
         if chest_isMega then
             entrySeed = rng:Next()
-            collectible = IItemPool.GetCollectible(ctx, ctx_game.m_itemPool, ItemPoolType.POOL_TREASURE, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+            collectible = IItemPool.GetCollectible(ctx_game.m_itemPool, ctx, ItemPoolType.POOL_TREASURE, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
             LootListUtils.Add(
                 lootList,
@@ -449,7 +449,7 @@ local Switch_OldChest_get_outcome_loot = {
         local rng = ctx.rng
         local flags = ctx.shouldAdvance and 0 or 1
         local entrySeed = rng:Next()
-        local collectible = IItemPool.GetCollectible(ctx, ctx.game.m_itemPool, ItemPoolType.POOL_OLD_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_OLD_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             ctx.lootList,
@@ -463,7 +463,7 @@ local Switch_OldChest_get_outcome_loot = {
         local rng = ctx.rng
         local flags = ctx.shouldAdvance and 0 or 1
         local entrySeed = rng:Next()
-        local collectible = IItemPool.GetCollectible(ctx, ctx.game.m_itemPool, ItemPoolType.POOL_ANGEL, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_ANGEL, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             ctx.lootList,
@@ -573,7 +573,7 @@ local function WoodenChest_get_loot_list(ctx)
         local entrySeed = rng:Next()
         local collectibleSeed = rng:Next()
         local flags = shouldAdvance and 0 or 1
-        local collectible = IItemPool.GetCollectible(ctx, ctx_game.m_itemPool, ItemPoolType.POOL_WOODEN_CHEST, collectibleSeed, flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx_game.m_itemPool, ctx, ItemPoolType.POOL_WOODEN_CHEST, collectibleSeed, flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             lootList,
@@ -685,7 +685,7 @@ local Switch_RedChest_get_outcome_loot = {
         local entrySeed = rng:Next()
         local flags = ctx.shouldAdvance and 0 or 1
 
-        local collectible = IItemPool.GetCollectible(ctx, ctx.game.m_itemPool, ItemPoolType.POOL_RED_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_RED_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             lootList,
@@ -823,7 +823,7 @@ local function RedChest_get_loot_list(ctx)
     if giveCollectible then
         local flags = ctx.shouldAdvance and 0 or 1
         local entrySeed = rng:Next()
-        local collectible = IItemPool.GetCollectible(ctx, ctx_game.m_itemPool, ItemPoolType.POOL_DEVIL, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        local collectible = IItemPool.GetCollectible(ctx_game.m_itemPool, ctx, ItemPoolType.POOL_DEVIL, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
 
         LootListUtils.Add(
             ctx.lootList,
@@ -877,7 +877,7 @@ local function MomsChest_get_loot_list(ctx)
     else
         entrySeed = rng:Next()
         local flags = shouldAdvance and 0 or 1
-        collectibleType = IItemPool.GetCollectible(ctx, ctx_game.m_itemPool, ItemPoolType.POOL_MOMS_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
+        collectibleType = IItemPool.GetCollectible(ctx_game.m_itemPool, ctx, ItemPoolType.POOL_MOMS_CHEST, rng:Next(), flags, CollectibleType.COLLECTIBLE_NULL)
     end
 
     LootListUtils.Add(

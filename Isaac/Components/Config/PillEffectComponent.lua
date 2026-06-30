@@ -1,0 +1,13 @@
+---@class Component.ItemConfig.PillEffect
+---@field m_id PillEffect | integer : 0x0
+---@field m_achievementId Achievement | integer : 0x4
+---@field m_name string : 0x8
+---@field m_description string : 0x20
+---@field m_greedModeAllowed boolean : 0x38
+---@field m_announcerVoice SoundEffect | integer : 0x3c
+---@field m_announcerVoiceSuper SoundEffect | integer : 0x40
+---@field m_announcerDelay integer : 0x44
+---@field m_mimicCharge integer : 0x48
+---@field m_effectType integer : 0x4c
+---@field m_effectSubType integer : 0x4d
+---@field m_modEntry Component.ModEntry : 0x50

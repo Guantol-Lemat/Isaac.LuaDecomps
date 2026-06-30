@@ -3,7 +3,7 @@
 ---@field m_trinketList Component.ItemConfig.Item[] : 0xc
 ---@field m_nullItemList Component.ItemConfig.Item[] : 0x18
 ---@field m_cardList Component.CardConfig[] : 0x24
----@field m_pillEffectList PillEffectComponent[] : 0x30
+---@field m_pillEffectList Component.ItemConfig.PillEffect[] : 0x30
 ---@field m_collectibleNameMap table<string, integer> : 0x3c
 ---@field m_playerForms PlayerFormComponent[] : 0x44
 ---@field m_itemFilter function[] : 0xd0

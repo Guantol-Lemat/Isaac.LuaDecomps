@@ -9,7 +9,7 @@
 ---@field m_nightmareScene Component.NightmareScene : 0x211bc
 ---@field m_achievementOverlay AchievementOverlayComponent : 0x217a8
 ---@field m_musicManager MusicManagerComponent : 0x29a78
----@field m_sfxManager SoundManagerComponent : 0x29de0
+---@field m_sfxManager Component.SoundEffects : 0x29de0
 ---@field m_options Component.Options : 0x29df8
 ---@field m_itemConfig Component.ItemConfig : 0x29e84
 ---@field m_challengeParams Component.ChallengeParam[] : 0x29f7c

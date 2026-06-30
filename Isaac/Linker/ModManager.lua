@@ -55,6 +55,10 @@ function Stub.UpdateRooms(modManager, ctx, Stage, Mode) end
 
 ---@param modManager Component.ModManager
 ---@param ctx Context.Common
+function Stub.UpdatePools(modManager, ctx) end
+
+---@param modManager Component.ModManager
+---@param ctx Context.Common
 function Stub.UpdateCurses(modManager, ctx) end
 
 ---@param modManager Component.ModManager
@@ -127,6 +131,7 @@ Interface.CreateSurfaces = Stub.CreateSurfaces
 Interface.DestroySurfaces = Stub.DestroySurfaces
 Interface.ShutdownShaders = Stub.ShutdownShaders
 Interface.UpdateRooms = Stub.UpdateRooms
+Interface.UpdatePools = Stub.UpdatePools
 Interface.UpdateCurses = Stub.UpdateCurses
 Interface.RenderCustomCharacters = Stub.RenderCustomCharacters
 Interface.RenderCustomCard = Stub.RenderCustomCard

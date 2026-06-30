@@ -66,7 +66,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
 
     local itemPool_xml = IModManager.TryRedirectPath(manager.m_modManager, "itempools.xml")
     local itemPool_seed = ISeeds.GetNextSeed(game_seeds)
-    IItemPool.Init(ctx, game.m_itemPool, itemPool_seed, itemPool_xml)
+    IItemPool.Init(game.m_itemPool, ctx, itemPool_seed, itemPool_xml)
 
     local bossPool_seed = game_seeds.m_startSeed
     IBossPool.Init(game.m_bossPool, ctx, bossPool_seed)
