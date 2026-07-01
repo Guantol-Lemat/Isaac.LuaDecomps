@@ -21,6 +21,16 @@ local ONANS_STREAK_BANNED_COLLECTIBLES = {
 }
 
 ---@param itemPool Component.ItemPool
+local function shuffle_pools(itemPool)
+    local rng = RNGUtils.MTRNG_New(itemPool.m_rng:GetSeed())
+
+    for i = 1, ItemPoolType.NUM_ITEMPOOLS, 1 do
+        local pool = itemPool.m_pools[i]
+        RNGUtils.MTRNG_RandomShuffle(pool.m_itemList, rng)
+    end
+end
+
+---@param itemPool Component.ItemPool
 ---@param ctx Context.Common
 ---@param effectPool (PillEffect | integer)[]
 ---@param class integer
@@ -78,7 +88,7 @@ local function Init(itemPool, ctx, seed, xmlPath)
 
     IItemPool.load_pools(itemPool, xmlPath, false)
     IModManager.UpdatePools(manager.m_modManager, ctx)
-    IItemPool.shuffle_pools(itemPool)
+    shuffle_pools(itemPool)
 
     if game.m_challenge == Challenge.CHALLENGE_ONANS_STREAK then
         for i = 1, #ONANS_STREAK_BANNED_COLLECTIBLES, 1 do

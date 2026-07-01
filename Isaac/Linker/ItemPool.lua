@@ -112,9 +112,6 @@ function Stub.GetPill(ctx, Seed) end
 function Stub.GetPillEffect(itemPool, ctx, PillColor, Player) end
 
 ---@param itemPool Component.ItemPool
-function Stub.shuffle_pools(itemPool) end
-
----@param itemPool Component.ItemPool
 ---@param xmlpath string
 ---@param ismod boolean
 function Stub.load_pools(itemPool, xmlpath, ismod) end
@@ -203,7 +200,6 @@ Interface.GetCard = Stub.GetCard
 Interface.GetPill = Stub.GetPill
 Interface.GetPillEffect = Stub.GetPillEffect
 Interface.Init = PoolInit.Init
-Interface.shuffle_pools = Stub.shuffle_pools
 Interface.load_pools = Stub.load_pools
 Interface.RestoreGameState = Stub.RestoreGameState
 Interface.StoreGameState = Stub.StoreGameState

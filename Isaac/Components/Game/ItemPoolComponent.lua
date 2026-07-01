@@ -13,3 +13,19 @@
 ---@field m_pillEffects integer[] [15] : 0x79c
 ---@field m_identifiedPillEffects boolean[] [15] : 0x7d8
 ---@field m_genesisItems integer[] [31] : 0x7e8
+
+---@class Component.ItemPool.Pool
+---@field m_totalWeight number : 0x0
+---@field m_itemList Component.ItemPool.PoolItem[] : 0x4
+---@field m_rng1 RNG : 0x10
+---@field m_rng2 RNG : 0x20
+---@field m_bibleUpgrade integer : 0x30
+
+---@class Component.ItemPool.PoolItem
+---@field m_itemID integer : 0x0
+---@field m_initialWeight number : 0x4
+---@field m_weight number : 0x8
+---@field m_decreaseBy number : 0xc
+---@field m_removeOn number : 0x10
+---@field m_isUnlocked boolean : 0x14
+---@field m_isSpecial boolean : 0x15
