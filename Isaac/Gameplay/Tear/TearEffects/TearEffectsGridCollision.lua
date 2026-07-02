@@ -134,7 +134,7 @@ local function RerollRockWisp(ctx, tear)
 
     if ctx_room.m_tintedRockIdx == gridIdx and rng:RandomInt(20) == 0 then
         local ctx_persistentData = ctx.manager.m_persistentGameData
-        if IPersistentGameData.Unlocked(ctx, ctx_persistentData, Achievement.SUPER_SPECIAL_ROCKS) then
+        if IPersistentGameData.Unlocked(ctx_persistentData, ctx, Achievement.SUPER_SPECIAL_ROCKS) then
             newGridType = GridEntityType.GRID_ROCK_SS
         end
     end

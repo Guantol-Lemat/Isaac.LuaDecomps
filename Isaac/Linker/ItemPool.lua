@@ -2,6 +2,7 @@
 local Interface = require("Isaac.Interface.ItemPool")
 
 local PoolInit = require("Isaac.Gameplay.ItemPool.Init")
+local PoolLoad = require("Isaac.Gameplay.ItemPool.Load")
 
 --#region Stub
 
@@ -200,7 +201,7 @@ Interface.GetCard = Stub.GetCard
 Interface.GetPill = Stub.GetPill
 Interface.GetPillEffect = Stub.GetPillEffect
 Interface.Init = PoolInit.Init
-Interface.load_pools = Stub.load_pools
+Interface.load_pools = PoolLoad.LoadPools
 Interface.RestoreGameState = Stub.RestoreGameState
 Interface.StoreGameState = Stub.StoreGameState
 Interface.ResetTrinkets = Stub.ResetTrinkets

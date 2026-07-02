@@ -19,26 +19,26 @@ function Stub.constructor(persistentData) end
 ---@param param_1 boolean
 function Stub.Clear(persistentData, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 boolean
-function Stub.DeleteCurrentSave(ctx, persistentData, param_1) end
+function Stub.DeleteCurrentSave(persistentData, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@return integer
-function Stub.GetMostRecentBackupDate(ctx, persistentData) end
+function Stub.GetMostRecentBackupDate(persistentData, ctx) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param filename string
 ---@return boolean
-function Stub.Load(ctx, persistentData, filename) end
+function Stub.Load(persistentData, ctx, filename) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@return boolean
-function Stub.load_file(ctx, persistentData) end
+function Stub.load_file(persistentData, ctx) end
 
 ---@param param_1 integer
 ---@return boolean
@@ -63,37 +63,37 @@ function Stub.SaveBackup(persistentData) end
 ---@param persistentData Component.PersistentGameData
 function Stub.Save(persistentData) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param backup boolean
-function Stub.Flush(ctx, persistentData, backup) end
+function Stub.Flush(persistentData, ctx, backup) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
-function Stub.unlock_challenge_achievements(ctx, persistentData) end
+---@param ctx Context.Common
+function Stub.unlock_challenge_achievements(persistentData, ctx) end
 
 ---@param param_1 Achievement | integer
 function Stub.unlock_steam_achievement(param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
-function Stub.check_booster_achievements(ctx, persistentData) end
+---@param ctx Context.Common
+function Stub.check_booster_achievements(persistentData, ctx) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param param_1 boolean
 function Stub.SetReadOnly(persistentData, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param achievementId Achievement | integer
 ---@return boolean
-function Stub.TryUnlock(ctx, persistentData, achievementId) end
+function Stub.TryUnlock(persistentData, ctx, achievementId) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param achievementID Achievement | integer
 ---@return boolean
-function Stub.Unlocked(ctx, persistentData, achievementID) end
+function Stub.Unlocked(persistentData, ctx, achievementID) end
 
 ---@param playerType PlayerType | integer
 ---@return Component.PlayerEvent
@@ -104,121 +104,121 @@ function Stub.GetCompletionEventDef(playerType) end
 ---@return integer
 function Stub.GetCompletionCounterID(param_1, playerType) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param eEventCounter EventCounter | integer
 ---@param num integer
-function Stub.IncreaseEventCounter(ctx, persistentData, eEventCounter, num) end
+function Stub.IncreaseEventCounter(persistentData, ctx, eEventCounter, num) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param collectibleType CollectibleType | integer
-function Stub.AddToCollection(ctx, persistentData, collectibleType) end
+function Stub.AddToCollection(persistentData, ctx, collectibleType) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
-function Stub.check_platinum_god(ctx, persistentData) end
+---@param ctx Context.Common
+function Stub.check_platinum_god(persistentData, ctx) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param ID integer
-function Stub.AddMiniBoss(ctx, persistentData, ID) end
+function Stub.AddMiniBoss(persistentData, ctx, ID) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param bossID BossType | integer
-function Stub.AddBoss(ctx, persistentData, bossID) end
+function Stub.AddBoss(persistentData, ctx, bossID) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 Challenge | integer
-function Stub.AddChallenge(ctx, persistentData, param_1) end
+function Stub.AddChallenge(persistentData, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param EntityType EntityType | integer
 ---@param EntityVariant integer
 ---@return boolean
-function Stub.AddBestiaryHit(ctx, persistentData, EntityType, EntityVariant) end
+function Stub.AddBestiaryHit(persistentData, ctx, EntityType, EntityVariant) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param entityHash integer
 ---@return boolean
 function Stub.add_bestiary_hit(persistentData, entityHash) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param type EntityType | integer
 ---@param variant integer
 ---@return boolean
-function Stub.AddBestiaryDeath(ctx, persistentData, type, variant) end
+function Stub.AddBestiaryDeath(persistentData, ctx, type, variant) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param entityHash integer
 ---@return boolean
 function Stub.add_bestiary_death(persistentData, entityHash) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param type EntityType | integer
 ---@param var integer
 ---@return boolean
-function Stub.AddBestiaryKill(ctx, persistentData, type, var) end
+function Stub.AddBestiaryKill(persistentData, ctx, type, var) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param type EntityType | integer
 ---@param var integer
 ---@return boolean
-function Stub.AddBestiaryEncounter(ctx, persistentData, type, var) end
+function Stub.AddBestiaryEncounter(persistentData, ctx, type, var) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param EntityType EntityType | integer
 ---@param EntityVariant integer
 ---@return integer
-function Stub.GetBestiaryDeathCount(ctx, persistentData, EntityType, EntityVariant) end
+function Stub.GetBestiaryDeathCount(persistentData, ctx, EntityType, EntityVariant) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param EntityType EntityType | integer
 ---@param EntityVariant integer
 ---@return integer
-function Stub.GetBestiaryKillCount(ctx, persistentData, EntityType, EntityVariant) end
+function Stub.GetBestiaryKillCount(persistentData, ctx, EntityType, EntityVariant) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param type EntityType | integer
 ---@param var integer
 ---@return integer
-function Stub.GetBestiaryEncounterCount(ctx, persistentData, type, var) end
+function Stub.GetBestiaryEncounterCount(persistentData, ctx, type, var) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param SeedEffect SeedEffect | integer
 function Stub.AddSpecialSeed(persistentData, SeedEffect) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 integer
-function Stub.SetPlayerWinMask(ctx, persistentData, param_1) end
+function Stub.SetPlayerWinMask(persistentData, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 string
 ---@return boolean
-function Stub.ImportRebirthSave(ctx, persistentData, param_1) end
+function Stub.ImportRebirthSave(persistentData, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 integer
 ---@return boolean
-function Stub.ImportABSave(ctx, persistentData, param_1) end
+function Stub.ImportABSave(persistentData, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@param param_1 string
 ---@return boolean
-function Stub.TryImportABSave(ctx, persistentData, param_1) end
+function Stub.TryImportABSave(persistentData, ctx, param_1) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param param_1 string
@@ -228,10 +228,10 @@ function Stub.TryImportABPSave(persistentData, param_1) end
 ---@param persistentData Component.PersistentGameData
 function Stub.prepare_net_start(persistentData) end
 
----@param ctx Context.Common
 ---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
 ---@return boolean
-function Stub.SomethingForSaveSlotGraphics(ctx, persistentData) end
+function Stub.SomethingForSaveSlotGraphics(persistentData, ctx) end
 
 --endregion
 

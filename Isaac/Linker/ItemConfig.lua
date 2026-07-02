@@ -160,6 +160,10 @@ function Stub.PopItemFilter(itemConfig) end
 ---@return boolean
 function Stub.ShouldAddCostumeOnPickup(Item) end
 
+---@param itemConfig Component.ItemConfig
+---@return integer
+function Stub.lua_get_item_id(itemConfig, item) end
+
 --endregion
 
 --region PillEffect Stub
@@ -206,5 +210,6 @@ Interface.GetTaggedItems = Stub.GetTaggedItems
 Interface.PushItemFilter = Stub.PushItemFilter
 Interface.PopItemFilter = Stub.PopItemFilter
 Interface.ShouldAddCostumeOnPickup = Stub.ShouldAddCostumeOnPickup
+Interface.lua_get_item_id = Stub.lua_get_item_id
 
 Interface_PillEffect.IsAvailable = Stub_PillEffect.IsAvailable

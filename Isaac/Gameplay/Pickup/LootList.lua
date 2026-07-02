@@ -871,7 +871,7 @@ local function MomsChest_get_loot_list(ctx)
 
     local entrySeed
     local collectibleType
-    if not IPersistentGameData.Unlocked(ctx, ctx.manager.m_persistentGameData, Achievement.RED_KEY) then
+    if not IPersistentGameData.Unlocked(ctx.manager.m_persistentGameData, ctx, Achievement.RED_KEY) then
         entrySeed = rng:Next()
         collectibleType = CollectibleType.COLLECTIBLE_RED_KEY
     else

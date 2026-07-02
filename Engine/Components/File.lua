@@ -1,0 +1,9 @@
+---@class Engine.File
+---@field GetLength fun(self: Engine.File): integer
+---@field GetPosition fun(self: Engine.File): integer
+---@field SetPosition fun(self: Engine.File, position: integer)
+---@field IsEof fun(self: Engine.File): boolean
+---@field Read fun(self: Engine.File, size: integer): string
+---@field ReadLine fun(self: Engine.File): string
+---@field Write fun(self: Engine.File, data: string)
+---@field Flush fun(self: Engine.File)

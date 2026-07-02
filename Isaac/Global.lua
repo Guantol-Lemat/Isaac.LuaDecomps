@@ -1,7 +1,7 @@
----@class Isaac.Globals
-local Globals = {}
+---@class Isaac.Global
+local Global = {}
 
-Globals.Manager = nil
-Globals.Game = nil
+Global.Manager = nil
+Global.Game = nil
 
-return Globals
+return Global

@@ -75,10 +75,10 @@ local function ChampionSetup(ctx, npc)
         else
             local persistentGameData = ctx.manager.m_persistentGameData
             -- defeated satan
-            if IPersistentGameData.Unlocked(ctx, persistentGameData, Achievement.JUDAS) then
+            if IPersistentGameData.Unlocked(persistentGameData, ctx, Achievement.JUDAS) then
                 local bossColor_chance = 0.1
 
-                if IPersistentGameData.Unlocked(ctx, persistentGameData, Achievement.EVERYTHING_IS_TERRIBLE) then
+                if IPersistentGameData.Unlocked(persistentGameData, ctx, Achievement.EVERYTHING_IS_TERRIBLE) then
                     bossColor_chance = 0.3
                 end
 

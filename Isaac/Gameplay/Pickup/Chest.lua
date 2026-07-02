@@ -114,7 +114,7 @@ local Switch_ResolveLootEntry = {
 
         local unlockedRedKey = chest_variant == PickupVariant.PICKUP_MOMSCHEST and entry.subtype == CollectibleType.COLLECTIBLE_RED_KEY
         if unlockedRedKey then
-            IPersistentGameData.TryUnlock(ctx, ctx.manager.m_persistentGameData, Achievement.RED_KEY)
+            IPersistentGameData.TryUnlock(ctx.manager.m_persistentGameData, ctx, Achievement.RED_KEY)
         end
 
         local alreadyCollectible = pickup.m_variant == PickupVariant.PICKUP_COLLECTIBLE
@@ -302,7 +302,7 @@ local function TryOpenChest(ctx, pickup, player)
 
     if isUnlocked then
         IManager.PlaySound(ctx, SOUND_CHEST_UNLOCK, 1.0, 2, false, 1.0)
-        IPersistentGameData.IncreaseEventCounter(ctx, ctx.manager.m_persistentGameData, EventCounter.CHESTS_OPENED_WITH_KEY, 1)
+        IPersistentGameData.IncreaseEventCounter(ctx.manager.m_persistentGameData, ctx, EventCounter.CHESTS_OPENED_WITH_KEY, 1)
     end
 
     local poof_entity = IGame.Spawn(
