@@ -86,7 +86,7 @@ local function Init(itemPool, ctx, seed, xmlPath)
     itemPool.m_unusedSpecialItemChance1 = 1.0
     itemPool.m_unusedSpecialItemChance2 = 1.0
 
-    IItemPool.load_pools(itemPool, xmlPath, false)
+    IItemPool.load_pools(itemPool, ctx, xmlPath, false)
     IModManager.UpdatePools(manager.m_modManager, ctx)
     shuffle_pools(itemPool)
 

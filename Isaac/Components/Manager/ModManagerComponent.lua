@@ -1,0 +1,36 @@
+---@class Component.ModManager
+---@field m_modEntries Component.ModEntry[] : 0x0
+---@field m_redirectedPathsMap table<string, Component.ModManager.RedirectedPath> : 0xc -- in-engine this is implemented as a map that ties a hash to a Redirected path, with the map just being an array of 32768 entries
+---@field m_loadingScreenThread Engine.Thread : 0x2000c
+---@field m_isLoading boolean : 0x20018
+---@field m_loadingScreenString string : 0x2001c
+---@field m_loadingScreenANM2 Sprite : 0x20034
+---@field m_deathItemsANM2 Sprite : 0x20148
+
+---@class Component.ModEntry
+---@field m_directory string : 0x0
+---@field m_name string : 0x18
+---@field m_resourcesDirectory string : 0x30
+---@field m_contentDirectory string : 0x48
+---@field m_dataDirectory string : 0x60
+---@field m_metadataVersion string : 0x78
+---@field m_metadataWorkshopID string : 0x90
+---@field m_metadataDescription string : 0xa8
+---@field m_metadataVisibility string : 0xc0
+---@field m_shaders Component.ModShader[] : 0xe4
+---@field m_enabled boolean : 0xfc
+---@field m_loaded boolean : 0xfd
+---@field m_outdatedMod boolean : 0xfe
+---@field m_characterMenuSprite Sprite : 0x100
+---@field m_characterPortraitsSprite Sprite : 0x214
+---@field m_deathScreenSprite Sprite : 0x328
+---@field m_coopMenuSprite Sprite : 0x43c
+---@field m_characterMenuAltSprite Sprite : 0x550
+---@field m_characterPortraitsAltSprite Sprite : 0x664
+---@field m_deathScreenAltSprite_qqq Sprite : 0x778
+---@field m_coopMenuAltSprite Sprite : 0x88c
+---@field m_cardFrontsSprite Sprite : 0x9a0
+---@field m_controlsSprite Sprite : 0xab4
+---@field m_controlsAltSprite Sprite : 0xbc8
+---@field m_deathItemsSprite Sprite : 0xcdc
+---@field m_deathEnemiesSprite Sprite : 0xdf0

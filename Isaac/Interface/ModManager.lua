@@ -1,2 +1,7 @@
 ---@class Interface.ModManager
-return {}
+local ModManager = {
+    ---@class Interface.ModEntry
+    ModEntry = {}
+}
+
+return ModManager

@@ -1,6 +1,11 @@
 ---@class Interface.ModManager
 local Interface = require("Isaac.Interface.ModManager")
 
+---@class Interface.ModEntry
+local Interface_ModEntry = Interface.ModEntry
+
+local ModLoadConfig = require("Isaac.ModManager.LoadConfig")
+
 --#region Stub
 
 local Stub = {}
@@ -52,10 +57,6 @@ function Stub.ShutdownShaders(modManager) end
 ---@param Stage StbType | integer
 ---@param Mode eMode | integer
 function Stub.UpdateRooms(modManager, ctx, Stage, Mode) end
-
----@param modManager Component.ModManager
----@param ctx Context.Common
-function Stub.UpdatePools(modManager, ctx) end
 
 ---@param modManager Component.ModManager
 ---@param ctx Context.Common
@@ -118,6 +119,28 @@ function Stub.UpdateWorkshopMods(modManager, ctx) end
 
 --endregion
 
+--region ModEntry Stub
+
+local Stub_ModEntry = {}
+
+---@return Component.ModEntry
+function Stub_ModEntry.New() end
+
+---@param mod Component.ModEntry
+function Stub_ModEntry.WriteMetadata(mod) end
+
+---@param mod Component.ModEntry
+---@param path string
+---@return string
+function Stub_ModEntry.GetContentPath(mod, path) end
+
+---@param mod Component.ModEntry
+---@param offset integer
+---@param path string
+function Stub_ModEntry.LoadCustomResource(mod, offset, path) end
+
+--#endregion
+
 Interface.destructor = Stub.destructor
 Interface.LoadConfigs = Stub.LoadConfigs
 Interface.RenderLoadingScreen = Stub.RenderLoadingScreen
@@ -131,7 +154,7 @@ Interface.CreateSurfaces = Stub.CreateSurfaces
 Interface.DestroySurfaces = Stub.DestroySurfaces
 Interface.ShutdownShaders = Stub.ShutdownShaders
 Interface.UpdateRooms = Stub.UpdateRooms
-Interface.UpdatePools = Stub.UpdatePools
+Interface.UpdatePools = ModLoadConfig.UpdatePools
 Interface.UpdateCurses = Stub.UpdateCurses
 Interface.RenderCustomCharacters = Stub.RenderCustomCharacters
 Interface.RenderCustomCard = Stub.RenderCustomCard
@@ -142,3 +165,8 @@ Interface.RenderCustomCharacterCoopMenu = Stub.RenderCustomCharacterCoopMenu
 Interface.RenderCustomCollectionItem = Stub.RenderCustomCollectionItem
 Interface.workshop_update_thread = Stub.workshop_update_thread
 Interface.UpdateWorkshopMods = Stub.UpdateWorkshopMods
+
+Interface_ModEntry.New = Stub_ModEntry.New
+Interface_ModEntry.WriteMetadata = Stub_ModEntry.WriteMetadata
+Interface_ModEntry.GetContentPath = Stub_ModEntry.GetContentPath
+Interface_ModEntry.LoadCustomResource = Stub_ModEntry.LoadCustomResource
