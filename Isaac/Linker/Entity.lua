@@ -1,6 +1,8 @@
 ---@class Interface.Entity
 local Interface = require("Isaac.Interface.Entity")
 
+local EntityData = require("Isaac.Gameplay.Entity.Data")
+
 --#region Stub
 
 local Stub = {}
@@ -496,12 +498,6 @@ function Stub.WillPlayerCollideWithGrid(ctx, entity, pos) end
 ---@param entity Component.Entity
 ---@param forceNoCollide boolean
 function Stub.PlayerCollideWithGrid(ctx, entity, forceNoCollide) end
-
----@param entity Component.Entity
----@param size number
----@param sizeMulti Vector
----@param numGridCollisionPoints integer
-function Stub.SetSize(entity, size, sizeMulti, numGridCollisionPoints) end
 
 ---@param entity Component.Entity
 ---@return boolean
@@ -1037,7 +1033,7 @@ Interface.AddHealth = Stub.AddHealth
 Interface.CollideWithGrid = Stub.CollideWithGrid
 Interface.WillPlayerCollideWithGrid = Stub.WillPlayerCollideWithGrid
 Interface.PlayerCollideWithGrid = Stub.PlayerCollideWithGrid
-Interface.SetSize = Stub.SetSize
+Interface.SetSize = EntityData.SetSize
 Interface.IsEnemy = Stub.IsEnemy
 Interface.IsVulnerableEnemy = Stub.IsVulnerableEnemy
 Interface.IsObstacle = Stub.IsObstacle
