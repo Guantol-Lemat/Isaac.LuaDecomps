@@ -315,7 +315,7 @@ function Stub.anim_walkframe_Cardinal(npc, LeftAnim, RightAnim, UpAnim, DownAnim
 
 ---@param ctx Context.Common
 ---@param Position Vector
----@param Spawner Component.Entity
+---@param Spawner Component.Entity?
 ---@param TargetPos Vector
 ---@param Big boolean
 ---@param yOffset number

@@ -1,7 +1,7 @@
 ---@class Component.Entity.Slot : Component.Entity
----@field m_state integer : 0x360
----@field m_prizeType PickupVariant | integer : 0x364
----@field m_shellGameAnimationIndex integer : 0x368
+---@field m_state SlotState | integer : 0x360
+---@field m_prizeType integer : 0x364
+---@field m_shellGame_shellIndex integer : 0x368
 ---@field m_timeout integer : 0x36a
 ---@field m_donationValue integer : 0x36c
 ---@field m_triggerTimer integer : 0x370

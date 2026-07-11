@@ -9,17 +9,6 @@
 ---@field m_readOnly boolean
 ---@field m_changesMade boolean
 
----@class PersistentDataComponentUtils
-local Module = {}
-
----@return Component.PersistentGameData
-local function Create()
-end
-
---#region Module
-
-Module.Create = Create
-
---#endregion
-
-return Module
+---@class Component.CompletionEventDef
+---@field eventCount EventCounter | integer
+---@field achievement Achievement | integer

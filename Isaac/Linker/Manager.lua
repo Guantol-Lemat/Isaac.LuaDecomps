@@ -159,6 +159,11 @@ function Stub.LoadChallenges(manager, param_1, ismod) end
 ---@return string
 function Stub.GetString(param_1, param_2, param_3, param_4) end
 
+---@param manager Component.Manager
+---@param str string
+---@return string
+function Stub.GetString_DefaultCategory(manager, str) end
+
 ---@param ctx Context.Common
 ---@param param_2 string
 ---@param param_3 Component.Graphics.VertexAttributeDescriptor
@@ -286,6 +291,7 @@ Interface.PlaySound = Stub.PlaySound
 Interface.GetChallengeParams = Stub.GetChallengeParams
 Interface.LoadChallenges = Stub.LoadChallenges
 Interface.GetString = Stub.GetString
+Interface.GetString_DefaultCategory = Stub.GetString_DefaultCategory
 Interface.LoadImage = Stub.LoadImage
 Interface.StartNewGame = Stub.StartNewGame
 Interface.InitDailyChallenge = Stub.InitDailyChallenge

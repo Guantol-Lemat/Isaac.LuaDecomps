@@ -86,7 +86,7 @@ function Stub.SetReadOnly(persistentData, param_1) end
 ---@param persistentData Component.PersistentGameData
 ---@param ctx Context.Common
 ---@param achievementId Achievement | integer
----@return boolean
+---@return boolean unlockedNow
 function Stub.TryUnlock(persistentData, ctx, achievementId) end
 
 ---@param persistentData Component.PersistentGameData
@@ -96,19 +96,31 @@ function Stub.TryUnlock(persistentData, ctx, achievementId) end
 function Stub.Unlocked(persistentData, ctx, achievementID) end
 
 ---@param playerType PlayerType | integer
----@return Component.PlayerEvent
+---@return (Component.CompletionEventDef[])?
 function Stub.GetCompletionEventDef(playerType) end
 
----@param param_1 integer
+---@param completion CompletionType | integer
 ---@param playerType PlayerType | integer
 ---@return integer
-function Stub.GetCompletionCounterID(param_1, playerType) end
+function Stub.GetCompletionCounterID(completion, playerType) end
+
+---@param persistentData Component.PersistentGameData
+---@param event EventCounter | integer
+---@return integer
+function Stub.GetEventCounter(persistentData, event) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param ctx Context.Common
 ---@param eEventCounter EventCounter | integer
 ---@param num integer
 function Stub.IncreaseEventCounter(persistentData, ctx, eEventCounter, num) end
+
+---@param persistentData Component.PersistentGameData
+---@param ctx Context.Common
+---@param completion eCompletionType | integer
+---@param playerType PlayerType | integer
+---@param isCompletionMark boolean
+function Stub.IncreasePlayerEventCounter(persistentData, ctx, completion, playerType, isCompletionMark) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param ctx Context.Common
@@ -258,7 +270,9 @@ Interface.TryUnlock = Stub.TryUnlock
 Interface.Unlocked = Stub.Unlocked
 Interface.GetCompletionEventDef = Stub.GetCompletionEventDef
 Interface.GetCompletionCounterID = Stub.GetCompletionCounterID
+Interface.GetEventCounter = Stub.GetEventCounter
 Interface.IncreaseEventCounter = Stub.IncreaseEventCounter
+Interface.IncreasePlayerEventCounter = Stub.IncreasePlayerEventCounter
 Interface.AddToCollection = Stub.AddToCollection
 Interface.check_platinum_god = Stub.check_platinum_god
 Interface.AddMiniBoss = Stub.AddMiniBoss

@@ -82,7 +82,7 @@ local Switch_ResolveLootEntry = {
 
         local randomVelocity = IEntityPickup.get_random_pickup_velocity(ctx, pickup.m_position, ePickVelType.DEFAULT, randomThrowRNG)
         local velocity = randomVelocity * speedMultiplier
-        local spawnOffset = IsaacUtils.RandomVector(randomThrowRNG:Next())
+        local spawnOffset = IsaacUtils.RandomVector_Seed(randomThrowRNG:Next())
         local spawnPosition = spawnOffset + pickup.m_position
 
         local spawn_entity = LootList.Spawn(entry, ctx, spawnPosition, velocity, nil)

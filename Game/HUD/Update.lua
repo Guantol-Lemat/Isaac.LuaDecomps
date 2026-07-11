@@ -7,11 +7,11 @@
 ---@class HudUpdateLogic
 local Module = {}
 
----@param hud HUDComponent
+---@param hud Component.HUD
 local function Update(hud)
 end
 
----@param hud HUDComponent
+---@param hud Component.HUD
 local function PostUpdate(hud)
 end
 

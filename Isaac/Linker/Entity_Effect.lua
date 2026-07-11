@@ -111,7 +111,7 @@ function Stub.IsPlayerCreep(Variant) end
 function Stub.get_wall_coords(ctx, effect, param_2) end
 
 ---@param ctx Context.Common
----@param func unknown
+---@param func function
 ---@param delay integer
 ---@param times integer
 ---@param persistent boolean

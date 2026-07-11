@@ -597,7 +597,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
                     superMinibossChance = 10
                 end
 
-                if persistentGameData.m_eventCounters[EventCounter.BLUE_BABY_KILLS] + persistentGameData.m_eventCounters[EventCounter.LAMB_KILLS] ~= 0 then
+                if persistentGameData.m_eventCounters[EventCounter.BLUE_BABY_KILLS + 1] + persistentGameData.m_eventCounters[EventCounter.LAMB_KILLS + 1] ~= 0 then
                     superMinibossChance = 5
                 end
 

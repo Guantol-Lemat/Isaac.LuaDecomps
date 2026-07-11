@@ -240,7 +240,7 @@ local function update_haunt(ctx, npc)
                 AiUtils.ThrowSpider(ctx, myPosition, npc, spider_finalPosition, false, -50.0)
 
                 if IsaacUtils.RandomInt(2) == 0 then
-                    local spider_randomOffset = IsaacUtils.RandomVector * (IsaacUtils.RandomFloat() * 50.0)
+                    local spider_randomOffset = IsaacUtils.RandomVector_Seed * (IsaacUtils.RandomFloat() * 50.0)
                     spider_basePosition = spider_basePosition + spider_randomOffset
 
                     spider_basePosition = RoomBounds.GetClampedPosition(room, spider_basePosition, 0.0, 0.0, 0.0, 0.0)

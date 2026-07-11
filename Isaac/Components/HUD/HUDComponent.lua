@@ -1,5 +1,5 @@
----@class HUDComponent
----@field m_playerHUD Component.PlayerHUD[] [8] : 0x0
+---@class Component.HUD
+---@field m_playerHUD Component.HUD.PlayerHUD[] [8] : 0x0
 ---@field m_font_MPlus_12b Font : 0x3580
 ---@field m_font_MPlus_10r Font : 0x235bc
 ---@field m_font_KR_Font14 Font : 0x435f8
@@ -35,18 +35,3 @@
 ---@field m_poopSpellsSprite Sprite : 0xc4200
 ---@field m_statHUD StatHUDComponent : 0xc4314
 ---@field m_historyHUD Component.HistoryHUD : 0xc45c4
-
----@class HUDComponentUtils
-local Module = {}
-
----@return HUDComponent
-local function Create()
-end
-
---#region Module
-
-Module.Create = Create
-
---#endregion
-
-return Module

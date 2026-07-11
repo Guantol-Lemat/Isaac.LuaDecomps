@@ -109,11 +109,11 @@ function Stub.TryInitOptionCycle(ctx, pickup, numCycle) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param pedestalType ePedestalType | integer
+---@param pedestalType PedestalType | integer
 function Stub.SetAlternatePedestal(ctx, pickup, pedestalType) end
 
 ---@param pickup Component.Entity.Pickup
----@return ePedestalType | integer
+---@return PedestalType | integer
 function Stub.GetAlternatePedestal(pickup) end
 
 ---@param ctx Context.Common
@@ -260,7 +260,7 @@ function Stub.CanDuplicate(ctx, pickup) end
 ---@param ctx Context.Common
 ---@param position Vector
 ---@param ePickVelType ePickVelType | integer
----@param RNG RNG
+---@param RNG RNG?
 ---@return Vector
 function Stub.get_random_pickup_velocity(ctx, position, ePickVelType, RNG) end
 

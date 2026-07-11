@@ -58,10 +58,32 @@ Module.eStageId = {
     ASCENT = 36,
 }
 
+---@enum eCompletionType
+Module.eCompletionType = {
+    MOMS_HEART = 0,
+    ISAAC = 1,
+    SATAN = 2,
+    BOSS_RUSH = 3,
+    BLUE_BABY = 4,
+    LAMB = 5,
+    MEGA_SATAN = 6,
+    ULTRA_GREED = 7,
+    GREED_DONATION_MACHINE = 8,
+    HUSH = 9,
+    HARD_MARKS = 10,
+    ULTRA_GREEDIER = 11,
+    DELIRIUM = 12,
+    MOTHER = 13,
+    BEAST = 14,
+    TAINTED = 15,
+    TAINTED_GROUP1 = 16,
+    TAINTED_GROUP2 = 17,
+}
+
 ---@enum ePickVelType
 Module.ePickVelType = {
     DEFAULT = 0,
-    BEGGAR = 1
+    SLOT = 1
 }
 
 ---@enum ePurityState

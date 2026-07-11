@@ -10,7 +10,7 @@ local StatHUDRender = require("HUD.Stat.Render.Logic")
 local Module = {}
 
 ---@param context Context
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@param shouldEvaluate boolean
 ---@return boolean
 local function hook_evaluate_hud_render(context, hud, shouldEvaluate)
@@ -23,7 +23,7 @@ local function hook_evaluate_hud_render(context, hud, shouldEvaluate)
 end
 
 ---@param context Context
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@return boolean
 local function evaluate_hud_render(context, hud)
     if not hud.m_isVisible then
@@ -36,7 +36,7 @@ local function evaluate_hud_render(context, hud)
 end
 
 ---@param context Context
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@param shouldEvaluate boolean
 ---@return boolean
 local function hook_evaluate_hud_stats_render(context, hud, shouldEvaluate)
@@ -49,7 +49,7 @@ local function hook_evaluate_hud_stats_render(context, hud, shouldEvaluate)
 end
 
 ---@param context Context
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@return boolean
 local function evaluate_hud_stats_render(context, hud)
     local shouldEvaluate = true
@@ -57,7 +57,7 @@ local function evaluate_hud_stats_render(context, hud)
     return true
 end
 
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@param screen ScreenComponent
 ---@param hudOffset number
 ---@return Vector
@@ -74,7 +74,7 @@ local function get_history_hud_render_position(hud, screen, hudOffset)
 end
 
 ---@param context Context
----@param hud HUDComponent
+---@param hud Component.HUD
 local function Render(context, hud)
     if not evaluate_hud_render(context, hud) then
         return

@@ -1,6 +1,6 @@
----@class Component.PlayerHUD
+---@class Component.HUD.PlayerHUD
 ---@field m_player Component.Entity.Player : 0x0
----@field m_hud HUDComponent : 0x4
+---@field m_hud Component.HUD : 0x4
 ---@field m_playerHudIndex integer : 0x8
 ---@field m_redHeartFlashCountdown integer : 0xc
 ---@field m_heartInfo HeartHudComponent[] [24] : 0x10

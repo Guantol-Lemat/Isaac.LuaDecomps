@@ -64,9 +64,13 @@ end
 local function RandomFloat()
 end
 
+---@return Vector
+local function RandomVector()
+end
+
 ---@param seed integer
 ---@return Vector
-local function RandomVector(seed)
+local function RandomVector_Seed(seed)
 end
 
 ---@param friction number
@@ -96,6 +100,7 @@ Module.Random = Random
 Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
 Module.RandomVector = RandomVector
+Module.RandomVector_Seed = RandomVector_Seed
 Module.TimeScaledFriction = TimeScaledFriction
 Module.GetRenderDistance = GetRenderDistance
 

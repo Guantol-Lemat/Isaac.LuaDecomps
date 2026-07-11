@@ -150,8 +150,9 @@ function Stub.GetStageTransition(ctx) end
 ---@return boolean
 function Stub.GetStartingFromState_qqq(ctx) end
 
+---@param game Component.Game
 ---@param ctx Context.Common
-function Stub.ShowFortuneSeed(ctx) end
+function Stub.ShowFortuneSeed(game, ctx) end
 
 ---@param game Component.Game
 ---@return integer
@@ -265,9 +266,9 @@ function Stub.StartDebug(ctx, game, levelStage, stageType, difficulty, roomPath)
 ---@param game Component.Game
 function Stub.NextVictoryLap(ctx, game) end
 
----@param ctx Context.Common
+---@param game Component.Game
 ---@return boolean
-function Stub.IsHardMode(ctx) end
+function Stub.IsHardMode(game) end
 
 ---@param game Component.Game
 ---@return boolean
@@ -422,10 +423,6 @@ function Stub.BombDamage(ctx, game, Position, Damage, Radius, LineCheck, Source,
 ---@param DamageFlagsH DamageFlags | integer
 ---@param DamageSource boolean
 function Stub.BombExplosionEffects(ctx, game, Position, Damage, TearFlags, Color, Source, RadiusMult, LineCheck, DamageFlagsL, DamageFlagsH, DamageSource) end
-
----@param ctx Context.Common
----@param timer Component.Entity.Effect
-function Stub.FUN_005e2ea0(ctx, timer) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
@@ -906,7 +903,6 @@ Interface.RadiusDamage = Stub.RadiusDamage
 Interface.AreaDamage = Stub.AreaDamage
 Interface.BombDamage = Stub.BombDamage
 Interface.BombExplosionEffects = Stub.BombExplosionEffects
-Interface.FUN_005e2ea0 = Stub.FUN_005e2ea0
 Interface.BombTearflagEffects = Stub.BombTearflagEffects
 Interface.DelayedExplosionDebrisSFX = Stub.DelayedExplosionDebrisSFX
 Interface.SpawnBombCrater = Stub.SpawnBombCrater

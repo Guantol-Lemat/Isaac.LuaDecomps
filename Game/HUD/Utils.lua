@@ -7,7 +7,7 @@
 ---@class HUDUtils
 local Module = {}
 
----@param hud HUDComponent
+---@param hud Component.HUD
 ---@param health number
 local function SetBossHealth(hud, health)
     local previousHealth = hud.m_bossBar_health

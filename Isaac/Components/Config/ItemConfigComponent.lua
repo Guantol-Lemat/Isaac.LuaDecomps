@@ -29,7 +29,7 @@
 ---@field m_devilPrice integer : 0x7c
 ---@field m_shopPrice integer : 0x7e
 ---@field m_costume Component.Costume : 0x80
----@field m_chargeType integer : 0xac
+---@field m_chargeType ChargeType | integer : 0xac
 ---@field m_special boolean : 0xb0
 ---@field m_passiveCache boolean : 0xb1
 ---@field m_addCostumeOnPickup boolean : 0xb2

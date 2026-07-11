@@ -1,6 +1,8 @@
 ---@class Interface.Entity_Slot
 local Interface = require("Isaac.Interface.Entity_Slot")
 
+local SlotUpdate = require("Isaac.Gameplay.Slot.SlotUpdate")
+
 --#region Stub
 
 local Stub = {}
@@ -29,14 +31,6 @@ function Stub.RandomCoinJamAnim() end
 ---@param SubType integer
 ---@param Seed integer
 function Stub.Init(ctx, slot, Type, Variant, SubType, Seed) end
-
----@param ctx Context.Common
----@param timer Component.Entity.Effect
-function Stub.battery_bum_award_charge(ctx, timer) end
-
----@param ctx Context.Common
----@param slot Component.Entity.Slot
-function Stub.Update(ctx, slot) end
 
 ---@param ctx Context.Common
 ---@param slot Component.Entity.Slot
@@ -85,8 +79,7 @@ Interface.destructor = Stub.destructor
 Interface.destructor_2 = Stub.destructor_2
 Interface.RandomCoinJamAnim = Stub.RandomCoinJamAnim
 Interface.Init = Stub.Init
-Interface.battery_bum_award_charge = Stub.battery_bum_award_charge
-Interface.Update = Stub.Update
+Interface.Update = SlotUpdate.Update
 Interface.handle_collision = Stub.handle_collision
 Interface.CreateDropsFromExplosion = Stub.CreateDropsFromExplosion
 Interface.TakeDamage = Stub.TakeDamage

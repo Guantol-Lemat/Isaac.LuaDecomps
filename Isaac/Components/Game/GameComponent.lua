@@ -14,7 +14,7 @@
 ---@field m_bossOverlay BossOverlayComponent : 0x1cf20
 ---@field m_gameOver GameOverComponent : 0x1d154
 ---@field m_leaderboard LeaderboardComponent : 0x3d5f0
----@field m_hud HUDComponent : 0x3da4c
+---@field m_hud Component.HUD : 0x3da4c
 ---@field m_pauseScreen Component.PauseScreen : 0x10203c
 ---@field m_minimap MinimapComponent : 0x1a2ab0
 ---@field m_updateTimeout integer : 0x1a30d8 -- seemingly unused
