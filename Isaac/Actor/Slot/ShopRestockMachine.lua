@@ -18,6 +18,13 @@ local EVENT_COIN_INSERT = "CoinInsert"
 
 local SOUND_COIN_INSERT = SoundEffect.SOUND_COIN_SLOT
 
+---@type Slot.Switch.Init
+local function ShopRestockMachine_Init(slot, ctx)
+    slot.m_positionOffset.Y = -8.0
+    slot.m_sizeMulti = Vector(1.7, 0.75)
+    slot.m_flags = slot.m_flags | EntityFlag.FLAG_NO_KNOCKBACK
+end
+
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
 local function ShopRestockMachine_HandleRestock(slot, ctx)
@@ -128,6 +135,7 @@ local Module = {}
 
 --#region Module
 
+Module.Init = ShopRestockMachine_Init
 Module.HandleRestock = ShopRestockMachine_HandleRestock
 Module.UpdatePrize = ShopRestockMachine_UpdatePrize
 

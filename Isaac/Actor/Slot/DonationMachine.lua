@@ -16,7 +16,7 @@ local ePickVelType = Enums.ePickVelType
 
 local VECTOR_ZERO = Vector(0, 0)
 
-local ANIMATION_PRIZE = "Prize"
+local ANIMATION_COIN_ICONS = "Prize"
 local ANIMATION_DEATH = "Death"
 
 local LAYER_ICON_HUNDREDS = 1
@@ -39,6 +39,17 @@ local DONATION_ACHIEVEMENTS = {
     {900, Achievement.BLUE_CANDLE},
     {999, Achievement.STOP_WATCH},
 }
+
+---@param slot Component.Entity.Slot
+---@param coinCounter integer
+local function set_sprite_coin_icons(slot, coinCounter)
+    local mySprite = slot.m_sprite
+
+    mySprite:SetFrame(ANIMATION_COIN_ICONS, 0)
+    mySprite:SetLayerFrame(LAYER_ICON_HUNDREDS, (coinCounter / 100) % 10)
+    mySprite:SetLayerFrame(LAYER_ICON_DECIMALS, (coinCounter / 10) % 10)
+    mySprite:SetLayerFrame(LAYER_ICON_ONES, (coinCounter % 10))
+end
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
@@ -82,6 +93,32 @@ local function give_karma_prize(slot, ctx, player)
 end
 
 ---@type Slot.Switch.UpdatePrize
+local function DonationMachine_Init(slot, ctx)
+    local game = ctx.game
+
+    slot.m_positionOffset.Y = -8.0
+    slot.m_sizeMulti = Vector(1.5, 0.75)
+
+    local coinCounter = IPersistentGameData.GetEventCounter(ctx.manager.m_persistentGameData, EventCounter.DONATION_MACHINE_COUNTER)
+    set_sprite_coin_icons(slot, coinCounter)
+
+    local remove = IGame.GetStateFlag(game, GameStateFlag.STATE_DONATION_SLOT_BROKEN)
+        or IGame.AchievementUnlocksDisallowed(ctx, game)
+    if remove then
+        slot:Remove(ctx)
+    end
+
+    local jammed = IGame.GetStateFlag(game, GameStateFlag.STATE_DONATION_SLOT_JAMMED)
+    if jammed then
+        local animation = IEntitySlot.RandomCoinJamAnim()
+        slot.m_sprite:Play(animation, false)
+        slot.m_state = SlotState.DESTROYED
+    end
+
+    slot.m_flags = slot.m_flags | EntityFlag.FLAG_NO_KNOCKBACK
+end
+
+---@type Slot.Switch.UpdatePrize
 local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     local mySprite = slot.m_sprite
     local event_coinInsert = mySprite:IsOverlayEventTriggered(EVENT_COIN_INSERT)
@@ -96,14 +133,10 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
 
     slot.m_state = SlotState.IDLE
 
-    local coinCount = IPersistentGameData.GetEventCounter(persistentGameData, EventCounter.DONATION_MACHINE_COUNTER)
-    coinCount = coinCount % 1000 + 1
+    local coinCounter = IPersistentGameData.GetEventCounter(persistentGameData, EventCounter.DONATION_MACHINE_COUNTER)
+    coinCounter = coinCounter % 1000 + 1
     IPersistentGameData.IncreaseEventCounter(persistentGameData, ctx, EventCounter.DONATION_MACHINE_COUNTER, 1)
-
-    mySprite:SetFrame(ANIMATION_PRIZE, 0)
-    mySprite:SetLayerFrame(LAYER_ICON_HUNDREDS, (coinCount / 100) % 10)
-    mySprite:SetLayerFrame(LAYER_ICON_DECIMALS, (coinCount / 10) % 10)
-    mySprite:SetLayerFrame(LAYER_ICON_ONES, (coinCount % 10))
+    set_sprite_coin_icons(slot, coinCounter)
 
     local giveLuck = myRng:RandomInt(50) == 0
     if giveLuck then
@@ -122,12 +155,12 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
 
     for i = 1, #DONATION_ACHIEVEMENTS, 1 do
         local achievementDesc = DONATION_ACHIEVEMENTS[i]
-        if coinCount >= achievementDesc[1] then
+        if coinCounter >= achievementDesc[1] then
             IPersistentGameData.TryUnlock(persistentGameData, ctx, achievementDesc[2])
         end
     end
 
-    local overflow = coinCount > 999
+    local overflow = coinCounter > 999
     if overflow then
         IGame.Spawn(
             ctx, game,
@@ -152,7 +185,7 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
         IGame.SetStateFlag(game, GameStateFlag.STATE_DONATION_SLOT_BROKEN, true)
     end
 
-    local beforeOverflow = coinCount == 999
+    local beforeOverflow = coinCounter == 999
     if beforeOverflow then
         -- prevent accidental blow up
         slot.m_touch = 0
@@ -178,6 +211,7 @@ local Module = {}
 
 --#region Module
 
+Module.Init = DonationMachine_Init
 Module.UpdatePrize = DonationMachine_UpdatePrize
 
 --#endregion

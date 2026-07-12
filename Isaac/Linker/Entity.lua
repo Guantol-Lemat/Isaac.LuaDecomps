@@ -377,8 +377,8 @@ function Stub.CollidesWithGrid(entity) end
 ---@return Direction | integer
 function Stub.get_movement_direction_vector(dir) end
 
----@param entity Component.Entity
-function Stub.constructor(entity) end
+---@return Component.Entity
+function Stub.New(entity) end
 
 ---@param ctx Context.Common
 ---@param entity Component.Entity
@@ -1006,7 +1006,7 @@ Interface.SetCollisionDamage = Stub.SetCollisionDamage
 Interface.ToKnife = Stub.ToKnife
 Interface.CollidesWithGrid = Stub.CollidesWithGrid
 Interface.get_movement_direction_vector = Stub.get_movement_direction_vector
-Interface.constructor = Stub.constructor
+Interface.New = Stub.New
 Interface.destructor = Stub.destructor
 Interface.GetLastParent = Stub.GetLastParent
 Interface.GetLastChild = Stub.GetLastChild

@@ -2,18 +2,12 @@
 
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
-local ILevel = require("Isaac.Interface.Level")
 local IRoom = require("Isaac.Interface.Room")
-local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
-local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IEntityNPC = require("Isaac.Interface.Entity_NPC")
-local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
-local VectorUtils = require("General.Math.VectorUtils")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
 
 --#endregion
 
@@ -74,7 +68,7 @@ local function get_random_pickup_velocity(slot, ctx)
 end
 
 ---@type Slot.Switch.UpdatePrize
-local function award_prize(slot, ctx, player, extraRng)
+local function award_prize(slot, ctx, player)
     local myRng = slot.m_dropRNG
     local prize = myRng:RandomInt(3) == 0
         or (IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false)
@@ -172,6 +166,13 @@ local function award_prize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.Init
+local function ShellGame_Init(slot, ctx)
+    slot.m_positionOffset.Y = -8.0
+    slot.m_sizeMulti = Vector(3.0, 0.75)
+    slot.m_shellGame_prizeSprite = slot.m_sprite:Copy()
+end
+
 ---@type Slot.Switch.UpdatePrize
 local function ShellGame_UpdatePrize(slot, ctx, player, extraRng)
     local mySprite = slot.m_sprite
@@ -200,13 +201,23 @@ local function ShellGame_PostUpdate(slot, ctx)
     end
 end
 
+---@param slot Component.Entity.Slot
+local function ShellGame_PostRender(slot)
+    local prizeSprite = slot.m_shellGame_prizeSprite
+    if prizeSprite:IsPlaying() then
+        prizeSprite:Render(slot.m_screenPosition, VECTOR_ZERO, VECTOR_ZERO)
+    end
+end
+
 ---@class Actor.ShellGame
 local Module = {}
 
 --#region Module
 
+Module.Init = ShellGame_Init
 Module.UpdatePrize = ShellGame_UpdatePrize
 Module.PostUpdate = ShellGame_PostUpdate
+Module.PostRender = ShellGame_PostRender
 
 --#endregion
 

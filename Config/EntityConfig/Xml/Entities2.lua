@@ -140,7 +140,7 @@ local function parse_entity(entity, node)
     -- TODO: Rest of parse
 end
 
----@param entityConfig EntityConfigComponent
+---@param entityConfig Component.EntityConfig
 ---@param filePath string
 ---@param mod Component.ModEntry?
 local function Load(entityConfig, filePath, mod)

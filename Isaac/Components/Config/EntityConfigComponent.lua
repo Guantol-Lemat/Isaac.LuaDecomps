@@ -1,39 +1,14 @@
----@class Component.EntityConfig.Entity
----@field id EntityType | integer : 0x0
+---@class Component.EntityConfig
+---@field m_map table<integer, Component.EntityConfig.Entity> : 0x0
+---@field m_players Component.EntityConfig.Player[] : 0x8
+---@field m_babies Component.EntityConfig.Baby[] : 0x14
+---@field m_bosses Component.EntityConfig.Boss[] : 0x20
+---@field m_edenHair string[] : 0x2c
+---@field m_pokeyMansPool Component.EntityConfig.PokeyMansEntry : 0x38
+
+---@class Component.EntityConfig.PokeyMansEntry
+---@field type EntityType | integer : 0x0
 ---@field variant integer : 0x4
----@field subtype integer : 0x8
----@field name string : 0xc
----@field shadowSize number : 0x24
----@field collisionDamage number : 0x28
----@field isBoss boolean : 0x2c
----@field bossID BossType | integer : 0x30
----@field canBeChampion boolean : 0x34
----@field collisionRadius number : 0x38
----@field collisionRadiusMulti Vector : 0x3c
----@field mass number : 0x44
----@field gridCollisionPoints integer : 0x48
----@field friction number : 0x4c
----@field baseHP number : 0x50
----@field stageHP number : 0x54
----@field canShutDoors boolean : 0x58
----@field gibsAmount integer : 0x5c
----@field gibFlags GibFlag | integer : 0x60
----@field portrait integer : 0x64
----@field bossColors Component.EntityConfig.BossColor[] : 0x68
----@field anm2Path string : 0x74
----@field preload Component.EntityConfig.Preload[] : 0x8c
----@field sfx integer[] : 0x98
----@field devolve Component.EntityConfig.Devolve[] : 0xa4
----@field preloadDone boolean : 0xb0
----@field gridCollisionClass string : 0xb4
----@field rerollable boolean : 0xcc
----@field hasFloorAlts boolean : 0xcd
----@field collisionInterval integer : 0xd0
----@field unused string[] [4] : 0xd4
----@field tags integer : 0xd8
----@field shieldStrength number : 0xe0
----@field shieldFrames integer : 0xe4
----@field inBestiary boolean : 0xe8
----@field bestiaryEntry Component.EntityConfig.Entity.Bestiary : 0xec
----@field modEntry Component.ModEntry? : 0x160
----@field hasPortrait boolean : 0x164
+---@field subType integer : 0x8
+---@field baseHp integer : 0xc
+---@field maybeStageHp integer : 0x10

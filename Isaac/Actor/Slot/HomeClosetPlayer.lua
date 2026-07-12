@@ -1,23 +1,11 @@
 --#region Dependencies
 
 local Enums = require("General.Enums")
-local IManager = require("Isaac.Interface.Manager")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
+local IEntityConfig = require("Isaac.Interface.EntityConfig")
 local IGame = require("Isaac.Interface.Game")
-local ILevel = require("Isaac.Interface.Level")
-local IRoom = require("Isaac.Interface.Room")
-local IEntity = require("Isaac.Interface.Entity")
-local IEntityPlayer = require("Isaac.Interface.Entity_Player")
-local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
-local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IEntityEffect = require("Isaac.Interface.Entity_Effect")
-local IPlayerManager = require("Isaac.Interface.PlayerManager")
-local IItemPool = require("Isaac.Interface.ItemPool")
-local IHud = require("Isaac.Interface.HUD")
 local IsaacUtils = require("Isaac.Utils.Common")
-local VectorUtils = require("General.Math.VectorUtils")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
 
 --#endregion
 
@@ -27,6 +15,49 @@ local VECTOR_ZERO = Vector(0, 0)
 
 local EVENT_FX = "FX"
 local EVENT_POOF = "Poof"
+
+local TAINTED_PLAYER = {
+    [PlayerType.PLAYER_ISAAC + 1] = PlayerType.PLAYER_ISAAC_B,
+    [PlayerType.PLAYER_MAGDALENE + 1] = PlayerType.PLAYER_MAGDALENE_B,
+    [PlayerType.PLAYER_CAIN + 1] = PlayerType.PLAYER_CAIN_B,
+    [PlayerType.PLAYER_JUDAS + 1] = PlayerType.PLAYER_JUDAS_B,
+    [PlayerType.PLAYER_BLUEBABY + 1] = PlayerType.PLAYER_BLUEBABY_B,
+    [PlayerType.PLAYER_EVE + 1] = PlayerType.PLAYER_EVE_B,
+    [PlayerType.PLAYER_SAMSON + 1] = PlayerType.PLAYER_SAMSON_B,
+    [PlayerType.PLAYER_AZAZEL + 1] = PlayerType.PLAYER_AZAZEL_B,
+    [PlayerType.PLAYER_LAZARUS + 1] = PlayerType.PLAYER_LAZARUS_B,
+    [PlayerType.PLAYER_EDEN + 1] = PlayerType.PLAYER_EDEN_B,
+    [PlayerType.PLAYER_THELOST + 1] = PlayerType.PLAYER_THELOST_B,
+    [PlayerType.PLAYER_LAZARUS2 + 1] = PlayerType.PLAYER_LAZARUS_B,
+    [PlayerType.PLAYER_BLACKJUDAS + 1] = PlayerType.PLAYER_JUDAS_B,
+    [PlayerType.PLAYER_LILITH + 1] = PlayerType.PLAYER_LILITH_B,
+    [PlayerType.PLAYER_KEEPER + 1] = PlayerType.PLAYER_KEEPER_B,
+    [PlayerType.PLAYER_APOLLYON + 1] = PlayerType.PLAYER_APOLLYON_B,
+    [PlayerType.PLAYER_THEFORGOTTEN + 1] = PlayerType.PLAYER_THEFORGOTTEN_B,
+    [PlayerType.PLAYER_THESOUL + 1] = PlayerType.PLAYER_THEFORGOTTEN_B,
+    [PlayerType.PLAYER_BETHANY + 1] = PlayerType.PLAYER_BETHANY_B,
+    [PlayerType.PLAYER_JACOB + 1] = PlayerType.PLAYER_JACOB_B,
+    [PlayerType.PLAYER_ESAU + 1] = PlayerType.PLAYER_JACOB_B,
+}
+
+---@type Slot.Switch.Init
+local function HomeClosetPlayer_Init(slot, ctx)
+    local player = IGame.GetPlayer(ctx.game, 0)
+    local taintedId = TAINTED_PLAYER[player.m_playerType] or player.m_playerType
+    local playerConfig = IEntityConfig.GetPlayer(ctx.manager.m_entityConfig, taintedId)
+
+    if playerConfig then
+        local mySprite = slot.m_sprite
+        local skinPath = playerConfig.m_skinPath
+
+        for i = 1, mySprite:GetLayerCount(), 1 do
+            local layerId = i - 1
+            mySprite:ReplaceSpritesheet(layerId, skinPath, false)
+        end
+
+        mySprite:LoadGraphics()
+    end
+end
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
@@ -88,6 +119,7 @@ local Module = {}
 
 --#region Module
 
+Module.Init = HomeClosetPlayer_Init
 Module.UpdateState = HomeClosetPlayer_UpdateState
 Module.UpdatePrize = HomeClosetPlayer_UpdatePrize
 

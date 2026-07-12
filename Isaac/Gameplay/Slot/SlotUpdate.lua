@@ -284,7 +284,7 @@ local function Update(slot, ctx)
     end
 
     IEntity.Update(ctx, slot)
-    slot.m_prizeAnm2_qqq:Update()
+    slot.m_shellGame_prizeSprite:Update()
 end
 
 ---@class Gameplay.Slot.Update

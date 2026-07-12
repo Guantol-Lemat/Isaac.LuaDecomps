@@ -1,19 +1,4 @@
----@class EntityConfigComponent
----@field m_map table<integer, Component.EntityConfig.Entity> : 0x0
----@field m_players EntityConfig.PlayerComponent[] : 0x8
----@field m_babies EntityConfig.BabyComponent[] : 0x14
----@field m_bosses EntityConfig.BossComponent[] : 0x20
----@field m_edenHair string[] : 0x2c
-
----@class EntityConfig.BossColorComponent
-
----@class EntityConfig.PreloadComponent
-
----@class EntityConfig.DevolveComponent
-
----@class EntityConfig.BestiaryComponent
-
----@class EntityConfig.PlayerComponent
+---@class Component.EntityConfig.Player
 ---@field m_id PlayerType | integer : 0x0
 ---@field m_name string : 0x4
 ---@field m_skinPath string : 0x1c
@@ -49,8 +34,3 @@
 ---@field m_moddedDeathScreenANM2 Sprite : 0x13c
 ---@field m_moddedCoopMenuANM2 Sprite : 0x140
 ---@field m_moddedControlsANM2 Sprite : 0x144
-
-
----@class EntityConfig.BabyComponent
-
----@class EntityConfig.BossComponent

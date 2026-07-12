@@ -5,16 +5,12 @@ local IManager = require("Isaac.Interface.Manager")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
 local ILevel = require("Isaac.Interface.Level")
-local IRoom = require("Isaac.Interface.Room")
 local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
-local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
-local VectorUtils = require("General.Math.VectorUtils")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
 
 --#endregion
 

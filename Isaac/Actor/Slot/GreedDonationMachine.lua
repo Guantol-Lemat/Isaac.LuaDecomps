@@ -4,17 +4,10 @@ local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
-local ILevel = require("Isaac.Interface.Level")
-local IRoom = require("Isaac.Interface.Room")
-local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
-local IPlayerManager = require("Isaac.Interface.PlayerManager")
-local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
-local VectorUtils = require("General.Math.VectorUtils")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
 
 --#endregion
 
@@ -24,7 +17,7 @@ local eCompletionType = Enums.eCompletionType
 local VECTOR_ZERO = Vector(0, 0)
 
 local ANIMATION_APPEAR = "Appear"
-local ANIMATION_PRIZE = "Prize"
+local ANIMATION_COIN_ICONS = "Prize"
 local ANIMATION_DEATH = "Death"
 
 local LAYER_ICON_HUNDREDS = 1
@@ -49,6 +42,40 @@ local DONATION_ACHIEVEMENTS = {
 }
 
 ---@param slot Component.Entity.Slot
+---@param coinCount integer
+local function set_sprite_coin_icons(slot, coinCount)
+    local mySprite = slot.m_sprite
+
+    mySprite:SetFrame(ANIMATION_COIN_ICONS, 0)
+    mySprite:SetLayerFrame(LAYER_ICON_HUNDREDS, (coinCount / 100) % 10)
+    mySprite:SetLayerFrame(LAYER_ICON_DECIMALS, (coinCount / 10) % 10)
+    mySprite:SetLayerFrame(LAYER_ICON_ONES, (coinCount % 10))
+end
+
+---@type Slot.Switch.UpdatePrize
+local function GreedDonationMachine_Init(slot, ctx)
+    local game = ctx.game
+
+    slot.m_positionOffset.Y = -8.0
+    slot.m_sizeMulti = Vector(1.5, 0.75)
+
+    local coinCount = IPersistentGameData.GetEventCounter(ctx.manager.m_persistentGameData, EventCounter.GREED_DONATION_MACHINE_COUNTER)
+    set_sprite_coin_icons(slot, coinCount)
+
+    local remove = IGame.AchievementUnlocksDisallowed(ctx, game)
+    if remove then
+        slot:Remove(ctx)
+    end
+
+    local jammed = IGame.GetStateFlag(game, GameStateFlag.STATE_GREED_SLOT_JAMMED)
+    if jammed then
+        local animation = IEntitySlot.RandomCoinJamAnim()
+        slot.m_sprite:Play(animation, false)
+        slot.m_state = SlotState.DESTROYED
+    end
+end
+
+---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
 local function GreedDonationMachine_CustomSetupAppear(slot, ctx)
     slot.m_sprite:Play(ANIMATION_APPEAR, false)
@@ -67,11 +94,8 @@ local function GreedDonationMachine_CustomUpdateAppear(slot, ctx)
     end
 
     slot.m_state = SlotState.IDLE
-    local donationCount = ctx.manager.m_persistentGameData.m_eventCounters[EventCounter.GREED_DONATION_MACHINE_COUNTER + 1]
-    sprite:SetFrame(ANIMATION_PRIZE, 0)
-    sprite:SetLayerFrame(1, (donationCount / 100) % 10)
-    sprite:SetLayerFrame(2, (donationCount / 10) % 10)
-    sprite:SetLayerFrame(3, donationCount % 10)
+    local coinCount = IPersistentGameData.GetEventCounter(ctx.manager.m_persistentGameData, EventCounter.GREED_DONATION_MACHINE_COUNTER)
+    set_sprite_coin_icons(slot, coinCount)
 end
 
 ---@type Slot.Switch.UpdatePrize
@@ -93,11 +117,7 @@ local function GreedDonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     local coinCount = IPersistentGameData.GetEventCounter(persistentGameData, EventCounter.GREED_DONATION_MACHINE_COUNTER)
     coinCount = (coinCount % 1000) + 1
     IPersistentGameData.IncreaseEventCounter(persistentGameData, ctx, EventCounter.GREED_DONATION_MACHINE_COUNTER, 1)
-
-    mySprite:SetFrame(ANIMATION_PRIZE, 0)
-    mySprite:SetLayerFrame(LAYER_ICON_HUNDREDS, (coinCount / 100) % 10)
-    mySprite:SetLayerFrame(LAYER_ICON_DECIMALS, (coinCount / 10) % 10)
-    mySprite:SetLayerFrame(LAYER_ICON_ONES, coinCount % 10)
+    set_sprite_coin_icons(slot, coinCount)
 
     for i = 1, #DONATION_ACHIEVEMENTS, 1 do
         local achievementDesc = DONATION_ACHIEVEMENTS[i]
@@ -174,6 +194,7 @@ local Module = {}
 
 --#region Module
 
+Module.Init = GreedDonationMachine_Init
 Module.CustomSetupAppear = GreedDonationMachine_CustomSetupAppear
 Module.CustomUpdateAppear = GreedDonationMachine_CustomUpdateAppear
 Module.UpdatePrize = GreedDonationMachine_UpdatePrize

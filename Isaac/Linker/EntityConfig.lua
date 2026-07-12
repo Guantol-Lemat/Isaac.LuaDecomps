@@ -62,7 +62,7 @@ function Stub.Unload(entityConfig) end
 
 ---@param entityConfig Component.EntityConfig
 ---@param id PlayerType | integer
----@return Component.EntityConfig.Player
+---@return Component.EntityConfig.Player?
 function Stub.GetPlayer(entityConfig, id) end
 
 ---@param entityConfig Component.EntityConfig

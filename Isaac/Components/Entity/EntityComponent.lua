@@ -1,29 +1,54 @@
+---@alias Entity.Init fun(self: Component.Entity, myContext: Context.Common, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
+---@alias Entity.PreUpdate fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.Update fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.Interpolate fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.Render fun(self: Component.Entity, myContext: Context.Common, offset: Vector)
+---@alias Entity.RenderShadowLayer fun(self: Component.Entity, myContext: Context.Common, position: Vector)
+---@alias Entity.PostRender fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.TakeDamage fun(self: Component.Entity, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: Component.EntityRef, damageCountdown: integer)
+---@alias Entity.Kill fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.Remove fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.TriggerGlowingHourglass fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.GetRenderZ fun(self: Component.Entity, myContext: Context.Common): integer
+---@alias Entity.CanOverwrite fun(self: Component.Entity, myContext: Context.Common): boolean
+---@alias Entity.SetColor fun(self: Component.Entity, myContext: Context.Common, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
+---@alias Entity.SetCollisionDamage fun(self: Component.Entity, myContext: Context.Common, collisionDamage: number)
+---@alias Entity.ClearReferences fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.CanShutDoors fun(self: Component.Entity) : boolean
+---@alias Entity.IsBoss fun(self: Component.Entity) : boolean
+---@alias Entity.IsValidTarget fun(self: Component.Entity, myContext: Context.Common, requester: Component.Entity): boolean
+---@alias Entity.TryThrow fun(self: Component.Entity, myContext: Context.Common): boolean
+---@alias Entity.GetForwardVector fun(self: Component.Entity, myContext: Context.Common): Vector
+---@alias Entity.HandleCollision fun(self: Component.Entity, myContext: Context.Common, collider: Component.Entity, low: boolean): boolean
+---@alias Entity.ResetColor fun(self: Component.Entity)
+---@alias Entity.LoadEntityConfig fun(self: Component.Entity, myContext: Context.Common)
+
 ---@class Component.Entity
 ---@field Free fun(self: Component.Entity, myContext: Context.Common)
----@field Init fun(self: Component.Entity, myContext: Context.Common, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
----@field PreUpdate fun(self: Component.Entity, myContext: Context.Common)
----@field Update fun(self: Component.Entity, myContext: Context.Common)
----@field Interpolate fun(self: Component.Entity, myContext: Context.Common)
----@field Render fun(self: Component.Entity, myContext: Context.Common, offset: Vector)
----@field RenderShadowLayer fun(self: Component.Entity, myContext: Context.Common, position: Vector)
----@field PostRender fun(self: Component.Entity, myContext: Context.Common)
----@field TakeDamage fun(self: Component.Entity, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: Component.EntityRef, damageCountdown: integer)
----@field Kill fun(self: Component.Entity, myContext: Context.Common)
----@field Remove fun(self: Component.Entity, myContext: Context.Common)
----@field TriggerGlowingHourglass fun(self: Component.Entity, myContext: Context.Common)
----@field GetRenderZ fun(self: Component.Entity, myContext: Context.Common): integer
----@field CanOverwrite fun(self: Component.Entity, myContext: Context.Common): boolean
----@field SetColor fun(self: Component.Entity, myContext: Context.Common, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
----@field SetCollisionDamage fun(self: Component.Entity, myContext: Context.Common, collisionDamage: number)
----@field ClearReferences fun(self: Component.Entity, myContext: Context.Common)
----@field CanShutDoors fun(self: Component.Entity) : boolean
----@field IsBoss fun(self: Component.Entity) : boolean
----@field IsValidTarget fun(self: Component.Entity, myContext: Context.Common, requester: Component.Entity): boolean
----@field TryThrow fun(self: Component.Entity, myContext: Context.Common): boolean
----@field GetForwardVector fun(self: Component.Entity, myContext: Context.Common): Vector
----@field HandleCollision fun(self: Component.Entity, myContext: Context.Common, collider: Component.Entity, low: boolean): boolean
----@field ResetColor fun(self: Component.Entity)
----@field LoadEntityConfig fun(self: Component.Entity, myContext: Context.Common)
+---@field Init Entity.Init
+---@field PreUpdate Entity.PreUpdate
+---@field Update Entity.Update
+---@field Interpolate Entity.Interpolate
+---@field Render Entity.Render
+---@field RenderShadowLayer Entity.RenderShadowLayer
+---@field PostRender Entity.PostRender
+---@field TakeDamage Entity.TakeDamage
+---@field Kill Entity.Kill
+---@field Remove Entity.Remove
+---@field TriggerGlowingHourglass Entity.TriggerGlowingHourglass
+---@field GetRenderZ Entity.GetRenderZ
+---@field CanOverwrite Entity.CanOverwrite
+---@field SetColor Entity.SetColor
+---@field SetCollisionDamage Entity.SetCollisionDamage
+---@field ClearReferences Entity.ClearReferences
+---@field CanShutDoors Entity.CanShutDoors
+---@field IsBoss Entity.IsBoss
+---@field IsValidTarget Entity.IsValidTarget
+---@field TryThrow Entity.TryThrow
+---@field GetForwardVector Entity.GetForwardVector
+---@field HandleCollision Entity.HandleCollision
+---@field ResetColor Entity.ResetColor
+---@field LoadEntityConfig Entity.LoadEntityConfig
 ---@field m_damage_entries Component.DamageEntry[] : 0x8
 ---@field m_damage_damageTaken number : 0x14
 ---@field m_damage_flagsTaken DamageFlag | integer : 0x18

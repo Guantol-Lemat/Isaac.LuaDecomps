@@ -16,9 +16,9 @@ local function GetHash(type, variant, subtype)
     return type << 12 | variant << 8 | subtype
 end
 
----@param entityConfig EntityConfigComponent
+---@param entityConfig Component.EntityConfig
 ---@param playerType PlayerType | integer
----@return EntityConfig.PlayerComponent
+---@return Component.EntityConfig.Player
 local function GetPlayer(entityConfig, playerType)
     local config = entityConfig.m_players[playerType + 1]
     if not config then
@@ -30,7 +30,7 @@ local function GetPlayer(entityConfig, playerType)
     return config
 end
 
----@param entityConfig EntityConfigComponent
+---@param entityConfig Component.EntityConfig
 ---@param seed integer
 ---@return string
 local function GetRandomEdenHairSheet(entityConfig, seed)
