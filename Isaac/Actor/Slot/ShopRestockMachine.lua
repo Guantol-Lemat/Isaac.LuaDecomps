@@ -5,6 +5,7 @@ local IGame = require("Isaac.Interface.Game")
 local IRoom = require("Isaac.Interface.Room")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -13,6 +14,7 @@ local VECTOR_ZERO = Vector(0, 0)
 local ANIMATION_WIGGLE_END = "WiggleEnd"
 local ANIMATION_IDLE = "Idle"
 local ANIMATION_DEATH = "Death"
+local ANIMATION_COIN_INSERT = "CoinInsert"
 
 local EVENT_COIN_INSERT = "CoinInsert"
 
@@ -130,6 +132,46 @@ local function ShopRestockMachine_UpdatePrize(slot, ctx, player, extraRng)
     IManager.PlaySound(ctx, SOUND_COIN_INSERT, 1.0, 2, false, 1.0)
 end
 
+---@type Slot.Switch.PaySlot
+local function ShopRestockMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function ShopRestockMachine_PlayerInteraction(slot, ctx, player)
+    slot.m_sprite:PlayOverlay(ANIMATION_COIN_INSERT, true)
+    slot.m_state = SlotState.REWARD
+end
+
+---@type Slot.Switch.CustomDestroy
+local function ShopRestockMachine_CustomDestroy(slot, ctx)
+    local destroyed = slot.m_state == SlotState.DESTROYED
+    if destroyed then
+        return
+    end
+
+    IRoom.ShopRestockFull(ctx, ctx.game.m_level.m_room)
+    slot.m_triggerTimer = 0
+
+    local myRng = slot.m_dropRNG
+    local secondTrigger = myRng:RandomInt(3) ~= 0
+
+    if secondTrigger then
+        slot.m_triggerTimer = myRng:RandomInt(7) + 7
+    end
+
+    IGame.Spawn(
+        ctx, ctx.game,
+        EntityType.ENTITY_EFFECT, EffectVariant.BOMB_EXPLOSION,
+        slot.m_position, VECTOR_ZERO, nil,
+        0, IsaacUtils.Random()
+    )
+
+    IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+    slot.m_state = SlotState.DESTROYED
+    slot.m_sprite:Play(ANIMATION_DEATH, false)
+end
+
 ---@class Actor.ShopRestockMachine
 local Module = {}
 
@@ -138,6 +180,9 @@ local Module = {}
 Module.Init = ShopRestockMachine_Init
 Module.HandleRestock = ShopRestockMachine_HandleRestock
 Module.UpdatePrize = ShopRestockMachine_UpdatePrize
+Module.PaySlot = ShopRestockMachine_PaySlot
+Module.PlayerInteraction = ShopRestockMachine_PlayerInteraction
+Module.CustomDestroy = ShopRestockMachine_CustomDestroy
 
 --#endregion
 

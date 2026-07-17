@@ -3,9 +3,11 @@
 local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
+local ILevel = require("Isaac.Interface.Level")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -19,6 +21,7 @@ local ANIMATION_TELEPORT = "Teleport"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_TEARIMPACTS
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
@@ -38,7 +41,7 @@ local function award_collectible(slot, ctx, collectible, seed)
     slot.m_sprite:Play(ANIMATION_TELEPORT, false)
 
     local level = ctx.game.m_level
-    level.m_levelStateFlag = level.m_levelStateFlag | (1 << LevelStateFlag.STATE_EVIL_BUM_LEFT)
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_EVIL_BUM_LEFT, true)
 end
 
 ---@type Slot.Switch.UpdatePrize
@@ -98,12 +101,33 @@ local function DevilBeggar_UpdatePrize(slot, ctx, player, extraRng)
     )
 end
 
+---@type Slot.Switch.PaySlot
+local function DevilBeggar_PaySlot(slot, ctx, player)
+    return SlotLib.PayHeart(slot, ctx, player, 1.0)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function DevilBeggar_PlayerInteraction(slot, ctx, player)
+    local GetTargetValue = SlotLib.Beggar_HighTargetDonationValue
+    return SlotLib.Beggar_PlayerInteraction(slot, ctx, player, SOUND_PAY, GetTargetValue)
+end
+
+---@type Slot.Switch.OnDestroy
+local function DevilBeggar_OnDestroy(slot, ctx)
+    SlotLib.Beggar_Destroy(slot, ctx)
+    local level = ctx.game.m_level
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_EVIL_BUM_KILLED, true)
+end
+
 ---@class Actor.DevilBeggar
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = DevilBeggar_UpdatePrize
+Module.PaySlot = DevilBeggar_PaySlot
+Module.PlayerInteraction = DevilBeggar_PlayerInteraction
+Module.OnDestroy = DevilBeggar_OnDestroy
 
 --#endregion
 

@@ -5,6 +5,7 @@ local IGame = require("Isaac.Interface.Game")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -16,6 +17,7 @@ local ANIMATION_NO_PRIZE = "NoPrize"
 local ANIMATION_DEATH = "Death"
 local ANIMATION_REGENERATE = "Regenerate"
 local ANIMATION_OUT_OF_PRIZES = "OutOfPrizes"
+local ANIMATION_COIN_INSERT = "CoinInsert"
 
 local EVENT_PRIZE = "Prize"
 local EVENT_EXPLOSION = "Explosion"
@@ -23,6 +25,7 @@ local EVENT_EXPLOSION = "Explosion"
 local SOUND_PRIZE = SoundEffect.SOUND_THUMBSUP
 local SOUND_NO_PRIZE = SoundEffect.SOUND_THUMBS_DOWN
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_COIN_SLOT
 
 local STATE_OUT_OF_PRIZES = 4
 
@@ -112,6 +115,18 @@ local function CraneGame_UpdatePrize()
     return
 end
 
+---@type Slot.Switch.PaySlot
+local function CraneGame_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 5)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function CraneGame_PlayerInteraction(slot, ctx)
+    IManager.PlaySound(ctx, SOUND_PAY, 1.0, 2, false, 1.0)
+    SlotLib.SlotMachine_SetupPrize(slot)
+    slot.m_sprite:PlayOverlay(ANIMATION_COIN_INSERT, true)
+end
+
 ---@class Actor.CraneGame
 local Module = {}
 
@@ -120,6 +135,8 @@ local Module = {}
 Module.PreUpdate = CraneGame_PreUpdate
 Module.UpdateTimeoutPrize = CraneGame_UpdateTimeoutPrize
 Module.UpdatePrize = CraneGame_UpdatePrize
+Module.PaySlot = CraneGame_PaySlot
+Module.PlayerInteraction = CraneGame_PlayerInteraction
 
 --#endregion
 

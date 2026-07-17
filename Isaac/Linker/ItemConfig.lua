@@ -110,22 +110,22 @@ function Stub.LoadBombCostumeRules(itemConfig, filepath, mod) end
 ---@param itemConfig Component.ItemConfig
 ---@param ctx Context.Common
 ---@param id CollectibleType | integer
----@return Component.ItemConfig.Item
+---@return Component.ItemConfig.Item?
 function Stub.GetCollectible(itemConfig, ctx, id) end
 
 ---@param itemConfig Component.ItemConfig
 ---@param id TrinketType | integer
----@return Component.ItemConfig.Item
+---@return Component.ItemConfig.Item?
 function Stub.GetTrinket(itemConfig, id) end
 
 ---@param itemConfig Component.ItemConfig
 ---@param id NullItemID | integer
----@return Component.ItemConfig.Item
+---@return Component.ItemConfig.Item?
 function Stub.GetNullItem(itemConfig, id) end
 
 ---@param itemConfig Component.ItemConfig
 ---@param id PillEffect | integer
----@return Component.ItemConfig.PillEffect
+---@return Component.ItemConfig.PillEffect?
 function Stub.GetPillEffect(itemConfig, id) end
 
 ---@param itemConfig Component.ItemConfig

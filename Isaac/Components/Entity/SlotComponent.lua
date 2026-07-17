@@ -5,8 +5,8 @@
 ---@field m_timeout integer : 0x36a
 ---@field m_donationValue integer : 0x36c
 ---@field m_triggerTimer integer : 0x370
----@field m_unkShort1 integer : 0x374
----@field m_touch integer : 0x376
+---@field m_consecutiveCollisionGraceTimer integer : 0x374
+---@field m_consecutiveCollisionFrames integer : 0x376
 ---@field m_shellGame_prizeSprite Sprite : 0x378
 ---@field m_prizeCollectible CollectibleType | integer : 0x48c
 
@@ -37,8 +37,8 @@ local function New()
     entity.m_timeout = NOT_INITIALIZED_INT
     entity.m_donationValue = NOT_INITIALIZED_INT
     entity.m_triggerTimer = NOT_INITIALIZED_INT
-    entity.m_unkShort1 = NOT_INITIALIZED_INT
-    entity.m_touch = NOT_INITIALIZED_INT
+    entity.m_consecutiveCollisionGraceTimer = NOT_INITIALIZED_INT
+    entity.m_consecutiveCollisionFrames = NOT_INITIALIZED_INT
     entity.m_shellGame_prizeSprite = Sprite()
     entity.m_prizeCollectible = NOT_INITIALIZED_INT
 

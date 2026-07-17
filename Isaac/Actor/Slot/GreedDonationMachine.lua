@@ -8,6 +8,7 @@ local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -171,10 +172,10 @@ local function GreedDonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     local beforeOverflow = coinCount == 999
     if beforeOverflow then
         -- prevent accidental blow up
-        slot.m_touch = 0
+        slot.m_consecutiveCollisionFrames = 0
         slot.m_timeout = 20
     else
-        slot.m_timeout = math.floor(math.max(15 - slot.m_touch / 10, 0))
+        slot.m_timeout = math.floor(math.max(15 - slot.m_consecutiveCollisionFrames / 10, 0))
     end
 
     IManager.PlaySound(ctx, SOUND_COIN_INSERT, 1.0, 2, false, 1.0)
@@ -189,6 +190,19 @@ local function GreedDonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function GreedDonationMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+local GreedDonationMachine_PlayerInteraction = SlotLib.DonationMachine_PlayerInteraction
+
+---no logic, cannot be destroyed
+---@type Slot.Switch.CustomDestroy
+local function GreedDonationMachine_CustomDestroy(slot, ctx)
+    return
+end
+
 ---@class Actor.GreedDonationMachine
 local Module = {}
 
@@ -198,6 +212,9 @@ Module.Init = GreedDonationMachine_Init
 Module.CustomSetupAppear = GreedDonationMachine_CustomSetupAppear
 Module.CustomUpdateAppear = GreedDonationMachine_CustomUpdateAppear
 Module.UpdatePrize = GreedDonationMachine_UpdatePrize
+Module.PaySlot = GreedDonationMachine_PaySlot
+Module.PlayerInteraction = GreedDonationMachine_PlayerInteraction
+Module.CustomDestroy = GreedDonationMachine_CustomDestroy
 
 --#endregion
 

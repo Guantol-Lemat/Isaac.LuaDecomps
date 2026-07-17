@@ -80,6 +80,13 @@ Module.eCompletionType = {
     TAINTED_GROUP2 = 17,
 }
 
+---@enum eEntityRefFlags
+Module.eEntityRefFlags = {
+    FLAG_CHARMED = 1 << 0,
+    FLAG_FRIENDLY = 1 << 1,
+    FLAG_WEAKNESS = 1 << 2,
+}
+
 ---@enum ePickVelType
 Module.ePickVelType = {
     DEFAULT = 0,
@@ -125,6 +132,13 @@ Module.eItemAnimation = {
     CHARGE_FULL = 1,
     SHOOT = 2,
     SHOOT_ALT = 3,
+}
+
+Module.eGetCollectibleFlag = {
+    NO_DECREASE = 1 << 0,
+    NO_ACTIVE = 1 << 1,
+    IGNORE_MODIFIERS = 1 << 2,
+    NO_PASSIVE = 1 << 3,
 }
 
 ---@enum eItemFilterFlag

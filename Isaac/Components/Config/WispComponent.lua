@@ -1,0 +1,27 @@
+---@class Component.ItemConfig.Wisp
+---@field m_hp integer : 0x0
+---@field m_damage number : 0x4
+---@field m_stageDamage number : 0x8
+---@field m_shotSpeed number : 0xc
+---@field m_fireDelay number : 0x10
+---@field m_canShoot boolean : 0x14
+---@field m_damageMultiplier number : 0x18
+---@field m_tearScale number : 0x1c
+---@field m_tearVariant integer : 0x20
+---@field m_tearColor Color : 0x24
+---@field m_tearFlags BitSet128 : 0x50
+---@field m_damageMultiplier2 number : 0x60
+---@field m_tearScale2 number : 0x64
+---@field m_tearVariant2 integer : 0x68
+---@field m_tearColor2 Color : 0x6c
+---@field m_tearFlags2 BitSet128 : 0x98
+---@field m_procChance number : 0xa8
+---@field m_flameColor Color : 0xac
+---@field m_coreColor Color : 0xd8
+---@field m_poofColor Color : 0x104
+---@field m_bloodColor Color : 0x130
+---@field m_flameGfx string : 0x15c
+---@field m_coreGfx string : 0x174
+---@field m_layer integer : 0x18c
+---@field m_priority integer : 0x18e
+---@field m_count integer : 0x190

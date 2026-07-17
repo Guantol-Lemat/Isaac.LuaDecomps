@@ -2,11 +2,13 @@
 
 local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
+local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -35,6 +37,7 @@ local NUM_SYMBOL_FRAMES = 7
 
 local SOUND_NO_PRIZE = SoundEffect.SOUND_SCAMPER
 local SOUND_SPAWN_PRIZE = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_COIN_SLOT
 
 local PRIZE_FLY = 3
 local PRIZE_BOMB = 4
@@ -304,6 +307,23 @@ local function SlotMachine_UpdatePrize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function SlotMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function SlotMachine_PlayerInteraction(slot, ctx)
+    IManager.PlaySound(ctx, SOUND_PAY, 1.0, 2, false, 1.0)
+    SlotLib.SlotMachine_SetupPrize(slot)
+end
+
+---@type Slot.Switch.OnDestroy
+local function SlotMachine_OnDestroy(slot, ctx)
+    local persistentData = ctx.manager.m_persistentGameData
+    IPersistentGameData.IncreaseEventCounter(persistentData, ctx, EventCounter.SLOT_MACHINES_BROKEN, 1)
+end
+
 ---@class Actor.SlotMachine
 local Module = {}
 
@@ -312,6 +332,9 @@ local Module = {}
 Module.OnTimeoutEnd = SlotMachine_OnTimeoutEnd
 Module.TrySetPrize = SlotMachine_TrySetPrize
 Module.UpdatePrize = SlotMachine_UpdatePrize
+Module.PaySlot = SlotMachine_PaySlot
+Module.PlayerInteraction = SlotMachine_PlayerInteraction
+Module.OnDestroy = SlotMachine_OnDestroy
 
 --#endregion
 

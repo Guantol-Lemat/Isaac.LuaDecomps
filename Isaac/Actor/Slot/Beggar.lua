@@ -3,12 +3,14 @@
 local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
+local ILevel = require("Isaac.Interface.Level")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -22,6 +24,7 @@ local ANIMATION_TELEPORT = "Teleport"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
@@ -41,7 +44,7 @@ local function award_collectible(slot, ctx, collectible, seed)
     slot.m_sprite:Play(ANIMATION_TELEPORT, false)
 
     local level = ctx.game.m_level
-    level.m_levelStateFlag = level.m_levelStateFlag | (1 << LevelStateFlag.STATE_BUM_LEFT)
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_BUM_LEFT, true)
 end
 
 ---@type Slot.Switch.UpdatePrize
@@ -136,12 +139,33 @@ local function Beggar_UpdatePrize(slot, ctx, player, extraRng)
     )
 end
 
+---@type Slot.Switch.PaySlot
+local function Beggar_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function Beggar_PlayerInteraction(slot, ctx, player)
+    local GetTargetValue = SlotLib.Beggar_HighTargetDonationValue
+    return SlotLib.Beggar_PlayerInteraction(slot, ctx, player, SOUND_PAY, GetTargetValue)
+end
+
+---@type Slot.Switch.OnDestroy
+local function Beggar_OnDestroy(slot, ctx)
+    SlotLib.Beggar_Destroy(slot, ctx)
+    local level = ctx.game.m_level
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_BUM_KILLED, true)
+end
+
 ---@class Actor.Beggar
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = Beggar_UpdatePrize
+Module.PaySlot = Beggar_PaySlot
+Module.PlayerInteraction = Beggar_PlayerInteraction
+Module.OnDestroy = Beggar_OnDestroy
 
 --#endregion
 

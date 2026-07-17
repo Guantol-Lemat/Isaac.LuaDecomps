@@ -94,7 +94,7 @@ local function evaluate_collision_result(slot, collider)
     end
 
     if collider.m_variant == PlayerVariant.PLAYER and slot.m_state ~= 3 then
-        slot.m_unkShort1 = 4
+        slot.m_consecutiveCollisionGraceTimer = 4
     end
 
     return false

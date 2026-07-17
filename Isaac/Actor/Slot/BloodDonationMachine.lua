@@ -8,6 +8,7 @@ local IItemPool = require("Isaac.Interface.ItemPool")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -20,6 +21,7 @@ local ANIMATION_PRIZE = "Prize"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN_PRIZE = SoundEffect.SOUND_BLOODBANK_SPAWN
+local SOUND_PAY = SoundEffect.SOUND_BLOODBANK_SPAWN
 
 ---@type Slot.Switch.UpdatePrize
 local function trigger_prize(slot, ctx, player, extraRng)
@@ -131,12 +133,68 @@ local function BloodDonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function BloodDonationMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayHeart(slot, ctx, player, 1.0)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function BloodDonationMachine_PlayerInteraction(slot, ctx)
+    IPersistentGameData.IncreaseEventCounter(ctx.manager.m_persistentGameData, ctx, EventCounter.BLOOD_DONATION_MACHINE_USED, 1)
+    IManager.PlaySound(ctx, SOUND_PAY, 1.0, 2, false, 1.0)
+    SlotLib.SlotMachine_SetupPrize(slot)
+end
+
+---@type Slot.Switch.OnDestroy
+local function BloodDonationMachine_OnDestroy(slot, ctx)
+    local bloodExplosion = IGame.Spawn(
+        ctx, ctx.game,
+        EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_EXPLOSION,
+        slot.m_position, VECTOR_ZERO, nil,
+        4, IsaacUtils.Random()
+    )
+
+    bloodExplosion.m_sprite.Offset = Vector(0.0, -10.0)
+    bloodExplosion.m_depthOffset = 5.0
+
+    for i = 1, 5, 1 do
+        -- Pick a random offset in an elliptical annulus around the origin.
+        local randomDistance = IsaacUtils.RandomFloat() * 20.0 + 30.0
+        local randomOffset = IsaacUtils.RandomVector() * randomDistance
+        randomOffset.Y = randomOffset.Y * 0.65
+
+        local splat_position = slot.m_position + (randomOffset * 0.2)
+        local splat_scale = IsaacUtils.RandomFloat() * 2.0 + 2.0
+
+        for j = 1, 4, 1 do
+            local seed = IsaacUtils.Random()
+            local splat = IGame.Spawn(
+                ctx, ctx.game,
+                EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_SPLAT,
+                splat_position, VECTOR_ZERO, nil,
+                0, seed
+            )
+
+            splat.m_sprite.Scale = Vector(splat_scale, splat_scale)
+            splat:Update(ctx)
+
+            local randomAngle = IsaacUtils.RandomFloat() * 40.0 - 20.0 -- [-20.0, 20.0]
+            splat_position = splat_position + randomOffset:Rotated(randomAngle)
+            randomOffset = randomOffset * 0.9
+            splat_scale = splat_scale * 0.6
+        end
+    end
+end
+
 ---@class Actor.BloodDonationMachine
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = BloodDonationMachine_UpdatePrize
+Module.PaySlot = BloodDonationMachine_PaySlot
+Module.PlayerInteraction = BloodDonationMachine_PlayerInteraction
+Module.OnDestroy = BloodDonationMachine_OnDestroy
 
 --#endregion
 

@@ -77,8 +77,8 @@ local function Init(slot, ctx, entityType, variant, subType, seed)
     slot.m_sizeMulti = Vector(1, 1)
     slot.m_donationValue = 0
     slot.m_triggerTimer = 0
-    slot.m_unkShort1 = 0
-    slot.m_touch = 0
+    slot.m_consecutiveCollisionGraceTimer = 0
+    slot.m_consecutiveCollisionFrames = 0
     slot.m_state = SlotState.IDLE
     slot.m_shellGame_prizeSprite:Reset()
     slot.m_prizeCollectible = CollectibleType.COLLECTIBLE_NULL

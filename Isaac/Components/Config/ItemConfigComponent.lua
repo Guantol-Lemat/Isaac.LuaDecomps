@@ -7,7 +7,7 @@
 ---@field m_collectibleNameMap table<string, integer> : 0x3c
 ---@field m_playerForms PlayerFormComponent[] : 0x44
 ---@field m_itemFilter function[] : 0xd0
----@field m_wisps WispConfigComponent[] : 0xe4
+---@field m_wisps Component.ItemConfig.Wisp[] : 0xe4
 
 ---@class Component.ItemConfig.Item
 ---@field m_itemType ItemType | integer : 0x0
@@ -41,7 +41,7 @@
 ---@field m_quality integer : 0xc0
 ---@field m_craftingQuality integer : 0xc4
 ---@field m_initCharge integer : 0xc8
----@field m_wispConfig WispConfigComponent : 0xcc
+---@field m_wispConfig Component.ItemConfig.Wisp : 0xcc
 ---@field m_locustConfig LocustComponent : 0xd0
 ---@field m_modANM2Frame integer : 0xd4
 ---@field m_mod Component.ModEntry : 0xd8

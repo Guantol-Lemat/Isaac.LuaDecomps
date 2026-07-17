@@ -1,15 +1,9 @@
 --#region Dependencies
 
-local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
-local ILevel = require("Isaac.Interface.Level")
-local IRoom = require("Isaac.Interface.Room")
 local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
-local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
-local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
-local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
 local VectorUtils = require("General.Math.VectorUtils")
 local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
@@ -276,11 +270,11 @@ local function Update(slot, ctx)
         Actor_ShellGame.PostUpdate(slot, ctx)
     end
 
-    if slot.m_unkShort1 == 0 then
-        slot.m_touch = 0
+    if slot.m_consecutiveCollisionGraceTimer == 0 then
+        slot.m_consecutiveCollisionFrames = 0
     else
-        slot.m_touch = slot.m_touch + 1
-        slot.m_unkShort1 = slot.m_unkShort1 - 1
+        slot.m_consecutiveCollisionFrames = slot.m_consecutiveCollisionFrames + 1
+        slot.m_consecutiveCollisionGraceTimer = slot.m_consecutiveCollisionGraceTimer - 1
     end
 
     IEntity.Update(ctx, slot)

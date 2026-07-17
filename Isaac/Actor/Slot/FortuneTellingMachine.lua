@@ -8,6 +8,7 @@ local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
 local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -21,6 +22,7 @@ local ANIMATION_DEATH = "Death"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_COIN_SLOT
 
 ---@type Slot.Switch.UpdatePrize
 local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
@@ -131,12 +133,25 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
     )
 end
 
+---@type Slot.Switch.PaySlot
+local function FortuneTellingMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function FortuneTellingMachine_PlayerInteraction(slot, ctx)
+    IManager.PlaySound(ctx, SOUND_PAY, 1.0, 2, false, 1.0)
+    SlotLib.SlotMachine_SetupPrize(slot)
+end
+
 ---@class Actor.FortuneTellingMachine
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = FortuneTellingMachine_UpdatePrize
+Module.PaySlot = FortuneTellingMachine_PaySlot
+Module.PlayerInteraction = FortuneTellingMachine_PlayerInteraction
 
 --#endregion
 

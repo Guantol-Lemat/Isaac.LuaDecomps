@@ -9,6 +9,7 @@ local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -188,10 +189,10 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     local beforeOverflow = coinCounter == 999
     if beforeOverflow then
         -- prevent accidental blow up
-        slot.m_touch = 0
+        slot.m_consecutiveCollisionFrames = 0
         slot.m_timeout = 20
     else
-        slot.m_timeout = math.floor(math.max(15 - slot.m_touch / 10, 0))
+        slot.m_timeout = math.floor(math.max(15 - slot.m_consecutiveCollisionFrames / 10, 0))
     end
 
     IManager.PlaySound(ctx, SOUND_COIN_INSERT, 1.0, 2, false, 1.0)
@@ -206,6 +207,50 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function DonationMachine_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+local DonationMachine_PlayerInteraction = SlotLib.DonationMachine_PlayerInteraction
+
+---@type Slot.Switch.CustomDestroy
+local function DonationMachine_CustomDestroy(slot, ctx)
+    local destroyed = slot.m_state == SlotState.DESTROYED
+    if destroyed then
+        return
+    end
+
+    local persistentGameData = ctx.manager.m_persistentGameData
+    local mySprite = slot.m_sprite
+    local myRng = slot.m_dropRNG
+
+    mySprite:Play(ANIMATION_DEATH, false)
+    slot.m_state = SlotState.DESTROYED
+
+    local lostCoins = myRng:RandomInt(9) + 7
+    local totalCoin = IPersistentGameData.GetEventCounter(persistentGameData, EventCounter.DONATE_MACHINE_COUNTER) % 1000
+    lostCoins = math.min(lostCoins, totalCoin)
+
+    IPersistentGameData.IncreaseEventCounter(persistentGameData, ctx, EventCounter.DONATE_MACHINE_COUNTER, -lostCoins)
+    local droppedCoins = lostCoins - 1
+
+    for i = 1, droppedCoins, 1 do
+        local velocity = IEntityPickup.get_random_pickup_velocity(ctx, slot.m_position, ePickVelType.SLOT, myRng)
+        local seed = myRng:Next()
+        IGame.Spawn(
+            ctx, ctx.game,
+            EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+            slot.m_position, velocity, nil,
+            CoinSubType.COIN_PENNY, seed
+        )
+    end
+
+    local game = ctx.game
+    local setFlags = (1 << GameStateFlag.STATE_DONATION_SLOT_BLOWN) | (1 << GameStateFlag.STATE_DONATION_SLOT_BROKEN)
+    game.m_gameStateFlags = game.m_gameStateFlags | setFlags
+end
+
 ---@class Actor.DonationMachine
 local Module = {}
 
@@ -213,6 +258,9 @@ local Module = {}
 
 Module.Init = DonationMachine_Init
 Module.UpdatePrize = DonationMachine_UpdatePrize
+Module.PaySlot = DonationMachine_PaySlot
+Module.PlayerInteraction = DonationMachine_PlayerInteraction
+Module.CustomDestroy = DonationMachine_CustomDestroy
 
 --#endregion
 

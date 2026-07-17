@@ -10,6 +10,7 @@ local IItemPool = require("Isaac.Interface.ItemPool")
 local IHud = require("Isaac.Interface.HUD")
 local IsaacUtils = require("Isaac.Utils.Common")
 local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -19,6 +20,7 @@ local ANIMATION_WIGGLE = "Wiggle"
 local ANIMATION_PRIZE = "Prize"
 local ANIMATION_NO_PRIZE = "NoPrize"
 local ANIMATION_DEATH = "Death"
+local ANIMATION_HEART_INSERT = "HeartInsert"
 
 local EVENT_PRIZE = "Prize"
 
@@ -166,6 +168,17 @@ local function Confessional_UpdatePrize()
     return
 end
 
+---@type Slot.Switch.PaySlot
+local function Confessional_PaySlot(slot, ctx, player)
+    return SlotLib.PayHeart(slot, ctx, player, 1.0)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function Confessional_PlayerInteraction(slot, ctx)
+    SlotLib.SlotMachine_SetupPrize(slot)
+    slot.m_sprite:PlayOverlay(ANIMATION_HEART_INSERT, true)
+end
+
 ---@class Actor.Confessional
 local Module = {}
 
@@ -173,6 +186,8 @@ local Module = {}
 
 Module.UpdateTimeoutPrize = Confessional_UpdateTimeoutPrize
 Module.UpdatePrize = Confessional_UpdatePrize
+Module.PaySlot = Confessional_PaySlot
+Module.PlayerInteraction = Confessional_PlayerInteraction
 
 --#endregion
 

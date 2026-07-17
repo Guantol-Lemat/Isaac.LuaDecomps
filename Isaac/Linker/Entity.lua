@@ -1,7 +1,11 @@
 ---@class Interface.Entity
 local Interface = require("Isaac.Interface.Entity")
 
+---@class Interface.EntityRef
+local Interface_EntityRef = Interface.EntityRef
+
 local EntityData = require("Isaac.Gameplay.Entity.Data")
+local EntityRefComponent = require("Isaac.Components.Entity.EntityRefComponent")
 
 --#region Stub
 
@@ -709,6 +713,9 @@ function Stub.Collide(ctx, entity, collider) end
 ---@return boolean
 function Stub.ForceCollide(param_1_00, param_2, param_3) end
 
+---@return boolean
+function Stub.IsForcedCollision() end
+
 ---@param entity Component.Entity
 ---@param color Color
 ---@param Duration integer
@@ -1074,6 +1081,7 @@ Interface.collide_capsules = Stub.collide_capsules
 Interface.collide_circles = Stub.collide_circles
 Interface.Collide = Stub.Collide
 Interface.ForceCollide = Stub.ForceCollide
+Interface.IsForcedCollision = Stub.IsForcedCollision
 Interface.SetColor = Stub.SetColor
 Interface.SpawnGibs = Stub.SpawnGibs
 Interface.BloodExplode = Stub.BloodExplode
@@ -1110,3 +1118,5 @@ Interface.GetFlipX = Stub.GetFlipX
 Interface.SetSpriteFrame = Stub.SetSpriteFrame
 Interface.SetSpriteOverlayFrame = Stub.SetSpriteOverlayFrame
 Interface.CanShutDoors = Stub.CanShutDoors
+
+Interface_EntityRef.New = EntityRefComponent.New

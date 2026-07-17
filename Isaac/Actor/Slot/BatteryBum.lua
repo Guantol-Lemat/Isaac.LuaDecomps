@@ -13,6 +13,7 @@ local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IEntityEffect = require("Isaac.Interface.Entity_Effect")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -27,6 +28,7 @@ local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
 local SOUND_CHARGE = SoundEffect.SOUND_BATTERYCHARGE
+local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 
 local CHARGE_AMOUNT_POOL = {1, 1, 1, 2, 2, 3}
 
@@ -158,12 +160,35 @@ local function BatteryBum_UpdatePrize(slot, ctx, player, extraRng)
     slot.m_donationValue = 0
 end
 
+---@type Slot.Switch.PaySlot
+local function BatteryBum_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function BatteryBum_PlayerInteraction(slot, ctx, player)
+    local GetTargetValue = SlotLib.Beggar_LowTargetDonationValue
+    return SlotLib.Beggar_PlayerInteraction(slot, ctx, player, SOUND_PAY, GetTargetValue)
+end
+
+---@type Slot.Switch.OnDestroy
+local function BatteryBum_OnDestroy(slot, ctx)
+    SlotLib.Beggar_Destroy(slot, ctx)
+    local level = ctx.game.m_level
+    local persistentData = ctx.manager.m_persistentGameData
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_BUM_KILLED, true)
+    IPersistentGameData.IncreaseEventCounter(persistentData, ctx, EventCounter.BATTERY_BUMS_KILLED, 1)
+end
+
 ---@class Actor.BatteryBum
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = BatteryBum_UpdatePrize
+Module.PaySlot = BatteryBum_PaySlot
+Module.PlayerInteraction = BatteryBum_PlayerInteraction
+Module.OnDestroy = BatteryBum_OnDestroy
 
 --#endregion
 

@@ -6,6 +6,7 @@ local IGame = require("Isaac.Interface.Game")
 local IRoom = require("Isaac.Interface.Room")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IItemPool = require("Isaac.Interface.ItemPool")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -19,6 +20,7 @@ local ANIMATION_TELEPORT = "Teleport"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY_KEY = SoundEffect.SOUND_KEY_DROP0
 
 local CHEST_POOL = {
     PickupVariant.PICKUP_CHEST,
@@ -93,12 +95,33 @@ local function KeyMaster_UpdatePrize(slot, ctx, player, extraRng)
     )
 end
 
+---@type Slot.Switch.PaySlot
+local function KeyMaster_PaySlot(slot, ctx, player)
+    return SlotLib.PayKeys(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function KeyMaster_PlayerInteraction(slot, ctx)
+    IManager.PlaySound(ctx, SOUND_PAY_KEY, 2.0, 2, false, 1.0)
+    local prize = slot.m_dropRNG:RandomInt(100) < 35
+    if prize then
+        SlotLib.Beggar_SetupPrize(slot)
+    else
+        SlotLib.Beggar_SetupNoPrize(slot)
+    end
+end
+
+local KeyMaster_OnDestroy = SlotLib.Beggar_Destroy
+
 ---@class Actor.KeyMaster
 local Module = {}
 
 --#region Module
 
 Module.UpdatePrize = KeyMaster_UpdatePrize
+Module.PaySlot = KeyMaster_PaySlot
+Module.PlayerInteraction = KeyMaster_PlayerInteraction
+Module.OnDestroy = KeyMaster_OnDestroy
 
 --#endregion
 

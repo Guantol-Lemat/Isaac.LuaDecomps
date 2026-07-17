@@ -13,6 +13,8 @@ local eCompletionType = Enums.eCompletionType
 
 local VECTOR_ZERO = Vector(0, 0)
 
+local ANIMATION_PAY_PRIZE = "PayPrize"
+
 local EVENT_FX = "FX"
 local EVENT_POOF = "Poof"
 
@@ -39,6 +41,13 @@ local TAINTED_PLAYER = {
     [PlayerType.PLAYER_JACOB + 1] = PlayerType.PLAYER_JACOB_B,
     [PlayerType.PLAYER_ESAU + 1] = PlayerType.PLAYER_JACOB_B,
 }
+
+---@param slot Component.Entity.Slot
+local function setup_reward(slot)
+    slot.m_state = SlotState.REWARD
+    slot.m_timeout = 30
+    slot.m_sprite:Play(ANIMATION_PAY_PRIZE, false)
+end
 
 ---@type Slot.Switch.Init
 local function HomeClosetPlayer_Init(slot, ctx)
@@ -114,6 +123,24 @@ local function HomeClosetPlayer_UpdatePrize(slot, ctx, player, extraRng)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function HomeClosetPlayer_PaySlot(slot, ctx, player)
+    -- interaction is free
+    return true
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function HomeClosetPlayer_PlayerInteraction(slot, ctx)
+    setup_reward(slot)
+end
+
+---@param slot Component.Entity.Slot
+local function HomeClosetPlayer_CustomTakeDamage(slot)
+    if slot.m_state == SlotState.IDLE then
+        setup_reward(slot)
+    end
+end
+
 ---@class Actor.HomeClosetPlayer
 local Module = {}
 
@@ -122,6 +149,9 @@ local Module = {}
 Module.Init = HomeClosetPlayer_Init
 Module.UpdateState = HomeClosetPlayer_UpdateState
 Module.UpdatePrize = HomeClosetPlayer_UpdatePrize
+Module.PaySlot = HomeClosetPlayer_PaySlot
+Module.PlayerInteraction = HomeClosetPlayer_PlayerInteraction
+Module.CustomTakeDamage = HomeClosetPlayer_CustomTakeDamage
 
 --#endregion
 

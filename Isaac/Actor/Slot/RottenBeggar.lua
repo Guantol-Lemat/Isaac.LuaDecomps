@@ -11,6 +11,7 @@ local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
 
@@ -24,6 +25,7 @@ local ANIMATION_TELEPORT = "Teleport"
 local EVENT_PRIZE = "Prize"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
+local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 
 local TRINKET_POOL = {
     TrinketType.TRINKET_FISH_HEAD,
@@ -180,6 +182,24 @@ local function RottenBeggar_UpdatePrize(slot, ctx, player, extraRng)
     slot.m_donationValue = 0
 end
 
+---@type Slot.Switch.PaySlot
+local function RottenBeggar_PaySlot(slot, ctx, player)
+    return SlotLib.PayCoins(ctx, player, 1)
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function RottenBeggar_PlayerInteraction(slot, ctx, player)
+    local GetTargetValue = SlotLib.Beggar_LowTargetDonationValue
+    return SlotLib.Beggar_PlayerInteraction(slot, ctx, player, SOUND_PAY, GetTargetValue)
+end
+
+---@type Slot.Switch.OnDestroy
+local function RottenBeggar_OnDestroy(slot, ctx)
+    SlotLib.Beggar_Destroy(slot, ctx)
+    local level = ctx.game.m_level
+    ILevel.SetStateFlag(level, LevelStateFlag.STATE_BUM_KILLED, true)
+end
+
 ---@class Actor.RottenBeggar
 local Module = {}
 
@@ -187,6 +207,9 @@ local Module = {}
 
 Module.SpawnWorms = RottenBeggar_SpawnWorms
 Module.UpdatePrize = RottenBeggar_UpdatePrize
+Module.PaySlot = RottenBeggar_PaySlot
+Module.PlayerInteraction = RottenBeggar_PlayerInteraction
+Module.OnDestroy = RottenBeggar_OnDestroy
 
 --#endregion
 

@@ -1,6 +1,8 @@
 --#region Dependencies
 
+local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
+local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
 local IRoom = require("Isaac.Interface.Room")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
@@ -8,8 +10,12 @@ local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IEntityNPC = require("Isaac.Interface.Entity_NPC")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
+local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
+
+local eGetCollectibleFlag = Enums.eGetCollectibleFlag
 
 local VECTOR_ZERO = Vector(0, 0)
 
@@ -22,14 +28,48 @@ local ANIMATION_SHELL_PRIZE = {
     [3] = "Shell3Prize",
 }
 
+local PRIZE_ANIMATION_DEFAULT = "Prizes"
+
 local EVENT_PRIZE = "Prize"
 local EVENT_SHUFFLE = "Shuffle"
 
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
 local SOUND_NO_PRIZE = SoundEffect.SOUND_BOSS2INTRO_ERRORBUZZ
 local SOUND_SHUFFLE = SoundEffect.SOUND_SHELLGAME
+local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 
 local BLUE_SPIDER_PRIZE = PickupVariant.PICKUP_NULL
+
+local SHELL_GAME_PRIZE_POOL = {
+    PickupVariant.PICKUP_HEART, PickupVariant.PICKUP_COIN,
+    PickupVariant.PICKUP_KEY, PickupVariant.PICKUP_BOMB,
+}
+
+local SHELL_GAME_LAYER_TO_PRIZE = {
+    [0 + 1] = PickupVariant.PICKUP_COLLECTIBLE,
+    [1 + 1] = PickupVariant.PICKUP_BOMB,
+    [2 + 1] = PickupVariant.PICKUP_HEART,
+    [3 + 1] = PickupVariant.PICKUP_KEY,
+    [4 + 1] = PickupVariant.PICKUP_COIN,
+    [5 + 1] = true, -- skull layer
+}
+
+local HELL_GAME_PRIZE_POOL = {
+    PickupVariant.PICKUP_HEART, PickupVariant.PICKUP_COIN,
+    PickupVariant.PICKUP_KEY, PickupVariant.PICKUP_BOMB,
+    PickupVariant.PICKUP_TAROTCARD, BLUE_SPIDER_PRIZE
+}
+
+local HELL_GAME_LAYER_TO_PRIZE = {
+    [0 + 1] = BLUE_SPIDER_PRIZE,
+    [1 + 1] = PickupVariant.PICKUP_BOMB,
+    [2 + 1] = PickupVariant.PICKUP_HEART,
+    [3 + 1] = PickupVariant.PICKUP_KEY,
+    [4 + 1] = PickupVariant.PICKUP_COIN,
+    [5 + 1] = true, -- skull layer
+    [6 + 1] = PickupVariant.PICKUP_TAROTCARD,
+    [7 + 1] = PickupVariant.PICKUP_COLLECTIBLE,
+}
 
 ---@param slot Component.Entity.Slot
 ---@return Vector
@@ -209,6 +249,124 @@ local function ShellGame_PostRender(slot)
     end
 end
 
+---@type Slot.Switch.PaySlot
+local function ShellGame_PaySlot(slot, ctx, player)
+    if slot.m_state == SlotState.IDLE then
+        return SlotLib.PayCoins(ctx, player, 1)
+    end
+
+    -- the interaction is free if choosing
+    return slot.m_state == SlotState.CHOICE
+end
+
+---@type Slot.Switch.PaySlot
+local function HellGame_PaySlot(slot, ctx, player)
+    if slot.m_state == SlotState.IDLE then
+        return SlotLib.PayHeart(slot, ctx, player, 1.0)
+    end
+
+    -- the interaction is free if choosing
+    local payed = slot.m_state == SlotState.CHOICE
+    return payed, not payed
+end
+
+---@type Slot.Switch.PlayerInteraction
+local function ShellGame_PlayerInteraction(slot, ctx, player, collider)
+    local isSelecting = slot.m_state == SlotState.CHOICE
+        and slot.m_sprite:IsPlaying()
+
+    if isSelecting then
+        local delta = collider.m_position.X - slot.m_position.X
+        local selectedShell = 1 -- center
+
+        if delta < -20.0 then
+            selectedShell = 0 -- left
+        elseif delta > 20.0 then
+            selectedShell = 2 -- right
+        end
+
+        slot.m_shellGame_shellIndex = selectedShell
+        slot.m_state = SlotState.REWARD_SHELL_GAME
+        return
+    end
+
+    local isIdle = slot.m_state == SlotState.IDLE
+    if not isIdle then
+        return
+    end
+
+    -- play
+    local mySprite = slot.m_sprite
+    local prizeSprite = slot.m_shellGame_prizeSprite
+    local myRng = slot.m_dropRNG
+
+    mySprite:Play(ANIMATION_PAY_SHUFFLE, false)
+    prizeSprite:Play(PRIZE_ANIMATION_DEFAULT, true)
+
+    if slot.m_variant == SlotVariant.HELL_GAME then
+        local prizeIdx = myRng:RandomInt(#HELL_GAME_PRIZE_POOL) + 1
+        local collectiblePrize = myRng:RandomInt(13) == 0
+
+        local prizeType = collectiblePrize
+            and PickupVariant.PICKUP_COLLECTIBLE
+            or HELL_GAME_PRIZE_POOL[prizeIdx]
+
+        slot.m_prizeType = prizeType
+        local layers = prizeSprite:GetAllLayers()
+        for i = 1, #layers, 1 do
+            local layerPrize = HELL_GAME_LAYER_TO_PRIZE[i]
+            local isVisible = prizeType == layerPrize
+                or layerPrize == true -- always visible
+
+            layers[i]:SetVisible(isVisible)
+        end
+
+        if prizeType == PickupVariant.PICKUP_COLLECTIBLE then
+            local itemPool = ctx.game.m_itemPool
+            local pool = IItemPool.GetPoolForRoom(itemPool, ctx, RoomType.ROOM_DEVIL, slot.m_initSeed)
+            local flags = eGetCollectibleFlag.NO_DECREASE
+            local collectible = IItemPool.GetCollectible(itemPool, ctx, pool, slot.m_initSeed, flags, CollectibleType.COLLECTIBLE_DEMON_BABY)
+
+            IEntitySlot.SetPrizeCollectible(ctx, slot, collectible)
+        end
+    else
+        local prizeIdx = myRng:RandomInt(#SHELL_GAME_PRIZE_POOL) + 1
+        local collectiblePrize = myRng:RandomInt(13) == 0
+            and IItemPool.CanSpawnCollectible(ctx.game.m_itemPool, ctx, CollectibleType.COLLECTIBLE_SKATOLE, 0)
+
+        local prizeType = collectiblePrize
+            and PickupVariant.PICKUP_COLLECTIBLE
+            or SHELL_GAME_PRIZE_POOL[prizeIdx]
+
+        local heartBlock = prizeType == PickupVariant.PICKUP_HEART
+            and IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+            and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL))
+
+        if heartBlock then
+            prizeIdx = myRng:RandomInt(3) + 1
+            prizeType = SHELL_GAME_PRIZE_POOL[prizeIdx]
+        else
+            myRng:Next() -- make seed match regardless
+        end
+
+        slot.m_prizeType = prizeType
+        local layers = prizeSprite:GetAllLayers()
+        for i = 1, #layers, 1 do
+            local layerPrize = SHELL_GAME_LAYER_TO_PRIZE[i]
+            local isVisible = prizeType == layerPrize
+                or layerPrize == true -- always visible
+
+            layers[i]:SetVisible(isVisible)
+        end
+    end
+
+    slot.m_state = SlotState.CHOICE
+    IPersistentGameData.IncreaseEventCounter(ctx.manager.m_persistentGameData, ctx, EventCounter.SHELLGAMES_PLAYED, 1)
+    IManager.PlaySound(ctx, SOUND_PAY, 1.0, 2, false, 1.0)
+end
+
+local ShellGame_OnDestroy = SlotLib.Beggar_Destroy
+
 ---@class Actor.ShellGame
 local Module = {}
 
@@ -218,6 +376,10 @@ Module.Init = ShellGame_Init
 Module.UpdatePrize = ShellGame_UpdatePrize
 Module.PostUpdate = ShellGame_PostUpdate
 Module.PostRender = ShellGame_PostRender
+Module.ShellGame_PaySlot = ShellGame_PaySlot
+Module.HellGame_PaySlot = HellGame_PaySlot
+Module.PlayerInteraction = ShellGame_PlayerInteraction
+Module.OnDestroy = ShellGame_OnDestroy
 
 --#endregion
 
