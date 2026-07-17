@@ -94,7 +94,7 @@ local function handle_player_collision(slot, ctx, collider, isForced)
     local variant = slot.m_variant
 
     if variant == SlotVariant.MOMS_DRESSING_TABLE then
-        Actor_MomsDressingTable.HandlePlayerCollision()
+        Actor_MomsDressingTable.CustomHandlePlayerCollision(slot, ctx, collider)
         return
     end
 

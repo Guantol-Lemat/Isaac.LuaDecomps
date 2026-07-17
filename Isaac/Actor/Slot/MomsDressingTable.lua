@@ -65,7 +65,7 @@ end
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
-local function MomsDressingTable_HandlePlayerCollision(slot, ctx, player)
+local function MomsDressingTable_CustomHandlePlayerCollision(slot, ctx, player)
     local canInteract = player.m_variant == PlayerVariant.PLAYER
         and slot.m_state ~= SlotState.DESTROYED
         and not slot.m_sprite:IsPlaying()
@@ -88,7 +88,7 @@ local Module = {}
 
 Module.Init = MomsDressingTable_Init
 Module.PreUpdate = MomsDressingTable_PreUpdate
-Module.HandlePlayerCollision = MomsDressingTable_HandlePlayerCollision
+Module.CustomHandlePlayerCollision = MomsDressingTable_CustomHandlePlayerCollision
 Module.OnDestroy = MomsDressingTable_OnDestroy
 
 --#endregion
