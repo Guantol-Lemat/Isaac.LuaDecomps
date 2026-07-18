@@ -6,6 +6,7 @@ local IGame = require("Isaac.Interface.Game")
 local ILevel = require("Isaac.Interface.Level")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
+local IEntityNPC = require("Isaac.Interface.Entity_NPC")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
@@ -28,7 +29,7 @@ local SOUND_PAY = SoundEffect.SOUND_TEARIMPACTS
 ---@param collectible CollectibleType | integer
 ---@param seed integer
 local function award_collectible(slot, ctx, collectible, seed)
-    local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+    local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
     IGame.Spawn(
         ctx, ctx.game,
         EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
@@ -119,6 +120,12 @@ local function DevilBeggar_OnDestroy(slot, ctx)
     ILevel.SetStateFlag(level, LevelStateFlag.STATE_EVIL_BUM_KILLED, true)
 end
 
+---@type Slot.Switch.CustomExplosionDrops
+local function DevilBeggar_CustomExplosionDrops(slot, ctx)
+    IEntityNPC.ThrowSpider(ctx, slot.m_position, slot, VECTOR_ZERO, false, -30.0)
+    IEntityNPC.ThrowSpider(ctx, slot.m_position, slot, VECTOR_ZERO, false, -30.0)
+end
+
 ---@class Actor.DevilBeggar
 local Module = {}
 
@@ -128,6 +135,7 @@ Module.UpdatePrize = DevilBeggar_UpdatePrize
 Module.PaySlot = DevilBeggar_PaySlot
 Module.PlayerInteraction = DevilBeggar_PlayerInteraction
 Module.OnDestroy = DevilBeggar_OnDestroy
+Module.CustomExplosionDrops = DevilBeggar_CustomExplosionDrops
 
 --#endregion
 

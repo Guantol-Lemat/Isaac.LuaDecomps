@@ -7,37 +7,15 @@ local SlotUpdate = require("Isaac.Gameplay.Slot.SlotUpdate")
 local SlotRender = require("Isaac.Gameplay.Slot.SlotRender")
 local SlotCollision = require("Isaac.Gameplay.Slot.SlotCollision")
 local SlotDamage = require("Isaac.Gameplay.Slot.SlotDamage")
-
---#region Stub
-
-local Stub = {}
-
----@return string
-function Stub.RandomCoinJamAnim() end
-
----@param ctx Context.Common
----@param slot Component.Entity.Slot
-function Stub.CreateDropsFromExplosion(ctx, slot) end
-
----@param ctx Context.Common
----@param slot Component.Entity.Slot
----@return Vector
-function Stub.get_collectible_spawn_pos(ctx, slot) end
-
----@param ctx Context.Common
----@param slot Component.Entity.Slot
----@param Collectible CollectibleType | integer
-function Stub.SetPrizeCollectible(ctx, slot, Collectible) end
-
---endregion
+local SlotMisc = require("Isaac.Gameplay.Slot.SlotMisc")
 
 Interface.New = SlotComponent.New
-Interface.RandomCoinJamAnim = Stub.RandomCoinJamAnim
+Interface.RandomCoinJamAnim = SlotMisc.RandomCoinJamAnim
 Interface.Init = SlotInit.Init
 Interface.Update = SlotUpdate.Update
 Interface.handle_collision = SlotCollision.HandleCollision
-Interface.CreateDropsFromExplosion = Stub.CreateDropsFromExplosion
+Interface.CreateDropsFromExplosion = SlotMisc.CreateDropsFromExplosion
 Interface.TakeDamage = SlotDamage.TakeDamage
 Interface.Render = SlotRender.Render
-Interface.get_collectible_spawn_pos = Stub.get_collectible_spawn_pos
-Interface.SetPrizeCollectible = Stub.SetPrizeCollectible
+Interface.get_collectible_spawn_pos = SlotMisc.GetCollectibleSpawnPosition
+Interface.SetPrizeCollectible = SlotMisc.SetPrizeCollectible

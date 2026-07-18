@@ -2,6 +2,8 @@
 
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
+local ILevel = require("Isaac.Interface.Level")
+local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
@@ -19,6 +21,8 @@ local ANIMATION_REGENERATE = "Regenerate"
 local ANIMATION_OUT_OF_PRIZES = "OutOfPrizes"
 local ANIMATION_COIN_INSERT = "CoinInsert"
 
+local LAYER_COLLECTIBLE = 2
+
 local EVENT_PRIZE = "Prize"
 local EVENT_EXPLOSION = "Explosion"
 
@@ -34,7 +38,7 @@ local STATE_OUT_OF_PRIZES = 4
 local function CraneGame_PreUpdate(slot, ctx)
     if slot.m_state ~= SlotState.DESTROYED and slot.m_prizeCollectible == CollectibleType.COLLECTIBLE_NULL then
         local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_CRANE_GAME, slot.m_dropRNG:GetSeed(), 0, CollectibleType.COLLECTIBLE_BUDDY_IN_A_BOX)
-        IEntitySlot.SetPrizeCollectible(ctx, slot, collectible)
+        IEntitySlot.SetPrizeCollectible(slot, ctx, collectible)
     end
 end
 
@@ -64,7 +68,7 @@ local function CraneGame_UpdateTimeoutPrize(slot, ctx)
     local event_spawnPrize = mySprite:IsEventTriggered(EVENT_PRIZE)
     if event_spawnPrize then
         local seed = myRng:Next()
-        local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+        local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
 
         local collectible = IGame.Spawn(
             ctx, ctx.game,
@@ -86,7 +90,7 @@ local function CraneGame_UpdateTimeoutPrize(slot, ctx)
             0, IsaacUtils.Random()
         )
 
-        IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+        IEntitySlot.CreateDropsFromExplosion(slot, ctx)
         slot.m_state = SlotState.DESTROYED
         mySprite:Play(ANIMATION_DEATH, false)
     end
@@ -104,7 +108,7 @@ local function CraneGame_UpdateTimeoutPrize(slot, ctx)
             local itemPool = ctx.game.m_itemPool
             local seed = myRng:GetSeed()
             local collectible = IItemPool.GetCollectible(itemPool, ctx, ItemPoolType.POOL_CRANE_GAME, seed, 0, CollectibleType.COLLECTIBLE_BUDDY_IN_A_BOX)
-            IEntitySlot.SetPrizeCollectible(ctx, slot, collectible)
+            IEntitySlot.SetPrizeCollectible(slot, ctx, collectible)
             mySprite:Play(ANIMATION_REGENERATE, false)
         end
     end
@@ -127,6 +131,15 @@ local function CraneGame_PlayerInteraction(slot, ctx)
     slot.m_sprite:PlayOverlay(ANIMATION_COIN_INSERT, true)
 end
 
+---@type Slot.Switch.OnSetPrizeCollectible
+local function CraneGame_OnSetPrizeCollectible(slot, ctx, collectible)
+    local prizeSprite = slot.m_sprite
+
+    local curseOfBlind = ILevel.GetCurses(ctx, ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
+    IEntityPickup.SetupCollectibleGraphics(ctx, prizeSprite, LAYER_COLLECTIBLE, collectible, slot.m_dropRNG:GetSeed(), curseOfBlind)
+    prizeSprite:LoadGraphics()
+end
+
 ---@class Actor.CraneGame
 local Module = {}
 
@@ -137,6 +150,7 @@ Module.UpdateTimeoutPrize = CraneGame_UpdateTimeoutPrize
 Module.UpdatePrize = CraneGame_UpdatePrize
 Module.PaySlot = CraneGame_PaySlot
 Module.PlayerInteraction = CraneGame_PlayerInteraction
+Module.OnSetPrizeCollectible = CraneGame_OnSetPrizeCollectible
 
 --#endregion
 

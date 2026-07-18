@@ -97,7 +97,7 @@ local function TakeDamage(slot, ctx, damage, flags, source, damageCountdown)
     local OnDestroy = Switch_OnDestroy[variant]
     if OnDestroy then OnDestroy(slot, ctx, damage, flags, source, damageCountdown) end
 
-    IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+    IEntitySlot.CreateDropsFromExplosion(slot, ctx)
     return true
 end
 

@@ -7,7 +7,7 @@ local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
@@ -66,7 +66,7 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
             0, IsaacUtils.Random()
         )
 
-        IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+        IEntitySlot.CreateDropsFromExplosion(slot, ctx)
         mySprite:Play(ANIMATION_DEATH, false)
         slot.m_state = SlotState.DESTROYED
 
@@ -109,7 +109,7 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
 
     local soulHeartPrize = myRng:RandomInt(3) == 0
         and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-        and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
+        and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if soulHeartPrize then
         local velocity = IEntityPickup.get_random_pickup_velocity(ctx, slot.m_position, ePickVelType.SLOT, extraRng)

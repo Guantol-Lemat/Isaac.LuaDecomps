@@ -9,6 +9,7 @@ local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IsaacUtils = require("Isaac.Utils.Common")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 
 --#endregion
 
@@ -186,6 +187,40 @@ local function BloodDonationMachine_OnDestroy(slot, ctx)
     end
 end
 
+---@type Slot.Switch.CustomExplosionDrops
+local function BloodDonationMachine_CustomExplosionDrops(slot, ctx, closure)
+    local myRng = slot.m_dropRNG
+    local velocityRng = closure.extraRng
+    local daemonsTailRng = closure.daemonsTailRng
+
+    local dropCount = myRng:RandomInt(2) + 1
+    for i = 1, dropCount, 1 do
+        local heartDrop = myRng:RandomInt(2) ~= 0
+            and not (daemonsTailRng and PlayerEffects.TryDaemonsTailBlock(daemonsTailRng))
+
+        if heartDrop then
+            local velocity = IEntityPickup.get_random_pickup_velocity(ctx, slot.m_position, ePickVelType.SLOT, velocityRng)
+            IGame.Spawn(
+                ctx, ctx.game,
+                EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART,
+                slot.m_position, velocity, nil,
+                0, myRng:Next()
+            )
+        else -- coinsDrop
+            local coinCount = myRng:RandomInt(4) + 1
+            for j = 1, coinCount, 1 do
+                local velocity = IEntityPickup.get_random_pickup_velocity(ctx, slot.m_position, ePickVelType.SLOT, velocityRng)
+                IGame.Spawn(
+                    ctx, ctx.game,
+                    EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+                    slot.m_position, velocity, nil,
+                    0, myRng:Next()
+                )
+            end
+        end
+    end
+end
+
 ---@class Actor.BloodDonationMachine
 local Module = {}
 
@@ -195,6 +230,7 @@ Module.UpdatePrize = BloodDonationMachine_UpdatePrize
 Module.PaySlot = BloodDonationMachine_PaySlot
 Module.PlayerInteraction = BloodDonationMachine_PlayerInteraction
 Module.OnDestroy = BloodDonationMachine_OnDestroy
+Module.CustomExplosionDrops = BloodDonationMachine_CustomExplosionDrops
 
 --#endregion
 

@@ -155,16 +155,16 @@ function Stub.AddBibleUpgrade(itemPool, Add, PoolType) end
 ---@return integer
 function Stub.get_chaos_pool(itemPool, ctx, rng) end
 
+--- one of the args is length, however given how lua arrays work, this is unnecessary
 ---@param itemPool Component.ItemPool
 ---@param ctx Context.Common
 ---@param list (CollectibleType | integer)[]
----@param length integer
 ---@param seed integer
 ---@param defaultItem CollectibleType | integer
 ---@param addToBlacklist boolean
 ---@param excludeLockedItems boolean
 ---@return CollectibleType | integer
-function Stub.GetCollectibleFromList(itemPool, ctx, list, length, seed, defaultItem, addToBlacklist, excludeLockedItems) end
+function Stub.GetCollectibleFromList(itemPool, ctx, list, seed, defaultItem, addToBlacklist, excludeLockedItems) end
 
 ---@param itemPool Component.ItemPool
 ---@param ctx Context.Common

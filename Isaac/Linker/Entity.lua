@@ -729,7 +729,7 @@ function Stub.SetColor(entity, color, Duration, Priority, Fadeout, Shared) end
 ---@param count integer
 ---@param flags GibFlag | integer
 ---@param offsetMult_qqq number
----@param spawner Component.Entity
+---@param spawner Component.Entity?
 ---@param color Color
 ---@param velocity Vector
 ---@param velocityMult_qqq number

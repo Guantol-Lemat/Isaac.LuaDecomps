@@ -23,10 +23,9 @@ local Actor_HomeClosetPlayer = require("Isaac.Actor.Slot.HomeClosetPlayer")
 local Actor_CraneGame = require("Isaac.Actor.Slot.CraneGame")
 local Actor_Confessional = require("Isaac.Actor.Slot.Confessional")
 local Actor_RottenBeggar = require("Isaac.Actor.Slot.RottenBeggar")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 
 --#endregion
-
-local SOUND_BETH_ESSENCE_WISP_SPAWN = SoundEffect.SOUND_CANDLE_LIGHT
 
 ---@alias Slot.Switch.PaySlot fun(slot: Component.Entity.Slot, ctx: Context.Common, player: Component.Entity.Player): boolean, boolean?
 ---@alias Slot.Switch.PlayerInteraction fun(slot: Component.Entity.Slot, ctx: Context.Common, player: Component.Entity.Player, collider: Component.Entity.Player)
@@ -138,34 +137,8 @@ local function handle_player_collision(slot, ctx, collider, isForced)
 
     IEntity.SetTarget(slot, target)
 
-    local bethsEssenceMultiplier = SlotUtils.IsBeggar(variant)
-        and IEntityPlayer.GetTrinketMultiplier(ctx, target, TrinketType.TRINKET_BETHS_ESSENCE)
-        or 0
-
-    if bethsEssenceMultiplier > 0 then
-        local bethsEssence_rng = IEntityPlayer.GetTrinketRNG(target, TrinketType.TRINKET_BETHS_ESSENCE)
-        local bethsEssence_triggered = bethsEssence_rng:RandomInt(4) == 0
-
-        if bethsEssence_triggered then
-            local itemConfig = ctx.manager.m_itemConfig
-            local collectibles = itemConfig.m_collectibleList
-            local collectible = bethsEssence_rng:RandomInt(#collectibles - 1) + 1
-
-            local collectibleConfig = IItemConfig.GetCollectible(itemConfig, ctx, collectible)
-            local isValidWisp = collectibleConfig
-                and IItemConfig.IsValidCollectible(ctx, collectible)
-                and collectibleConfig.m_itemType == ItemType.ITEM_ACTIVE
-                and collectibleConfig.m_wispConfig
-                and collectibleConfig.m_wispConfig.m_count > 0
-
-            if not isValidWisp then
-                collectibleConfig = IItemConfig.GetCollectible(itemConfig, ctx, CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
-            end
-
-            ---@cast collectibleConfig Component.ItemConfig.Item
-            IEntityPlayer.AddWisp(ctx, target, collectibleConfig.m_id, slot.m_position, true, false)
-            IManager.PlaySound(ctx, SOUND_BETH_ESSENCE_WISP_SPAWN, 1.0, 2, false, 1.0)
-        end
+    if SlotUtils.IsBeggar(variant) then
+        PlayerEffects.BethsEssence_OnBeggarPay(target, ctx, slot)
     end
 
     local PlayerInteraction = Switch_PlayerInteraction[slot.m_variant] or PlayerInteraction_default

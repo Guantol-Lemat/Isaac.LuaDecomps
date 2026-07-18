@@ -158,7 +158,8 @@ local function Beggar_PlayerInteraction(slot, ctx, player, interactSound, GetTar
     Beggar_SetupPrize(slot)
 end
 
----@type Slot.Switch.OnDestroy
+---@param slot Component.Entity.Slot
+---@param ctx Context.Common
 local function Beggar_Destroy(slot, ctx)
     local bloodExplode = IGame.Spawn(
         ctx, ctx.game,

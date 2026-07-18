@@ -9,7 +9,7 @@ local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IHud = require("Isaac.Interface.HUD")
 local IsaacUtils = require("Isaac.Utils.Common")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
@@ -45,7 +45,7 @@ local function give_prize(slot, ctx, player)
             0, IsaacUtils.Random()
         )
 
-        IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+        IEntitySlot.CreateDropsFromExplosion(slot, ctx)
         slot.m_sprite:Play(ANIMATION_DEATH, false)
         slot.m_state = SlotState.DESTROYED
         return
@@ -101,7 +101,7 @@ local function give_prize(slot, ctx, player)
 
     local addSoulHearts = myRng:RandomInt(2) == 0
         and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-        and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
+        and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if addSoulHearts then
         IEntityPlayer.AddSoulHearts(ctx, player, 2)
@@ -112,7 +112,7 @@ local function give_prize(slot, ctx, player)
 
     local addEternalHeart = myRng:RandomInt(16) == 0
         and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-        and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
+        and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if addEternalHeart then
         IEntityPlayer.AddEternalHearts(ctx, player, 1)

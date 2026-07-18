@@ -4,13 +4,15 @@ local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
+local ILevel = require("Isaac.Interface.Level")
 local IRoom = require("Isaac.Interface.Room")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
+local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IEntityNPC = require("Isaac.Interface.Entity_NPC")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
@@ -70,6 +72,8 @@ local HELL_GAME_LAYER_TO_PRIZE = {
     [6 + 1] = PickupVariant.PICKUP_TAROTCARD,
     [7 + 1] = PickupVariant.PICKUP_COLLECTIBLE,
 }
+
+local LAYER_COLLECTIBLE = 7
 
 ---@param slot Component.Entity.Slot
 ---@return Vector
@@ -156,7 +160,7 @@ local function award_prize(slot, ctx, player)
     if prizeType == PickupVariant.PICKUP_COLLECTIBLE then
         if slot.m_variant == SlotVariant.HELL_GAME then
             local game = ctx.game
-            local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+            local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
             local collectible = slot.m_prizeCollectible
 
             IGame.Spawn(
@@ -168,7 +172,7 @@ local function award_prize(slot, ctx, player)
 
             IItemPool.RemoveCollectible(game.m_itemPool, ctx, collectible, false, false)
         else
-            local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+            local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
             IGame.Spawn(
                 ctx, ctx.game,
                 EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
@@ -327,7 +331,7 @@ local function ShellGame_PlayerInteraction(slot, ctx, player, collider)
             local flags = eGetCollectibleFlag.NO_DECREASE
             local collectible = IItemPool.GetCollectible(itemPool, ctx, pool, slot.m_initSeed, flags, CollectibleType.COLLECTIBLE_DEMON_BABY)
 
-            IEntitySlot.SetPrizeCollectible(ctx, slot, collectible)
+            IEntitySlot.SetPrizeCollectible(slot, ctx, collectible)
         end
     else
         local prizeIdx = myRng:RandomInt(#SHELL_GAME_PRIZE_POOL) + 1
@@ -340,7 +344,7 @@ local function ShellGame_PlayerInteraction(slot, ctx, player, collider)
 
         local heartBlock = prizeType == PickupVariant.PICKUP_HEART
             and IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-            and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL))
+            and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL))
 
         if heartBlock then
             prizeIdx = myRng:RandomInt(3) + 1
@@ -367,6 +371,21 @@ end
 
 local ShellGame_OnDestroy = SlotLib.Beggar_Destroy
 
+---@type Slot.Switch.OnSetPrizeCollectible
+local function HellGame_OnSetPrizeCollectible(slot, ctx, collectible)
+    local prizeSprite = slot.m_shellGame_prizeSprite
+
+    local curseOfBlind = ILevel.GetCurses(ctx, ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
+    IEntityPickup.SetupCollectibleGraphics(ctx, prizeSprite, LAYER_COLLECTIBLE, collectible, slot.m_dropRNG:GetSeed(), curseOfBlind)
+    prizeSprite:LoadGraphics()
+end
+
+---@type Slot.Switch.CustomExplosionDrops
+local function HellGame_CustomExplosionDrops(slot, ctx)
+    IEntityNPC.ThrowSpider(ctx, slot.m_position, slot, VECTOR_ZERO, false, -30.0)
+    IEntityNPC.ThrowSpider(ctx, slot.m_position, slot, VECTOR_ZERO, false, -30.0)
+end
+
 ---@class Actor.ShellGame
 local Module = {}
 
@@ -380,6 +399,8 @@ Module.ShellGame_PaySlot = ShellGame_PaySlot
 Module.HellGame_PaySlot = HellGame_PaySlot
 Module.PlayerInteraction = ShellGame_PlayerInteraction
 Module.OnDestroy = ShellGame_OnDestroy
+Module.HellGame_OnSetPrizeCollectible = HellGame_OnSetPrizeCollectible
+Module.HellGame_CustomExplosionDrops = HellGame_CustomExplosionDrops
 
 --#endregion
 

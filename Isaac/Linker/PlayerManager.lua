@@ -14,11 +14,11 @@ function Stub.GetPlayer(playerManager, idx) end
 ---@return integer
 function Stub.GetNumPlayers(playerManager) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param id TrinketType | integer
 ---@return boolean
-function Stub.AnyoneHasTrinket(ctx, playerManager, id) end
+function Stub.AnyoneHasTrinket(playerManager, ctx, id) end
 
 ---@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
@@ -187,13 +187,13 @@ function Stub.RandomCollectibleOwner(ctx, playerManager, CollectibleType, Seed, 
 ---@return Component.Entity.Player
 function Stub.FirstTrinketOwner(ctx, playerManager, trinket, rng, checkLazSharedGlobal) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param id TrinketType | integer
 ---@param seed integer
----@param retRNG RNG
----@return Component.Entity.Player
-function Stub.RandomTrinketOwner(ctx, playerManager, id, seed, retRNG) end
+---@return Component.Entity.Player?
+---@return RNG?
+function Stub.RandomTrinketOwner(playerManager, ctx, id, seed, retRNG) end
 
 ---@param playerManager Component.PlayerManager
 ---@param Form PlayerForm | integer

@@ -9,7 +9,7 @@ local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
@@ -31,7 +31,7 @@ local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 ---@param collectible CollectibleType | integer
 ---@param seed integer
 local function award_collectible(slot, ctx, collectible, seed)
-    local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+    local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
     IGame.Spawn(
         ctx, ctx.game,
         EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
@@ -67,7 +67,7 @@ local function Beggar_UpdatePrize(slot, ctx, player, extraRng)
 
         local heartPrize = myRng:RandomInt(3) == 0
             and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-            and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
+            and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
         if heartPrize then
             IGame.Spawn(

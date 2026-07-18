@@ -1,13 +1,17 @@
 --#region Dependencies
 
+local Enums = require("General.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
 local IRoom = require("Isaac.Interface.Room")
+local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IsaacUtils = require("Isaac.Utils.Common")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
+
+local ePickVelType = Enums.ePickVelType
 
 local VECTOR_ZERO = Vector(0, 0)
 
@@ -70,7 +74,7 @@ local function ShopRestockMachine_HandleRestock(slot, ctx)
         0, IsaacUtils.Random()
     )
 
-    IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+    IEntitySlot.CreateDropsFromExplosion(slot, ctx)
     slot.m_state = 3
     slot.m_sprite:Play(ANIMATION_DEATH, false)
 end
@@ -123,7 +127,7 @@ local function ShopRestockMachine_UpdatePrize(slot, ctx, player, extraRng)
             0, IsaacUtils.Random()
         )
 
-        IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+        IEntitySlot.CreateDropsFromExplosion(slot, ctx)
         slot.m_state = 3
         slot.m_sprite:Play(ANIMATION_DEATH, false)
     end
@@ -167,9 +171,26 @@ local function ShopRestockMachine_CustomDestroy(slot, ctx)
         0, IsaacUtils.Random()
     )
 
-    IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+    IEntitySlot.CreateDropsFromExplosion(slot, ctx)
     slot.m_state = SlotState.DESTROYED
     slot.m_sprite:Play(ANIMATION_DEATH, false)
+end
+
+---@type Slot.Switch.CustomExplosionDrops
+local function ShopRestockMachine_CustomExplosionDrops(slot, ctx, closure)
+    local myRng = slot.m_dropRNG
+    local velocityRng = closure.extraRng
+    local coinCount = myRng:RandomInt(4)
+
+    for i = 1, coinCount, 1 do
+        local velocity = IEntityPickup.get_random_pickup_velocity(ctx, slot.m_position, ePickVelType.SLOT, velocityRng)
+        IGame.Spawn(
+            ctx, ctx.game,
+            EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+            slot.m_position, velocity, nil,
+            0, myRng:Next()
+        )
+    end
 end
 
 ---@class Actor.ShopRestockMachine
@@ -183,6 +204,7 @@ Module.UpdatePrize = ShopRestockMachine_UpdatePrize
 Module.PaySlot = ShopRestockMachine_PaySlot
 Module.PlayerInteraction = ShopRestockMachine_PlayerInteraction
 Module.CustomDestroy = ShopRestockMachine_CustomDestroy
+Module.CustomExplosionDrops = ShopRestockMachine_CustomExplosionDrops
 
 --#endregion
 

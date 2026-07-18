@@ -9,7 +9,7 @@ local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IEntitySlot = require("Isaac.Interface.Entity_Slot")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local IsaacUtils = require("Isaac.Utils.Common")
-local PickupUtils = require("Isaac.Gameplay.Pickup.PickupUtils")
+local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 local SlotLib = require("Isaac.Actor.Lib.Slot")
 
 --#endregion
@@ -108,7 +108,7 @@ local function BombBum_UpdatePrize(slot, ctx, player, extraRng)
         local collectibleSeed = myRng:Next()
 
         local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_BOMB_BUM, collectibleSeed, 0, CollectibleType.COLLECTIBLE_NULL)
-        local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+        local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
         IGame.Spawn(
             ctx, ctx.game,
             EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
@@ -126,7 +126,7 @@ local function BombBum_UpdatePrize(slot, ctx, player, extraRng)
     -- other pickup prizes
     local heartPrize = prizeType == PRIZE_HEART
         and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
-        and PickupUtils.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
+        and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     local pickupVariant = heartPrize and PickupVariant.PICKUP_HEART or PickupVariant.PICKUP_COIN
     local pickupCount = heartPrize and 1 or myRng:RandomInt(3) + 1

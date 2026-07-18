@@ -243,7 +243,7 @@ local function SlotMachine_TrySetPrize(slot, ctx, player)
             0, IsaacUtils.Random()
         )
 
-        IEntitySlot.CreateDropsFromExplosion(ctx, slot)
+        IEntitySlot.CreateDropsFromExplosion(slot, ctx)
         slot.m_state = SlotState.DESTROYED
         mySprite:Play(ANIMATION_DEATH)
 

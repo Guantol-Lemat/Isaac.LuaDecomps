@@ -72,7 +72,7 @@ local function BatteryBum_UpdatePrize(slot, ctx, player, extraRng)
         local collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_BATTERY_BUM, collectibleSeed, 0, CollectibleType.COLLECTIBLE_BATTERY_PACK)
 
         local seed = myRng:Next()
-        local position = IEntitySlot.get_collectible_spawn_pos(ctx, slot)
+        local position = IEntitySlot.get_collectible_spawn_pos(slot, ctx)
         IGame.Spawn(
             ctx, ctx.game,
             EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,

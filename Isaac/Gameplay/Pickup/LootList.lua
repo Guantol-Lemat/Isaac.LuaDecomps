@@ -197,7 +197,7 @@ local function Chest_get_pickups_loot(ctx, isLocked, outcome)
             )
         end
 
-        if IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_LUCKY_TOE) then
+        if IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_LUCKY_TOE) then
             lootCount = lootCount + 1
         end
     end
@@ -206,7 +206,7 @@ local function Chest_get_pickups_loot(ctx, isLocked, outcome)
         lootCount = lootCount * 2
     end
 
-    if IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_POKER_CHIP) then
+    if IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_POKER_CHIP) then
         local pokerChip_rng = RNG(rng:GetSeed(), 7)
         if pokerChip_rng:RandomInt(2) == 0 then
             lootCount = lootCount * 2
@@ -371,7 +371,7 @@ local function Chest_get_loot_list(ctx)
         return
     end
 
-    local gildedKeyList = chest_isLocked and IPlayerManager.AnyoneHasTrinket(ctx, ctx_game.m_playerManager, TrinketType.TRINKET_GILDED_KEY)
+    local gildedKeyList = chest_isLocked and IPlayerManager.AnyoneHasTrinket(ctx_game.m_playerManager, ctx, TrinketType.TRINKET_GILDED_KEY)
 
     -- build weighted outcome picker
     local wop = WeightedOutcomePicker()
@@ -547,7 +547,7 @@ local function WoodenChest_get_loot_list(ctx)
                 )
             end
 
-            if IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_LUCKY_TOE) then
+            if IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_LUCKY_TOE) then
                 lootCount = lootCount + 1
             end
         end
@@ -557,7 +557,7 @@ local function WoodenChest_get_loot_list(ctx)
         lootCount = lootCount * 2
     end
 
-    if IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_POKER_CHIP) then
+    if IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_POKER_CHIP) then
         local pokerChip_rng = RNG(rng:GetSeed(), 7)
         if pokerChip_rng:RandomInt(2) == 0 then
             lootCount = lootCount * 2
@@ -924,27 +924,27 @@ local function GetLootList(ctx, pickup, shouldAdvance)
     ---@type RNG?
     local rustedKey_rng = RNG(seed, 6)
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_DAEMONS_TAIL) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_DAEMONS_TAIL) then
         daemonsTail_rng = nil
     end
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_ACE_SPADES) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_ACE_SPADES) then
         aceSpades_rng = nil
     end
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_SAFETY_CAP) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_SAFETY_CAP) then
         safetyCap_rng = nil
     end
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_MATCH_STICK) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_MATCH_STICK) then
         matchStick_rng = nil
     end
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_CHILDS_HEART) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_CHILDS_HEART) then
         childsHeart_rng = nil
     end
 
-    if not IPlayerManager.AnyoneHasTrinket(ctx, ctx_playerManager, TrinketType.TRINKET_RUSTED_KEY) then
+    if not IPlayerManager.AnyoneHasTrinket(ctx_playerManager, ctx, TrinketType.TRINKET_RUSTED_KEY) then
         rustedKey_rng = nil
     end
 
