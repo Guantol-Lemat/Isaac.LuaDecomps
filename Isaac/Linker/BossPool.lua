@@ -52,7 +52,7 @@ function Stub.StoreGameState(bossPool, param_1) end
 ---@param bossPool Component.BossPool
 function Stub.UnkBossPoolMethod(bossPool) end
 
---endregion
+--#endregion
 
 Interface.WasBossRemoved = Stub.WasBossRemoved
 Interface.destructor = Stub.destructor

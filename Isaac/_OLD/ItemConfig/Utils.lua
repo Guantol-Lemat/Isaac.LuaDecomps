@@ -28,7 +28,7 @@ end
 
 ---@param itemConfig Component.ItemConfig.Item
 ---@param cardId Card | integer
----@return Component.CardConfig
+---@return Component.ItemConfig.Card
 local function GetCard(itemConfig, cardId)
     return itemConfig.m_cardList[cardId + 1]
 end

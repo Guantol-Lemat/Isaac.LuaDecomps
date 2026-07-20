@@ -29,3 +29,29 @@
 ---@field m_removeOn number : 0x10
 ---@field m_isUnlocked boolean : 0x14
 ---@field m_isSpecial boolean : 0x15
+
+---@class Component.ItemPool.TrinketPoolItem
+---@field m_ID TrinketType | integer : 0x0
+---@field m_inPool boolean : 0x4
+---@field m_isAvailable boolean : 0x5
+
+---@return Component.ItemPool.TrinketPoolItem
+local function TrinketPoolItem_New()
+    ---@type Component.ItemPool.TrinketPoolItem
+    return {
+        m_ID = 0,
+        m_inPool = false,
+        m_isAvailable = false
+    }
+end
+
+---@class Module.ItemPoolComponent
+local Module = {}
+
+--#region Module
+
+Module.TrinketPoolItem_New = TrinketPoolItem_New
+
+--#endregion
+
+return Module

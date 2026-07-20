@@ -54,7 +54,7 @@ function Stub.PreLanguageSwitch(pauseScreen) end
 ---@param ctx Context.Common
 function Stub.PostLanguageSwitch(pauseScreen, ctx) end
 
---endregion
+--#endregion
 
 Interface.Destructor = Stub.Destructor
 Interface.GetPlayer = Stub.GetPlayer

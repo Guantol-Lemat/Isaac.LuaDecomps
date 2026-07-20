@@ -1,8 +1,16 @@
 ---@class Interface.ItemConfig
 local Interface = require("Isaac.Interface.ItemConfig")
 
+---@class Interface.ItemConfig.Item
+local Interface_Item = Interface.Item
+
+---@class Interface.ItemConfig.Card
+local Interface_Card = Interface.Card
+
 ---@class Interface.ItemConfig.PillEffect
 local Interface_PillEffect = Interface.PillEffect
+
+local AvailableLogic = require("Isaac.Gameplay.ItemConfig.AvailableLogic")
 
 --#region Stub
 
@@ -164,18 +172,93 @@ function Stub.ShouldAddCostumeOnPickup(Item) end
 ---@return integer
 function Stub.lua_get_item_id(itemConfig, item) end
 
---endregion
+--#endregion
 
---region PillEffect Stub
+--#region Stub
 
-local Stub_PillEffect = {}
+local Stub_Item = {}
 
----@param pillEffect Component.ItemConfig.PillEffect
----@param ctx Context.Common
+---@param item Component.ItemConfig.Item
 ---@return boolean
-function Stub_PillEffect.IsAvailable(pillEffect, ctx) end
+function Stub_Item.IsCollectible(item) end
 
---endregion
+---@param item Component.ItemConfig.Item
+---@param tags integer
+---@return boolean
+function Stub_Item.HasTags(item, tags) end
+
+---@param item Component.ItemConfig.Item
+---@return boolean
+function Stub_Item.IsTrinket(item) end
+
+---@return Component.ItemConfig.Item
+function Stub_Item.constructor() end
+
+---@param item Component.ItemConfig.Item
+---@return boolean
+function Stub_Item.IsNull(item) end
+
+---@param item Component.ItemConfig.Item
+---@return unknown
+function Stub_Item.destructor(item) end
+
+---@param item Component.ItemConfig.Item
+---@param ctx Context.Common
+---@param param_2 integer
+---@return string
+function Stub_Item.GetDisplayName(item, ctx, param_2) end
+
+---@param item Component.ItemConfig.Item
+---@param ctx Context.Common
+---@return string
+function Stub_Item.GetDisplayDescription(item, ctx) end
+
+---@param item Component.ItemConfig.Item
+---@param ctx Context.Common
+---@param flags integer
+---@return boolean
+function Stub_Item.IsAvailableEx(item, ctx, flags) end
+
+---@param item Component.ItemConfig.Item
+---@return boolean
+function Stub_Item.TemporaryEffectsAreInstances(item) end
+
+---@param item Component.ItemConfig.Item
+---@return integer
+function Stub_Item.GetSoulChargeType(item) end
+
+---@param item Component.ItemConfig.Item
+---@param ctx Context.Common
+---@param ignoreUnlock boolean
+---@return boolean
+function Stub_Item.IsAvailable(item, ctx, ignoreUnlock) end
+
+--#endregion
+
+--#region Card Stub
+
+local Stub_Card = {}
+
+---@param card Component.ItemConfig.Card
+---@return boolean
+function Stub_Card.IsCard(card) end
+
+---@param card Component.ItemConfig.Card
+---@return boolean
+function Stub_Card.IsRune(card) end
+
+---@param card Component.ItemConfig.Card
+---@param ctx Context.Common
+---@param param_2 integer
+---@return string
+function Stub_Card.GetDisplayName(card, ctx, param_2) end
+
+---@param card Component.ItemConfig.Card
+---@param ctx Context.Common
+---@return string
+function Stub_Card.GetDisplayDescription(card, ctx) end
+
+--#endregion
 
 Interface.GetPillEffects = Stub.GetPillEffects
 Interface.GetLocustConfig = Stub.GetLocustConfig
@@ -212,4 +295,23 @@ Interface.PopItemFilter = Stub.PopItemFilter
 Interface.ShouldAddCostumeOnPickup = Stub.ShouldAddCostumeOnPickup
 Interface.lua_get_item_id = Stub.lua_get_item_id
 
-Interface_PillEffect.IsAvailable = Stub_PillEffect.IsAvailable
+Interface_Item.IsCollectible = Stub_Item.IsCollectible
+Interface_Item.HasTags = Stub_Item.HasTags
+Interface_Item.IsTrinket = Stub_Item.IsTrinket
+Interface_Item.constructor = Stub_Item.constructor
+Interface_Item.IsNull = Stub_Item.IsNull
+Interface_Item.destructor = Stub_Item.destructor
+Interface_Item.GetDisplayName = Stub_Item.GetDisplayName
+Interface_Item.GetDisplayDescription = Stub_Item.GetDisplayDescription
+Interface_Item.IsAvailableEx = AvailableLogic.Item_IsAvailableEx
+Interface_Item.TemporaryEffectsAreInstances = Stub_Item.TemporaryEffectsAreInstances
+Interface_Item.GetSoulChargeType = Stub_Item.GetSoulChargeType
+Interface_Item.IsAvailable = AvailableLogic.Item_IsAvailable
+
+Interface_Card.IsCard = Stub_Card.IsCard
+Interface_Card.IsRune = Stub_Card.IsRune
+Interface_Card.GetDisplayName = Stub_Card.GetDisplayName
+Interface_Card.GetDisplayDescription = Stub_Card.GetDisplayDescription
+Interface_Card.IsAvailable = AvailableLogic.Card_IsAvailable
+
+Interface_PillEffect.IsAvailable = AvailableLogic.PillEffect_IsAvailable

@@ -682,7 +682,7 @@ function Stub.GetDungeonReturnPosition(level, param_1) end
 ---@return boolean
 function Stub.GetCanSeeEverything(level) end
 
---endregion
+--#endregion
 
 Interface.GetStageType = Stub.GetStageType
 Interface.GetStage = Stub.GetStage

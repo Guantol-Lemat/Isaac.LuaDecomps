@@ -921,7 +921,7 @@ function Stub.SetSpriteOverlayFrame(entity, FrameNum, param_2) end
 ---@return boolean
 function Stub.CanShutDoors(entity) end
 
---endregion
+--#endregion
 
 Interface.GetType = Stub.GetType
 Interface.GetVariant = Stub.GetVariant

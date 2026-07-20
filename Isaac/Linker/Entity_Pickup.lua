@@ -315,7 +315,7 @@ function Stub.SetShopItemId(pickup, ID) end
 ---@return unknown
 function Stub.GetWait(pickup) end
 
---endregion
+--#endregion
 
 Interface.GetPrice = Stub.GetPrice
 Interface.SetWait = Stub.SetWait

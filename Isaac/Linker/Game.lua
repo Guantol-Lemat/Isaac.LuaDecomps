@@ -818,7 +818,7 @@ function Stub.IsGreedBoss(ctx) end
 ---@return boolean
 function Stub.IsGreedFinalBoss(ctx) end
 
---endregion
+--#endregion
 
 Interface.GetRoom = Stub.GetRoom
 Interface.GetFrameCount = Stub.GetFrameCount

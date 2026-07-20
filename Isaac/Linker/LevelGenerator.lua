@@ -97,7 +97,7 @@ function Stub.get_neighbor_candidates(levelGen, resVector, generationIdx, param_
 ---@param possibleSlots integer
 function Stub.try_resize_endroom(levelGen, room, shape, possibleSlots) end
 
---endregion
+--#endregion
 
 Interface.New = Component.New
 Interface.Generate = Stub.Generate

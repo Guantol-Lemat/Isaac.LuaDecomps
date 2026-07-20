@@ -37,7 +37,7 @@ function Stub.TryOpenArchive(fileManager, filePath) end
 ---@return boolean
 function Stub.Exists(fileManager, filePath) end
 
---endregion
+--#endregion
 
 Interface.GetMountedFilePath = Stub.GetMountedFilePath
 Interface.Initialize = Stub.Initialize

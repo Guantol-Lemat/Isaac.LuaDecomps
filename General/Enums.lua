@@ -141,8 +141,8 @@ Module.eGetCollectibleFlag = {
     NO_PASSIVE = 1 << 3,
 }
 
----@enum eItemFilterFlag
-Module.eItemFilterFlag = {
+---@enum eItemIsAvailableFlag
+Module.eItemIsAvailableFlag = {
     MODE_BLACKLIST = 1 << 0,
     CHECK_ACHIEVEMENT = 1 << 1,
     CHECK_MODIFIERS = 1 << 2,

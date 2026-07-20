@@ -96,7 +96,7 @@ function Stub.get_new_pathmarker_related(pathfinder, PathMarker) end
 ---@param unused boolean
 function Stub.SimulatePlayerMovement(pathfinder, movementInput, speed_qqq, unused) end
 
---endregion
+--#endregion
 
 Interface.GetEvadeMovementCountdown = Stub.GetEvadeMovementCountdown
 Interface.SetCanCrushRocks = Stub.SetCanCrushRocks

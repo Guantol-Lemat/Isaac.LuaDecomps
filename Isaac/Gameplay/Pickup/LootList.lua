@@ -202,7 +202,7 @@ local function Chest_get_pickups_loot(ctx, isLocked, outcome)
         end
     end
 
-    if IPlayerManager.AnyoneHasCollectible(ctx, ctx_playerManager, CollectibleType.COLLECTIBLE_MOMS_KEY) then
+    if IPlayerManager.AnyoneHasCollectible(ctx_playerManager, ctx, CollectibleType.COLLECTIBLE_MOMS_KEY) then
         lootCount = lootCount * 2
     end
 
@@ -553,7 +553,7 @@ local function WoodenChest_get_loot_list(ctx)
         end
     end
 
-    if IPlayerManager.AnyoneHasCollectible(ctx, ctx_playerManager, CollectibleType.COLLECTIBLE_MOMS_KEY) then
+    if IPlayerManager.AnyoneHasCollectible(ctx_playerManager, ctx, CollectibleType.COLLECTIBLE_MOMS_KEY) then
         lootCount = lootCount * 2
     end
 

@@ -130,7 +130,7 @@ function Stub.Restart(seeds, CurrentChallenge) end
 ---@param Stage StageType | integer
 function Stub.ForgetStageSeed(seeds, Stage) end
 
---endregion
+--#endregion
 
 Interface.GetStartSeed = Stub.GetStartSeed
 Interface.HasSeedEffect = Stub.HasSeedEffect

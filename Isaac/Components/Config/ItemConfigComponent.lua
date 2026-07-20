@@ -2,7 +2,7 @@
 ---@field m_collectibleList Component.ItemConfig.Item[] : 0x0
 ---@field m_trinketList Component.ItemConfig.Item[] : 0xc
 ---@field m_nullItemList Component.ItemConfig.Item[] : 0x18
----@field m_cardList Component.CardConfig[] : 0x24
+---@field m_cardList Component.ItemConfig.Card[] : 0x24
 ---@field m_pillEffectList Component.ItemConfig.PillEffect[] : 0x30
 ---@field m_collectibleNameMap table<string, integer> : 0x3c
 ---@field m_playerForms PlayerFormComponent[] : 0x44
@@ -46,7 +46,7 @@
 ---@field m_modANM2Frame integer : 0xd4
 ---@field m_mod Component.ModEntry : 0xd8
 
----@class Component.CardConfig
+---@class Component.ItemConfig.Card
 ---@field m_id Card | integer : 0x0
 ---@field m_achievementId Achievement | integer : 0x4
 ---@field m_name string : 0x8
@@ -54,11 +54,11 @@
 ---@field m_hudAnim string : 0x38
 ---@field m_greedModeAllowed boolean : 0x50
 ---@field m_pickupSubtype integer : 0x54
----@field m_cardType integer : 0x58
----@field m_announcerVoice SoundEffect | integer : 0x5c
+---@field m_pocketItemType PocketItemType | integer : 0x58
+---@field m_announcerVoice integer : 0x5c
 ---@field m_announcerDelay integer : 0x60
 ---@field m_mimicCharge integer : 0x64
----@field m_mod Component.ModEntry : 0x68
+---@field m_modEntry Component.ModEntry : 0x68
 ---@field m_moddedCardFrontANM2 Sprite : 0x6c
 
 ---@class Component.Costume

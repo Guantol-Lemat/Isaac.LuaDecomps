@@ -205,7 +205,7 @@ function Stub.GetChangeTimeout(projectile) end
 ---@param Scale number
 function Stub.AddScale(projectile, Scale) end
 
---endregion
+--#endregion
 
 Interface.GetProjectileFlags = Stub.GetProjectileFlags
 Interface.GetHeight = Stub.GetHeight

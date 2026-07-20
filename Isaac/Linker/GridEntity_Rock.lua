@@ -100,7 +100,7 @@ function Stub.GetWaterClipInfo(gridRock) end
 ---@param param_1 integer
 function Stub.TriggerChainRocks(ctx, param_1) end
 
---endregion
+--#endregion
 
 Interface.GetRubbleAnim = Stub.GetRubbleAnim
 Interface.Free = Stub.Free

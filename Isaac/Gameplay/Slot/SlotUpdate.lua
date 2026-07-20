@@ -221,9 +221,6 @@ local function Update(slot, ctx)
     end
     ---@cast target Component.Entity.Player
 
-    local daemonsTail_rng = IEntityPlayer.GetTrinketRNG(target, TrinketType.TRINKET_DAEMONS_TAIL)
-    local luckyFoot_rng = IEntityPlayer.GetCollectibleRNG(target, CollectibleType.COLLECTIBLE_LUCKY_FOOT)
-
     if VectorUtils.Equals(slot.m_targetPosition, VECTOR_ZERO) then
         slot.m_targetPosition = VectorUtils.Copy(slot.m_position)
         slot.m_velocity = VectorUtils.Copy(VECTOR_ZERO)

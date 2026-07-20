@@ -256,7 +256,7 @@ function Stub.RecordPlayerCompletion(ctx, type) end
 ---@return boolean
 function Stub.RenderButtonIcon(ctx, controllerIdx, param_2, param_3, param_4, position) end
 
---endregion
+--#endregion
 
 Interface.GetModManager = Stub.GetModManager
 Interface.GetNetManager = Stub.GetNetManager

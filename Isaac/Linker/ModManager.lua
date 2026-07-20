@@ -117,7 +117,7 @@ function Stub.workshop_update_thread(ctx, param_1) end
 ---@param ctx Context.Common
 function Stub.UpdateWorkshopMods(modManager, ctx) end
 
---endregion
+--#endregion
 
 --region ModEntry Stub
 

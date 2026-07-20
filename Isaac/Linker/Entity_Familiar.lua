@@ -597,7 +597,7 @@ function Stub.GetUnkWispBool(familiar) end
 ---@return boolean
 function Stub.CanOverwrite(familiar) end
 
---endregion
+--#endregion
 
 Interface.umbilical_baby_load_graphics = Stub.umbilical_baby_load_graphics
 Interface.umbilical_baby_render_cord = Stub.umbilical_baby_render_cord

@@ -61,7 +61,7 @@ function Stub.Render(proceduralItemManager, id, SourceQuad, DestQuad, color) end
 ---@param param_1 Component.GameState.ProceduralItems
 function Stub.RestoreGameState(proceduralItemManager, ctx, param_1) end
 
---endregion
+--#endregion
 
 Interface.StoreGameState = Stub.StoreGameState
 Interface.constructor = Stub.constructor

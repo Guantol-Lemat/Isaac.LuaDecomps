@@ -82,7 +82,7 @@ function Stub.GetBoss(entityConfig, bossID) end
 ---@param entityConfig Component.EntityConfig
 function Stub.PostLoadMods(ctx, entityConfig) end
 
---endregion
+--#endregion
 
 Interface.GetPokeyMansPool = Stub.GetPokeyMansPool
 Interface.destructor = Stub.destructor

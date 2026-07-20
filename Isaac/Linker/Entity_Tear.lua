@@ -279,7 +279,7 @@ function Stub.set_unk_bool_true(tear) end
 ---@param Offset Vector
 function Stub.SetParentOffset(tear, Offset) end
 
---endregion
+--#endregion
 
 Interface.GetTearFlags = Stub.GetTearFlags
 Interface.SetTearIdx = Stub.SetTearIdx

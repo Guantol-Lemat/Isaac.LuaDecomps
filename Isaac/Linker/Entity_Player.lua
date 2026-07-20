@@ -2524,7 +2524,7 @@ function Stub.GetPoopSpell(player, Position) end
 ---@return integer
 function Stub.GetModelingClayEffect(player) end
 
---endregion
+--#endregion
 
 Interface.IsEntityTypePlayer = Stub.IsEntityTypePlayer
 Interface.IsActive = Stub.IsActive

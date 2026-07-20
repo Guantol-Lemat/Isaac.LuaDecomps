@@ -70,7 +70,7 @@ function Stub.Destroy(sfx) end
 ---@param sfx Component.SoundEffects
 function Stub.unk_mod_related(sfx) end
 
---endregion
+--#endregion
 
 Interface.Preload = Stub.Preload
 Interface.LoadConfig = Stub.LoadConfig

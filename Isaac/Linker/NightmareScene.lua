@@ -34,7 +34,7 @@ function Stub.SetStageAlt(nightmare, ctx, StageID, AltStageID) end
 ---@param nightmare Component.NightmareScene
 function Stub.Destroy(nightmare) end
 
---endregion
+--#endregion
 
 Interface.LoadConfig = Stub.LoadConfig
 Interface.Reset = Stub.Reset

@@ -228,7 +228,7 @@ function Stub.update_bone_swing(ctx, knife) end
 ---@param param_8 boolean
 function Stub.trigger_collision(ctx, knife, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8) end
 
---endregion
+--#endregion
 
 Interface.GetRotation = Stub.GetRotation
 Interface.GetKnifeVelocity = Stub.GetKnifeVelocity

@@ -649,7 +649,7 @@ function Stub.UpdatePickupGhosts(ctx, npc) end
 ---@return integer
 function Stub.GetBossColorIdx(npc) end
 
---endregion
+--#endregion
 
 Interface.HasGibFlags = Stub.HasGibFlags
 Interface.SetCanShutDoors = Stub.SetCanShutDoors

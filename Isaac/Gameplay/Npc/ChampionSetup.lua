@@ -27,7 +27,7 @@ local function ChampionSetup(ctx, npc)
 
     local chance = 0.05
 
-    if IPlayerManager.AnyoneHasCollectible(ctx, playerManager, CollectibleType.COLLECTIBLE_CHAMPION_BELT) then
+    if IPlayerManager.AnyoneHasCollectible(playerManager, ctx, CollectibleType.COLLECTIBLE_CHAMPION_BELT) then
         chance = 0.2
     end
 
@@ -35,7 +35,7 @@ local function ChampionSetup(ctx, npc)
         chance = 0.75
     end
 
-    local purpleHeartMultiplier = IPlayerManager.GetTrinketMultiplier(ctx, playerManager, TrinketType.TRINKET_PURPLE_HEART)
+    local purpleHeartMultiplier = IPlayerManager.GetTrinketMultiplier(playerManager, ctx, TrinketType.TRINKET_PURPLE_HEART)
     if purpleHeartMultiplier then
         chance = chance * (purpleHeartMultiplier * 2)
     end
@@ -86,7 +86,7 @@ local function ChampionSetup(ctx, npc)
                     bossColor_chance = 0.6
                 end
 
-                local bossColor_purpleHeartMultiplier = IPlayerManager.GetTrinketMultiplier(ctx, playerManager, TrinketType.TRINKET_PURPLE_HEART)
+                local bossColor_purpleHeartMultiplier = IPlayerManager.GetTrinketMultiplier(playerManager, ctx, TrinketType.TRINKET_PURPLE_HEART)
                 if bossColor_purpleHeartMultiplier then
                     bossColor_chance = bossColor_chance * (bossColor_purpleHeartMultiplier * 2)
                 end

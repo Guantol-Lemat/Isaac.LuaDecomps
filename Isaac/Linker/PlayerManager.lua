@@ -20,172 +20,172 @@ function Stub.GetNumPlayers(playerManager) end
 ---@return boolean
 function Stub.AnyoneHasTrinket(playerManager, ctx, id) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param id CollectibleType | integer
 ---@return boolean
-function Stub.AnyoneHasCollectible(ctx, playerManager, id) end
+function Stub.AnyoneHasCollectible(playerManager, ctx, id) end
 
 ---@param playerManager Component.PlayerManager
 ---@param type PlayerType | integer
 ---@return boolean
 function Stub.AnyoneIsPlayerType(playerManager, type) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 PlayerType | integer
 ---@return boolean
-function Stub.AnyoneHasBirthright(ctx, playerManager, param_1) end
+function Stub.AnyoneHasBirthright(playerManager, ctx, param_1) end
 
 ---@param playerManager Component.PlayerManager
 function Stub.Destructor(playerManager) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 BabySubType | integer
 ---@return Component.Entity.Player
-function Stub.SpawnCoPlayerBaby(ctx, playerManager, param_1) end
+function Stub.SpawnCoPlayerBaby(playerManager, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param playerType PlayerType | integer
 ---@return Component.Entity.Player
-function Stub.SpawnCoPlayer(ctx, playerManager, playerType) end
+function Stub.SpawnCoPlayer(playerManager, ctx, playerType) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 Component.Entity.Player
-function Stub.add_coplayer(ctx, playerManager, param_1) end
+function Stub.add_coplayer(playerManager, ctx, param_1) end
 
 ---@param playerManager Component.PlayerManager
 ---@param param_1 Component.Entity.Player
 function Stub.remove_coplayer(playerManager, param_1) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param player Component.Entity.Player
-function Stub.RemoveCoPlayer(ctx, playerManager, player) end
+function Stub.RemoveCoPlayer(playerManager, ctx, player) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param playerType PlayerType | integer
 ---@param seed integer
-function Stub.Init(ctx, playerManager, playerType, seed) end
+function Stub.Init(playerManager, ctx, playerType, seed) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.Reset(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.Reset(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.InitPostLevelInitStats(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.InitPostLevelInitStats(playerManager, ctx) end
 
 ---@param ctx Context.Common
 ---@return boolean
 function Stub.CoopBabiesOnly(ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param idx integer
 ---@return integer
-function Stub.GetPlayerSlotFromController(ctx, playerManager, idx) end
+function Stub.GetPlayerSlotFromController(playerManager, ctx, idx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.ProcessInput(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.ProcessInput(playerManager, ctx) end
 
 ---@param ctx Context.Common
 function Stub.Update(ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.TriggerRoomClear(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.TriggerRoomClear(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.TriggerNewStage(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.TriggerNewStage(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.TriggerNewRoom(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.TriggerNewRoom(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.TriggerNewRoom_TemporaryEffects(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.TriggerNewRoom_TemporaryEffects(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param player Component.Entity.Player
-function Stub.NotifyDead(ctx, playerManager, player) end
+function Stub.NotifyDead(playerManager, ctx, player) end
 
 ---@param ctx Context.Common
 ---@param desired Vector
 ---@return Vector
 function Stub.GetSpawnPosition(ctx, desired) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param param_3 Vector
 ---@return Vector
-function Stub.ComputeInitSpawnPosition(ctx, playerManager, player, param_3) end
+function Stub.ComputeInitSpawnPosition(playerManager, ctx, player, param_3) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param map Component.Entity.Player[]
 ---@param state Component.GameState
 ---@param fullRestore boolean
 ---@return unknown
-function Stub.compute_player_state_map(ctx, playerManager, map, state, fullRestore) end
+function Stub.compute_player_state_map(playerManager, ctx, map, state, fullRestore) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 Component.GameState
-function Stub.RestoreGameState(ctx, playerManager, param_1) end
+function Stub.RestoreGameState(playerManager, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param state Component.GameState
-function Stub.RestoreGameState_PostLevelInit(ctx, playerManager, state) end
+function Stub.RestoreGameState_PostLevelInit(playerManager, ctx, state) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 Component.GameState
-function Stub.StoreGameState(ctx, playerManager, param_1) end
+function Stub.StoreGameState(playerManager, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param controllerIdx integer
-function Stub.spawn_selected_baby(ctx, playerManager, controllerIdx) end
+function Stub.spawn_selected_baby(playerManager, ctx, controllerIdx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param seed integer
-function Stub.init_special_baby_selection(ctx, playerManager, seed) end
+function Stub.init_special_baby_selection(playerManager, ctx, seed) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param collectibleID CollectibleType | integer
 ---@param unusedRNG RNG
 ---@param checkLazSharedGlobal boolean
 ---@return Component.Entity.Player
-function Stub.FirstCollectibleOwner(ctx, playerManager, collectibleID, unusedRNG, checkLazSharedGlobal) end
+function Stub.FirstCollectibleOwner(playerManager, ctx, collectibleID, unusedRNG, checkLazSharedGlobal) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param CollectibleType CollectibleType | integer
 ---@param Seed integer
 ---@param retRNG RNG
 ---@return Component.Entity.Player
-function Stub.RandomCollectibleOwner(ctx, playerManager, CollectibleType, Seed, retRNG) end
+function Stub.RandomCollectibleOwner(playerManager, ctx, CollectibleType, Seed, retRNG) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param trinket TrinketType | integer
 ---@param rng RNG
 ---@param checkLazSharedGlobal boolean
 ---@return Component.Entity.Player
-function Stub.FirstTrinketOwner(ctx, playerManager, trinket, rng, checkLazSharedGlobal) end
+function Stub.FirstTrinketOwner(playerManager, ctx, trinket, rng, checkLazSharedGlobal) end
 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
@@ -211,11 +211,11 @@ function Stub.FirstPlayerByType(playerManager, type) end
 ---@return boolean
 function Stub.AllPlayerType(playerManager, inlinedTBB) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param type CollectibleType | integer
 ---@return integer
-function Stub.GetNumCollectibles(ctx, playerManager, type) end
+function Stub.GetNumCollectibles(playerManager, ctx, type) end
 
 ---@param playerManager Component.PlayerManager
 ---@param item Component.ItemConfig.Item
@@ -238,39 +238,39 @@ function Stub.SetControlsEnabled(playerManager, value) end
 ---@return number
 function Stub.GetLuck(playerManager) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param TrinketID TrinketType | integer
 ---@return integer
-function Stub.GetTrinketMultiplier(ctx, playerManager, TrinketID) end
+function Stub.GetTrinketMultiplier(playerManager, ctx, TrinketID) end
 
 ---@param playerManager Component.PlayerManager
 ---@param notLevelGen boolean
 ---@return boolean
 function Stub.HasFullHeartsSoulHearts(playerManager, notLevelGen) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param fromCache boolean
 ---@return Vector
-function Stub.GetAveragedPlayerPos(ctx, playerManager, fromCache) end
+function Stub.GetAveragedPlayerPos(playerManager, ctx, fromCache) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param param_1 Component.Entity.Player
 ---@param param_2 Component.Entity.Player
 ---@return unknown
-function Stub.ReplacePlayer(ctx, playerManager, param_1, param_2) end
+function Stub.ReplacePlayer(playerManager, ctx, param_1, param_2) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.AutoReassignControllers(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.AutoReassignControllers(playerManager, ctx) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
+---@param ctx Context.Common
 ---@param playerType PlayerType | integer
 ---@return Component.Entity.Player
-function Stub.FirstBirthrightOwner(ctx, playerManager, playerType) end
+function Stub.FirstBirthrightOwner(playerManager, ctx, playerType) end
 
 ---@param playerManager Component.PlayerManager
 ---@return boolean
@@ -280,11 +280,11 @@ function Stub.IsCoopPlay(playerManager) end
 ---@return integer
 function Stub.GetNumCoopPlayersAlive(playerManager) end
 
----@param ctx Context.Common
 ---@param playerManager Component.PlayerManager
-function Stub.ReviveCoopPlayers(ctx, playerManager) end
+---@param ctx Context.Common
+function Stub.ReviveCoopPlayers(playerManager, ctx) end
 
---endregion
+--#endregion
 
 Interface.GetPlayer = Stub.GetPlayer
 Interface.GetNumPlayers = Stub.GetNumPlayers

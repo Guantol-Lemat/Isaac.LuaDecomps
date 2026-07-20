@@ -158,7 +158,7 @@ function Stub.AddTearFlags(effect, flags) end
 ---@param timer Component.Entity.Effect
 function Stub.TriggerHighPriestess(ctx, timer) end
 
---endregion
+--#endregion
 
 Interface.SetTimeout = Stub.SetTimeout
 Interface.SetRotation = Stub.SetRotation

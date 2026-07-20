@@ -165,7 +165,7 @@ function Stub.PostInit(gridEntity) end
 ---@param gridEntity Component.GridEntity
 function Stub.Update(gridEntity) end
 
---endregion
+--#endregion
 
 Interface.GetSprite = Stub.GetSprite
 Interface.GetCollisionClass = Stub.GetCollisionClass

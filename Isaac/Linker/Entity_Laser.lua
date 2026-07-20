@@ -326,7 +326,7 @@ function Stub.SetScale(laser, scale) end
 ---@param param_1 boolean
 function Stub.update_impact(laser, param_1) end
 
---endregion
+--#endregion
 
 Interface.SetTearFlags = Stub.SetTearFlags
 Interface.SetTimeout = Stub.SetTimeout

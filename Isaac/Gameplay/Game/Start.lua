@@ -72,7 +72,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
     IBossPool.Init(game.m_bossPool, ctx, bossPool_seed)
 
     local playerManager_seed = game_seeds.m_playerSeed
-    IPlayerManager.Init(ctx, game.m_playerManager, playerType, playerManager_seed)
+    IPlayerManager.Init(game.m_playerManager, ctx, playerType, playerManager_seed)
 
     -- init level
     local level = game.m_level
@@ -82,11 +82,11 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
     end
     ILevel.Init(ctx, level)
 
-    IPlayerManager.InitPostLevelInitStats(ctx, game.m_playerManager)
+    IPlayerManager.InitPostLevelInitStats(game.m_playerManager, ctx)
 
     IManager.SaveGameState(ctx)
 
-    IPlayerManager.TriggerNewRoom_TemporaryEffects(ctx, game.m_playerManager)
+    IPlayerManager.TriggerNewRoom_TemporaryEffects(game.m_playerManager, ctx)
 
     IGame.Fadein(game, 0.4)
 

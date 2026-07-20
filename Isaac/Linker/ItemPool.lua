@@ -3,6 +3,8 @@ local Interface = require("Isaac.Interface.ItemPool")
 
 local PoolInit = require("Isaac.Gameplay.ItemPool.Init")
 local PoolLoad = require("Isaac.Gameplay.ItemPool.Load")
+local CollectiblePool = require("Isaac.Gameplay.ItemPool.CollectiblePool")
+local TrinketPool = require("Isaac.Gameplay.ItemPool.TrinketPool")
 
 --#region Stub
 
@@ -67,14 +69,6 @@ function Stub.GetCollectible(itemPool, ctx, PoolType, Seed, Flags, DefaultItem) 
 function Stub.GetTrinket(itemPool, ctx, DontAdvanceRNG) end
 
 ---@param itemPool Component.ItemPool
----@param ctx Context.Common
----@param Item CollectibleType | integer
----@param checkIfAvailable boolean
----@param ignoreModifiers boolean
----@return boolean
-function Stub.RemoveCollectible(itemPool, ctx, Item, checkIfAvailable, ignoreModifiers) end
-
----@param itemPool Component.ItemPool
 ---@param Collectible CollectibleType | integer
 function Stub.ResetCollectible(itemPool, Collectible) end
 
@@ -124,10 +118,6 @@ function Stub.RestoreGameState(itemPool, param_1) end
 ---@param itemPool Component.ItemPool
 ---@param state Component.GameStateItemPool
 function Stub.StoreGameState(itemPool, state) end
-
----@param itemPool Component.ItemPool
----@param ctx Context.Common
-function Stub.ResetTrinkets(itemPool, ctx) end
 
 ---@param itemPool Component.ItemPool
 ---@param ID PillEffect | integer
@@ -181,7 +171,7 @@ function Stub.GetLastPool(itemPool) end
 ---@return boolean
 function Stub.IsPillIdentified(itemPool, PillColor) end
 
---endregion
+--#endregion
 
 Interface.AddRoomBlacklist = Stub.AddRoomBlacklist
 Interface.IdentifyPill = Stub.IdentifyPill
@@ -193,7 +183,7 @@ Interface.pick_collectible = Stub.pick_collectible
 Interface.TryReplaceWithMagicSkin = Stub.TryReplaceWithMagicSkin
 Interface.GetCollectible = Stub.GetCollectible
 Interface.GetTrinket = Stub.GetTrinket
-Interface.RemoveCollectible = Stub.RemoveCollectible
+Interface.RemoveCollectible = CollectiblePool.RemoveCollectible
 Interface.ResetCollectible = Stub.ResetCollectible
 Interface.RemoveTrinket = Stub.RemoveTrinket
 Interface.GetCardEx = Stub.GetCardEx
@@ -204,7 +194,7 @@ Interface.Init = PoolInit.Init
 Interface.load_pools = PoolLoad.LoadPools
 Interface.RestoreGameState = Stub.RestoreGameState
 Interface.StoreGameState = Stub.StoreGameState
-Interface.ResetTrinkets = Stub.ResetTrinkets
+Interface.ResetTrinkets = TrinketPool.ResetTrinkets
 Interface.ForceAddPillEffect = Stub.ForceAddPillEffect
 Interface.RerollPillEffect = Stub.RerollPillEffect
 Interface.ResetRoomBlacklist = Stub.ResetRoomBlacklist

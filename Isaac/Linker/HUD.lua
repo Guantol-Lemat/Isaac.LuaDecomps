@@ -127,7 +127,7 @@ function Stub.FlashRedHearts(hud, Player) end
 ---@param param_1 boolean
 function Stub.AssignPlayerHUDs(hud, ctx, param_1) end
 
---endregion
+--#endregion
 
 Interface.SetVisible = Stub.SetVisible
 Interface.constructor = Stub.constructor

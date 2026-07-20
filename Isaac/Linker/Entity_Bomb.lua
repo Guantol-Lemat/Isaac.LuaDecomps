@@ -119,7 +119,7 @@ function Stub.translate_gfx_path(ctx, bomb, param_1, param_2) end
 ---@param bomb Component.Entity.Bomb
 function Stub.load_costumes(ctx, bomb) end
 
---endregion
+--#endregion
 
 Interface.GetIsFetus = Stub.GetIsFetus
 Interface.SetRadiusMultiplier = Stub.SetRadiusMultiplier

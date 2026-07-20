@@ -119,7 +119,7 @@ local function Beggar_UpdatePrize(slot, ctx, player, extraRng)
 
         local playerManager = ctx.game.m_playerManager
         local offensivePool = IPlayerManager.AnyoneIsPlayerType(playerManager, PlayerType.PLAYER_THELOST_B)
-            or IPlayerManager.AnyoneHasBirthright(ctx, playerManager, PlayerType.PLAYER_THELOST)
+            or IPlayerManager.AnyoneHasBirthright(playerManager, ctx, PlayerType.PLAYER_THELOST)
         if offensivePool then
             local seed = myRng:Next()
             collectible = IItemPool.GetCollectible(ctx.game.m_itemPool, ctx, ItemPoolType.POOL_BEGGAR, seed, 0, CollectibleType.COLLECTIBLE_NULL)

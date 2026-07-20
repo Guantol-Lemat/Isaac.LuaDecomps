@@ -245,7 +245,7 @@ function Stub.prepare_net_start(persistentData) end
 ---@return boolean
 function Stub.SomethingForSaveSlotGraphics(persistentData, ctx) end
 
---endregion
+--#endregion
 
 Interface.PushToSteamCloud = Stub.PushToSteamCloud
 Interface.constructor = Stub.constructor

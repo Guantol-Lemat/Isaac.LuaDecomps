@@ -86,7 +86,7 @@ function Stub.RenderSpellQueue(playerHud, ctx, param_2, param_3) end
 ---@param ctx Context.Common
 function Stub.LoadGraphics(playerHud, ctx) end
 
---endregion
+--#endregion
 
 Interface.Free = Stub.Free
 Interface.constructor = Stub.constructor

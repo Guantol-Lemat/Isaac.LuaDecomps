@@ -109,7 +109,7 @@ function Stub.GetAliveEnemiesCount(entityList) end
 ---@param entityList Component.EntityList
 function Stub.DiscountEntity(entityList) end
 
---endregion
+--#endregion
 
 Interface.Constructor = Stub.Constructor
 Interface.destructor = Stub.destructor

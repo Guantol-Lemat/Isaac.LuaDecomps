@@ -1214,7 +1214,7 @@ function Stub.GetShopLevel(room) end
 ---@return number
 function Stub.GetEnemyDamageInflicted(room) end
 
---endregion
+--#endregion
 
 Interface.GetWaterAmount = Stub.GetWaterAmount
 Interface.GetGridHeight = Stub.GetGridHeight
