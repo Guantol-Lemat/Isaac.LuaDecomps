@@ -5,7 +5,10 @@
 --#endregion
 
 ---@class Lib.XML.Document
----@field [string] Lib.XML.Node -- top level element
+
+---@class Lib.XML.NodeRef
+---@field node Lib.XML.Node
+---@field idx integer
 
 ---@class Lib.XML.Node
 ---@field m_name string
@@ -18,17 +21,27 @@
 local function Parse(file) end
 
 ---@param nodes Lib.XML.Node[]
----@param name string
----@return Lib.XML.Node? node
----@return integer? i
-local function FirstNode(nodes, name)
+---@return Lib.XML.NodeRef?
+local function FirstNode(nodes)
 end
 
 ---@param nodes Lib.XML.Node[]
 ---@param name string
----@return Lib.XML.Node? node
----@return integer? i
-local function NextSibling(nodes, i, name)
+---@return Lib.XML.NodeRef?
+local function FirstNode_Name(nodes, name)
+end
+
+---@param nodes Lib.XML.Node[]
+---@param current Lib.XML.NodeRef
+---@return Lib.XML.NodeRef?
+local function NextSibling(nodes, current)
+end
+
+---@param nodes Lib.XML.Node[]
+---@param current Lib.XML.NodeRef
+---@param name string
+---@return Lib.XML.NodeRef?
+local function NextSibling_Name(nodes, current, name)
 end
 
 ---@param value string
@@ -50,7 +63,9 @@ local Module = {}
 
 Module.Parse = Parse
 Module.FirstNode = FirstNode
+Module.FirstNode_Name = FirstNode_Name
 Module.NextSibling = NextSibling
+Module.NextSibling_Name = NextSibling_Name
 Module.ToInt = ToInt
 Module.ToFloat = ToFloat
 Module.ToBool = ToBool

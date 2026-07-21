@@ -155,6 +155,7 @@ Interface.DestroySurfaces = Stub.DestroySurfaces
 Interface.ShutdownShaders = Stub.ShutdownShaders
 Interface.UpdateRooms = Stub.UpdateRooms
 Interface.UpdatePools = ModLoadConfig.UpdatePools
+Interface.UpdateBossPools = ModLoadConfig.UpdateBossPools
 Interface.UpdateCurses = Stub.UpdateCurses
 Interface.RenderCustomCharacters = Stub.RenderCustomCharacters
 Interface.RenderCustomCard = Stub.RenderCustomCard

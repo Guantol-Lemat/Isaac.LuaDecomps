@@ -1,3 +1,0 @@
----@class Component.BossPool
----@field m_removedBosses boolean[]
----@field m_levelBlacklist boolean[]

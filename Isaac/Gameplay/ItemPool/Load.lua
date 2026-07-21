@@ -122,12 +122,12 @@ local function LoadPools(itemPool, ctx, xmlPath, isMod)
         return -- game doesn't actually return here, meaning that it will crash when attempting to look for other nodes
     end
 
-    local nextPool, i = Xml.FirstNode(root.m_children, "Pool")
-    ---@cast nextPool Xml.ItemPools.Node.Pool?
+    local nextPool = Xml.FirstNode_Name(root.m_children, "Pool")
     while nextPool do
+        ---@type Xml.ItemPools.Node.Pool
+        ---@diagnostic disable-next-line: assign-type-mismatch
         local pool_node = nextPool
-        i = i + 1
-        nextPool = root.m_children[i] -- the next child nodes are not guaranteed to be named "Pool"
+        nextPool = Xml.NextSibling(root.m_children, nextPool) -- the next child nodes are not guaranteed to be named "Pool"
 
         local pool_attrib = pool_node.m_attributes
         local pool_name = pool_attrib.Name
@@ -143,13 +143,12 @@ local function LoadPools(itemPool, ctx, xmlPath, isMod)
         end
 
         local pool = itemPool.m_pools[pool_id + 1]
-        local nextPoolItem, j = Xml.FirstNode(pool_node.m_children, "Item")
-        ---@cast nextPoolItem Xml.ItemPools.Node.PoolItem?
-
+        local nextPoolItem = Xml.FirstNode_Name(pool_node.m_children, "Item")
         while nextPoolItem do
+            ---@type Xml.ItemPools.Node.PoolItem
+            ---@diagnostic disable-next-line: assign-type-mismatch
             local poolItem_node = nextPoolItem
-            j = j + 1
-            nextPoolItem = pool_node.m_children[j] -- the next child nodes are not guaranteed to be named "Item"
+            nextPoolItem = Xml.NextSibling(root.m_children, nextPoolItem) -- the next child nodes are not guaranteed to be named "Item"
 
             local poolItem = parse_pool_item(poolItem_node, ctx)
             local collectibleConfig = IItemConfig.GetCollectible(itemConfig, ctx, poolItem.m_itemID)

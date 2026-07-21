@@ -1,0 +1,13 @@
+---@class Component.EntityConfig.Boss
+---@field bossID integer : 0x0
+---@field name string : 0x4
+---@field nameImage string : 0x1c
+---@field portrait string : 0x34
+---@field pivotX number : 0x4c
+---@field pivotY number : 0x50
+---@field achievement integer : 0x54
+---@field alts Component.EntityConfig.Boss.Alt[] : 0x58
+
+---@class Component.EntityConfig.Boss.Alt
+---@field stage StbType | integer
+---@field portrait string

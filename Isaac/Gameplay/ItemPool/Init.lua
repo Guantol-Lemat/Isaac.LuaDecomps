@@ -1,5 +1,6 @@
 --#region Dependencies
 
+local TableUtils = require("General.Table")
 local IModManager = require("Isaac.Interface.ModManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local ISoundEffects = require("Isaac.Interface.SoundEffects")
@@ -27,23 +28,6 @@ local function shuffle_pools(itemPool)
     for i = 1, ItemPoolType.NUM_ITEMPOOLS, 1 do
         local pool = itemPool.m_pools[i]
         RNGUtils.MTRNG_RandomShuffle(pool.m_itemList, rng)
-    end
-end
-
----@param itemPool Component.ItemPool
----@param newSize integer
-local function resize_trinkets(itemPool, newSize)
-    local trinkets = itemPool.m_trinketPoolItems
-    local currentSize = #trinkets
-
-    if currentSize > newSize then
-        for i = newSize + 1, currentSize, 1 do
-            trinkets[i] = nil
-        end
-    elseif trinkets < currentSize then
-        for i = currentSize + 1, newSize, 1 do
-            trinkets[i] = ItemPoolComponent.TrinketPoolItem_New()
-        end
     end
 end
 
@@ -99,7 +83,7 @@ local function Init(itemPool, ctx, seed, xmlPath)
     itemPool.m_removedCollectibles = removedCollectibles
     itemPool.m_blacklistedCollectibles = blacklistedCollectibles
 
-    resize_trinkets(itemPool, #itemConfig.m_trinketList)
+    TableUtils.Vector_Resize(itemPool.m_trinketPoolItems, #itemConfig.m_trinketList, ItemPoolComponent.TrinketPoolItem_New)
 
     itemPool.m_unusedSpecialItemChance1 = 1.0
     itemPool.m_unusedSpecialItemChance2 = 1.0

@@ -1,6 +1,8 @@
 ---@class Interface.BossPool
 local Interface = require("Isaac.Interface.BossPool")
 
+local Load = require("Isaac.Gameplay.BossPool.Load")
+
 --#region Stub
 
 local Stub = {}
@@ -20,11 +22,6 @@ function Stub.Init(bossPool, ctx, seed) end
 
 ---@param bossPool Component.BossPool
 function Stub.CommitLevelBlacklist(bossPool) end
-
----@param bossPool Component.BossPool
----@param filepath string
----@param mod Component.ModEntry
-function Stub.LoadPools(bossPool, filepath, mod) end
 
 ---@param bossPool Component.BossPool
 ---@param ctx Context.Common
@@ -58,7 +55,7 @@ Interface.WasBossRemoved = Stub.WasBossRemoved
 Interface.destructor = Stub.destructor
 Interface.Init = Stub.Init
 Interface.CommitLevelBlacklist = Stub.CommitLevelBlacklist
-Interface.LoadPools = Stub.LoadPools
+Interface.LoadPools = Load.LoadPools
 Interface.PickBoss = Stub.PickBoss
 Interface.GetBossId = Stub.GetBossId
 Interface.RestoreGameState = Stub.RestoreGameState
