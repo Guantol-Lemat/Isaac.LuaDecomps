@@ -18,7 +18,7 @@ function Stub.GetGridHeight(room) end
 function Stub.GetGridWidth(room) end
 
 ---@param room Component.Room
----@return Component.Image
+---@return Engine.Image
 function Stub.GetFloorSurface(room) end
 
 ---@param room Component.Room
@@ -592,6 +592,16 @@ function Stub.GetClearAwardVariant(ctx, param_1, param_2) end
 ---@param room Component.Room
 function Stub.SpawnClearAward(ctx, room) end
 
+---@param room Component.Room
+---@param ctx Context.Common
+---@param entity Component.Entity
+function Stub.AddEntity(room, ctx, entity) end
+
+---@param room Component.Room
+---@param ctx Context.Common
+---@param entity Component.Entity
+function Stub.RemoveEntity(room, ctx, entity) end
+
 ---@param ctx Context.Common
 ---@param room Component.Room
 function Stub.update_card_against_humanity(ctx, room) end
@@ -849,7 +859,7 @@ function Stub.SetShockwaveParam(room, id, params) end
 ---@param ctx Context.Common
 ---@param room Component.Room
 ---@param pos Vector
----@param param_3 Component.Image
+---@param param_3 Engine.Image
 ---@return Vector
 function Stub.GetScreenUVPos(ctx, room, pos, param_3) end
 
@@ -1337,6 +1347,8 @@ Interface.fix_award_pos_idx = Stub.fix_award_pos_idx
 Interface.fix_trapdoor_pos = Stub.fix_trapdoor_pos
 Interface.GetClearAwardVariant = Stub.GetClearAwardVariant
 Interface.SpawnClearAward = Stub.SpawnClearAward
+Interface.AddEntity = Stub.AddEntity
+Interface.RemoveEntity = Stub.RemoveEntity
 Interface.update_card_against_humanity = Stub.update_card_against_humanity
 Interface.TriggerBossSpawn = Stub.TriggerBossSpawn
 Interface.TriggerBossDeath = Stub.TriggerBossDeath

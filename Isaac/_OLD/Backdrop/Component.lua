@@ -1,11 +1,11 @@
 ---@class Component.Backdrop
----@field m_floorSurface ImageComponent : 0x0
----@field m_wallSurface ImageComponent : 0x8
----@field m_floorSurface2 ImageComponent : 0x10
----@field m_tempBackdropSurface ImageComponent : 0x18
----@field m_image1 ImageComponent : 0x24
----@field m_waterImage ImageComponent : 0x2c
----@field m_image2 ImageComponent : 0x34
+---@field m_floorSurface Engine.Image : 0x0
+---@field m_wallSurface Engine.Image : 0x8
+---@field m_floorSurface2 Engine.Image : 0x10
+---@field m_tempBackdropSurface Engine.Image : 0x18
+---@field m_image1 Engine.Image : 0x24
+---@field m_waterImage Engine.Image : 0x2c
+---@field m_image2 Engine.Image : 0x34
 ---@field m_floorSprite_qqq Sprite : 0x3c
 ---@field m_type BackdropType | integer : 0x150
 ---@field m_entries Component.Backdrop.Entry[] [61] : 0x154

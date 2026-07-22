@@ -15,7 +15,7 @@
 ---@field m_generationRNG RNG : 0x18164
 ---@field m_devilAngelRoomRNG RNG : 0x18174
 ---@field m_angelRoomChanceMod number : 0x18184
----@field m_unkImage Component.Image : 0x18188
+---@field m_unkImage Engine.Image : 0x18188
 ---@field m_room Component.Room : 0x18190
 ---@field m_roomIdx GridRooms | integer : 0x18194
 ---@field m_lastRoomIdx GridRooms | integer : 0x18198

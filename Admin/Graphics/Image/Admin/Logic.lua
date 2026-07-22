@@ -12,7 +12,7 @@ local eImageFlags = ImageEnums.eImageFlags
 local Module = {}
 
 ---@param admin ImageAdminComponent
----@param image ImageComponent
+---@param image Engine.Image
 local function add_frame_image(admin, image)
     if image.m_quadBatchIsTransparent then
         return
@@ -27,10 +27,10 @@ local function add_frame_image(admin, image)
 end
 
 ---@param admin ImageAdminComponent
----@param image ImageComponent
+---@param image Engine.Image
 ---@param batch RenderBatchComponent
 local function set_transparent_batch(admin, image, batch)
-    ---@type Pair<RenderBatchComponent, ImageComponent>
+    ---@type Pair<RenderBatchComponent, Engine.Image>
     local transparentBatch = {batch, image}
     local lastBatch = admin.m_lastTransparentBatch
 

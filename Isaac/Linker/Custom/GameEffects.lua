@@ -2,7 +2,11 @@
 local Interface = require("Isaac.Interface.Custom.GameEffects")
 
 local ItemBlock = require("Isaac.Mechanics.GameEffects.ItemBlock")
+local ItemExtraParams = require("Isaac.Mechanics.GameEffects.ItemExtraParams")
+local GFuel = require("Isaac.Mechanics.GameEffects.GFuel")
 
 Interface.BlockItem_Mode = ItemBlock.BlockItem_Mode
 Interface.BlockItem_Modifier = ItemBlock.BlockItem_Modifier
 Interface.BlockTrinket = ItemBlock.BlockTrinket
+Interface.BanActiveFromProceduralPool = ItemExtraParams.BanActiveFromProceduralPool
+Interface.GFuel_CreateGFuelItem = GFuel.CreateGFuelItem

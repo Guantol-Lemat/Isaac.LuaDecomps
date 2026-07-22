@@ -82,10 +82,6 @@ function Stub.RenderCraftingTable(playerHud, ctx, pos, param_3) end
 ---@param param_3 number
 function Stub.RenderSpellQueue(playerHud, ctx, param_2, param_3) end
 
----@param playerHud Component.HUD.PlayerHUD
----@param ctx Context.Common
-function Stub.LoadGraphics(playerHud, ctx) end
-
 --#endregion
 
 Interface.Free = Stub.Free
@@ -102,4 +98,3 @@ Interface.RenderPocketItems = Stub.RenderPocketItems
 Interface.RenderInventory = Stub.RenderInventory
 Interface.RenderCraftingTable = Stub.RenderCraftingTable
 Interface.RenderSpellQueue = Stub.RenderSpellQueue
-Interface.LoadGraphics = Stub.LoadGraphics

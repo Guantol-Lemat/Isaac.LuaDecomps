@@ -455,9 +455,8 @@ function Stub.GetPoopMana(player) end
 function Stub.HasCurseMistEffect(player) end
 
 ---@param ctx Context.Common
----@param player Component.Entity.Player
 ---@return Component.Entity.Player
-function Stub.constructor(ctx, player) end
+function Stub.New(ctx) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -1345,9 +1344,9 @@ function Stub.TriggerRoomExit(ctx, player, param_1) end
 ---@param player Component.Entity.Player
 function Stub.TriggerNewRoom(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
-function Stub.TriggerNewRoom_TemporaryEffects(ctx, player) end
+---@param ctx Context.Common
+function Stub.TriggerNewRoom_TemporaryEffects(player, ctx) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -1664,9 +1663,9 @@ function Stub.trigger_baby_death(ctx, player) end
 ---@param player Component.Entity.Player
 function Stub.InitPreLevelInitStats(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
-function Stub.InitPostLevelInitStats(ctx, player) end
+---@param ctx Context.Common
+function Stub.InitPostLevelInitStats(player, ctx) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -2628,7 +2627,7 @@ Interface.GetCardRNG = Stub.GetCardRNG
 Interface.IsSubPlayer = Stub.IsSubPlayer
 Interface.GetPoopMana = Stub.GetPoopMana
 Interface.HasCurseMistEffect = Stub.HasCurseMistEffect
-Interface.constructor = Stub.constructor
+Interface.New = Stub.New
 Interface.Free = Stub.Free
 Interface.destructor = Stub.destructor
 Interface.Init = Stub.Init

@@ -1,6 +1,8 @@
 ---@class Interface.ProceduralItemManager
 local Interface = require("Isaac.Interface.ProceduralItemManager")
 
+local ProceduralItemManagerInit = require("Isaac.Gameplay.ProceduralItem.ProceduralItemManagerInit")
+
 --#region Stub
 
 local Stub = {}
@@ -14,10 +16,6 @@ function Stub.constructor() end
 
 ---@param proceduralItemManager Component.ProceduralItemManager
 function Stub.destructor(proceduralItemManager) end
-
----@param proceduralItemManager Component.ProceduralItemManager
----@param ctx Context.Common
-function Stub.Reset(proceduralItemManager, ctx) end
 
 ---@param proceduralItemManager Component.ProceduralItemManager
 ---@param ctx Context.Common
@@ -66,7 +64,7 @@ function Stub.RestoreGameState(proceduralItemManager, ctx, param_1) end
 Interface.StoreGameState = Stub.StoreGameState
 Interface.constructor = Stub.constructor
 Interface.destructor = Stub.destructor
-Interface.Reset = Stub.Reset
+Interface.Reset = ProceduralItemManagerInit.Reset
 Interface.CreateProceduralItem = Stub.CreateProceduralItem
 Interface.CreateSpecialProceduralItem = Stub.CreateSpecialProceduralItem
 Interface.GetProceduralItemDesc = Stub.GetProceduralItemDesc

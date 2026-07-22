@@ -23,6 +23,10 @@ function Stub.IsVisible(hud) end
 function Stub.Reset(hud) end
 
 ---@param hud Component.HUD
+---@param ctx Context.Common
+function Stub.LoadGraphics(hud, ctx) end
+
+---@param hud Component.HUD
 function Stub.UnloadGraphics(hud) end
 
 ---@param hud Component.HUD
@@ -134,6 +138,7 @@ Interface.constructor = Stub.constructor
 Interface.destructor = Stub.destructor
 Interface.IsVisible = Stub.IsVisible
 Interface.Reset = Stub.Reset
+Interface.LoadGraphics = Stub.LoadGraphics
 Interface.UnloadGraphics = Stub.UnloadGraphics
 Interface.Update = Stub.Update
 Interface.PostUpdate = Stub.PostUpdate

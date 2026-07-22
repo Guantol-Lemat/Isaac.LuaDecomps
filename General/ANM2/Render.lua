@@ -217,7 +217,7 @@ local function GetDestQuad(context, position, frame, layerState, topLeftClamp, b
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param color Color
 ---@param championColor Color
 ---@param sourceQuad SourceQuadComponent
@@ -234,7 +234,7 @@ local function render_champion(context, image, color, championColor, sourceQuad,
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param flags eImageFlags | integer
 ---@param color Color
 ---@param sourceQuad SourceQuadComponent
@@ -256,7 +256,7 @@ local function render_dogma(context, image, flags, color, sourceQuad, destQuad)
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param flags eImageFlags | integer
 ---@param color Color
 ---@param sourceQuad SourceQuadComponent
@@ -278,7 +278,7 @@ local function render_gold(context, image, flags, color, sourceQuad, destQuad)
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param color Color
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent
@@ -288,7 +288,7 @@ local function render_procedural(context, image, color, sourceQuad, destQuad)
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param color Color
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent

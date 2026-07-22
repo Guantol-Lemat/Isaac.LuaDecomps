@@ -1,6 +1,8 @@
 ---@class Interface.PersistentGameData
 local Interface = require("Isaac.Interface.PersistentGameData")
 
+local PersistentDataMisc = require("Isaac.Gameplay.Manager.PersistentGameData.PersistentDataMisc")
+
 --#region Stub
 
 local Stub = {}
@@ -78,10 +80,6 @@ function Stub.unlock_steam_achievement(param_1) end
 ---@param persistentData Component.PersistentGameData
 ---@param ctx Context.Common
 function Stub.check_booster_achievements(persistentData, ctx) end
-
----@param persistentData Component.PersistentGameData
----@param param_1 boolean
-function Stub.SetReadOnly(persistentData, param_1) end
 
 ---@param persistentData Component.PersistentGameData
 ---@param ctx Context.Common
@@ -265,7 +263,7 @@ Interface.Flush = Stub.Flush
 Interface.unlock_challenge_achievements = Stub.unlock_challenge_achievements
 Interface.unlock_steam_achievement = Stub.unlock_steam_achievement
 Interface.check_booster_achievements = Stub.check_booster_achievements
-Interface.SetReadOnly = Stub.SetReadOnly
+Interface.SetReadOnly = PersistentDataMisc.SetReadOnly
 Interface.TryUnlock = Stub.TryUnlock
 Interface.Unlocked = Stub.Unlocked
 Interface.GetCompletionEventDef = Stub.GetCompletionEventDef

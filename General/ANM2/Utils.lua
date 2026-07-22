@@ -2,7 +2,7 @@
 local Module = {}
 
 ---@param layerState LayerStateComponent
----@return ImageComponent?
+---@return Engine.Image?
 local function GetSpriteSheetImage(layerState)
     local spriteSheet = layerState.m_spriteSheet
     if not spriteSheet then

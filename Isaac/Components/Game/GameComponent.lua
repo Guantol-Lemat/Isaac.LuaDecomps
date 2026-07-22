@@ -28,7 +28,7 @@
 ---@field m_darknessModifier number : 0x1a30fc
 ---@field m_targetDarkness number : 0x1a3100
 ---@field m_fontDroid Font : 0x1a3104
----@field m_clickerImage_qqq ImageComponent : 0x1c3140
+---@field m_clickerImage_qqq Engine.Image : 0x1c3140
 ---@field m_bloom_countdown integer : 0x1c3148
 ---@field m_bloomInt_duration_qqq integer : 0x1c314c
 ---@field m_bloomStrength number : 0x1c3150

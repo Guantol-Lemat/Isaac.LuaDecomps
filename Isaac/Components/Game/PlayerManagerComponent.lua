@@ -1,0 +1,17 @@
+---@class Component.PlayerManager
+---@field m_rng RNG : 0x0
+---@field m_players Component.Entity.Player[] : 0x10
+---@field m_possessors Component.Entity.Player[] : 0x1c
+---@field m_notifyDeadPlayer Component.Entity.Player? : 0x28
+---@field m_unkRNG RNG : 0x2c
+---@field m_startPlayerType PlayerType | integer : 0x3c
+---@field m_playerSlots Component.PlayerManager.SlotBinding[] [4]: 0x40 -- mostly used when assigning the PlayerHUD
+---@field m_localCoopSelectWheel integer : 0x90
+---@field m_esauJrState Component.Entity.Player[] [4] : 0x9c
+---@field m_unkPlayerManager unknown[] [6] : 0xac
+
+---@class Component.PlayerManager.SlotBinding
+---@field m_controllerIdx integer : 0x0
+---@field field0x4 integer : 0x4
+---@field field0x8 integer : 0x8
+---@field field0xc integer : 0xc

@@ -1,7 +1,9 @@
 ---@class Component.ProceduralItemManager
 ---@field m_items ProceduralItemComponent[] : 0x0
----@field m_itemImage ImageComponent : 0xc
----@field m_image2 ImageComponent : 0x14
+---@field m_itemSurface Engine.Image : 0xc
+---@field m_collectionItemSurface Engine.Image : 0x14
+---@field m_activeItemPool Component.ItemConfig.Item[] : 0x1c
+---@field m_entityTriggerBlacklist Set<integer> : 0x28 -- type + variant used as key
 
 ---@class ProceduralItemComponent
 ---@field m_config Component.ItemConfig.Item : 0x0

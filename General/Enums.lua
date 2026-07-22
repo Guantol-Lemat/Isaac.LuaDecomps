@@ -1,3 +1,5 @@
+local EngineEnums = require("Engine.Enums")
+
 ---@class Enums
 local Module = {}
 
@@ -254,6 +256,25 @@ Module.eShaders = {
     DIZZY = 17,
     HEAT_WAVE = 18,
     MIRROR = 19,
+}
+
+local vertexFmt = EngineEnums.eVertexAttributeFormat
+
+---@type Engine.VertexFormat
+local VertexAttributes_ColorOffset = {
+    {"Position", vertexFmt.POSITION},
+    {"Color", vertexFmt.COLOR},
+    {"TexCoord", vertexFmt.TEX_COORD},
+    {"ColorizeIn", vertexFmt.VEC_4},
+    {"ColorOffsetIn", vertexFmt.VEC_3},
+    {"TextureSize", vertexFmt.VEC_2},
+    {"PixelationAmount", vertexFmt.FLOAT},
+    {"ClipPlane", vertexFmt.VEC_3},
+}
+
+---@enum eShaderVertexAttributes
+Module.eVertexAttributes = {
+    COLOR_OFFSET = VertexAttributes_ColorOffset
 }
 
 ---@enum eAnimationFlags

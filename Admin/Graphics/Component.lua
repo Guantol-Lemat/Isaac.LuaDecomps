@@ -1,7 +1,7 @@
 ---@class GraphicsAdminComponent
 ---@field SetClearColor fun(self: GraphicsAdminComponent, r: number, g: number, b: number, a: number)
----@field SetRenderTargetTexture fun(self: GraphicsAdminComponent, texture: ImageComponent, useScreenSize: boolean)
----@field GetCurrentRenderTarget fun(self: GraphicsAdminComponent): ImageComponent, boolean
+---@field SetRenderTargetTexture fun(self: GraphicsAdminComponent, texture: Engine.Image, useScreenSize: boolean)
+---@field GetCurrentRenderTarget fun(self: GraphicsAdminComponent): Engine.Image, boolean
 ---@field Clear fun(self: GraphicsAdminComponent)
 ---@field SetBlendMode fun(self: GraphicsAdminComponent, blendMode: BlendModeComponent)
 ---@field apply_blend_mode fun(self: GraphicsAdminComponent, blendMode: BlendModeComponent)
@@ -12,7 +12,7 @@
 ---@field s_depth number
 ---@field m_blendMode BlendModeComponent
 ---@field m_shader ShaderComponent
----@field m_renderTargetTexture ImageComponent
+---@field m_renderTargetTexture Engine.Image
 ---@field m_renderTargetUsesScreenSize boolean
 ---@field m_cullOffscreenRendering boolean
 ---@field m_useTexelFix boolean

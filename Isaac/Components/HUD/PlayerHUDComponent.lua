@@ -11,7 +11,7 @@
 ---@field m_inventoryVector_qqq InventoryStruct[] : 0x694
 ---@field m_invalidateItemHistory boolean : 0x6a0
 ---@field m_invalidateBOC boolean : 0x6a1
----@field m_bagResultImage_qqq ImageComponent : 0x6a4
+---@field m_bagResultImage_qqq Engine.Image : 0x6a4
 
 ---@class HeartHudComponent
 ---@field visibility_qqq boolean : 0x0
@@ -25,6 +25,6 @@
 ---@class TrinketHudComponent
 ---@field id TrinketType | integer
 ---@field slot integer
----@field image ImageComponent
+---@field image Engine.Image
 
 ---@class InventoryStruct

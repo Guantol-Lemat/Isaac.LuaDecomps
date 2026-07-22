@@ -63,7 +63,7 @@ local function GreedDonationMachine_Init(slot, ctx)
     local coinCount = IPersistentGameData.GetEventCounter(ctx.manager.m_persistentGameData, EventCounter.GREED_DONATION_MACHINE_COUNTER)
     set_sprite_coin_icons(slot, coinCount)
 
-    local remove = IGame.AchievementUnlocksDisallowed(ctx, game)
+    local remove = IGame.AchievementUnlocksDisallowed(game, ctx)
     if remove then
         slot:Remove(ctx)
     end

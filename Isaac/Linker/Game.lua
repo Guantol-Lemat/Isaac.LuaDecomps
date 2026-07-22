@@ -1,6 +1,9 @@
 ---@class Interface.Game
 local Interface = require("Isaac.Interface.Game")
 
+local GameMisc = require("Isaac.Gameplay.Game.GameMisc")
+local GameStart = require("Isaac.Gameplay.Game.Start")
+
 --#region Stub
 
 local Stub = {}
@@ -215,22 +218,11 @@ function Stub.ResetState(game) end
 ---@param game Component.Game
 function Stub.Init(ctx, game) end
 
----@param game Component.Game
----@param Speed number
-function Stub.Fadein(game, Speed) end
 
 ---@param game Component.Game
 ---@param Speed number
 ---@param FadeoutTarget integer
 function Stub.Fadeout(game, Speed, FadeoutTarget) end
-
----@param ctx Context.Common
----@param game Component.Game
----@param playerType integer
----@param challenge Challenge | integer
----@param seeds Component.Seeds
----@param difficulty Difficulty | integer
-function Stub.Start(ctx, game, playerType, challenge, seeds, difficulty) end
 
 ---@param ctx Context.Common
 ---@param unk unknown -- something relating to net controllers
@@ -575,11 +567,6 @@ function Stub.FinishChallenge(ctx, game) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
----@return boolean
-function Stub.AchievementUnlocksDisallowed(ctx, game) end
-
----@param ctx Context.Common
----@param game Component.Game
 ---@param Enemy Component.Entity.Npc
 ---@param ignoreRelativeHP_qqq boolean
 ---@return boolean
@@ -620,11 +607,6 @@ function Stub.GetGlowingHourGlassState(game) end
 ---@param lerp boolean
 ---@param rate number
 function Stub.SetColorModifier(ctx, param_1, lerp, rate) end
-
----@param ctx Context.Common
----@param game Component.Game
----@return Component.ChallengeParam
-function Stub.GetChallengeParams(ctx, game) end
 
 ---@param ctx Context.Common
 ---@param currentPos Vector
@@ -870,9 +852,9 @@ Interface.LogPerformanceCounters = Stub.LogPerformanceCounters
 Interface.init_vars = Stub.init_vars
 Interface.ResetState = Stub.ResetState
 Interface.Init = Stub.Init
-Interface.Fadein = Stub.Fadein
+Interface.Fadein = GameMisc.Fadein
 Interface.Fadeout = Stub.Fadeout
-Interface.Start = Stub.Start
+Interface.Start = GameStart.Start
 Interface.NetStart = Stub.NetStart
 Interface.StartDailyChallenge = Stub.StartDailyChallenge
 Interface.StartFromSavedState = Stub.StartFromSavedState
@@ -928,7 +910,7 @@ Interface.DonateAngel = Stub.DonateAngel
 Interface.RerollLevelCollectibles = Stub.RerollLevelCollectibles
 Interface.RerollLevelPickups = Stub.RerollLevelPickups
 Interface.FinishChallenge = Stub.FinishChallenge
-Interface.AchievementUnlocksDisallowed = Stub.AchievementUnlocksDisallowed
+Interface.AchievementUnlocksDisallowed = GameMisc.AchievementUnlocksDisallowed
 Interface.RerollEnemy = Stub.RerollEnemy
 Interface.DevolveEnemy = Stub.DevolveEnemy
 Interface.ShowHallucination = Stub.ShowHallucination
@@ -937,7 +919,7 @@ Interface.StoreGlowingHourGlassState = Stub.StoreGlowingHourGlassState
 Interface.RestoreGlowingHourGlassState = Stub.RestoreGlowingHourGlassState
 Interface.GetGlowingHourGlassState = Stub.GetGlowingHourGlassState
 Interface.SetColorModifier = Stub.SetColorModifier
-Interface.GetChallengeParams = Stub.GetChallengeParams
+Interface.GetChallengeParams = GameMisc.GetChallengeParams
 Interface.FindPlayerTarget = Stub.FindPlayerTarget
 Interface.FindEnemyTarget = Stub.FindEnemyTarget
 Interface.fix_erased_enemy = Stub.fix_erased_enemy

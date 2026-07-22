@@ -1,6 +1,9 @@
 ---@class Interface.PlayerManager
 local Interface = require("Isaac.Interface.PlayerManager")
 
+local PlayerManagerInit = require("Isaac.Gameplay.Game.PlayerManager.PlayerManagerInit")
+local PlayerManagerMisc = require("Isaac.Gameplay.Game.PlayerManager.PlayerManagerMisc")
+
 --#region Stub
 
 local Stub = {}
@@ -68,17 +71,7 @@ function Stub.RemoveCoPlayer(playerManager, ctx, player) end
 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
----@param playerType PlayerType | integer
----@param seed integer
-function Stub.Init(playerManager, ctx, playerType, seed) end
-
----@param playerManager Component.PlayerManager
----@param ctx Context.Common
 function Stub.Reset(playerManager, ctx) end
-
----@param playerManager Component.PlayerManager
----@param ctx Context.Common
-function Stub.InitPostLevelInitStats(playerManager, ctx) end
 
 ---@param ctx Context.Common
 ---@return boolean
@@ -108,10 +101,6 @@ function Stub.TriggerNewStage(playerManager, ctx) end
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
 function Stub.TriggerNewRoom(playerManager, ctx) end
-
----@param playerManager Component.PlayerManager
----@param ctx Context.Common
-function Stub.TriggerNewRoom_TemporaryEffects(playerManager, ctx) end
 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
@@ -157,11 +146,6 @@ function Stub.StoreGameState(playerManager, ctx, param_1) end
 ---@param ctx Context.Common
 ---@param controllerIdx integer
 function Stub.spawn_selected_baby(playerManager, ctx, controllerIdx) end
-
----@param playerManager Component.PlayerManager
----@param ctx Context.Common
----@param seed integer
-function Stub.init_special_baby_selection(playerManager, ctx, seed) end
 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
@@ -298,9 +282,9 @@ Interface.SpawnCoPlayer = Stub.SpawnCoPlayer
 Interface.add_coplayer = Stub.add_coplayer
 Interface.remove_coplayer = Stub.remove_coplayer
 Interface.RemoveCoPlayer = Stub.RemoveCoPlayer
-Interface.Init = Stub.Init
+Interface.Init = PlayerManagerInit.Init
 Interface.Reset = Stub.Reset
-Interface.InitPostLevelInitStats = Stub.InitPostLevelInitStats
+Interface.InitPostLevelInitStats = PlayerManagerMisc.InitPostLevelInitStats
 Interface.CoopBabiesOnly = Stub.CoopBabiesOnly
 Interface.GetPlayerSlotFromController = Stub.GetPlayerSlotFromController
 Interface.ProcessInput = Stub.ProcessInput
@@ -308,7 +292,7 @@ Interface.Update = Stub.Update
 Interface.TriggerRoomClear = Stub.TriggerRoomClear
 Interface.TriggerNewStage = Stub.TriggerNewStage
 Interface.TriggerNewRoom = Stub.TriggerNewRoom
-Interface.TriggerNewRoom_TemporaryEffects = Stub.TriggerNewRoom_TemporaryEffects
+Interface.TriggerNewRoom_TemporaryEffects = PlayerManagerMisc.TriggerNewRoom_TemporaryEffects
 Interface.NotifyDead = Stub.NotifyDead
 Interface.GetSpawnPosition = Stub.GetSpawnPosition
 Interface.ComputeInitSpawnPosition = Stub.ComputeInitSpawnPosition
@@ -317,7 +301,6 @@ Interface.RestoreGameState = Stub.RestoreGameState
 Interface.RestoreGameState_PostLevelInit = Stub.RestoreGameState_PostLevelInit
 Interface.StoreGameState = Stub.StoreGameState
 Interface.spawn_selected_baby = Stub.spawn_selected_baby
-Interface.init_special_baby_selection = Stub.init_special_baby_selection
 Interface.FirstCollectibleOwner = Stub.FirstCollectibleOwner
 Interface.RandomCollectibleOwner = Stub.RandomCollectibleOwner
 Interface.FirstTrinketOwner = Stub.FirstTrinketOwner

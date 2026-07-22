@@ -10,7 +10,7 @@ local eImageFlags = ImageEnums.eImageFlags
 ---@class ImageUtils
 local Module = {}
 
----@param image ImageComponent
+---@param image Engine.Image
 ---@return boolean
 local function IsBatching(image)
     return BitsetUtils.HasAny(image.m_flags, eImageFlags.BATCH_RUNNING)

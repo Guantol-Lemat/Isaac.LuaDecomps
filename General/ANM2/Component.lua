@@ -68,7 +68,7 @@
 ---@field m_blendMode BlendModeComponent
 ---@field m_flags eAnimationFlags | integer
 ---@field m_cropOffset Vector
----@field m_spriteSheet ImageComponent?
+---@field m_spriteSheet Engine.Image?
 
 ---@class AnimationLayerComponent
 ---@field m_layerId integer

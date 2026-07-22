@@ -1,0 +1,52 @@
+---@class Engine.Image
+---@field IsLoaded fun(self: Engine.Image): boolean
+---@field Render_SourceDestQuad fun(self: Engine.Image, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): pointer?
+---@field Render_SourceDestQuadFlatColor fun(self: Engine.Image, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, color: KColor): pointer?
+---@field GetWidth fun(self: Engine.Image): integer
+---@field GetHeight fun(self: Engine.Image): integer
+---@field GetPaddedWidth fun(self: Engine.Image): integer
+---@field GetPaddedHeight fun(self: Engine.Image): integer
+---@field GetBytesPerPixel fun(self: Engine.Image): integer
+---@field SetVertexFormat fun(self: Engine.Image, format: ) 
+---@field SetFilterMode fun(self: Engine.Image, minFilterMode: integer, magFilterMode: integer)
+---@field SetWrapMode fun(self: Engine.Image, wrapSMode: integer, wrapTMode: integer)
+---@field IsPalleted fun(self: Engine.Image): boolean
+---@field SetPallete fun(self: Engine.Image, value: boolean)
+---@field SetTexel fun(self: Engine.Image)
+---@field GetTexel fun(self: Engine.Image)
+---@field GetTexelRegion fun(self: Engine.Image)
+---@field RenderTexturedTriangle fun(self: Engine.Image)
+---@field Load fun(self: Engine.Image)
+---@field SwapBatches fun(self: Engine.Image)
+---@field FreeBatches fun(self: Engine.Image)
+---@field Unload fun(self: Engine.Image)
+---@field Reload fun(self: Engine.Image)
+---@field UnloadImageData fun(self: Engine.Image)
+---@field Bind fun(self: Engine.Image)
+---@field ApplyPallette fun(self: Engine.Image)
+---@field apply_image fun(self: Engine.Image)
+---@field m_uvScale Vector
+---@field m_flags eImageFlags | integer
+---@field m_predefinedShader ePredefinedShader | integer
+---@field m_pixelFormat ePixelFormat
+---@field m_pixelData pointer -- pointer containing raw pixel data
+---@field m_minFilterMode integer
+---@field m_magFilterMode integer
+---@field m_wrapSMode integer
+---@field m_wrapTMode integer
+---@field m_vertexAttributesFormat pointer
+---@field m_vertexAttributesCount integer
+---@field m_vertexStride integer
+---@field m_name string
+---@field m_opaqueBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
+---@field m_lastRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
+---@field m_reusableTransparentRenderBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
+---@field m_lastTransparentRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
+---@field m_quadBatch RenderBatchComponent? -- the current batch in which to submit quads
+---@field m_quadBatchRenderingOffset Vector
+---@field m_quadBatchPixelScale number
+---@field m_quadBatchChangedBlend boolean
+---@field m_quadBatchIsTransparent boolean
+---@field m_lastRenderTimeStamp integer
+
+---@class Engine.ProceduralImage : Engine.Image

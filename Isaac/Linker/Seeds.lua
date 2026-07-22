@@ -1,26 +1,12 @@
 ---@class Interface.Seeds
 local Interface = require("Isaac.Interface.Seeds")
 
+local SeedsStringConversion = require("Isaac.Gameplay.Manager.Seeds.StringConversion")
+local SeedsMisc = require("Isaac.Gameplay.Manager.Seeds.SeedsMisc")
+
 --#region Stub
 
 local Stub = {}
-
----@param seeds Component.Seeds
----@return integer
-function Stub.GetStartSeed(seeds) end
-
----@param seeds Component.Seeds
----@param SeedEffect SeedEffect | integer
----@return boolean
-function Stub.HasSeedEffect(seeds, SeedEffect) end
-
----@param seeds Component.Seeds
----@param string string
----@return string
-function Stub.GetStartSeedString(seeds, string) end
-
----@param seeds Component.Seeds
-function Stub.ClearSeedEffects(seeds) end
 
 ---@param ctx Context.Common
 ---@param str string
@@ -29,37 +15,17 @@ function Stub.IsSpecialSeed(ctx, str) end
 
 ---@param seeds Component.Seeds
 ---@return integer
-function Stub.GetNextSeed(seeds) end
-
----@param seeds Component.Seeds
----@return integer
 function Stub.GetPlayerInitSeed(seeds) end
-
----@param seeds Component.Seeds
----@param seedEffect SeedEffect | integer
-function Stub.AddSeedEffect(seeds, seedEffect) end
 
 ---@param seeds Component.Seeds
 ---@param Stage LevelStage | integer
 ---@return integer
 function Stub.GetStageSeed(seeds, Stage) end
 
----@param seeds Component.Seeds
-function Stub.ClearStartSeed(seeds) end
-
----@param seeds Component.Seeds
----@return integer
-function Stub.CountSeedEffects(seeds) end
-
 ---@param Seed1 integer
 ---@param Seed2 integer
 ---@return boolean
 function Stub.IsSeedComboBanned(Seed1, Seed2) end
-
----@param seeds Component.Seeds
----@param SeedEffect integer
----@return integer
-function Stub.RemoveSeedEffect(seeds, SeedEffect) end
 
 ---@return Component.Seeds
 function Stub.New() end
@@ -99,28 +65,8 @@ function Stub.CanAddSeedEffect(seeds, SeedEffect) end
 function Stub.RemoveBlockingSeedEffects(seeds, param_1) end
 
 ---@param ctx Context.Common
----@param param_1 string
-function Stub.GetSeedEffect(ctx, param_1) end
-
----@param str string
----@return boolean
-function Stub.IsStringValidSeed(str) end
-
----@param seed integer
----@return string
-function Stub.Seed2String(seed) end
-
----@param str string
----@return integer
-function Stub.String2Seed(str) end
-
----@param seeds Component.Seeds
----@param string string
-function Stub.SetStartSeed(seeds, string) end
-
----@param seeds Component.Seeds
----@param seed integer
-function Stub.SetStartSeed(seeds, seed) end
+---@param name string
+function Stub.GetSeedEffect(ctx, name) end
 
 ---@param seeds Component.Seeds
 ---@param CurrentChallenge Challenge | integer
@@ -132,19 +78,19 @@ function Stub.ForgetStageSeed(seeds, Stage) end
 
 --#endregion
 
-Interface.GetStartSeed = Stub.GetStartSeed
-Interface.HasSeedEffect = Stub.HasSeedEffect
-Interface.GetStartSeedString = Stub.GetStartSeedString
-Interface.ClearSeedEffects = Stub.ClearSeedEffects
+Interface.GetStartSeed = SeedsMisc.GetStartSeed
+Interface.HasSeedEffect = SeedsMisc.HasSeedEffect
+Interface.GetStartSeedString = SeedsMisc.GetStartSeedString
+Interface.ClearSeedEffects = SeedsMisc.ClearSeedEffects
 Interface.IsSpecialSeed = Stub.IsSpecialSeed
-Interface.GetNextSeed = Stub.GetNextSeed
+Interface.GetNextSeed = SeedsMisc.GetNextSeed
 Interface.GetPlayerInitSeed = Stub.GetPlayerInitSeed
-Interface.AddSeedEffect = Stub.AddSeedEffect
+Interface.AddSeedEffect = SeedsMisc.AddSeedEffect
 Interface.GetStageSeed = Stub.GetStageSeed
-Interface.ClearStartSeed = Stub.ClearStartSeed
-Interface.CountSeedEffects = Stub.CountSeedEffects
+Interface.ClearStartSeed = SeedsMisc.ClearStartSeed
+Interface.CountSeedEffects = SeedsMisc.CountSeedEffects
 Interface.IsSeedComboBanned = Stub.IsSeedComboBanned
-Interface.RemoveSeedEffect = Stub.RemoveSeedEffect
+Interface.RemoveSeedEffect = SeedsMisc.RemoveSeedEffect
 Interface.New = Stub.New
 Interface.Copy = Stub.Copy
 Interface.Assign = Stub.Assign
@@ -156,10 +102,10 @@ Interface.ban_seed_pair = Stub.ban_seed_pair
 Interface.CanAddSeedEffect = Stub.CanAddSeedEffect
 Interface.RemoveBlockingSeedEffects = Stub.RemoveBlockingSeedEffects
 Interface.GetSeedEffect = Stub.GetSeedEffect
-Interface.IsStringValidSeed = Stub.IsStringValidSeed
-Interface.Seed2String = Stub.Seed2String
-Interface.String2Seed = Stub.String2Seed
-Interface.SetStartSeed = Stub.SetStartSeed
-Interface.SetStartSeed = Stub.SetStartSeed
+Interface.IsStringValidSeed = SeedsStringConversion.IsStringValidSeed
+Interface.Seed2String = SeedsStringConversion.Seed2String
+Interface.String2Seed = SeedsStringConversion.String2Seed
+Interface.SetStartSeed_String = SeedsMisc.SetStartSeed_String
+Interface.SetStartSeed = SeedsMisc.SetStartSeed
 Interface.Restart = Stub.Restart
 Interface.ForgetStageSeed = Stub.ForgetStageSeed

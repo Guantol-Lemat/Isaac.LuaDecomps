@@ -69,7 +69,7 @@ local function start_game(manager, ctx)
     end
 
     local seeds = ISeeds.Copy(manager.m_startSeeds)
-    IGame.Start(ctx, ctx.game, manager.m_startPlayerType, manager.m_startChallenge, seeds, manager.m_startDifficulty)
+    IGame.Start(ctx.game, ctx, manager.m_startPlayerType, manager.m_startChallenge, seeds, manager.m_startDifficulty)
 end
 
 ---@param manager Component.Manager

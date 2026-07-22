@@ -26,8 +26,8 @@
 ---@field m_isConsoleEnabled boolean : 0x4a271
 ---@field m_buttonMapManager ButtonMapManagerComponent : 0x4a278
 ---@field m_ButtonsSprite Sprite : 0x4a284
----@field m_loadImage_frame1 ImageComponent : 0x4a398
----@field m_loadImage_frame2 ImageComponent : 0x4a3a0
+---@field m_loadImage_frame1 Engine.Image : 0x4a398
+---@field m_loadImage_frame2 Engine.Image : 0x4a3a0
 ---@field m_millisecondsOnInitLoadImage integer : 0x4a3a8
 ---@field m_font_1 Font : 0x4a3ac
 ---@field m_font_2 Font : 0x6a3e8

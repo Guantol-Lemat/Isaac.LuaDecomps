@@ -3,7 +3,7 @@
 local IManager = require("Isaac.Interface.Manager")
 local IModManager = require("Isaac.Interface.ModManager")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
-local IPlayerHUD = require("Isaac.Interface.PlayerHUD")
+local IHud = require("Isaac.Interface.HUD")
 local IPauseScreen = require("Isaac.Interface.PauseScreen")
 local IGame = require("Isaac.Interface.Game")
 local ILevel = require("Isaac.Interface.Level")
@@ -32,7 +32,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
     game.m_victoryRun_currentLap = 0
     game.m_isConsoleEnabled_qqq = manager.m_isConsoleEnabled
 
-    IPlayerHUD.LoadGraphics(game.m_hud.m_playerHUD, ctx)
+    IHud.LoadGraphics(game.m_hud, ctx)
 
     if seeds.m_startSeed == 0 then
         Log.LogMessage(3, "Start seed is not initialized")
@@ -44,7 +44,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
 
     local game_inChallenge = game.m_challenge ~= Challenge.CHALLENGE_NULL
     if game_inChallenge then
-        local challengeParams = IGame.GetChallengeParams(ctx, game)
+        local challengeParams = IGame.GetChallengeParams(game, ctx)
         local challenge_seedEffects = challengeParams.m_seeds
 
         game_seeds.m_seedEffects = {}
@@ -56,7 +56,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
     local fortuneSeed = ISeeds.GetNextSeed(game_seeds)
     game.m_fortuneRNG = RNG(fortuneSeed, 35)
 
-    local achievementsDisallowed = IGame.AchievementUnlocksDisallowed(ctx, game) or game_inChallenge
+    local achievementsDisallowed = IGame.AchievementUnlocksDisallowed(game, ctx) or game_inChallenge
     IPersistentGameData.SetReadOnly(manager.m_persistentGameData, achievementsDisallowed)
 
     local seedString = ISeeds.Seed2String(game_seeds.m_startSeed)

@@ -1,0 +1,20 @@
+---@class Component.PauseScreen
+---@field m_state integer : 0x0
+---@field m_notInFocus boolean : 0x4
+---@field m_selection_qqq integer : 0x8
+---@field m_moveSpeedBars integer : 0xc
+---@field m_maxFireSpeedBars integer : 0x10
+---@field m_damageBars integer : 0x14
+---@field m_tearRangeBars integer : 0x18
+---@field m_shotSpeedBars integer : 0x1c
+---@field m_luckBars integer : 0x20
+---@field m_unkCountdown integer : 0x24
+---@field m_frameCount integer : 0x28
+---@field m_anm2_1 Sprite : 0x2c
+---@field m_anm2_2 Sprite : 0x140
+---@field m_collectionItemANM2 Sprite : 0x254
+---@field m_controllerConnectionPopup Component.GenericPopup : 0x368
+---@field m_genericPrompt Component.GenericPrompt : 0x488
+---@field m_menuOptions Component.Menu_Options : 0x806a8
+---@field m_image Engine.Image : 0x80914
+---@field m_completionWidget Component.CompletionWidget : 0x8091c

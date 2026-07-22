@@ -90,6 +90,12 @@ local function GetRenderDistance(position)
     return position * 0.65
 end
 
+local function PushRenderTarget()
+end
+
+local function PopRenderTarget()
+end
+
 --#region Module
 
 Module.GetDirectionToMoveAction = GetDirectionToMoveAction
@@ -103,6 +109,8 @@ Module.RandomVector = RandomVector
 Module.RandomVector_Seed = RandomVector_Seed
 Module.TimeScaledFriction = TimeScaledFriction
 Module.GetRenderDistance = GetRenderDistance
+Module.PushRenderTarget = PushRenderTarget
+Module.PopRenderTarget = PopRenderTarget
 
 --#endregion
 

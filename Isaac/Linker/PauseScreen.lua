@@ -1,6 +1,8 @@
 ---@class Interface.PauseScreen
 local Interface = require("Isaac.Interface.PauseScreen")
 
+local PauseScreenMisc = require("Isaac.Gameplay.UI.PauseScreen.PauseScreenMisc")
+
 --#region Stub
 
 local Stub = {}
@@ -15,10 +17,6 @@ function Stub.GetPlayer(ctx) end
 ---@param pauseScreen Component.PauseScreen
 ---@param ctx Context.Common
 function Stub.Init(pauseScreen, ctx) end
-
----@param pauseScreen Component.PauseScreen
----@param ctx Context.Common
-function Stub.Reset(pauseScreen, ctx) end
 
 ---@param pauseScreen Component.PauseScreen
 ---@param ctx Context.Common
@@ -59,7 +57,7 @@ function Stub.PostLanguageSwitch(pauseScreen, ctx) end
 Interface.Destructor = Stub.Destructor
 Interface.GetPlayer = Stub.GetPlayer
 Interface.Init = Stub.Init
-Interface.Reset = Stub.Reset
+Interface.Reset = PauseScreenMisc.Reset
 Interface.ProcessInput = Stub.ProcessInput
 Interface.Update = Stub.Update
 Interface.Render = Stub.Render

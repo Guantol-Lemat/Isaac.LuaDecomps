@@ -12,7 +12,7 @@ local Module = {}
 ---@param context Context
 ---@param color Color
 ---@param vertexBuffer pointer
----@param image ImageComponent
+---@param image Engine.Image
 local function FillColorOffsetVertexBuffer(context, color, vertexBuffer, image)
     local anm2Manager = context:GetANM2Manager()
 
@@ -59,7 +59,7 @@ end
 ---@param color Color
 ---@param championColor Color
 ---@param vertexBuffer pointer
----@param image ImageComponent
+---@param image Engine.Image
 local function FillColorOffsetChampionVertexBuffer(context, color, championColor, vertexBuffer, image)
     local anm2Manager = context:GetANM2Manager()
 

@@ -168,7 +168,7 @@ function Stub.GetString_DefaultCategory(manager, str) end
 ---@param param_2 string
 ---@param param_3 Component.Graphics.VertexAttributeDescriptor
 ---@param param_4 boolean
----@return Component.Image
+---@return Engine.Image
 function Stub.LoadImage(ctx, result, param_2, param_3, param_4) end
 
 ---@param ctx Context.Common

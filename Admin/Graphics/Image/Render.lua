@@ -22,7 +22,7 @@ local eVertexAttributeFormat = Shader.eVertexAttributeFormat
 local Module = {}
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param isTransparent boolean
 ---@return RenderBatchComponent
 local function get_batch(context, image, isTransparent)
@@ -46,7 +46,7 @@ local function get_batch(context, image, isTransparent)
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param isTransparent boolean
 local function begin_quad_batch(context, image, isTransparent)
     local graphics = context:GetGraphicsManager()
@@ -76,7 +76,7 @@ local function begin_quad_batch(context, image, isTransparent)
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param isTransparent boolean
 local function BeginBatch(context, image, isTransparent)
     if BitsetUtils.HasAny(image.m_flags, eImageFlags.BATCH_RUNNING) then
@@ -88,7 +88,7 @@ local function BeginBatch(context, image, isTransparent)
 end
 
 ---@param context ImageContext.EndBatch
----@param image ImageComponent
+---@param image Engine.Image
 local function EndBatch(context, image)
     if not BitsetUtils.HasAny(image.m_flags, eImageFlags.BATCH_RUNNING) then
         return
@@ -190,7 +190,7 @@ local function submit_texture_coordinates_attribute(vertexBuffer, sourceQuad, ve
 end
 
 ---@param context Context
----@param image ImageComponent
+---@param image Engine.Image
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent
 ---@param colorTopLeft KColor
@@ -235,7 +235,7 @@ local function submit_quads(context, image, vertexBuffer, indexBuffer, lastProce
     end
 end
 
----@param image ImageComponent
+---@param image Engine.Image
 ---@param destQuad DestinationQuadComponent
 local function texel_snap(image, destQuad)
     local pixelScale = image.m_quadBatchPixelScale
@@ -254,7 +254,7 @@ local function texel_snap(image, destQuad)
     )
 end
 
----@param image ImageComponent
+---@param image Engine.Image
 ---@param context Context
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent
@@ -303,7 +303,7 @@ local function apply_data(image, context, sourceQuad, destQuad, colorTopLeft, co
     return vertexBuffer
 end
 
----@param image ImageComponent
+---@param image Engine.Image
 ---@param context Context
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent
@@ -318,7 +318,7 @@ local function RenderSourceDestQuad(image, context, sourceQuad, destQuad, colorT
     return apply_data(image, context, sourceQuad, destQuad, colorTopLeft, colorTopRight, colorBottomLeft, colorBottomRight)
 end
 
----@param image ImageComponent
+---@param image Engine.Image
 ---@param context Context
 ---@param sourceQuad SourceQuadComponent
 ---@param destQuad DestinationQuadComponent
@@ -329,7 +329,7 @@ local function RenderSourceDestQuadFlatColor(image, context, sourceQuad, destQua
 end
 
 ---@param context ImageContext.DrawBatch
----@param image ImageComponent
+---@param image Engine.Image
 ---@param batch RenderBatchComponent
 ---@param bindImage boolean
 local function DrawBatch(context, image, batch, bindImage)
@@ -373,7 +373,7 @@ local function empty_graphics_buffer(bufferObject)
     buffer.m_processed = 0
 end
 
----@param image ImageComponent
+---@param image Engine.Image
 local function SwapBatches(image)
     local opaqueBatches = image.m_opaqueBatches
     local transparentBatches = image.m_reusableTransparentRenderBatches
@@ -392,7 +392,7 @@ local function SwapBatches(image)
 end
 
 ---Render Image's render batches onto current RenderTarget
----@param image ImageComponent
+---@param image Engine.Image
 ---@param context ImageContext.DrawBatch
 local function apply_image(image, context)
     image:Bind()

@@ -7,7 +7,7 @@
 
 ---@class MinimapConfigComponent
 ---@field m_sprite Sprite
----@field m_image ImageComponent
+---@field m_image Engine.Image
 ---@field m_cellPixelSize Vector
 ---@field m_borderPadding number
 ---@field m_cellPixelDistance number

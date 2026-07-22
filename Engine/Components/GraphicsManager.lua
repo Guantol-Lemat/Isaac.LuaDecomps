@@ -1,0 +1,64 @@
+---@alias GraphicsManager.Initialize fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.Shutdown fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.SetClearColor fun(self: Engine.GraphicsManager, color: KColor)
+---@alias GraphicsManager.SetRenderTargetTexture fun(self: Engine.GraphicsManager, image: Engine.Image, param2: boolean)
+---@alias GraphicsManager.SetRenderTargetScreen fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.GetCurrentRenderTarget fun(self: Engine.GraphicsManager): Engine.Image, boolean
+---@alias GraphicsManager.GetCurrentRenderTarget_ImageOnly fun(self: Engine.GraphicsManager): Engine.Image
+---@alias GraphicsManager.SetVblankWaitCount fun(self: Engine.GraphicsManager, value: integer)
+---@alias GraphicsManager.Clear fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.PresentWithoutSwap fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.Present fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.GetFrameBufferWidth fun(self: Engine.GraphicsManager): number
+---@alias GraphicsManager.GetFrameBufferHeight fun(self: Engine.GraphicsManager): number
+---@alias GraphicsManager.SetBlendMode fun(self: Engine.GraphicsManager, blendMode: Engine.BlendMode)
+---@alias GraphicsManager.SetShader fun(self: Engine.GraphicsManager, shader: Engine.Shader)
+---@alias GraphicsManager.GetShader fun(self: Engine.GraphicsManager): Engine.Shader
+---@alias GraphicsManager.CullOffscreenRendering fun(self: Engine.GraphicsManager, value: boolean)
+---@alias GraphicsManager.IsCullingOffscreen fun(self: Engine.GraphicsManager): boolean
+---@alias GraphicsManager.UseTexelFix fun(self: Engine.GraphicsManager, value: boolean)
+---@alias GraphicsManager.UsePremultipliedAlpha fun(self: Engine.GraphicsManager, value: boolean)
+---@alias GraphicsManager.SetUsingSRGB fun(self: Engine.GraphicsManager, value: boolean)
+---@alias GraphicsManager.get_display_width fun(self: Engine.GraphicsManager): number
+---@alias GraphicsManager.get_display_height fun(self: Engine.GraphicsManager): number
+---@alias GraphicsManager.apply_blend_mode fun(self: Engine.GraphicsManager, blendMode: BlendMode)
+---@alias GraphicsManager.bind_shader fun(self: Engine.GraphicsManager, shader: Engine.Shader, param2: unknown)
+---@alias GraphicsManager.reset_frame_shaders fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.render_vertices fun(self: Engine.GraphicsManager, vertexBuffer: unknown, vertexStride: integer, indexBuffer: unknown)
+---@alias GraphicsManager.set_predefined_shader fun(self: Engine.GraphicsManager, shader: integer)
+---@alias GraphicsManager.get_predefined_shader fun(self: Engine.GraphicsManager): integer
+---@alias GraphicsManager.initialize_render_states fun(self: Engine.GraphicsManager)
+---@alias GraphicsManager.setup_viewport_screen fun(self: Engine.GraphicsManager)
+
+---@class Engine.GraphicsManager
+---@field Initialize GraphicsManager.Initialize
+---@field Shutdown GraphicsManager.Shutdown
+---@field SetClearColor GraphicsManager.SetClearColor
+---@field SetRenderTargetTexture GraphicsManager.SetRenderTargetTexture
+---@field SetRenderTargetScreen GraphicsManager.SetRenderTargetScreen
+---@field GetCurrentRenderTarget GraphicsManager.GetCurrentRenderTarget
+---@field GetCurrentRenderTarget_ImageOnly GraphicsManager.GetCurrentRenderTarget_ImageOnly
+---@field SetVblankWaitCount GraphicsManager.SetVblankWaitCount
+---@field Clear GraphicsManager.Clear
+---@field PresentWithoutSwap GraphicsManager.PresentWithoutSwap
+---@field Present GraphicsManager.Present
+---@field GetFrameBufferWidth GraphicsManager.GetFrameBufferWidth
+---@field GetFrameBufferHeight GraphicsManager.GetFrameBufferHeight
+---@field SetBlendMode GraphicsManager.SetBlendMode
+---@field SetShader GraphicsManager.SetShader
+---@field GetShader GraphicsManager.GetShader
+---@field CullOffscreenRendering GraphicsManager.CullOffscreenRendering
+---@field IsCullingOffscreen GraphicsManager.IsCullingOffscreen
+---@field UseTexelFix GraphicsManager.UseTexelFix
+---@field UsePremultipliedAlpha GraphicsManager.UsePremultipliedAlpha
+---@field SetUsingSRGB GraphicsManager.SetUsingSRGB
+---@field get_display_width GraphicsManager.get_display_width
+---@field get_display_height GraphicsManager.get_display_height
+---@field apply_blend_mode GraphicsManager.apply_blend_mode
+---@field bind_shader GraphicsManager.bind_shader
+---@field reset_frame_shaders GraphicsManager.reset_frame_shaders
+---@field render_vertices GraphicsManager.render_vertices
+---@field set_predefined_shader GraphicsManager.set_predefined_shader
+---@field get_predefined_shader GraphicsManager.get_predefined_shader
+---@field initialize_render_states GraphicsManager.initialize_render_states
+---@field setup_viewport_screen GraphicsManager.setup_viewport_screen

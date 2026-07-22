@@ -104,7 +104,7 @@ local function DonationMachine_Init(slot, ctx)
     set_sprite_coin_icons(slot, coinCounter)
 
     local remove = IGame.GetStateFlag(game, GameStateFlag.STATE_DONATION_SLOT_BROKEN)
-        or IGame.AchievementUnlocksDisallowed(ctx, game)
+        or IGame.AchievementUnlocksDisallowed(game, ctx)
     if remove then
         slot:Remove(ctx)
     end
