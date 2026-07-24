@@ -1,0 +1,32 @@
+---@class Component.RoomConfig.Room
+---@field m_stageId StbType | integer : 0x0
+---@field m_mode eMode | integer : 0x4
+---@field m_type RoomType | integer : 0x8
+---@field m_variant integer : 0xc
+---@field m_subtype integer : 0x10
+---@field m_name string : 0x14
+---@field m_difficulty Difficulty | integer : 0x2c
+---@field m_initialWeight number : 0x30
+---@field m_weight number : 0x34
+---@field m_doors integer : 0x38
+---@field m_questDoors integer : 0x3c
+---@field m_spawns Component.RoomConfig.Spawn[] : 0x40
+---@field m_width integer : 0x46
+---@field m_height integer : 0x47
+---@field m_shape RoomShape | integer : 0x48
+---@field m_flags eRoomConfigRoomFlag | integer : 0x4c
+---@field m_mergedConfig? Component.RoomConfig.Room : 0x50
+---@field m_unk2 integer : 0x54
+---@field m_originalVariant integer : 0x58
+
+---@class Component.RoomConfig.Spawn
+---@field x integer : 0x0
+---@field y integer : 0x2
+---@field entries Component.RoomConfig.Spawn.Entry[] : 0x4
+---@field sumWeights number : 0xc
+
+---@class Component.RoomConfig.Spawn.Entry
+---@field type EntityType | integer : 0x0
+---@field variant integer : 0x4
+---@field subType integer : 0x6
+---@field weight number : 0x8

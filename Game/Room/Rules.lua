@@ -10,8 +10,8 @@ end
 
 ---@param context Context
 ---@param room Component.Room
----@param pit GridEntityComponent?
----@param source GridEntityComponent?
+---@param pit Component.GridEntity?
+---@param source Component.GridEntity?
 ---@return boolean
 local function TryMakeBridge(context, room, pit, source)
 end

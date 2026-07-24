@@ -1,0 +1,32 @@
+---@class Component.RoomDescriptor
+---@field m_gridIdx GridRooms | integer : 0x0
+---@field m_safeGridIdx integer : 0x4
+---@field m_offsetListIdx integer : 0x8
+---@field m_dimension integer : 0xc
+---@field m_data Component.RoomConfig.Room? : 0x10
+---@field m_overrideData Component.RoomConfig.Room? : 0x14
+---@field m_allowedDoors integer : 0x18
+---@field m_doors integer[] [8] : 0x1c
+---@field m_displayFlags eRoomDisplayFlags | integer : 0x3c
+---@field m_visitedCount integer : 0x40
+---@field m_flags eRoomFlags | integer : 0x44
+---@field m_shopMoneySpent integer : 0x48
+---@field m_clearCount integer : 0x4a
+---@field m_greedSubType integer : 0x4c
+---@field m_poopCount integer : 0x50
+---@field m_tKeeperCoinSpawns integer : 0x52
+---@field m_pitsCount integer : 0x54
+---@field m_decorationSeed integer : 0x58
+---@field m_spawnSeed integer : 0x5c
+---@field m_awardSeed integer : 0x60
+---@field m_bossDeathEffectSeed integer : 0x64
+---@field m_gridEntitySaveStates (Component.GridEntityDesc)[] : 0x68
+---@field m_entitySaveStates Component.EntitySaveState[] : 0x74
+---@field m_restrictedGridIndexes Set<integer> : 0x80
+---@field m_savedEffects Component.EntitySaveState[] : 0x88
+---@field m_shopItemType eShopItemType | integer[] [8] : 0x94
+---@field m_timesRestocked integer[] [8] : 0xa4
+---@field m_shopItemIdx integer : 0xac
+---@field m_shopItemDiscountIdx integer : 0xae
+---@field m_deliriumDistance integer : 0xb0
+---@field m_group integer : 0xb4

@@ -126,7 +126,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
         local forcedMegaSatan = challengeParams.m_isMegaSatan and stage == LevelStage.STAGE6
         if forcedMegaSatan then
             local megaSatanRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_MEGA_SATAN_IDX, Dimension.CURRENT)
-            ---@cast megaSatanRoom RoomDescriptorComponent
+            ---@cast megaSatanRoom Component.RoomDescriptor
             level.m_lastBossListIdx = megaSatanRoom.m_listIdx
 
             goto END_OF_BLOCK
@@ -932,7 +932,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
 
     -- Place Default Rooms
     local startingRoomIdx = level.m_startingRoomIdx
-    ---@type Pair<RoomDescriptorComponent, LevelGeneratorRoomComponent>[]
+    ---@type Pair<Component.RoomDescriptor, LevelGeneratorRoomComponent>[]
     local placedRooms = {}
 
     local remainingRooms = LevelGeneratorUtils.GetRemainingRooms(levelGenerator)
@@ -1090,22 +1090,22 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
 
     -- Place OffGridRooms
     local errorRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_ERROR_IDX, Dimension.CURRENT)
-    ---@cast errorRoom RoomDescriptorComponent
+    ---@cast errorRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(errorRoom, rng)
     errorRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_ERROR, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, -1, mode)
 
     local blackMarketRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_BLACK_MARKET_IDX, Dimension.CURRENT)
-    ---@cast blackMarketRoom RoomDescriptorComponent
+    ---@cast blackMarketRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(blackMarketRoom, rng)
     blackMarketRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_BLACK_MARKET, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, -1, mode)
 
     local dungeonRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_DUNGEON_IDX, Dimension.CURRENT)
-    ---@cast dungeonRoom RoomDescriptorComponent
+    ---@cast dungeonRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(dungeonRoom, rng)
     dungeonRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_DUNGEON, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, -1, mode)
 
     local bossRushRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_BOSSRUSH_IDX, Dimension.CURRENT)
-    ---@cast bossRushRoom RoomDescriptorComponent
+    ---@cast bossRushRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(bossRushRoom, rng)
 
     local onForgottenQuest = PlayerManagerUtils.AnyoneHasCollectible(myContext, playerManager, CollectibleType.COLLECTIBLE_BROKEN_SHOVEL_1)
@@ -1117,7 +1117,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     end
 
     local megaSatanRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_MEGA_SATAN_IDX, Dimension.CURRENT)
-    ---@cast megaSatanRoom RoomDescriptorComponent
+    ---@cast megaSatanRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(megaSatanRoom, rng)
     megaSatanRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_BOSS, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, BossType.MEGA_SATAN, mode)
 
@@ -1127,7 +1127,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     end
 
     local portalRoom = LevelUtils.GetRoomByIdx(level, portalIdx, Dimension.CURRENT)
-    ---@cast portalRoom RoomDescriptorComponent
+    ---@cast portalRoom Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(portalRoom, rng)
     portalRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, StbType.BLUE_WOMB, RoomType.ROOM_DEFAULT, RoomShape.NUM_ROOMSHAPES, 0, -1, 0, 0, 0, 1, mode)
 
@@ -1151,13 +1151,13 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     local secretShopRNG = RNG(rng:Next(), 19)
     local secretShopLevel = secretShopRNG:RandomInt(oddUpgrades) + secretShopRNG:RandomInt(evenUpgrades)
     local secretShop = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_SECRET_SHOP_IDX, Dimension.CURRENT)
-    ---@cast secretShop RoomDescriptorComponent
+    ---@cast secretShop Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(secretShop, secretShopRNG)
     secretShop.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, secretShopRNG:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_SHOP, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, secretShopLevel, mode)
 
     local angelShopRNG = RNG(rng:Next(), 20)
     local angelShop = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_ANGEL_SHOP_IDX, Dimension.CURRENT)
-    ---@cast angelShop RoomDescriptorComponent
+    ---@cast angelShop Component.RoomDescriptor
     RoomDescriptorUtils.InitSeeds(angelShop, angelShopRNG)
     angelShop.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, angelShopRNG:Next(), true, StbType.SPECIAL_ROOMS, RoomType.ROOM_ANGEL, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, RoomSubType.ANGEL_STAIRWAY, mode)
 
@@ -1165,7 +1165,7 @@ local function place_rooms(myContext, level, levelGenerator, minDifficulty, maxD
     if hasMotherBossFight then
         rng:Next()
         local motherRoom = LevelUtils.GetRoomByIdx(level, GridRooms.ROOM_SECRET_EXIT_IDX, Dimension.CURRENT)
-        ---@cast motherRoom RoomDescriptorComponent
+        ---@cast motherRoom Component.RoomDescriptor
         RoomDescriptorUtils.InitSeeds(motherRoom, rng)
         motherRoom.m_data = RoomConfigRules.GetRandomRoom(myContext, roomConfig, rng:Next(), true, stageId, RoomType.ROOM_BOSS, RoomShape.NUM_ROOMSHAPES, 0, -1, 1, 10, 0, BossType.MOTHER, mode)
     end

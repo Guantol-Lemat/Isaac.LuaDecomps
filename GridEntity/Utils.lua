@@ -5,20 +5,20 @@ local RoomGrid = require("Game.Room.Grid")
 --#endregion
 
 ---@param myContext Context.Room
----@param gridEntity GridEntityComponent
+---@param gridEntity Component.GridEntity
 ---@return Vector
 local function GetPosition(myContext, gridEntity)
     return RoomGrid.GetGridPosition(myContext.room, gridEntity.m_gridIdx)
 end
 
 ---@param myContext Context.Room
----@param gridEntity GridEntityComponent
+---@param gridEntity Component.GridEntity
 ---@return boolean
 local function IsEasyCrushableOrWalkable(myContext, gridEntity)
 end
 
 ---@param myContext Context.Room
----@param gridEntity GridEntityComponent
+---@param gridEntity Component.GridEntity
 ---@return boolean
 local function IsDangerousCrushableOrWalkable(myContext, gridEntity)
 end

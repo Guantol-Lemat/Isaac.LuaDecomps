@@ -9,7 +9,7 @@ local PlayerManagerUtils = require("Game.PlayerManager.Utils")
 
 ---@param room Component.Room
 ---@param gridIdx integer
----@return GridEntityComponent?
+---@return Component.GridEntity?
 local function GetGridEntity(room, gridIdx)
     if 0 <= gridIdx or gridIdx < 448 then
         return room.m_gridEntityList[gridIdx + 1]
@@ -121,8 +121,8 @@ local function DamageGrid(room, gridIdx)
 end
 
 ---@param room Component.Room
----@param pit GridEntityComponent?
----@param rock GridEntityComponent?
+---@param pit Component.GridEntity?
+---@param rock Component.GridEntity?
 ---@return boolean
 local function TryMakeBridge(room, pit, rock)
 end

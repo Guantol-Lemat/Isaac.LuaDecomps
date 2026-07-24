@@ -4,6 +4,9 @@ local Interface = require("Isaac.Interface.Entity")
 ---@class Interface.EntityRef
 local Interface_EntityRef = Interface.EntityRef
 
+---@class Interface.EntityPtr
+local Interface_EntityPtr = Interface.EntityPtr
+
 local EntityData = require("Isaac.Gameplay.Entity.Data")
 local EntityRefComponent = require("Isaac.Components.Entity.EntityRefComponent")
 
@@ -923,6 +926,16 @@ function Stub.CanShutDoors(entity) end
 
 --#endregion
 
+--#region EntityPtr Stub
+
+local Stub_EntityPtr = {}
+
+---@param entityPtr Component.EntityPtr
+---@param ref Component.Entity?
+function Stub_EntityPtr.SetReference(entityPtr, ref) end
+
+--#endregion
+
 Interface.GetType = Stub.GetType
 Interface.GetVariant = Stub.GetVariant
 Interface.GetSubType = Stub.GetSubType
@@ -1120,3 +1133,5 @@ Interface.SetSpriteOverlayFrame = Stub.SetSpriteOverlayFrame
 Interface.CanShutDoors = Stub.CanShutDoors
 
 Interface_EntityRef.New = EntityRefComponent.New
+
+Interface_EntityPtr.SetReference = Stub_EntityPtr.SetReference

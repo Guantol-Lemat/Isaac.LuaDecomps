@@ -1,9 +1,9 @@
 ---@class Interface.Entity
----@field EntityRef Interface.EntityRef
-
----@class Interface.EntityRef
-
----@type Interface.Entity
-return {
-    EntityRef = {}
+local Interface = {
+    ---@class Interface.EntityRef
+    EntityRef = {},
+    ---@class Interface.EntityPtr
+    EntityPtr = {},
 }
+
+return Interface

@@ -1,4 +1,25 @@
+---@alias GridEntity.PostInit fun(gridEntity: Component.GridEntity, ctx: Context.Common)
+---@alias GridEntity.Update fun(gridEntity: Component.GridEntity, ctx: Context.Common)
+---@alias GridEntity.Render fun(gridEntity: Component.GridEntity, ctx: Context.Common, position: Vector)
+---@alias GridEntity.Hurt fun(gridEntity: Component.GridEntity, ctx: Context.Common, damage: integer)
+---@alias GridEntity.Destroy fun(gridEntity: Component.GridEntity, ctx: Context.Common)
+---@alias GridEntity.GetWaterClipInfo fun(gridEntity: Component.GridEntity, ctx: Context.Common): Component.WaterClipInfo
+---@alias GridEntity.CanTakeDamageFromTearFlags fun(gridEntity: Component.GridEntity): boolean
+---@alias GridEntity.BeginBatches fun(gridEntity: Component.GridEntity)
+---@alias GridEntity.EndBatches fun(gridEntity: Component.GridEntity)
+---@alias GridEntity.InitSubclass fun(gridEntity: Component.GridEntity, ctx: Context.Common)
+
 ---@class Component.GridEntity
+---@field PostInit GridEntity.PostInit
+---@field Update GridEntity.Update
+---@field Render GridEntity.Render
+---@field Hurt GridEntity.Hurt
+---@field Destroy GridEntity.Destroy
+---@field GetWaterClipInfo GridEntity.GetWaterClipInfo
+---@field CanTakeDamageFromTearFlags GridEntity.CanTakeDamageFromTearFlags
+---@field BeginBatches GridEntity.BeginBatches
+---@field EndBatches GridEntity.EndBatches
+---@field InitSubclass GridEntity.InitSubclass
 ---@field m_desc Component.GridEntityDesc : 0x4
 ---@field m_gridIdx integer : 0x24
 ---@field m_spawnedFrame integer : 0x28

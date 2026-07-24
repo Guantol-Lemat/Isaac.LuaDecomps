@@ -85,7 +85,7 @@ local eRoomContentFlag = {
 }
 
 ---@param level Component.Level
----@param room RoomDescriptorComponent
+---@param room Component.RoomDescriptor
 local function should_render_outline(level, room, x, y)
     ---@type RoomDataComponent
     local data = room.m_data
@@ -226,7 +226,7 @@ end
 ---@param roomX integer
 ---@param roomY integer
 ---@param renderPosition Vector
----@param currentRoom RoomDescriptorComponent
+---@param currentRoom Component.RoomDescriptor
 ---@param gridRenderOffset Vector
 local function render_room(context, config, roomX, roomY, renderPosition, currentRoom, gridRenderOffset)
     local level = context:GetLevel()
@@ -324,7 +324,7 @@ local function render_room(context, config, roomX, roomY, renderPosition, curren
     end
 end
 
----@alias SWITCH_RoomTypeIcon fun(context: Context, room: RoomDescriptorComponent, data: RoomDataComponent): string?
+---@alias SWITCH_RoomTypeIcon fun(context: Context, room: Component.RoomDescriptor, data: RoomDataComponent): string?
 
 local switch_room_type_icon = {
     ---@type SWITCH_RoomTypeIcon
@@ -430,7 +430,7 @@ local switch_room_type_icon = {
 }
 
 ---@param context Context
----@param room RoomDescriptorComponent
+---@param room Component.RoomDescriptor
 ---@return string?
 local function get_room_type_icon(context, room)
     local data = room.m_data
@@ -718,7 +718,7 @@ local function get_slot_icon(slot, icons)
 end
 
 ---@param context Context
----@param room RoomDescriptorComponent
+---@param room Component.RoomDescriptor
 ---@return _RoomContentIcons
 local function get_room_content_icons(context, room)
     ---@type _RoomContentIcons
@@ -812,7 +812,7 @@ end
 ---@param roomX integer
 ---@param roomY integer
 ---@param renderPosition Vector
----@param currentRoom RoomDescriptorComponent
+---@param currentRoom Component.RoomDescriptor
 ---@param gridRenderOffset Vector
 local function render_icons(context, config, roomX, roomY, renderPosition, currentRoom, gridRenderOffset)
     local level = context:GetLevel()

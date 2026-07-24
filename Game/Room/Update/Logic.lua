@@ -185,14 +185,14 @@ local function Update(myContext, room)
     -- update greed mode
     -- update ambient sounds
 
-    if room.m_shopRestock_countdown > 0 then
-        local countdown = room.m_shopRestock_countdown - 1
+    if room.m_shop_restockCountdown > 0 then
+        local countdown = room.m_shop_restockCountdown - 1
         if countdown <= 0 then
             countdown = -1
             -- restock partial
         end
 
-        room.m_shopRestock_countdown = countdown
+        room.m_shop_restockCountdown = countdown
     end
 
     if roomType == RoomType.ROOM_SHOP and PlayerManagerUtils.AnyoneHasCollectible(myContext, playerManager, CollectibleType.COLLECTIBLE_COUPON) then

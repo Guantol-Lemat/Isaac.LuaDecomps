@@ -363,15 +363,15 @@ function Stub.TryPlayMusicLayer(ctx, room) end
 ---@param room Component.Room
 function Stub.PlayBossMusic(ctx, room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param GridIdx integer
 ---@param Type GridEntityType | integer
 ---@param Variant integer
 ---@param Seed integer
 ---@param VarData integer
 ---@return boolean
-function Stub.SpawnGridEntity(ctx, room, GridIdx, Type, Variant, Seed, VarData) end
+function Stub.SpawnGridEntity(room, ctx, GridIdx, Type, Variant, Seed, VarData) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -400,14 +400,14 @@ function Stub.FixSpawnEntry(ctx, room, spawn, gridIdx, seed) end
 ---@return boolean
 function Stub.is_persistent_room_entity(type, variant, unusedSubtype) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param idx integer
 ---@param Entry Component.RoomConfig.Spawn.Entry
 ---@param entrySeed integer
----@param unk Component.Entity
+---@param unk Component.Entity?
 ---@param respawning boolean
-function Stub.spawn_entity(ctx, room, idx, Entry, entrySeed, unk, respawning) end
+function Stub.spawn_entity(room, ctx, idx, Entry, entrySeed, unk, respawning) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -416,10 +416,10 @@ function Stub.spawn_entity(ctx, room, idx, Entry, entrySeed, unk, respawning) en
 ---@return boolean
 function Stub.make_wall(ctx, room, param_1, param_2) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param slot DoorSlot | integer
-function Stub.make_door(ctx, room, slot) end
+function Stub.make_door(room, ctx, slot) end
 
 ---@param room Component.Room
 ---@return StbType | integer
@@ -450,9 +450,9 @@ function Stub.restore_entity(ctx, room, entity, state) end
 ---@param room Component.Room
 function Stub.SaveState(ctx, room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
-function Stub.RestoreState(ctx, room) end
+---@param ctx Context.Common
+function Stub.RestoreState(room, ctx) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -496,9 +496,9 @@ function Stub.GetLaserTarget(room, Pos, Dir) end
 ---@return Vector
 function Stub.CheckLine(ctx, room, Pos1, Pos2, Mode, GridPathThreshold, IgnoreWalls, IgnoreCrushable) end
 
----@param ctx Context.Common
 ---@param room Component.Room
-function Stub.LoadBackdropGraphics(ctx, room) end
+---@param ctx Context.Common
+function Stub.LoadBackdropGraphics(room, ctx) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -562,11 +562,11 @@ function Stub.GetAngelRoomChance(ctx) end
 ---@return boolean
 function Stub.TrySpawnBossRushDoor(ctx, room, IgnoreTime, Force) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param Force boolean
 ---@return boolean
-function Stub.TrySpawnMegaSatanRoomDoor(ctx, room, Force) end
+function Stub.TrySpawnMegaSatanRoomDoor(room, ctx, Force) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -837,10 +837,10 @@ function Stub.ShopReshuffle(room, KeepCollectibleIdx, ReselectSaleItem) end
 ---@return ShopItemPrice | integer
 function Stub.TryGetShopDiscount(ctx, room, ShopItemIdx, Price) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param Slot DoorSlot | integer
-function Stub.RemoveDoor(ctx, room, Slot) end
+function Stub.RemoveDoor(room, ctx, Slot) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -1070,7 +1070,7 @@ function Stub.ComputeColorModifier(ctx, room, returnedResult) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
-function Stub.ProcessColorModifier(ctx, room) end
+function Stub.ProcessColorModifier(room, ctx) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -1180,7 +1180,7 @@ function Stub.GetBeastRoomLavaHeight(room) end
 ---@param ctx Context.Common
 ---@param room Component.Room
 ---@return boolean
-function Stub.TrySpawnSpecialQuestDoor(ctx, room) end
+function Stub.TrySpawnSpecialQuestDoor(room, ctx) end
 
 ---@param ctx Context.Common
 ---@return boolean

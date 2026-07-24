@@ -171,13 +171,13 @@ end
 
 ---@param room Component.Room
 ---@param gridIdx integer
----@return GridEntityComponent?
+---@return Component.GridEntity?
 local function GetGridEntity(room, gridIdx)
 end
 
 ---@param room Component.Room
 ---@param position Vector
----@return GridEntityComponent?
+---@return Component.GridEntity?
 local function GetGridEntityFromPos(room, position)
     return GetGridEntity(room, GetGridIdx(room, position))
 end

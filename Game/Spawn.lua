@@ -23,7 +23,7 @@ end
 ---@param variant integer
 ---@param seed integer
 ---@param varData integer
----@return GridEntityComponent
+---@return Component.GridEntity
 local function SpawnGridEntity(myContext, room, gridIdx, gridType, variant, seed, varData)
 end
 

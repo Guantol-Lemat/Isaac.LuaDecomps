@@ -1,0 +1,28 @@
+---@class Component.EntitySaveState
+---@field m_type EntityType | integer : 0x0
+---@field m_variant integer : 0x4
+---@field m_subtype integer : 0x8
+---@field m_intStorage1 {} : 0xc
+---@field m_intStorage2 integer : 0x10
+---@field m_intStorage3 integer : 0x14
+---@field m_intStorage4 integer : 0x18
+---@field m_intStorage5 integer : 0x1c
+---@field m_spawnGridIdx integer : 0x20
+---@field m_boolStorage1 boolean : 0x22
+---@field m_boolStorage2 boolean : 0x23
+---@field m_intStorage6 integer : 0x24
+---@field m_position Vector : 0x28
+---@field m_intStorage7 integer : 0x30
+---@field m_initSeed integer : 0x34
+---@field m_dropSeed integer : 0x38
+---@field m_spawnerType integer : 0x3c
+---@field m_spawnerVariant integer : 0x40
+---@field m_floatStorage1 number : 0x44
+---@field m_floatStorage2 number : 0x48
+---@field m_intStorage8 integer : 0x4c
+---@field m_byteInt integer : 0x50
+---@field m_pickup_collectibleCycle integer[] : 0x54
+---@field m_pickup_flipState Component.EntitySaveState : 0x5c
+
+---@class Component.SavedEffect: Component.EntitySaveState
+---@field m_intStorage1 {effect_scale: number} 

@@ -1,7 +1,7 @@
 ---@class RoomDescriptorUtils
 local Module = {}
 
----@param desc RoomDescriptorComponent
+---@param desc Component.RoomDescriptor
 ---@param rng RNG
 local function InitSeeds(desc, rng)
     desc.m_decorationSeed = rng:Next()

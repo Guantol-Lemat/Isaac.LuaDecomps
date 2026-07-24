@@ -36,4 +36,5 @@
 ---@field m_gfx_door string : 0xf0
 ---@field m_gfx_holeInWall string : 0x108
 ---@field m_gfx_spikes string : 0x120
----@field m_waterPitMode boolean[] [2] : 0x138
+---@field m_waterPitsMode integer : 0x138
+---@field m_reverseWaterGfx boolean : 0x139

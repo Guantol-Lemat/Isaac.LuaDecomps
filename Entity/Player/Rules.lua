@@ -51,7 +51,7 @@ end
 
 ---@param context Context
 ---@param player Component.Entity.Player
----@param gridEntity GridEntityComponent
+---@param gridEntity Component.GridEntity
 ---@param collisionClass GridCollisionClass
 ---@return boolean
 local function CanCrushGridEntity(context, player, gridEntity, collisionClass)

@@ -48,7 +48,7 @@ end
 
 ---@param context Context
 ---@param player Component.Entity.Player
----@param gridEntity GridEntityComponent
+---@param gridEntity Component.GridEntity
 ---@param collisionClass GridCollisionClass
 local function hook_on_player_grid_collision(context, player, gridEntity, collisionClass)
     if not gridEntity then

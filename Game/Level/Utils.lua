@@ -5,7 +5,7 @@
 ---@class LevelUtils
 local Module = {}
 
----@type RoomDescriptorComponent
+---@type Component.RoomDescriptor
 local s_defaultRoom = {}
 
 ---@param coordinates XYComponent
@@ -22,7 +22,7 @@ end
 
 ---@param level Component.Level
 ---@param idx integer
----@return RoomDescriptorComponent
+---@return Component.RoomDescriptor
 local function GetRoomByListIdx(level, idx)
     return level.m_roomList[idx + 1]
 end
@@ -48,7 +48,7 @@ local function GetFloor(stage, stageType)
 end
 
 ---@param level Component.Level
----@return RoomDescriptorComponent
+---@return Component.RoomDescriptor
 local function GetCurrentRoomDesc(level)
     return level.m_room.m_roomDescriptor
 end
@@ -75,7 +75,7 @@ end
 ---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
----@return RoomDescriptorComponent
+---@return Component.RoomDescriptor
 local function get_dimension_room_by_idx(level, idx, dimension)
     local roomListIdx = level.m_roomLookup[dimension][idx]
     if roomListIdx == -1 then
@@ -88,7 +88,7 @@ end
 ---@param level Component.Level
 ---@param idx GridRooms | integer
 ---@param dimension Dimension | integer
----@return RoomDescriptorComponent
+---@return Component.RoomDescriptor
 local function GetRoomByIdx(level, idx, dimension)
     if dimension == Dimension.CURRENT then
         dimension = level.m_dimension

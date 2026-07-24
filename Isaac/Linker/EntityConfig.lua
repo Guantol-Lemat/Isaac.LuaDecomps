@@ -51,6 +51,9 @@ function Stub.LoadBossColors(path) end
 ---@param modentry Component.ModEntry
 function Stub.LoadPlayers(entityConfig, xmlpath, modentry) end
 
+---@param entityConfig Component.EntityConfig
+function Stub.ResetPreloadFlags(entityConfig) end
+
 ---@param ctx Context.Common
 ---@param entityConfig Component.EntityConfig
 ---@param config Component.EntityConfig.Entity
@@ -93,6 +96,7 @@ Interface.Load = Stub.Load
 Interface.Load = Stub.Load
 Interface.LoadBossColors = Stub.LoadBossColors
 Interface.LoadPlayers = Stub.LoadPlayers
+Interface.ResetPreloadFlags = Stub.ResetPreloadFlags
 Interface.Preload = Stub.Preload
 Interface.Unload = Stub.Unload
 Interface.GetPlayer = Stub.GetPlayer

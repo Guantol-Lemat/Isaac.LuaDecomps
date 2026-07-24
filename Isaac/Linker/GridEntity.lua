@@ -50,6 +50,11 @@ function Stub.Destructor_qqq(gridEntity) end
 ---@param Seed integer
 function Stub.Init(ctx, gridEntity, Seed) end
 
+---@param gridEntity Component.GridEntity
+---@param ctx Context.Common
+---@param desc Component.GridEntityDesc
+function Stub.Init_Desc(gridEntity, ctx, desc) end
+
 ---@param ctx Context.Common
 ---@param gridEntity Component.GridEntity
 ---@return Vector
@@ -178,6 +183,7 @@ Interface.Constructor = Stub.Constructor
 Interface.Free = Stub.Free
 Interface.Destructor_qqq = Stub.Destructor_qqq
 Interface.Init = Stub.Init
+Interface.Init_Desc = Stub.Init_Desc
 Interface.GetPosition = Stub.GetPosition
 Interface.GetRenderPosition = Stub.GetRenderPosition
 Interface.GetWaterClipInfo = Stub.GetWaterClipInfo

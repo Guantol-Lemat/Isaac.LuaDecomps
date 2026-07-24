@@ -1,0 +1,23 @@
+---@class Component.ScoreSheet
+---@field m_StageBonus integer : 0x0
+---@field m_SchwagBonus integer : 0x4
+---@field m_QuestionMarksBonus integer : 0x8
+---@field m_LambBonus integer : 0xc
+---@field m_MegaSatanBonus integer : 0x10
+---@field m_RushBonus integer : 0x14
+---@field m_ExplorationBonus integer : 0x18
+---@field m_DamagePenalty integer : 0x1c
+---@field m_TimePenalty integer : 0x20
+---@field m_ItemPenalty integer : 0x24
+---@field m_TotalScore integer : 0x28
+---@field m_RumTimeLevel integer : 0x2c
+---@field m_RunTimeLevelType integer : 0x30
+---@field m_RunTime integer : 0x34
+---@field m_fromAddPickup integer : 0x38
+---@field m_fromAddKilledEnemy integer : 0x3c
+---@field m_RunEnding integer : 0x40
+---@field m_clearedRoomCount integer[] [30] : 0x44 -- room type to clearedCount
+---@field m_sumClearedRooms integer : 0xbc
+---@field m_visitedRoomCount integer[] [30] : 0xc0 -- room type to visitedCount
+---@field m_bossesKilled? integer : 0x138
+---@field m_encodedGameVersion integer : 0x13c
