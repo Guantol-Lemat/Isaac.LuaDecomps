@@ -2,7 +2,7 @@
 
 local Log = require("General.Log")
 local TableUtils = require("General.Table")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local RNGUtils = require("General.RNG")
 local GameUtils = require("Game.Utils")
 local LevelUtils = require("Game.Level.Utils")

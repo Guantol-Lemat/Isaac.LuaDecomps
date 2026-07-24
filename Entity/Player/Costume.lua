@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local Log = require("General.Log")
 local ItemConfigUtils = require("Isaac._OLD.ItemConfig.Utils")
 local EntityConfigUtils = require("Config.EntityConfig.Utils")

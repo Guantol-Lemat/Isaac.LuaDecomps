@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local RoomUtils = require("Room.Utils")
 local GameUtils = require("Game.Utils")
 local PlayerManagerUtils = require("Game.PlayerManager.Utils")

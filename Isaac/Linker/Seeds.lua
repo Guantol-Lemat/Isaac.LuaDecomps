@@ -1,8 +1,8 @@
 ---@class Interface.Seeds
 local Interface = require("Isaac.Interface.Seeds")
 
-local SeedsStringConversion = require("Isaac.Gameplay.Manager.Seeds.StringConversion")
-local SeedsMisc = require("Isaac.Gameplay.Manager.Seeds.SeedsMisc")
+local SeedsStringConversion = require("Isaac.Core.Manager.Seeds.StringConversion")
+local SeedsMisc = require("Isaac.Core.Manager.Seeds.SeedsMisc")
 
 --#region Stub
 

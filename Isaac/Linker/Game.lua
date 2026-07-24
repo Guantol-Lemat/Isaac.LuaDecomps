@@ -1,8 +1,8 @@
 ---@class Interface.Game
 local Interface = require("Isaac.Interface.Game")
 
-local GameMisc = require("Isaac.Gameplay.Game.GameMisc")
-local GameStart = require("Isaac.Gameplay.Game.Start")
+local GameMisc = require("Isaac.Core.Game.GameMisc")
+local GameStart = require("Isaac.Core.Game.Start")
 
 --#region Stub
 

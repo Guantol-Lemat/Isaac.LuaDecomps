@@ -1,7 +1,7 @@
 ---@class Interface.PauseScreen
 local Interface = require("Isaac.Interface.PauseScreen")
 
-local PauseScreenMisc = require("Isaac.Gameplay.UI.PauseScreen.PauseScreenMisc")
+local PauseScreenMisc = require("Isaac.Core.UI.PauseScreen.PauseScreenMisc")
 
 --#region Stub
 

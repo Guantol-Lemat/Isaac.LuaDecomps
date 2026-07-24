@@ -4,7 +4,7 @@ local IManager = require("Isaac.Interface.Manager")
 local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IItemConfig = require("Isaac.Interface.ItemConfig")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
+local SlotUtils = require("Isaac.Core.Slot.SlotUtils")
 
 local Actor_SlotMachine = require("Isaac.Actor.Slot.SlotMachine")
 local Actor_BloodDonationMachine = require("Isaac.Actor.Slot.BloodDonationMachine")

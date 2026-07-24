@@ -1,10 +1,10 @@
 ---@class Interface.ItemPool
 local Interface = require("Isaac.Interface.ItemPool")
 
-local PoolInit = require("Isaac.Gameplay.ItemPool.Init")
-local PoolLoad = require("Isaac.Gameplay.ItemPool.Load")
-local CollectiblePool = require("Isaac.Gameplay.ItemPool.CollectiblePool")
-local TrinketPool = require("Isaac.Gameplay.ItemPool.TrinketPool")
+local PoolInit = require("Isaac.Core.ItemPool.Init")
+local PoolLoad = require("Isaac.Core.ItemPool.Load")
+local CollectiblePool = require("Isaac.Core.ItemPool.CollectiblePool")
+local TrinketPool = require("Isaac.Core.ItemPool.TrinketPool")
 
 --#region Stub
 

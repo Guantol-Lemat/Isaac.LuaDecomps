@@ -1,13 +1,13 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local VectorUtils = require("General.Math.VectorUtils")
 local IRoom = require("Isaac.Interface.Room")
 local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IEntityTear = require("Isaac.Interface.Entity_Tear")
 
-local TearEffects = require("Isaac.Gameplay.Tear.TearEffects.TearEffectsGridCollision")
+local TearEffects = require("Isaac.Core.Tear.TearEffects.TearEffectsGridCollision")
 
 --#endregion
 

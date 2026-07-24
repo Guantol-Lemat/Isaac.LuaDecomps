@@ -1,7 +1,7 @@
 ---@class Interface.PersistentGameData
 local Interface = require("Isaac.Interface.PersistentGameData")
 
-local PersistentDataMisc = require("Isaac.Gameplay.Manager.PersistentGameData.PersistentDataMisc")
+local PersistentDataMisc = require("Isaac.Core.Manager.PersistentGameData.PersistentDataMisc")
 
 --#region Stub
 

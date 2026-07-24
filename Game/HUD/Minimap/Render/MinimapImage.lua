@@ -11,7 +11,7 @@ local MirrorRules = require("Level.Dimension.Mirror.Rules")
 local MineshaftRules = require("Level.Dimension.Mineshaft.Rules")
 local PickupUtils = require("Entity.Pickup.Utils")
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local MathUtils = require("Math.Math")
 local BitsetUtils = require("General.Bitset")
 local TableUtils = require("General.Table")

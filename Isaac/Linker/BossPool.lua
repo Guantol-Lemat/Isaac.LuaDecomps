@@ -1,8 +1,8 @@
 ---@class Interface.BossPool
 local Interface = require("Isaac.Interface.BossPool")
 
-local BossPoolInit = require("Isaac.Gameplay.BossPool.Init")
-local BossPoolLoad = require("Isaac.Gameplay.BossPool.Load")
+local BossPoolInit = require("Isaac.Core.BossPool.Init")
+local BossPoolLoad = require("Isaac.Core.BossPool.Load")
 
 --#region Stub
 

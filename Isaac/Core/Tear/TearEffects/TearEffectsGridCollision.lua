@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local HitListUtils = require("Isaac.Utils.HitList")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IRoom = require("Isaac.Interface.Room")

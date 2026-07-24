@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local IManager = require("Isaac.Interface.Manager")
 local IGame = require("Isaac.Interface.Game")
 local ILevel = require("Isaac.Interface.Level")

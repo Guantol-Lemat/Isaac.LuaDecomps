@@ -2,7 +2,7 @@
 
 local EngineGlobal = require("Engine.Global")
 local IImageManager = require("Engine.Interface.ImageManager")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local GameEffects = require("Isaac.Interface.Custom.GameEffects")
 local IsaacUtils = require("Isaac.Utils.Common")
 

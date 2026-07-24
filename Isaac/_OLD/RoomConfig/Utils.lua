@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local GameUtils = require("Game.Utils")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 
 local eStageId = Enums.eStageId
 --#endregion

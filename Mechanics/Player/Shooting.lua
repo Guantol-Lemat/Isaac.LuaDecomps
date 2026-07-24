@@ -2,7 +2,7 @@
 
 local Log = require("General.Log")
 local VectorUtils = require("General.Math.VectorUtils")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local IsaacUtils = require("Isaac.Utils.Common")
 local GameUtils = require("Game.Utils")
 local WeaponFactory = require("Game.Weapon.Factory")

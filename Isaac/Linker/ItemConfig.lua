@@ -10,7 +10,7 @@ local Interface_Card = Interface.Card
 ---@class Interface.ItemConfig.PillEffect
 local Interface_PillEffect = Interface.PillEffect
 
-local AvailableLogic = require("Isaac.Gameplay.ItemConfig.AvailableLogic")
+local AvailableLogic = require("Isaac.Core.ItemConfig.AvailableLogic")
 
 --#region Stub
 

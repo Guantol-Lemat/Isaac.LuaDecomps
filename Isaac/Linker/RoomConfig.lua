@@ -4,7 +4,7 @@ local Interface = require("Isaac.Interface.RoomConfig")
 ---@class Interface.RoomConfig.Spawn
 local Interface_Spawn = Interface.Spawn
 
-local RoomConfigMisc = require("Isaac.Gameplay.RoomConfig.RoomConfigMisc")
+local RoomConfigMisc = require("Isaac.Core.RoomConfig.RoomConfigMisc")
 
 --#region Stub
 

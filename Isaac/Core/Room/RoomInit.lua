@@ -3,7 +3,7 @@
 local Globals = require("Isaac.Global")
 local LuaEngine = require("LuaEngine.Misc")
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local IEntityConfig = require("Isaac.Interface.EntityConfig")
 local IRoomConfig = require("Isaac.Interface.RoomConfig")
 local IGame = require("Isaac.Interface.Game")

@@ -8,7 +8,7 @@ local IRoom = require("Isaac.Interface.Room")
 local Log = require("General.Log")
 local LuaCallbacks = require("LuaEngine.Callbacks")
 
-local ChampionSetup = require("Isaac.Gameplay.Npc.ChampionSetup")
+local ChampionSetup = require("Isaac.Core.Npc.ChampionSetup")
 
 --#endregion
 

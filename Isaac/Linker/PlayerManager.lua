@@ -1,8 +1,8 @@
 ---@class Interface.PlayerManager
 local Interface = require("Isaac.Interface.PlayerManager")
 
-local PlayerManagerInit = require("Isaac.Gameplay.Game.PlayerManager.PlayerManagerInit")
-local PlayerManagerMisc = require("Isaac.Gameplay.Game.PlayerManager.PlayerManagerMisc")
+local PlayerManagerInit = require("Isaac.Core.Game.PlayerManager.PlayerManagerInit")
+local PlayerManagerMisc = require("Isaac.Core.Game.PlayerManager.PlayerManagerMisc")
 
 --#region Stub
 

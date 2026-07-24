@@ -1,7 +1,7 @@
 ---@class Interface.ProceduralItemManager
 local Interface = require("Isaac.Interface.ProceduralItemManager")
 
-local ProceduralItemManagerInit = require("Isaac.Gameplay.ProceduralItem.ProceduralItemManagerInit")
+local ProceduralItemManagerInit = require("Isaac.Core.ProceduralItem.ProceduralItemManagerInit")
 
 --#region Stub
 

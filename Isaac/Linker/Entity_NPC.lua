@@ -3,7 +3,7 @@ local Interface = require("Isaac.Interface.Entity_NPC")
 
 --#region
 
-local NpcInit = require("Isaac.Gameplay.Npc.NpcInit")
+local NpcInit = require("Isaac.Core.Npc.NpcInit")
 
 --#endregion
 

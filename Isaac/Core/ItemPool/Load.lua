@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local EngineGlobal = require("Engine.Global")
-local MyGlobal = require("Isaac.Gameplay.ItemPool.Global")
+local MyGlobal = require("Isaac.Core.ItemPool.Global")
 local IFileManager = require("Engine.Interface.FileManager")
 local IItemConfig = require("Isaac.Interface.ItemConfig")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")

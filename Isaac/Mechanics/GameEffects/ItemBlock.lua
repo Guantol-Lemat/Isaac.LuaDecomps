@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local TableUtils = require("General.Table")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local IItemConfig = require("Isaac.Interface.ItemConfig")
 local IGame = require("Isaac.Interface.Game")
 local ISeeds = require("Isaac.Interface.Seeds")

@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local VectorUtils = require("General.Math.VectorUtils")
 
 --#endregion

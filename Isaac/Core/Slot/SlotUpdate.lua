@@ -6,7 +6,7 @@ local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IsaacUtils = require("Isaac.Utils.Common")
 local VectorUtils = require("General.Math.VectorUtils")
-local SlotUtils = require("Isaac.Gameplay.Slot.SlotUtils")
+local SlotUtils = require("Isaac.Core.Slot.SlotUtils")
 local Log = require("General.Log")
 
 local Actor_SlotMachine = require("Isaac.Actor.Slot.SlotMachine")

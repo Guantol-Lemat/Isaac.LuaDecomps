@@ -7,7 +7,7 @@ local Interface_EntityRef = Interface.EntityRef
 ---@class Interface.EntityPtr
 local Interface_EntityPtr = Interface.EntityPtr
 
-local EntityData = require("Isaac.Gameplay.Entity.Data")
+local EntityData = require("Isaac.Core.Entity.Data")
 local EntityRefComponent = require("Isaac.Components.Entity.EntityRefComponent")
 
 --#region Stub

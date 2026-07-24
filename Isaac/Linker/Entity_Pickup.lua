@@ -1,8 +1,8 @@
 ---@class Interface.Entity_Pickup
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
-local PickupLootList = require("Isaac.Gameplay.Pickup.LootList")
-local PickupChest = require("Isaac.Gameplay.Pickup.Chest")
+local PickupLootList = require("Isaac.Core.Pickup.LootList")
+local PickupChest = require("Isaac.Core.Pickup.Chest")
 
 --#region Stub
 

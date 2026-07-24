@@ -2,7 +2,7 @@
 local Interface = require("Isaac.Interface.LevelGenerator")
 
 local Component = require("Isaac.Components.Level.LevelGeneratorComponent")
-local Utils = require("Isaac.Gameplay.Level.LevelGenerator.Utils")
+local Utils = require("Isaac.Core.Level.LevelGenerator.Utils")
 
 --#region Stub
 

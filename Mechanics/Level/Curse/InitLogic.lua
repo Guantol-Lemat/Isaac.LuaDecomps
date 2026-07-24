@@ -1,7 +1,7 @@
 --#region Dependencies
 
 local BitsetUtils = require("General.Bitset")
-local Enums = require("General.Enums")
+local Enums = require("Isaac.Enums")
 local ChallengeParamsUtils = require("Admin.Challenge.Utils")
 local PersistentDataRules = require("Admin.PersistentData.Rules")
 local PlayerManagerRules = require("Game.PlayerManager.Rules")
