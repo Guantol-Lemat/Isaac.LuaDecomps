@@ -1,0 +1,5 @@
+---@class EntityKnifeObject : Decomp.EntityKnifeObject
+---@field m_isFlying boolean
+---@field m_isSwinging boolean
+---@field m_meeleSwingInputHeld_qqq boolean
+---@field m_swingRotation number
