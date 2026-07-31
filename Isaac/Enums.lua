@@ -136,6 +136,7 @@ Module.eItemAnimation = {
     SHOOT_ALT = 3,
 }
 
+---@enum eGetCollectibleFlag
 Module.eGetCollectibleFlag = {
     NO_DECREASE = 1 << 0,
     NO_ACTIVE = 1 << 1,
@@ -175,6 +176,19 @@ Module.eShopItemType = {
     COLLECTIBLE_BABY_SHOP = 18,
     HEART_ETERNAL = 19,
     HOLY_CARD = 20
+}
+
+---@enum eShopItemPrice
+Module.eShopItemPrice = {
+    HEART_1 = -1,
+    HEART_2 = -2,
+    SOUL_3 = -3,
+    SOUL_2_HEART_1 = -4,
+    SPIKES = -5,
+    YOUR_SOUL = -6,
+    SOUL_1 = -7,
+    SOUL_2 = -8,
+    SOUL_1_HEART_1 = -9,
 }
 
 ---@enum eRoomConfigFlag

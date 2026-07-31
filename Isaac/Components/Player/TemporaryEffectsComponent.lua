@@ -1,0 +1,11 @@
+---@class Component.TemporaryEffects
+---@field m_cacheFlags CacheFlag | integer : 0x0
+---@field m_effectsList Component.TemporaryEffects.TemporaryEffect[] : 0x4
+---@field m_shouldEvaluateCache_qqq boolean : 0x10
+---@field m_disabled boolean : 0x11
+---@field m_player Component.Entity.Player : 0x14
+
+---@class Component.TemporaryEffects.TemporaryEffect
+---@field m_item Component.ItemConfig.Item : 0x0
+---@field m_count integer : 0x4
+---@field m_cooldown integer : 0x8

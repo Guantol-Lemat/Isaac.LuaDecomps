@@ -3,6 +3,7 @@ local Interface = require("Isaac.Interface.Entity_Pickup")
 
 local PickupLootList = require("Isaac.Core.Pickup.LootList")
 local PickupChest = require("Isaac.Core.Pickup.Chest")
+local ShopItem = require("Isaac.Core.Pickup.ShopItem")
 
 --#region Stub
 
@@ -97,9 +98,9 @@ function Stub.InitFlipState(ctx, pickup) end
 ---@return boolean
 function Stub.TryFlip(ctx, pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
-function Stub.UpdatePickupGhosts(ctx, pickup) end
+---@param ctx Context.Common
+function Stub.UpdatePickupGhosts(pickup, ctx) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -176,25 +177,19 @@ function Stub.Render(ctx, pickup, offset) end
 ---@param pickup Component.Entity.Pickup
 function Stub.PlayDropSound(ctx, pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
-function Stub.PlayPickupSound(ctx, pickup) end
+---@param ctx Context.Common
+function Stub.PlayPickupSound(pickup, ctx) end
 
 ---@param pickup Component.Entity.Pickup
 ---@return integer
 function Stub.GetCoinValue(pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param player Component.Entity.Player
----@return boolean
-function Stub.CanPickupShopItem(ctx, pickup, player) end
-
 ---@param ctx Context.Common
----@param pickup Component.Entity.Pickup
 ---@param player Component.Entity.Player
 ---@param spentMoney integer
-function Stub.TriggerShopPurchase(ctx, pickup, player, spentMoney) end
+function Stub.TriggerShopPurchase(pickup, ctx, player, spentMoney) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -228,10 +223,10 @@ function Stub.Remove(ctx, pickup) end
 ---@param pickup Component.Entity.Pickup
 function Stub.ClearReferences(pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
 ---@return boolean
-function Stub.CanReroll(ctx, pickup) end
+function Stub.CanReroll(pickup, ctx) end
 
 ---@param ctx Context.Common
 ---@param variant PickupVariant | integer
@@ -264,9 +259,9 @@ function Stub.CanDuplicate(ctx, pickup) end
 ---@return Vector
 function Stub.get_random_pickup_velocity(ctx, position, ePickVelType, RNG) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
-function Stub.TriggerTheresOptionsPickup(ctx, pickup) end
+---@param ctx Context.Common
+function Stub.TriggerTheresOptionsPickup(pickup, ctx) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -356,7 +351,7 @@ Interface.TryOpenChest = PickupChest.TryOpenChest
 Interface.PlayDropSound = Stub.PlayDropSound
 Interface.PlayPickupSound = Stub.PlayPickupSound
 Interface.GetCoinValue = Stub.GetCoinValue
-Interface.CanPickupShopItem = Stub.CanPickupShopItem
+Interface.CanPickupShopItem = ShopItem.CanPickupShopItem
 Interface.TriggerShopPurchase = Stub.TriggerShopPurchase
 Interface.handle_collision = Stub.handle_collision
 Interface.TryRemoveCollectible = Stub.TryRemoveCollectible

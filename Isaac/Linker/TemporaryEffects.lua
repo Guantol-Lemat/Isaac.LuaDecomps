@@ -95,7 +95,7 @@ function Stub.Update(temporaryEffects, ctx) end
 
 ---@param temporaryEffects Component.TemporaryEffects
 ---@param CollectibleType CollectibleType | integer
----@return Component.TemporaryEffects.TemporaryEffect
+---@return Component.TemporaryEffects.TemporaryEffect?
 function Stub.GetCollectibleEffect(temporaryEffects, CollectibleType) end
 
 ---@param temporaryEffects Component.TemporaryEffects

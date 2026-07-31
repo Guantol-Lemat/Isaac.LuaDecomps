@@ -540,9 +540,9 @@ function Stub.CharmFart(ctx, Position, Radius, Source) end
 ---@param DoSuperKnockback boolean
 function Stub.ButterBeanFart(ctx, game, Position, Radius, Source, ShowEffect, DoSuperKnockback) end
 
+---@param game Component.Game
 ---@param ctx Context.Common
----@param game unknown
-function Stub.AddDevilRoomDeal(ctx, game) end
+function Stub.AddDevilRoomDeal(game, ctx) end
 
 ---@param game Component.Game
 ---@param Donation integer
