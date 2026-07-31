@@ -6,7 +6,7 @@
 ---@field m_probablyUnkBool boolean : 0x47d
 ---@field m_isBlind boolean : 0x47e
 ---@field m_payToPlay boolean : 0x47f
----@field m_price ShopItemPrice | integer : 0x480
+---@field m_price eShopItemPrice | integer : 0x480
 ---@field m_autoUpdatePrice boolean : 0x484
 ---@field m_shopItemId integer : 0x488
 ---@field m_timeout integer : 0x48c

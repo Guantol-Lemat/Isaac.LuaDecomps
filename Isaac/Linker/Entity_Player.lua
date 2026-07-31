@@ -369,6 +369,11 @@ function Stub.GetEternalHearts(player) end
 function Stub.HasGoldenKey(player) end
 
 ---@param player Component.Entity.Player
+---@param flags DamageFlag | integer
+---@param source Component.Entity.EntityRef
+function Stub.SetLastDamage(player, flags, source) end
+
+---@param player Component.Entity.Player
 ---@return integer
 function Stub.GetBabySkin(player) end
 
@@ -521,11 +526,11 @@ function Stub.PossessorProcessInput(ctx, player) end
 ---@param removed integer
 function Stub.trigger_max_hearts_removed(player, removed) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param MaxHearts integer
 ---@param IgnoreKeeper boolean
-function Stub.AddMaxHearts(ctx, player, MaxHearts, IgnoreKeeper) end
+function Stub.AddMaxHearts(player, ctx, MaxHearts, IgnoreKeeper) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -542,11 +547,11 @@ function Stub.eternal_heart_show_overlay(ctx, player) end
 ---@param EternalHearts integer
 function Stub.AddEternalHearts(ctx, player, EternalHearts) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param SoulHearts integer
 ---@return integer
-function Stub.AddSoulHearts(ctx, player, SoulHearts) end
+function Stub.AddSoulHearts(player, ctx, SoulHearts) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -578,7 +583,7 @@ function Stub.AddJarHearts(ctx, player, amount) end
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param amount integer
-function Stub.AddCoins(ctx, player, amount) end
+function Stub.AddCoins(player, ctx, amount) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -856,11 +861,11 @@ function Stub.VoidHasCollectible(player, param_1) end
 ---@return boolean
 function Stub.HasTrinket(ctx, player, Type, ignoreModifiers) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param id TrinketType | integer
 ---@return boolean
-function Stub.HasGoldenTrinket(ctx, player, id) end
+function Stub.HasGoldenTrinket(player, ctx, id) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -886,11 +891,11 @@ function Stub.DropTrinket(ctx, player, DropPos, ReplaceTick) end
 ---@param FirstTimePickingUp boolean
 function Stub.AddTrinket(ctx, player, Type, FirstTimePickingUp) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
----@param Type TrinketType | integer
+---@param ctx Context.Common
+---@param trinketType TrinketType | integer
 ---@return boolean
-function Stub.TryRemoveTrinket(ctx, player, Type) end
+function Stub.TryRemoveTrinket(player, ctx, trinketType) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -898,9 +903,9 @@ function Stub.TryRemoveTrinket(ctx, player, Type) end
 ---@return boolean
 function Stub.TryRemoveSmeltedTrinket(ctx, player, trinketType) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
-function Stub.TryReplaceTrinket(ctx, player) end
+---@param ctx Context.Common
+function Stub.TryReplaceTrinket(player, ctx) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -1586,10 +1591,10 @@ function Stub.RestoreGameState_CoPlayerData(player, param_1) end
 ---@param state Component.GameState.Player
 function Stub.RestoreGameState(ctx, player, state) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@return boolean
-function Stub.check_death(ctx, player) end
+function Stub.check_death(player, ctx) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -2607,6 +2612,7 @@ Interface.GetVelocityBeforeUpdate = Stub.GetVelocityBeforeUpdate
 Interface.GetMaxHearts = Stub.GetMaxHearts
 Interface.GetEternalHearts = Stub.GetEternalHearts
 Interface.HasGoldenKey = Stub.HasGoldenKey
+Interface.SetLastDamage = Stub.SetLastDamage
 Interface.GetBabySkin = Stub.GetBabySkin
 Interface.GetSubPlayer = Stub.GetSubPlayer
 Interface.SetSoulCharge = Stub.SetSoulCharge

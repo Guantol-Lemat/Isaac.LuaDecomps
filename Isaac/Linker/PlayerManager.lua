@@ -166,10 +166,10 @@ function Stub.RandomCollectibleOwner(playerManager, ctx, CollectibleType, Seed, 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common
 ---@param trinket TrinketType | integer
----@param rng RNG
 ---@param checkLazSharedGlobal boolean
 ---@return Component.Entity.Player
-function Stub.FirstTrinketOwner(playerManager, ctx, trinket, rng, checkLazSharedGlobal) end
+---@return RNG
+function Stub.FirstTrinketOwner(playerManager, ctx, trinket, checkLazSharedGlobal) end
 
 ---@param playerManager Component.PlayerManager
 ---@param ctx Context.Common

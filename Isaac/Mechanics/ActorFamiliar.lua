@@ -32,10 +32,15 @@ end
 ---@param familiar Component.Entity.Familiar
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param collisionParams Pickup.Params.HandleCollision
-local function TryCollectPickup(familiar, ctx, pickup, collisionParams, low)
+---@param collisionParams Pickup.Blackboard.HandleCollision
+---@param low boolean
+local function HandlePickup(familiar, ctx, pickup, collisionParams, low)
+    if low then
+        return
+    end
+
     local try_collect_pickup = Switch_TryCollectPickup[familiar.m_variant]
-    if try_collect_pickup then return try_collect_pickup(familiar, ctx, pickup, collisionParams, low) end
+    if try_collect_pickup then return try_collect_pickup(familiar, ctx, pickup, collisionParams) end
 end
 
 ---@class Mechanics.Actor.Familiar
@@ -44,7 +49,7 @@ local Module = {}
 --#region Module
 
 Module.TriggerNewRoom_TemporaryEffects = TriggerNewRoom_TemporaryEffects
-Module.HandlePickup = TryCollectPickup
+Module.HandlePickup = HandlePickup
 
 --#endregion
 

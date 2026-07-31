@@ -1,5 +1,6 @@
 --#region Dependencies
 
+local Enums = require("Isaac.Enums")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
 local IScoreSheet = require("Isaac.Interface.ScoreSheet")
@@ -17,11 +18,14 @@ local RoomMechanics = require("Isaac.Interface.Custom.RoomMechanics")
 
 --#endregion
 
----@class Pickup.Params.HandleCollision
----@field player Component.Entity.Player?
+---@class Pickup.Blackboard.HandleCollision
+---@field effectTarget Component.Entity.Player?
 ---@field pickedUp boolean
 ---@field playPickupSound boolean
 ---@field triggerAmbush boolean
+---@field droppedTrinket Component.Entity.Pickup?
+
+local eShopItemPrice = Enums.eShopItemPrice
 
 local VECTOR_ZERO = Vector(0.0, 0.0)
 
@@ -35,11 +39,11 @@ local function Mechanics_PreCollision(pickup, ctx, collider, low)
         local result = ActorPickup.StickyNickel_HandleCooldownCollision()
         if result ~= nil then return result end
 
-        GameEffects.PickupTimeout_HandleCollision()
-        ActorPickup.ThrownPolty_HandlePlayerCollision()
+        GameEffects.PickupTimeout_PrePlayerCollision()
+        ActorPickup.HantedChest_PrePlayerCollision()
     end
 
-    local result = ActorPickup.StickyNickel_HandleCollision()
+    local result = ActorPickup.StickyNickel_PreCollision()
     if result ~= nil then return result end
 end
 
@@ -52,11 +56,11 @@ end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
----@param collisionParams Pickup.Params.HandleCollision
+---@param blackboard Pickup.Blackboard.HandleCollision
 ---@param collider Component.Entity.Player
 ---@param low boolean
 ---@return boolean?
-local function player_handle_pickup(pickup, ctx, collisionParams, collider, low)
+local function player_handle_pickup(pickup, ctx, blackboard, collider, low)
     if low then
         return
     end
@@ -106,14 +110,38 @@ local function player_handle_pickup(pickup, ctx, collisionParams, collider, low)
     end
 
     -- post player collect pickup
-    if pickup.m_price == -1000 and collisionParams.pickedUp then
-        PlayerEffects.StoreCredit_PostCollectPickup()
+    if pickup.m_price == eShopItemPrice.STORE_CREDIT and blackboard.pickedUp then
+        PlayerEffects.StoreCredit_Pay(player, ctx, blackboard)
     end
 
-    if collisionParams.pickedUp or collisionParams.triggerAmbush then -- meaningful interaction
+    if blackboard.pickedUp or blackboard.triggerAmbush then -- meaningful interaction
         IEntityPickup.TriggerTheresOptionsPickup(pickup, ctx)
         Mechanics_PostPlayerCollectPickup(pickup, ctx, player)
     end
+end
+
+---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
+---@param collisionParams Pickup.Blackboard.HandleCollision
+---@param collider Component.Entity
+---@param low boolean
+---@return boolean?
+local function non_player_handle_pickup(pickup, ctx, collisionParams, collider, low)
+    local result
+
+    if collider.m_type == EntityType.ENTITY_FAMILIAR then
+        ---@cast collider Component.Entity.Familiar
+        result = ActorFamiliar.HandlePickup(collider, ctx, pickup, collisionParams, low)
+    elseif IEntity.IsEnemy(collider) then
+        ---@cast collider Component.Entity.Npc
+        result = ActorNpc.HandlePickup(collider, ctx, pickup, collisionParams, low)
+    end
+
+    if collisionParams.pickedUp then
+        IEntityPickup.TriggerTheresOptionsPickup(pickup, ctx)
+    end
+
+    return result
 end
 
 ---@param pickup Component.Entity.Pickup
@@ -160,7 +188,7 @@ end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
----@param closure Pickup.Params.HandleCollision
+---@param closure Pickup.Blackboard.HandleCollision
 ---@param player Component.Entity.Player?
 local function do_pickup(pickup, ctx, closure, player)
     IScoreSheet.AddPickup(ctx.game.m_scoreSheet, ctx, pickup.m_variant, pickup.m_subtype, pickup.m_position)
@@ -196,7 +224,7 @@ end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
----@param collisionParams Pickup.Params.HandleCollision
+---@param collisionParams Pickup.Blackboard.HandleCollision
 ---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean? ignoreCollision
@@ -206,21 +234,14 @@ local function try_collect_pickup(pickup, ctx, collisionParams, collider, low)
     if collider.m_type == EntityType.ENTITY_PLAYER then
         ---@cast collider Component.Entity.Player
         result = player_handle_pickup(pickup, ctx, collisionParams, collider, low)
-    elseif collider.m_type == EntityType.ENTITY_FAMILIAR then
-        ---@cast collider Component.Entity.Familiar
-        result = ActorFamiliar.HandlePickup(collider, ctx, pickup, collisionParams, low)
-    elseif IEntity.IsEnemy(collider) then
-        ---@cast collider Component.Entity.Npc
-        result = ActorNpc.HandlePickup(collider, ctx, pickup, collisionParams)
     else
-        return
+        result = non_player_handle_pickup(pickup, ctx, collisionParams, collider, low)
     end
 
     if result ~= nil then return result end
-    -- this assumes that every early return can be implemented like this (the next boolean flags are never triggered)
 
     if collisionParams.pickedUp then
-        do_pickup(pickup, ctx, collisionParams, collisionParams.player)
+        do_pickup(pickup, ctx, collisionParams, collisionParams.effectTarget)
     end
 
     if collisionParams.triggerAmbush and RoomMechanics.IsAmbushChallenge(ctx.game.m_level.m_room) then
@@ -243,7 +264,7 @@ local function HandleCollision(pickup, ctx, collider, low)
     result = Mechanics_PreCollision(pickup, ctx, collider, low)
     if result ~= nil then return result end
 
-    ---@type Pickup.Params.HandleCollision
+    ---@type Pickup.Blackboard.HandleCollision
     local collectResults = {pickedUp = false, playPickupSound = false, triggerAmbush = false}
     result = try_collect_pickup(pickup, ctx, collectResults, collider, low)
     if result ~= nil then return result end
@@ -258,7 +279,7 @@ local Module = {}
 
 --#region Module
 
-
+Module.HandleCollision = HandleCollision
 
 --#endregion
 

@@ -8,7 +8,13 @@ local LootModifiers = require("Isaac.Mechanics.PlayerEffects.LootModifiers")
 local Redemption = require("Isaac.Mechanics.PlayerEffects.Redemption")
 local Shop = require("Isaac.Mechanics.PlayerEffects.Shop")
 
-Interface.CouponWisp_AddExtraCoins = Shop.CouponWisp_AddExtraCoins
+Interface.CouponWisp_GetExtraShopCoins = Shop.CouponWisp_GetExtraShopCoins
+Interface.CouponWisp_GetExtraShopCoins_NoDecrease = Shop.CouponWisp_GetExtraShopCoins_NoDecrease
+Interface.KeepersSack_AddSpentCoins = Shop.KeepersSack_AddSpentCoins
+Interface.YourSoul_Pay = Shop.YourSoul_Pay
+Interface.SpecialPrice_CanPickup = Shop.SpecialPrice_CanPickup
+Interface.SpecialPrice_Pay = Shop.SpecialPrice_Pay
+Interface.StoreCredit_Pay = Shop.StoreCredit_Pay
 Interface.CanPickupShopItem = Interactions.CanPickupShopItem
 Interface.CanCollectPickup = Interactions.CanCollectPickup
 Interface.BabyMagnet_GetEffectTarget = Interactions.BabyMagnet_GetEffectTarget

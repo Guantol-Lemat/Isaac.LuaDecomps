@@ -51,7 +51,7 @@ end
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
 ---@param collider Component.Entity
----@param collisionParams Pickup.Params.HandleCollision
+---@param collisionParams Pickup.Blackboard.HandleCollision
 local function IgnorePhysicsCollision(pickup, ctx, collider, collisionParams)
     if IRoom.IsDungeon(ctx.game.m_level.m_room) then
         return true
@@ -73,7 +73,7 @@ local function IgnorePhysicsCollision(pickup, ctx, collider, collisionParams)
         return true
     end
 
-    if collisionParams.player and collisionParams.player.m_variant == PlayerVariant.CO_OP_BABY then
+    if collisionParams.effectTarget and collisionParams.effectTarget.m_variant == PlayerVariant.CO_OP_BABY then
         return true
     end
 

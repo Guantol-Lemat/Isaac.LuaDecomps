@@ -189,6 +189,7 @@ Module.eShopItemPrice = {
     SOUL_1 = -7,
     SOUL_2 = -8,
     SOUL_1_HEART_1 = -9,
+    STORE_CREDIT = -1000,
 }
 
 ---@enum eRoomConfigFlag

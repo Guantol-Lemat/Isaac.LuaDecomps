@@ -133,7 +133,7 @@ local Switch_ResolveLootEntry = {
             collectible = collectible_entity
         else
             IEntityPickup.Morph(
-                ctx, pickup,
+                pickup, ctx,
                 EntityType.ENTITY_PICKUP, entry.variant, entry.subtype,
                 false, false, false
             )

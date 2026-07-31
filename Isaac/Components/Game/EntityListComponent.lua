@@ -1,0 +1,1 @@
+---@alias Component.EntityList.EL Component.Entity[]

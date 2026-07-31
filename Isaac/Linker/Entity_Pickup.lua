@@ -4,6 +4,7 @@ local Interface = require("Isaac.Interface.Entity_Pickup")
 local PickupLootList = require("Isaac.Core.Pickup.LootList")
 local PickupChest = require("Isaac.Core.Pickup.Chest")
 local ShopItem = require("Isaac.Core.Pickup.ShopItem")
+local Collision = require("Isaac.Core.Pickup.Collision")
 
 --#region Stub
 
@@ -143,15 +144,15 @@ function Stub.SetPrice(ctx, pickup, Price) end
 ---@param pickup Component.Entity.Pickup
 function Stub.AppearFast(pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
 ---@param Type EntityType | integer
 ---@param Variant PickupVariant | integer
 ---@param SubType integer
 ---@param KeepPrice boolean
 ---@param KeepSeed boolean
 ---@param IgnoreModifiers boolean
-function Stub.Morph(ctx, pickup, Type, Variant, SubType, KeepPrice, KeepSeed, IgnoreModifiers) end
+function Stub.Morph(pickup, ctx, Type, Variant, SubType, KeepPrice, KeepSeed, IgnoreModifiers) end
 
 ---@param pickup Component.Entity.Pickup
 ---@param param_1 Component.Entity.EntityRef
@@ -184,19 +185,6 @@ function Stub.PlayPickupSound(pickup, ctx) end
 ---@param pickup Component.Entity.Pickup
 ---@return integer
 function Stub.GetCoinValue(pickup) end
-
----@param pickup Component.Entity.Pickup
----@param ctx Context.Common
----@param player Component.Entity.Player
----@param spentMoney integer
-function Stub.TriggerShopPurchase(pickup, ctx, player, spentMoney) end
-
----@param ctx Context.Common
----@param pickup Component.Entity.Pickup
----@param collider Component.Entity
----@param low boolean
----@return integer
-function Stub.handle_collision(ctx, pickup, collider, low) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -352,8 +340,8 @@ Interface.PlayDropSound = Stub.PlayDropSound
 Interface.PlayPickupSound = Stub.PlayPickupSound
 Interface.GetCoinValue = Stub.GetCoinValue
 Interface.CanPickupShopItem = ShopItem.CanPickupShopItem
-Interface.TriggerShopPurchase = Stub.TriggerShopPurchase
-Interface.handle_collision = Stub.handle_collision
+Interface.TriggerShopPurchase = ShopItem.TriggerShopPurchase
+Interface.handle_collision = Collision.HandleCollision
 Interface.TryRemoveCollectible = Stub.TryRemoveCollectible
 Interface.update_magnet_effect = Stub.update_magnet_effect
 Interface.TakeDamage = Stub.TakeDamage

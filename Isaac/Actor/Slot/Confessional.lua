@@ -104,7 +104,7 @@ local function give_prize(slot, ctx, player)
         and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if addSoulHearts then
-        IEntityPlayer.AddSoulHearts(ctx, player, 2)
+        IEntityPlayer.AddSoulHearts(player, ctx, 2)
         IManager.PlaySound(ctx, SOUND_GET_SOUL_HEART, 1.0, 2, false, 1.0)
         IEntityPlayer.AnimateHappy(ctx, player)
         return

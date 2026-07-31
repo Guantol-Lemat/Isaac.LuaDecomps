@@ -32,7 +32,7 @@ local function PayCoins(ctx, player, amount)
         return false
     end
 
-    IEntityPlayer.AddCoins(ctx, player, -amount)
+    IEntityPlayer.AddCoins(player, ctx, -amount)
     return true
 end
 

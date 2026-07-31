@@ -62,7 +62,7 @@ local function give_karma_prize(slot, ctx, player)
     local coinPrize = randomFloat < 0.4
     if coinPrize then
         local coinCount = IEntityPlayer.GetTrinketMultiplier(ctx, player, TrinketType.TRINKET_KARMA)
-        IEntityPlayer.AddCoins(ctx, player, coinCount)
+        IEntityPlayer.AddCoins(player, ctx, coinCount)
         return
     end
 

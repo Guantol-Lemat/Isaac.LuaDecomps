@@ -12,9 +12,14 @@ local Switch_TryCollectPickup = {
 ---@param npc Component.Entity.Npc
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param collisionParams Pickup.Params.HandleCollision
+---@param collisionParams Pickup.Blackboard.HandleCollision
+---@param low boolean
 ---@return boolean?
-local function HandlePickup(npc, ctx, pickup, collisionParams)
+local function HandlePickup(npc, ctx, pickup, collisionParams, low)
+    if not low then
+        return
+    end
+
     local handle_pickup = Switch_TryCollectPickup[npc.m_type]
     if handle_pickup then return handle_pickup(npc, ctx, pickup, collisionParams) end
 end
