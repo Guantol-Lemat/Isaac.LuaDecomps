@@ -1,6 +1,8 @@
 ---@class Interface.EntityPlayer
 local Interface = require("Isaac.Interface.Entity_Player")
 
+local Events = require("Isaac.Core.Player.Events")
+
 --#region Stub
 
 local Stub = {}
@@ -905,7 +907,10 @@ function Stub.TryRemoveSmeltedTrinket(ctx, player, trinketType) end
 
 ---@param player Component.Entity.Player
 ---@param ctx Context.Common
-function Stub.TryReplaceTrinket(player, ctx) end
+---@param current TrinketType | integer
+---@param new TrinketType | integer
+---@param unk boolean
+function Stub.TryReplaceTrinket(player, ctx, current, new, unk) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -2903,6 +2908,7 @@ Interface.RemoveGoldenBomb = Stub.RemoveGoldenBomb
 Interface.add_dollar_bill_effect = Stub.add_dollar_bill_effect
 Interface.get_cambion_level = Stub.get_cambion_level
 Interface.get_cambion_pregnancy_level = Stub.get_cambion_pregnancy_level
+Interface.TriggerDevilDealTaken = Events.TriggerDevilDealTaken
 Interface.shoot_red_candle = Stub.shoot_red_candle
 Interface.shoot_blue_candle = Stub.shoot_blue_candle
 Interface.do_zit_effect = Stub.do_zit_effect
@@ -2995,6 +3001,7 @@ Interface.AddLiquidPoopEffect = Stub.AddLiquidPoopEffect
 Interface.TryFakeDeath = Stub.TryFakeDeath
 Interface.AddCurseMistEffect = Stub.AddCurseMistEffect
 Interface.RemoveCurseMistEffect = Stub.RemoveCurseMistEffect
+Interface.TriggerMoneySpent = Events.TriggerMoneySpent
 Interface.AttachToMinecart = Stub.AttachToMinecart
 Interface.add_samson_berserk_charge = Stub.add_samson_berserk_charge
 Interface.add_ibs_charge = Stub.add_ibs_charge

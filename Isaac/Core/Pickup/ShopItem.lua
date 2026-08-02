@@ -37,14 +37,6 @@ end
 
 ---@param player Component.Entity.Player
 ---@param ctx Context.Common
----@param spentMoney integer
-local function Mechanics_PostSpentCoins(player, ctx, spentMoney)
-    PlayerEffects.KeepersSack_AddSpentCoins(player, ctx, spentMoney)
-    GameEffects.Achievement_MemberCard(ctx, spentMoney)
-end
-
----@param player Component.Entity.Player
----@param ctx Context.Common
 ---@param spentMoney eShopItemPrice | integer
 ---@param boughtPickup Component.Entity.Pickup
 ---@return integer spentMoney
@@ -62,8 +54,7 @@ local function spend_money(player, ctx, spentMoney, boughtPickup)
     spentMoney = math.max(spentMoney, 0)
 
     IEntityPlayer.AddCoins(player, ctx, -spentMoney)
-
-    Mechanics_PostSpentCoins(player, ctx, spentMoney)
+    IEntityPlayer.TriggerMoneySpent(player, ctx, spentMoney)
     return spentMoney
 end
 
@@ -75,6 +66,8 @@ local function TriggerShopPurchase(pickup, ctx, player, spentMoney)
     if spentMoney == 0 then
         spentMoney = pickup.m_price
     end
+
+    pickup.m_priceANM2:Reset()
 
     spentMoney = spend_money(player, ctx, spentMoney, pickup)
 

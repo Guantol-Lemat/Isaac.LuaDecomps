@@ -23,4 +23,4 @@ Interface.BlockCard = BlockItem.BlockCard
 Interface.TryDaemonsTailBlock = LootModifiers.TryDaemonsTailBlock
 Interface.LootModifiers_SlotExplosionDrops = LootModifiers.SlotExplosionDrops
 Interface.BethsEssence_OnBeggarPay = WispAdd.BethsEssence_OnBeggarPay
-Interface.Redemption_TriggerDevilDealCollect = Redemption.TriggerDeviDealCollect
+Interface.Redemption_TriggerDevilDealTaken = Redemption.TriggerDeviDealTaken

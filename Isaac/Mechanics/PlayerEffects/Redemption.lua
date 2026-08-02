@@ -8,14 +8,7 @@ local ITemporaryEffects = require("Isaac.Interface.TemporaryEffects")
 ---@param player Component.Entity.Player
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
-local function TriggerDeviDealCollected(player, ctx, pickup)
-    local isDealPickup = IEntityPickup.IsShopItem(pickup)
-        or pickup.m_spawnGridIdx >= 0
-
-    if not isDealPickup then
-        return
-    end
-
+local function TriggerDeviDealTaken(player, ctx, pickup)
     ---@type Component.Entity.Effect?
     ---@diagnostic disable-next-line: assign-type-mismatch
     local redemption_entity = player.m_redemption_effect.ref
@@ -38,7 +31,7 @@ local Module = {}
 
 --#region Module
 
-Module.TriggerDeviDealCollect = TriggerDeviDealCollected
+Module.TriggerDeviDealTaken = TriggerDeviDealTaken
 
 --#endregion
 

@@ -1,6 +1,5 @@
 --#region Dependencies
 
-local Enums = require("Isaac.Enums")
 local IGame = require("Isaac.Interface.Game")
 local IEntityList = require("Isaac.Interface.EntityList")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
@@ -13,8 +12,6 @@ local IsaacUtils = require("Isaac.Utils.Common")
 local IEntityRef = IEntity.EntityRef
 
 --#endregion
-
-local eShopItemPrice = Enums.eShopItemPrice
 
 local VECTOR_ZERO = Vector(0, 0)
 
@@ -121,15 +118,15 @@ local function can_pickup_spike_damage(player, ctx, damage)
 end
 
 local SPECIAL_COST = {
-    [eShopItemPrice.HEART_1] = {data = {1, 0}, CanPickup = can_pickup_heart, Pay = pay_heart},
-    [eShopItemPrice.HEART_2] = {data = {2, 0}, CanPickup = can_pickup_heart, Pay = pay_heart},
-    [eShopItemPrice.SOUL_3] = {data = {0, 3}, CanPickup = can_pickup_heart, Pay = pay_soul_3},
-    [eShopItemPrice.SOUL_2_HEART_1] = {data = {1, 2}, CanPickup = can_pickup_heart, Pay = pay_heart},
-    [eShopItemPrice.SPIKES] = {data = 2.0, CanPickup = can_pickup_spike_damage, Pay = function() end},
-    [eShopItemPrice.YOUR_SOUL] = {CanPickup = function() return true end, Pay = YourSoul_Pay},
-    [eShopItemPrice.SOUL_1] = {data = {0, 1}, CanPickup = can_pickup_heart, Pay = pay_heart},
-    [eShopItemPrice.SOUL_2] = {data = {0, 2}, CanPickup = can_pickup_heart, Pay = pay_heart},
-    [eShopItemPrice.SOUL_1_HEART_1] = {data = {1, 1}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_ONE_HEART] = {data = {1, 0}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_TWO_HEARTS] = {data = {2, 0}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_THREE_SOULHEARTS] = {data = {0, 3}, CanPickup = can_pickup_heart, Pay = pay_soul_3},
+    [PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS] = {data = {1, 2}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_SPIKES] = {data = 2.0, CanPickup = can_pickup_spike_damage, Pay = function() end},
+    [PickupPrice.PRICE_SOUL] = {CanPickup = function() return true end, Pay = YourSoul_Pay},
+    [PickupPrice.PRICE_ONE_SOUL_HEART] = {data = {0, 1}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_TWO_SOUL_HEARTS] = {data = {0, 2}, CanPickup = can_pickup_heart, Pay = pay_heart},
+    [PickupPrice.PRICE_ONE_HEART_AND_ONE_SOUL_HEART] = {data = {1, 1}, CanPickup = can_pickup_heart, Pay = pay_heart},
 }
 
 ---@param entityList Component.EntityList
@@ -183,6 +180,7 @@ local function SpecialPrice_CanPickup(player, ctx, price)
 end
 
 ---@param ctx Context.Common
+---@param boughtPickup Component.Entity.Pickup
 local function no_health_balance_free_pickups(ctx, boughtPickup)
     local game = ctx.game
     local level = game.m_level
@@ -279,10 +277,11 @@ local function StoreCredit_Pay(player, ctx, blackboard)
         return
     end
 
-    if not IEntityPlayer.HasGoldenTrinket(player, ctx, TrinketType.TRINKET_STORE_CREDIT) then
-        IEntityPlayer.TryRemoveTrinket(player, ctx, TrinketType.TRINKET_STORE_CREDIT)
-    elseif StoreCredit_lose_gold(player) then
-        IEntityPlayer.TryReplaceTrinket(player, ctx)
+    if not IEntityPlayer.HasGoldenTrinket(owner, ctx, TrinketType.TRINKET_STORE_CREDIT) then
+        IEntityPlayer.TryRemoveTrinket(owner, ctx, TrinketType.TRINKET_STORE_CREDIT)
+    elseif StoreCredit_lose_gold(owner) then
+        local goldStoreCredit = TrinketType.TRINKET_GOLDEN_FLAG | TrinketType.TRINKET_STORE_CREDIT
+        IEntityPlayer.TryReplaceTrinket(owner, ctx, goldStoreCredit, TrinketType.TRINKET_STORE_CREDIT, true)
     end
 end
 

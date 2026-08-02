@@ -45,14 +45,15 @@ end
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
 local function SetupPlayerPickupCollect(pickup, ctx)
-    return pickup.m_variant == PickupVariant.PICKUP_COLLECTIBLE
+    local fn = Switch_SetupPlayerPickupCollect[pickup.m_variant]
+    if fn then fn(pickup, ctx) end
 end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
 ---@param collider Component.Entity
----@param collisionParams Pickup.Blackboard.HandleCollision
-local function IgnorePhysicsCollision(pickup, ctx, collider, collisionParams)
+---@param blackboard Pickup.Blackboard.HandleCollision
+local function IgnorePhysicsCollision(pickup, ctx, collider, blackboard)
     if IRoom.IsDungeon(ctx.game.m_level.m_room) then
         return true
     end
@@ -65,7 +66,7 @@ local function IgnorePhysicsCollision(pickup, ctx, collider, collisionParams)
         return true
     end
 
-    if collisionParams.pickedUp and pickup.m_variant == PickupVariant.PICKUP_COLLECTIBLE then
+    if blackboard.pickedUp and pickup.m_variant == PickupVariant.PICKUP_COLLECTIBLE then
         return true
     end
 
@@ -73,7 +74,7 @@ local function IgnorePhysicsCollision(pickup, ctx, collider, collisionParams)
         return true
     end
 
-    if collisionParams.effectTarget and collisionParams.effectTarget.m_variant == PlayerVariant.CO_OP_BABY then
+    if blackboard.effectTarget and blackboard.effectTarget.m_variant == PlayerVariant.CO_OP_BABY then
         return true
     end
 

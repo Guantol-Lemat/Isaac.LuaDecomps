@@ -3,6 +3,7 @@
 local Enums = require("Isaac.Enums")
 local IPersistentGameData = require("Isaac.Interface.PersistentGameData")
 local IGame = require("Isaac.Interface.Game")
+local ILevel = require("Isaac.Interface.Level")
 local IScoreSheet = require("Isaac.Interface.ScoreSheet")
 local IProceduralItemInventory = require("Isaac.Interface.ProceduralItemInventory")
 local IAmbush = require("Isaac.Interface.Ambush")
@@ -26,6 +27,7 @@ local RoomMechanics = require("Isaac.Interface.Custom.RoomMechanics")
 ---@field droppedTrinket Component.Entity.Pickup?
 
 local eShopItemPrice = Enums.eShopItemPrice
+local eRoomFlags = Enums.eRoomFlags
 
 local VECTOR_ZERO = Vector(0.0, 0.0)
 
@@ -47,11 +49,18 @@ local function Mechanics_PreCollision(pickup, ctx, collider, low)
     if result ~= nil then return result end
 end
 
----@param pickup Component.Entity.Pickup
----@param ctx Context.Common
----@param player Component.Entity.Player
-local function Mechanics_PostPlayerCollectPickup(pickup, ctx, player)
-    RoomMechanics.DevilDeal_PostPlayerCollectPickup(ctx.game.m_level.m_room, ctx, player, pickup)
+---This kind of check is unique to pickup collision
+---due to not checking for the treasure room type
+---@param game Component.Game
+---@return boolean
+local function is_devil_deal(game)
+    local level = game.m_level
+    local room = level.m_room
+    local roomType = room.m_type
+
+    return roomType == RoomType.ROOM_DEVIL
+        or room.m_roomDescriptor.m_flags & eRoomFlags.FLAG_DEVIL_TREASURE ~= 0 -- bug?: not checking if treasure
+        or (roomType == RoomType.ROOM_BOSS and ILevel.GetStateFlag(level, LevelStateFlag.STATE_SATANIC_BIBLE_USED))
 end
 
 ---@param pickup Component.Entity.Pickup
@@ -95,7 +104,7 @@ local function player_handle_pickup(pickup, ctx, blackboard, collider, low)
     elseif pickup.m_variant == PickupVariant.PICKUP_KEY then
     elseif pickup.m_variant == PickupVariant.PICKUP_BOMB then
     elseif pickup.m_variant == PickupVariant.PICKUP_LIL_BATTERY then
-    elseif ActorPickup.IsOpenendOnContactChest() then
+    elseif ActorPickup.IsOpenedOnContactChest() then
     elseif pickup.m_variant == PickupVariant.PICKUP_MEGACHEST then
     elseif ActorPickup.IsCollectible() and pickup.m_subtype ~= 0 then
     elseif ActorPickup.IsPocketItem() then
@@ -116,7 +125,10 @@ local function player_handle_pickup(pickup, ctx, blackboard, collider, low)
 
     if blackboard.pickedUp or blackboard.triggerAmbush then -- meaningful interaction
         IEntityPickup.TriggerTheresOptionsPickup(pickup, ctx)
-        Mechanics_PostPlayerCollectPickup(pickup, ctx, player)
+
+        if is_devil_deal(ctx.game) then
+            IEntityPlayer.TriggerDevilDealTaken(player, ctx, pickup, pickup.m_price)
+        end
     end
 end
 
@@ -154,8 +166,10 @@ local function player_pickup_collect(pickup, ctx, player, custom)
         IEntityPlayer.AnimatePickup(player, pickup.m_sprite, false, "Pickup")
     end
 
-    -- shop purchase may trigger some player animations so it's triggered here
-    -- we know that shop items always pass here so we run it here
+    -- Shop purchase may trigger some player animations, mainly relating to death
+    -- so we trigger it here, after AnimatePickup.
+    -- There's technically no reason to have it here and not after either the collection
+    -- handlers have run
     if IEntityPickup.IsShopItem(pickup) then
         IEntityPickup.TriggerShopPurchase(pickup, ctx, player, pickup.m_price)
     end
@@ -188,12 +202,12 @@ end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
----@param closure Pickup.Blackboard.HandleCollision
+---@param blackboard Pickup.Blackboard.HandleCollision
 ---@param player Component.Entity.Player?
-local function do_pickup(pickup, ctx, closure, player)
+local function do_pickup(pickup, ctx, blackboard, player)
     IScoreSheet.AddPickup(ctx.game.m_scoreSheet, ctx, pickup.m_variant, pickup.m_subtype, pickup.m_position)
 
-    if closure.playPickupSound then
+    if blackboard.playPickupSound then
         IEntityPickup.PlayPickupSound(pickup, ctx)
     end
 
@@ -224,27 +238,27 @@ end
 
 ---@param pickup Component.Entity.Pickup
 ---@param ctx Context.Common
----@param collisionParams Pickup.Blackboard.HandleCollision
+---@param blackboard Pickup.Blackboard.HandleCollision
 ---@param collider Component.Entity
 ---@param low boolean
 ---@return boolean? ignoreCollision
-local function try_collect_pickup(pickup, ctx, collisionParams, collider, low)
+local function try_collect_pickup(pickup, ctx, blackboard, collider, low)
     local result
 
     if collider.m_type == EntityType.ENTITY_PLAYER then
         ---@cast collider Component.Entity.Player
-        result = player_handle_pickup(pickup, ctx, collisionParams, collider, low)
+        result = player_handle_pickup(pickup, ctx, blackboard, collider, low)
     else
-        result = non_player_handle_pickup(pickup, ctx, collisionParams, collider, low)
+        result = non_player_handle_pickup(pickup, ctx, blackboard, collider, low)
     end
 
     if result ~= nil then return result end
 
-    if collisionParams.pickedUp then
-        do_pickup(pickup, ctx, collisionParams, collisionParams.effectTarget)
+    if blackboard.pickedUp then
+        do_pickup(pickup, ctx, blackboard, blackboard.effectTarget)
     end
 
-    if collisionParams.triggerAmbush and RoomMechanics.IsAmbushChallenge(ctx.game.m_level.m_room) then
+    if blackboard.triggerAmbush and RoomMechanics.IsAmbushChallenge(ctx.game.m_level.m_room) then
         IAmbush.StartChallenge(ctx.game.m_ambush, ctx)
     end
 end
