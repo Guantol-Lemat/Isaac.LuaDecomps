@@ -27,7 +27,7 @@
 ---@field m_setFalseBySpinAttack boolean : 0x434
 ---@field m_prism_applied boolean : 0x435
 ---@field m_multidimensional_applied boolean : 0x436
----@field m_hitListBool boolean : 0x437
+---@field m_split_applied boolean : 0x437 -- makes the hitlist shared with the split origin
 ---@field m_sword_isCharged boolean : 0x438 -- sword has reached max charge for spin attack
 ---@field m_usedByUpdateBoneSwing boolean : 0x439
 ---@field m_spinAttack_isActive boolean : 0x43a
