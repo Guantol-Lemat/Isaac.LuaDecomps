@@ -114,3 +114,9 @@
 ---@field m_speed_qqq number : 0x10
 ---@field m_durationOnRoomInit_qqq integer : 0x14
 ---@field m_duration_qqq integer : 0x18
+
+---@class Component.LRoomAreaDesc
+---@field highTopLeft Vector : 0x0
+---@field highBottomRight Vector : 0x8
+---@field lowTopLeft Vector : 0xc
+---@field lowBottomRight Vector : 0x10

@@ -1,6 +1,8 @@
 ---@class Interface.Room
 local Interface = require("Isaac.Interface.Room")
 
+local RoomPosition = require("Isaac.Core.Room.PositionUtils")
+
 --#region Stub
 
 local Stub = {}
@@ -876,12 +878,6 @@ function Stub.IsAmbushActive(ctx) end
 ---@return number
 function Stub.GetLightingAlpha(ctx, room) end
 
----@param room Component.Room
----@param Pos Vector
----@param Margin number
----@return Vector
-function Stub.FindFreeTilePosition(room, Pos, Margin) end
-
 ---@param ctx Context.Common
 ---@param room Component.Room
 ---@param Pit Component.GridEntity.Pit
@@ -900,11 +896,6 @@ function Stub.RemoveGridEntity(room, GridIndex, PathTrail, KeepDecoration) end
 ---@param PathTrail integer
 ---@param KeepDecoration boolean
 function Stub.RemoveGridEntityImmediate(room, GridIndex, PathTrail, KeepDecoration) end
-
----@param room Component.Room
----@param Margin number
----@return Vector
-function Stub.GetRandomPosition(room, Margin) end
 
 ---@param room Component.Room
 ---@param Seed integer
@@ -1400,11 +1391,11 @@ Interface.GetScreenUVPos = Stub.GetScreenUVPos
 Interface.GetNextShockwaveId = Stub.GetNextShockwaveId
 Interface.IsAmbushActive = Stub.IsAmbushActive
 Interface.GetLightingAlpha = Stub.GetLightingAlpha
-Interface.FindFreeTilePosition = Stub.FindFreeTilePosition
+Interface.FindFreeTilePosition = RoomPosition.FindFreeTilePosition
 Interface.TryMakeBridge = Stub.TryMakeBridge
 Interface.RemoveGridEntity = Stub.RemoveGridEntity
 Interface.RemoveGridEntityImmediate = Stub.RemoveGridEntityImmediate
-Interface.GetRandomPosition = Stub.GetRandomPosition
+Interface.GetRandomPosition = RoomPosition.GetRandomPosition
 Interface.GetRandomTileIndex = Stub.GetRandomTileIndex
 Interface.GetBrokenWatchState = Stub.GetBrokenWatchState
 Interface.SetBrokenWatchState = Stub.SetBrokenWatchState
