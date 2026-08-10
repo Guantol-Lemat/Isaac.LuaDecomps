@@ -1,6 +1,7 @@
 ---@class Interface.Entity_Pickup
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
+local Component = require("Isaac.Components.Entity.PickupComponent")
 local PickupProperties = require("Isaac.Core.Pickup.Properties")
 local PickupLootList = require("Isaac.Core.Pickup.LootList")
 local PickupChest = require("Isaac.Core.Pickup.Chest")
@@ -65,10 +66,6 @@ function Stub.SetOptionCycleCollectible(pickup, Collectible) end
 ---@param param_4 boolean
 ---@param param_5 boolean
 function Stub.SelectPickupType(ctx, seed, variant, param_3, param_4, param_5) end
-
----@param pickup Component.Entity.Pickup
----@return Component.Entity.Pickup
-function Stub.Constructor(pickup) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -299,7 +296,7 @@ Interface.SetUnkInt = Stub.SetUnkInt
 Interface.SetOptionCycleCollectible = Stub.SetOptionCycleCollectible
 Interface.GetLootList = PickupLootList.GetLootList
 Interface.SelectPickupType = Stub.SelectPickupType
-Interface.Constructor = Stub.Constructor
+Interface.New = Component.New
 Interface.Free = Stub.Free
 Interface.destructor = Stub.destructor
 Interface.Init = Stub.Init

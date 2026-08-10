@@ -930,6 +930,10 @@ function Stub.CanShutDoors(entity) end
 
 local Stub_EntityPtr = {}
 
+---@param ref Component.Entity?
+---@return Component.EntityPtr
+function Stub_EntityPtr.New(ref) end
+
 ---@param entityPtr Component.EntityPtr
 ---@param ref Component.Entity?
 function Stub_EntityPtr.SetReference(entityPtr, ref) end
@@ -1134,4 +1138,5 @@ Interface.CanShutDoors = Stub.CanShutDoors
 
 Interface_EntityRef.New = EntityRefComponent.New
 
+Interface_EntityPtr.New = Stub_EntityPtr.New
 Interface_EntityPtr.SetReference = Stub_EntityPtr.SetReference
