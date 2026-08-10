@@ -23,6 +23,13 @@ local function NewInvalid()
 end
 
 ---@param xy Component.XY
+---@return Component.XY
+local function Copy(xy)
+    ---@type Component.XY
+    return { X = xy.X, Y = xy.Y}
+end
+
+---@param xy Component.XY
 ---@return boolean
 local function IsInvalid(xy)
     return xy.X == -1 and xy.Y == -1
@@ -46,6 +53,20 @@ local function Add(xy, other)
     return { X = x, Y = y }
 end
 
+---@param xy Component.XY
+---@param other Component.XY
+---@return integer
+local function Dot(xy, other)
+    return xy.X * other.X + xy.Y * other.Y
+end
+
+---@param xy Component.XY
+---@param other Component.XY
+---@return integer
+local function ManhattanDistance(xy, other)
+    return math.abs(xy.X - other.X) + math.abs(xy.Y - other.Y)
+end
+
 ---@class Utils.XY
 local Module = {}
 
@@ -53,9 +74,12 @@ local Module = {}
 
 Module.New = New
 Module.NewInvalid = NewInvalid
+Module.Copy = Copy
 Module.IsInvalid = IsInvalid
 Module.Equals = Equals
 Module.Add = Add
+Module.Dot = Dot
+Module.ManhattanDistance = ManhattanDistance
 
 --#endregion
 

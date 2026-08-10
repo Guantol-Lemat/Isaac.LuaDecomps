@@ -1,2 +1,7 @@
 ---@class Interface.LevelGenerator
-return {}
+local Interface = {
+    ---@class Interface.LevelGenerator.Room
+    Room = {},
+}
+
+return Interface

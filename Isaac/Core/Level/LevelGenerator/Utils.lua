@@ -1,24 +1,11 @@
 --#region Dependencies
 
 local XY = require("General.XY")
+local MyConstants = require("Isaac.Core.Level.LevelGenerator.Constants")
 
 --#endregion
 
-local s_RoomSize = {
-    [0 + 1] = { 0, 0 },
-    [RoomShape.ROOMSHAPE_1x1 + 1] = { 1, 1 },
-    [RoomShape.ROOMSHAPE_IH + 1] = { 1, 1 },
-    [RoomShape.ROOMSHAPE_IV + 1] = { 1, 1 },
-    [RoomShape.ROOMSHAPE_1x2 + 1] = { 1, 2 },
-    [RoomShape.ROOMSHAPE_IIV + 1] = { 1, 2 },
-    [RoomShape.ROOMSHAPE_2x1 + 1] = { 2, 1 },
-    [RoomShape.ROOMSHAPE_IIH + 1] = { 2, 1 },
-    [RoomShape.ROOMSHAPE_2x2 + 1] = { 2, 2 },
-    [RoomShape.ROOMSHAPE_LTL + 1] = { 2, 2 },
-    [RoomShape.ROOMSHAPE_LTR + 1] = { 2, 2 },
-    [RoomShape.ROOMSHAPE_LBL + 1] = { 2, 2 },
-    [RoomShape.ROOMSHAPE_LBR + 1] = { 2, 2 },
-}
+local s_RoomSize = MyConstants.room_size
 
 ---@param shape RoomShape | integer
 ---@return Component.XY[]
@@ -123,13 +110,6 @@ local function get_door_source_offset(shape, door)
     end
 
     return source[1], source[2]
-end
-
----@param shape RoomShape | integer
----@return integer, integer
-local function GetRoomSize(shape)
-    local size = s_RoomSize[shape + 1]
-    return size[1], size[2]
 end
 
 ---Determines if the given room shape has the given door slot.
@@ -419,7 +399,7 @@ local Module = {}
 --#region Module
 
 Module.Index = Index
-Module.GetRoomSize = GetRoomSize
+Module.ToXY = to_xy
 Module.HasShapeSlot = HasShapeSlot
 Module.GetDoorSourcePosition = GetDoorSourcePosition
 Module.GetDoorTargetPosition = GetDoorTargetPosition

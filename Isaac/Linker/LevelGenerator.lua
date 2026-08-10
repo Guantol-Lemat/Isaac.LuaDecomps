@@ -1,8 +1,13 @@
 ---@class Interface.LevelGenerator
 local Interface = require("Isaac.Interface.LevelGenerator")
 
+---@class Interface.LevelGenerator.Room
+local Interface_Room = Interface.Room
+
 local Component = require("Isaac.Components.Level.LevelGeneratorComponent")
+local RoomComponent = require("Isaac.Components.Level.LevelGeneratorRoomComponent")
 local Utils = require("Isaac.Core.Level.LevelGenerator.Utils")
+local SecretRooms = require("Isaac.Core.Level.LevelGenerator.SecretRooms")
 
 --#region Stub
 
@@ -38,16 +43,6 @@ function Stub.CreateRandomEndRoom(levelGen, param_1, param_2) end
 ---@param possibleDoors integer
 ---@return integer
 function Stub.GetNewEndRoom(levelGen, roomShape, possibleDoors) end
-
----@param levelGen Component.LevelGenerator
----@param param_1 unknown
----@return Component.Room
-function Stub.GetNewSecretRoom(levelGen, param_1) end
-
----@param levelGen Component.LevelGenerator
----@param tree integer
----@return Component.Room
-function Stub.GetNewUltraSecretRoom(levelGen, tree) end
 
 ---@param levelGen Component.LevelGenerator
 ---@param shape RoomShape | integer
@@ -104,8 +99,8 @@ Interface.Generate = Stub.Generate
 Interface.CreateRoom = Stub.CreateRoom
 Interface.CreateRandomEndRoom = Stub.CreateRandomEndRoom
 Interface.GetNewEndRoom = Stub.GetNewEndRoom
-Interface.GetNewSecretRoom = Stub.GetNewSecretRoom
-Interface.GetNewUltraSecretRoom = Stub.GetNewUltraSecretRoom
+Interface.GetNewSecretRoom = SecretRooms.GetNewSecretRoom
+Interface.GetNewUltraSecretRoom = SecretRooms.GetNewUltraSecretRoom
 Interface.determine_boss_room = Stub.determine_boss_room
 Interface.GetNewBossRoom = Stub.GetNewBossRoom
 Interface.GetRemainingRooms = Utils.GetRemainingRooms
@@ -129,3 +124,5 @@ Interface.BlockOccupiedAndNeighbors_Room = Utils.BlockOccupiedAndNeighbors_Room
 Interface.BlockPosition = Utils.BlockPosition
 Interface.BlockOccupiedAndNeighbors_LevelGen = Utils.BlockOccupiedAndNeighbors_LevelGen
 Interface.BlockDisabledDoorPositions = Utils.BlockDisabledDoorPositions
+
+Interface_Room.New = RoomComponent.New

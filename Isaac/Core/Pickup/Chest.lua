@@ -101,7 +101,7 @@ local Switch_ResolveLootEntry = {
             spawn_entity.m_position = pickup.m_position + enemy_playerDirection -- nudge towards player
         end
 
-        if spawn_entity.m_type == EntityType.ENTITY_PICKUP and IEntityPickup.IsChest(spawn_entity.m_variant) then
+        if spawn_entity.m_type == EntityType.ENTITY_PICKUP and IEntityPickup.IsChest_Variant(spawn_entity.m_variant) then
             spawn_entity.m_sprite.Scale = pickup.m_sprite.Scale * 0.8
         end
     end,

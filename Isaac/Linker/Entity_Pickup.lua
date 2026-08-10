@@ -1,6 +1,7 @@
 ---@class Interface.Entity_Pickup
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
+local PickupProperties = require("Isaac.Core.Pickup.Properties")
 local PickupLootList = require("Isaac.Core.Pickup.LootList")
 local PickupChest = require("Isaac.Core.Pickup.Chest")
 local ShopItem = require("Isaac.Core.Pickup.ShopItem")
@@ -17,10 +18,6 @@ function Stub.GetPrice(pickup) end
 ---@param pickup Component.Entity.Pickup
 ---@param Time integer
 function Stub.SetWait(pickup, Time) end
-
----@param pickup Component.Entity.Pickup
----@return boolean
-function Stub.IsShopItem(pickup) end
 
 ---@param pickup Component.Entity.Pickup
 ---@param Timeout integer
@@ -222,19 +219,6 @@ function Stub.CanReroll(pickup, ctx) end
 ---@return boolean
 function Stub.can_reroll(ctx, variant, subtype) end
 
----@param pickup Component.Entity.Pickup
----@return boolean
-function Stub.IsChest_wrapper(pickup) end
-
----@param variant PickupVariant | integer
----@return boolean
-function Stub.IsChest(variant) end
-
----@param pickup Component.Entity.Pickup
----@param ignorePrice boolean
----@return boolean
-function Stub.CanBePickedUp(pickup, ignorePrice) end
-
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
 ---@return boolean
@@ -302,7 +286,7 @@ function Stub.GetWait(pickup) end
 
 Interface.GetPrice = Stub.GetPrice
 Interface.SetWait = Stub.SetWait
-Interface.IsShopItem = Stub.IsShopItem
+Interface.IsShopItem = PickupProperties.IsShopItem
 Interface.SetTimeout = Stub.SetTimeout
 Interface.GetTimeout = Stub.GetTimeout
 Interface.SetTouched = Stub.SetTouched
@@ -349,9 +333,9 @@ Interface.Remove = Stub.Remove
 Interface.ClearReferences = Stub.ClearReferences
 Interface.CanReroll = Stub.CanReroll
 Interface.can_reroll = Stub.can_reroll
-Interface.IsChest_wrapper = Stub.IsChest_wrapper
-Interface.IsChest = Stub.IsChest
-Interface.CanBePickedUp = Stub.CanBePickedUp
+Interface.IsChest = PickupProperties.IsChest
+Interface.IsChest_Variant = PickupProperties.IsChestVariant
+Interface.CanBePickedUp = PickupProperties.CanBePickedUp
 Interface.CanDuplicate = Stub.CanDuplicate
 Interface.get_random_pickup_velocity = Stub.get_random_pickup_velocity
 Interface.TriggerTheresOptionsPickup = Stub.TriggerTheresOptionsPickup
