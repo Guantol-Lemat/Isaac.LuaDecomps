@@ -267,7 +267,7 @@ local function Gaper_UpdateRoar(npc, ctx)
     if isPossessed then
         triggerRoar = IEntityNPC.IsActionTriggered(ctx, npc, POSSESSOR_ROAR)
     else
-        local playerTarget = IEntityNPC.GetPlayerTarget(ctx, npc)
+        local playerTarget = IEntityNPC.GetPlayerTarget(npc, ctx)
         local enemyTarget = IEntityNPC.IsEnemyTarget(npc, playerTarget)
 
         triggerRoar = enemyTarget
@@ -302,13 +302,13 @@ local function Gaper_UpdateRoar(npc, ctx)
         roar_sound = GAPER_SOUND_ROAR
     end
 
-    IEntityNPC.play_sound(ctx, npc, roar_sound, 1.0, roar_frameDelay, false, roar_pitch)
+    IEntityNPC.play_sound(npc, ctx, roar_sound, 1.0, roar_frameDelay, false, roar_pitch)
 end
 
 ---@param npc Component.Entity.Npc
 ---@param ctx Context.Common
 local function Fatty_CanTriggerAttack(npc, ctx)
-    local myPlayerTarget = IEntityNPC.GetPlayerTarget(ctx, npc)
+    local myPlayerTarget = IEntityNPC.GetPlayerTarget(npc, npc)
     local isPossessed = npc.m_possessor_controllerIdx ~= -1
     local fatty_triggerAttack
 
@@ -328,7 +328,7 @@ end
 ---@param npc Component.Entity.Npc
 ---@param ctx Context.Common
 local function Fatty_SetupAttack(npc, ctx)
-    IEntityNPC.play_sound(ctx, npc, FATTY_SOUND_SETUP_ATTACK, 1.0, 5, false, 1.0)
+    IEntityNPC.play_sound(npc, ctx, FATTY_SOUND_SETUP_ATTACK, 1.0, 5, false, 1.0)
     local myVelocity = npc.m_velocity
     local horizontalAnimation = math.abs(myVelocity.X) > math.abs(myVelocity.Y)
         and myVelocity:LengthSquared() > 0.01
@@ -360,7 +360,7 @@ local function Fatty_Attack(npc, ctx)
         if variant == eFattyVariant.PALE_FATTY then
             local projectile_velocity = Vector(8.0, 6.0)
             local projectileParams = ProjectileParams.New()
-            IEntityNPC.fire_projectiles(ctx, npc, myPos, projectile_velocity, ProjectileMode.CIRCLE_CUSTOM, projectileParams)
+            IEntityNPC.fire_projectiles(npc, ctx, myPos, projectile_velocity, ProjectileMode.CIRCLE_CUSTOM, projectileParams)
         elseif variant == eFattyVariant.FLAMING_FATTY then
             local fire_seed = IsaacUtils.Random()
             local fire_type = EntityType.ENTITY_FIREPLACE
@@ -385,7 +385,7 @@ local function ConjoinedFatty_Attack(npc, ctx)
     local mySprite = npc.m_sprite
 
     if mySprite:IsEventTriggered(CONJOINED_FATTY_EVENT_TARGET) then
-        local target = IEntityNPC.GetPlayerTarget(ctx, npc)
+        local target = IEntityNPC.GetPlayerTarget(npc, ctx)
         local targetDisplacement = target.m_position - npc.m_position
         npc.m_targetPosition = targetDisplacement:Normalized()
     end
@@ -479,7 +479,7 @@ local function BlueConjoinedFatty_Attack(npc, ctx)
         local flags = ProjectileFlags.SMART | ProjectileFlags.EXPLODE
         projectileParams.bulletFlags = projectileParams.bulletFlags | flags
         projectileParams.scale = 1.5
-        local playerTarget = IEntityNPC.GetPlayerTarget(ctx, npc)
+        local playerTarget = IEntityNPC.GetPlayerTarget(npc, ctx)
         local shootDirection_base = playerTarget.m_position - npc.m_position
 
         local isPossessed = npc.m_possessor_controllerIdx ~= -1
@@ -488,7 +488,7 @@ local function BlueConjoinedFatty_Attack(npc, ctx)
         end
 
         local shootVelocity = shootDirection_base:Resized(7.0)
-        IEntityNPC.fire_projectiles(ctx, npc, npc.m_position, shootVelocity, ProjectileMode.SINGLE, projectileParams)
+        IEntityNPC.fire_projectiles(npc, ctx, npc.m_position, shootVelocity, ProjectileMode.SINGLE, projectileParams)
     end
 end
 
@@ -507,14 +507,14 @@ local function Cyclopia_Attack(npc, ctx)
         if isPossessed then
             shootDirection_base = npc.m_possessor_aim
         else
-            local target = IEntityNPC.GetPlayerTarget(ctx, npc)
+            local target = IEntityNPC.GetPlayerTarget(npc, ctx)
             shootDirection_base = target.m_position - myPos
         end
 
         local projectileParams = ProjectileParams.New()
         local projectile_velocity = shootDirection_base:Resized(7.0)
 
-        IEntityNPC.fire_projectiles(ctx, npc, myPos, projectile_velocity, ProjectileMode.SINGLE, projectileParams)
+        IEntityNPC.fire_projectiles(npc, ctx, myPos, projectile_velocity, ProjectileMode.SINGLE, projectileParams)
     end
 
     local eventAttackEnd = mySprite:IsOverlayFinished()
@@ -577,7 +577,7 @@ local function Cyclopia_UpdateAttackTrigger(npc, ctx)
     else
         shouldAttack = npc.m_pathfinder.m_hasDirectPath
             and IsaacUtils.RandomInt(30) == 0
-            and npc.m_position:DistanceSquared(IEntityNPC.GetPlayerTarget(ctx, npc).m_position) < 40000.0
+            and npc.m_position:DistanceSquared(IEntityNPC.GetPlayerTarget(npc, ctx).m_position) < 40000.0
 
         projectileCooldown = 60
     end
@@ -630,7 +630,7 @@ local function Stoney_Move(npc, ctx)
 
         local eventShoot = mySprite:IsEventTriggered(STONEY_EVENT_SHOOT)
         if eventShoot then
-            IEntityNPC.play_sound(ctx, npc, STONEY_SOUND_SHOOT, 1.0, 0, false, 1.0)
+            IEntityNPC.play_sound(npc, ctx, STONEY_SOUND_SHOOT, 1.0, 0, false, 1.0)
             local projectileParams = ProjectileParams.New()
             local myVelocity = npc.m_velocity
             projectileParams.heightModifier = -15.0
@@ -639,7 +639,7 @@ local function Stoney_Move(npc, ctx)
             local projectile_vel = Vector(10.0, 0.0)
             local projectile_mode = rotationType == 1 and ProjectileMode.PLUS or ProjectileMode.CROSS
 
-            IEntityNPC.fire_projectiles(ctx, npc, projectile_pos, projectile_vel, projectile_mode, projectileParams)
+            IEntityNPC.fire_projectiles(npc, ctx, projectile_pos, projectile_vel, projectile_mode, projectileParams)
         end
 
         local eventRotationEnd = mySprite:IsOverlayFinished()
@@ -796,7 +796,7 @@ local function UpdateAi(npc, ctx)
     -- update movement
     local shouldEvade = npc.m_flags & (EntityFlag.FLAG_FEAR | EntityFlag.FLAG_SHRINK) ~= 0
     if shouldEvade then
-        local target = IEntityNPC.GetPlayerTarget(ctx, npc)
+        local target = IEntityNPC.GetPlayerTarget(npc, ctx)
         local myPathfinder = npc.m_pathfinder
 
         IPathfinder.EvadeTarget(ctx, myPathfinder, target.m_position, true)

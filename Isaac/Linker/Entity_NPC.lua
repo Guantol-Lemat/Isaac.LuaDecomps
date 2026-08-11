@@ -4,6 +4,7 @@ local Interface = require("Isaac.Interface.Entity_NPC")
 --#region
 
 local NpcInit = require("Isaac.Core.Npc.NpcInit")
+local NpcEvents = require("Isaac.Core.Npc.Events")
 
 --#endregion
 
@@ -254,10 +255,10 @@ function Stub.KillUnique(npc) end
 ---@return boolean
 function Stub.IsHostileTarget(npc, param_1) end
 
----@param ctx Context.Common
 ---@param npc Component.Entity.Npc
+---@param ctx Context.Common
 ---@return Component.Entity
-function Stub.GetPlayerTarget(ctx, npc) end
+function Stub.GetPlayerTarget(npc, ctx) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
@@ -363,14 +364,14 @@ function Stub.apply_projectile_modifiers(ctx, projectile, championid, scale, fla
 ---@param projectile Component.Entity.Projectile
 function Stub.apply_projectile_modifiers_wrapper(ctx, npc, projectile) end
 
----@param ctx Context.Common
 ---@param npc Component.Entity.Npc
+---@param ctx Context.Common
 ---@param Pos Vector
 ---@param Velocity Vector
 ---@param Mode ProjectileMode | integer
 ---@param Params Component.Npc.ProjectileParams
 ---@return Component.Entity.Projectile
-function Stub.fire_projectiles(ctx, npc, Pos, Velocity, Mode, Params) end
+function Stub.fire_projectiles(npc, ctx, Pos, Velocity, Mode, Params) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
@@ -478,14 +479,14 @@ function Stub.SetScale(npc, Scale) end
 ---@param npc Component.Entity.Npc
 function Stub.UpdateSpriteShrinkScale(npc) end
 
----@param ctx Context.Common
 ---@param npc Component.Entity.Npc
+---@param ctx Context.Common
 ---@param ID SoundEffect | integer
 ---@param Volume number
 ---@param FrameDelay integer
 ---@param Loop boolean
 ---@param Pitch number
-function Stub.play_sound(ctx, npc, ID, Volume, FrameDelay, Loop, Pitch) end
+function Stub.play_sound(npc, ctx, ID, Volume, FrameDelay, Loop, Pitch) end
 
 ---@param ctx Context.Common
 ---@param npc Component.Entity.Npc
@@ -740,6 +741,7 @@ Interface.SetScale = Stub.SetScale
 Interface.UpdateSpriteShrinkScale = Stub.UpdateSpriteShrinkScale
 Interface.play_sound = Stub.play_sound
 Interface.get_alive_enemy_count = Stub.get_alive_enemy_count
+Interface.TriggerPlayerDamaged = NpcEvents.TriggerPlayerDamaged
 Interface.TriggerNewRoom = Stub.TriggerNewRoom
 Interface.update_spider_mod = Stub.update_spider_mod
 Interface.update_damage_shield = Stub.update_damage_shield

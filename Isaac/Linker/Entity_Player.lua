@@ -2058,12 +2058,12 @@ function Stub.spawn_forgotten_body(ctx, player) end
 ---@return boolean
 function Stub.swap_forgotten(ctx, player, IgnoreHealth, DisableVisuals) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param Position Vector
 ---@param doEffects boolean
 ---@param teleportTwinPlayers boolean
-function Stub.Teleport(ctx, player, Position, doEffects, teleportTwinPlayers) end
+function Stub.Teleport(player, ctx, Position, doEffects, teleportTwinPlayers) end
 
 ---@param ctx Context.Common
 function Stub.PlayTeleportSoundEffect(ctx) end
