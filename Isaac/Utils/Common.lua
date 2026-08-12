@@ -62,6 +62,7 @@ end
 
 ---@return number
 local function RandomFloat()
+    return Random() / (2^32 - 1)
 end
 
 ---@return Vector
