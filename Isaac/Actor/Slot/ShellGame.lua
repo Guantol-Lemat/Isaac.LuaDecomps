@@ -236,7 +236,7 @@ end
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
-local function ShellGame_PostUpdate(slot, ctx)
+local function ShellGame_Shuffle(slot, ctx)
     local event_soundShuffle = slot.m_sprite:IsPlaying(ANIMATION_PAY_SHUFFLE) and slot.m_sprite:IsEventTriggered(EVENT_SHUFFLE)
     if event_soundShuffle then
         local pitch = IsaacUtils.RandomFloat() * 0.1 + 1.0
@@ -393,7 +393,7 @@ local Module = {}
 
 Module.Init = ShellGame_Init
 Module.UpdatePrize = ShellGame_UpdatePrize
-Module.PostUpdate = ShellGame_PostUpdate
+Module.Shuffle = ShellGame_Shuffle
 Module.PostRender = ShellGame_PostRender
 Module.ShellGame_PaySlot = ShellGame_PaySlot
 Module.HellGame_PaySlot = HellGame_PaySlot

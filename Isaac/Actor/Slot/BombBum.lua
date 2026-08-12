@@ -28,8 +28,6 @@ local EVENT_PRIZE = "Prize"
 local SOUND_SPAWN = SoundEffect.SOUND_SLOTSPAWN
 local SOUND_PAY = SoundEffect.SOUND_SCAMPER
 
-local STATE_BOMBED = 5
-
 local PRIZE_HEART = 1
 local PRIZE_COIN = 2
 local PRIZE_COLLECTIBLE = 3
@@ -66,14 +64,10 @@ local function BombBum_BombedSpawnBomb(slot, ctx)
     )
 end
 
+-- state special is state bombed
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
-local function BombBum_UpdateState(slot, ctx)
-    local bombed = slot.m_state == STATE_BOMBED
-    if not bombed then
-        return
-    end
-
+local function BombBum_UpdateStateSpecial(slot, ctx)
     local mySprite = slot.m_sprite
     local event_startSpawning = mySprite:IsEventTriggered(EVENT_PRIZE)
     if event_startSpawning then
@@ -199,7 +193,7 @@ local Module = {}
 --#region Module
 
 Module.BombedSpawnBomb = BombBum_BombedSpawnBomb
-Module.UpdateState = BombBum_UpdateState
+Module.UpdateStateSpecial = BombBum_UpdateStateSpecial
 Module.UpdatePrize = BombBum_UpdatePrize
 Module.PaySlot = BombBum_PaySlot
 Module.PlayerInteraction = BombBum_PlayerInteraction

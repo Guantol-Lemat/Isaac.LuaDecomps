@@ -2,7 +2,7 @@
 
 local IEntity = require("Isaac.Interface.Entity")
 
-local Actor_ShellGame = require("Isaac.Actor.Slot.ShellGame")
+local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
 
 --#endregion
 
@@ -12,10 +12,8 @@ local Actor_ShellGame = require("Isaac.Actor.Slot.ShellGame")
 local function Render(slot, ctx, offset)
     IEntity.Render(ctx, slot, offset)
 
-    local variant = slot.m_variant
-    local isShellGame = variant == SlotVariant.SHELL_GAME or variant == SlotVariant.HELL_GAME
-    if isShellGame then
-        Actor_ShellGame.PostRender(slot)
+    if ActorSlot.IsShellGame(slot) then
+        ActorSlot.ShellGame_PostRender(slot)
     end
 end
 

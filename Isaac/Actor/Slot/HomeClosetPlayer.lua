@@ -70,13 +70,8 @@ end
 
 ---@param slot Component.Entity.Slot
 ---@param ctx Context.Common
-local function HomeClosetPlayer_UpdateState(slot, ctx)
+local function HomeClosetPlayer_UpdateStateWaitPrize(slot, ctx)
     local mySprite = slot.m_sprite
-
-    local waitingReward = slot.m_state == SlotState.REWARD
-    if not waitingReward then
-        return
-    end
 
     local event_spawnFx = mySprite:IsEventTriggered(EVENT_FX)
     if event_spawnFx then
@@ -147,7 +142,7 @@ local Module = {}
 --#region Module
 
 Module.Init = HomeClosetPlayer_Init
-Module.UpdateState = HomeClosetPlayer_UpdateState
+Module.UpdateStateWaitPrize = HomeClosetPlayer_UpdateStateWaitPrize
 Module.UpdatePrize = HomeClosetPlayer_UpdatePrize
 Module.PaySlot = HomeClosetPlayer_PaySlot
 Module.PlayerInteraction = HomeClosetPlayer_PlayerInteraction

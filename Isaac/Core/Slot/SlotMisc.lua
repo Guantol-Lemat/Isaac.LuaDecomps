@@ -6,23 +6,10 @@ local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IsaacUtils = require("Isaac.Utils.Common")
 
-local Actor_BloodDonationMachine = require("Isaac.Actor.Slot.BloodDonationMachine")
-local Actor_DevilBeggar = require("Isaac.Actor.Slot.DevilBeggar")
-local Actor_ShellGame = require("Isaac.Actor.Slot.ShellGame")
-local Actor_ShopRestockMachine = require("Isaac.Actor.Slot.ShopRestockMachine")
-local Actor_MomsDressingTable = require("Isaac.Actor.Slot.MomsDressingTable")
-local Actor_CraneGame = require("Isaac.Actor.Slot.CraneGame")
-local Actor_RottenBeggar = require("Isaac.Actor.Slot.RottenBeggar")
 local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
+local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
 
 --#endregion
-
----@alias Slot.Switch.OnSetPrizeCollectible fun(slot: Component.Entity.Slot, ctx: Context.Common, collectible: CollectibleType | integer)
----@alias Slot.Switch.CustomExplosionDrops fun(slot: Component.Entity.Slot, ctx: Context.Common, closure: Slot.Closure.CustomExplosionDrops)
-
----@class Slot.Closure.CustomExplosionDrops
----@field extraRng RNG
----@field daemonsTailRng RNG?
 
 local ePickVelType = Enums.ePickVelType
 
@@ -33,22 +20,6 @@ local ANIMATION_COIN_JAM = {
     "CoinJam2",
     "CoinJam3",
     "CoinJam4"
-}
-
----@type table<SlotVariant, Slot.Switch.OnSetPrizeCollectible>
-local Switch_OnSetPrizeCollectible = {
-    [SlotVariant.HELL_GAME] = Actor_ShellGame.HellGame_OnSetPrizeCollectible,
-    [SlotVariant.CRANE_GAME] = Actor_CraneGame.OnSetPrizeCollectible,
-}
-
----@type table<SlotVariant, Slot.Switch.CustomExplosionDrops>
-local Switch_CustomExplosionDrops = {
-    [SlotVariant.BLOOD_DONATION_MACHINE] = Actor_BloodDonationMachine.CustomExplosionDrops,
-    [SlotVariant.DEVIL_BEGGAR] = Actor_DevilBeggar.CustomExplosionDrops,
-    [SlotVariant.SHOP_RESTOCK_MACHINE] = Actor_ShopRestockMachine.CustomExplosionDrops,
-    [SlotVariant.MOMS_DRESSING_TABLE] = Actor_MomsDressingTable.CustomExplosionDrops,
-    [SlotVariant.HELL_GAME] = Actor_ShellGame.HellGame_CustomExplosionDrops,
-    [SlotVariant.ROTTEN_BEGGAR] = Actor_RottenBeggar.CustomExplosionDrops,
 }
 
 ---@param slot Component.Entity.Slot
@@ -69,9 +40,7 @@ end
 ---@param collectible CollectibleType | integer
 local function SetPrizeCollectible(slot, ctx, collectible)
     slot.m_prizeCollectible = collectible
-
-    local OnSetPrizeCollectible = Switch_OnSetPrizeCollectible[slot.m_variant]
-    if OnSetPrizeCollectible then OnSetPrizeCollectible(slot, ctx, collectible) end
+    ActorSlot.OnSetPrizeCollectible(slot, ctx, collectible)
 end
 
 ---@param slot Component.Entity.Slot
@@ -146,13 +115,9 @@ local function CreateDropsFromExplosion(slot, ctx)
     local playerManager = ctx.game.m_playerManager
     local _, daemonsTailRng = IPlayerManager.RandomTrinketOwner(playerManager, ctx, TrinketType.TRINKET_DAEMONS_TAIL, slot.m_initSeed)
 
-    local CustomExplosionDrops = Switch_CustomExplosionDrops[slot.m_variant]
-    if CustomExplosionDrops then
-        ---@type Slot.Closure.CustomExplosionDrops
-        local closure = {daemonsTailRng = daemonsTailRng, extraRng = extraRng}
-        CustomExplosionDrops(slot, ctx, closure)
-        return
-    end
+    ---@type Slot.Closure.CustomExplosionDrops
+    local closure = {daemonsTailRng = daemonsTailRng, extraRng = extraRng}
+    ActorSlot.CustomExplosionDrops(slot, ctx, closure)
 
     -- base explosion drops
     local myRng = slot.m_dropRNG
