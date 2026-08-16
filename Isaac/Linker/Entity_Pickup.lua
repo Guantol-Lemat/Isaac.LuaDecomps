@@ -1,6 +1,7 @@
 ---@class Interface.Entity_Pickup
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
+local Global = require("Isaac.Core.Pickup.Global")
 local Component = require("Isaac.Components.Entity.PickupComponent")
 local PickupProperties = require("Isaac.Core.Pickup.Properties")
 local PickupLootList = require("Isaac.Core.Pickup.LootList")
@@ -40,9 +41,6 @@ function Stub.SetOptionsPickupIndex(pickup, Index) end
 ---@return integer
 function Stub.GetOptionsPickupIndex(pickup) end
 
----@param param_1 boolean
-function Stub.SetIgnoreModifiers(param_1) end
-
 ---@param pickup Component.Entity.Pickup
 ---@param param_1 integer
 function Stub.SetDropDelay(pickup, param_1) end
@@ -59,13 +57,17 @@ function Stub.SetUnkInt(pickup, param_1) end
 ---@param Collectible integer
 function Stub.SetOptionCycleCollectible(pickup, Collectible) end
 
+---@class Pickup.IO.SelectPickupType
+---@field variant PickupVariant | integer
+---@field subtype integer}
+
 ---@param ctx Context.Common
 ---@param seed integer
----@param variant integer
----@param param_3 integer
----@param param_4 boolean
----@param param_5 boolean
-function Stub.SelectPickupType(ctx, seed, variant, param_3, param_4, param_5) end
+---@param io Pickup.IO.SelectPickupType
+---@param advance boolean
+---@param isShopItem boolean
+---@return boolean success
+function Stub.SelectPickupType(ctx, seed, io, advance, isShopItem) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
@@ -97,16 +99,16 @@ function Stub.TryFlip(ctx, pickup) end
 ---@param ctx Context.Common
 function Stub.UpdatePickupGhosts(pickup, ctx) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
 ---@param numCycle integer
 ---@return boolean
-function Stub.TryInitOptionCycle(ctx, pickup, numCycle) end
+function Stub.TryInitOptionCycle(pickup, ctx, numCycle) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
 ---@param pedestalType PedestalType | integer
-function Stub.SetAlternatePedestal(ctx, pickup, pedestalType) end
+function Stub.SetAlternatePedestal(pickup, ctx, pedestalType) end
 
 ---@param pickup Component.Entity.Pickup
 ---@return PedestalType | integer
@@ -125,15 +127,15 @@ function Stub.SetForceBlind(ctx, pickup, setBlind) end
 ---@param param_5 boolean
 function Stub.SetupCollectibleGraphics(ctx, param_1, layer, id, param_4, param_5) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
+---@param ctx Context.Common
 ---@param param_1 boolean
-function Stub.ReloadGraphics(ctx, pickup, param_1) end
+function Stub.ReloadGraphics(pickup, ctx, param_1) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
----@param Price ShopItemPrice | integer
-function Stub.SetPrice(ctx, pickup, Price) end
+---@param ctx Context.Common
+---@param Price PickupPrice | integer
+function Stub.SetPrice(pickup, ctx, Price) end
 
 ---@param pickup Component.Entity.Pickup
 function Stub.AppearFast(pickup) end
@@ -289,7 +291,9 @@ Interface.GetTimeout = Stub.GetTimeout
 Interface.SetTouched = Stub.SetTouched
 Interface.SetOptionsPickupIndex = Stub.SetOptionsPickupIndex
 Interface.GetOptionsPickupIndex = Stub.GetOptionsPickupIndex
-Interface.SetIgnoreModifiers = Stub.SetIgnoreModifiers
+Interface.IgnoreModifiers = Global.IgnoreModifiers
+Interface.BeginIgnoreModifiers = Global.BeginIgnoreModifiers
+Interface.EndIgnoreModifiers = Global.EndIgnoreModifiers
 Interface.SetDropDelay = Stub.SetDropDelay
 Interface.IsForceBlind = Stub.IsForceBlind
 Interface.SetUnkInt = Stub.SetUnkInt

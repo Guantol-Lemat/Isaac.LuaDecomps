@@ -473,10 +473,10 @@ function Stub.GetGreedBossWaveNum(game) end
 ---@param size integer
 function Stub.DebugText(ctx, pos, color, text, size) end
 
----@param ctx Context.Common
 ---@param game Component.Game
+---@param ctx Context.Common
 ---@param timeout integer
-function Stub.ShakeScreen(ctx, game, timeout) end
+function Stub.ShakeScreen(game, ctx, timeout) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game

@@ -153,6 +153,44 @@ Module.eItemIsAvailableFlag = {
     ALL = 0xff,
 }
 
+---@enum eCardSubType
+Module.eCardSubType = {
+    TAROT_CARD = 1,
+    SUIT_CARD = 2,
+    RUNE_1 = 3,
+    RUNE_2 = 4,
+    EMERGENCY_CONTACT = 5,
+    DICE_SHARD = 6,
+    BLACK_RUNE = 7,
+    MAGIC_CARD = 8,
+    CARDS_AGAINST_HUMANITY = 9,
+    CREDIT_CARD = 10,
+    HOLY_CARD = 11,
+    CHANCE_CARD = 12, --Get Out Of Jail Free Card
+    RUNE_SHARD = 13,
+    REVERSE_TAROT_CARD = 14,
+    CRACKED_KEY = 15,
+    TREASURE_CARD = 16, -- Cantripped
+    UNUS_CARD = 17, --Wild Card
+    SOUL_OF_ISAAC = 18,
+    SOUL_OF_MAGDALENE = 19,
+    SOUL_OF_CAIN = 20,
+    SOUL_OF_JUDAS = 21,
+    SOUL_OF_BLUEBABY = 22,
+    SOUL_OF_EVE = 23,
+    SOUL_OF_SAMSON = 24,
+    SOUL_OF_AZAZEL = 25,
+    SOUL_OF_LAZARUS = 26,
+    SOUL_OF_EDEN = 27,
+    SOUL_OF_THE_LOST = 28,
+    SOUL_OF_LILITH = 29,
+    SOUL_OF_THE_KEEPER = 30,
+    SOUL_OF_APOLLYON = 31,
+    SOUL_OF_THE_FORGOTTEN = 32,
+    SOUL_OF_BETHANY = 33,
+    SOUL_OF_JACOB_AND_ESAU = 34,
+}
+
 ---@enum eShopItemType
 Module.eShopItemType = {
     HEART_FULL = 0,

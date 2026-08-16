@@ -90,7 +90,7 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
             CollectibleType.COLLECTIBLE_CRYSTAL_BALL, myRng:Next()
         )
         ---@cast collectibleEntity Component.Entity.Pickup
-        IEntityPickup.SetAlternatePedestal(ctx, collectibleEntity, PedestalType.FORTUNE_TELLING_MACHINE)
+        IEntityPickup.SetAlternatePedestal(collectibleEntity, ctx, PedestalType.FORTUNE_TELLING_MACHINE)
         collectibleEntity:Update(ctx)
 
         return

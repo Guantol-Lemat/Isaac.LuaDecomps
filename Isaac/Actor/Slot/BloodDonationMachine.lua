@@ -66,7 +66,7 @@ local function trigger_prize(slot, ctx, player, extraRng)
         )
 
         ---@cast collectibleEntity Component.Entity.Pickup
-        IEntityPickup.SetAlternatePedestal(ctx, collectibleEntity, PedestalType.BLOOD_DONATION_MACHINE)
+        IEntityPickup.SetAlternatePedestal(collectibleEntity, ctx, PedestalType.BLOOD_DONATION_MACHINE)
         collectibleEntity:Update(ctx)
 
         return

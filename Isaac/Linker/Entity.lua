@@ -460,13 +460,13 @@ function Stub.SetTarget(entity, Target) end
 ---@param Spawner Component.Entity?
 function Stub.SetSpawnerEntity(entity, Spawner) end
 
----@param ctx Context.Common
 ---@param entity Component.Entity
+---@param ctx Context.Common
 ---@param type EntityType | integer
 ---@param variant integer
 ---@param subtype integer
 ---@param initSeed integer
-function Stub.Init(ctx, entity, type, variant, subtype, initSeed) end
+function Stub.Init(entity, ctx, type, variant, subtype, initSeed) end
 
 ---@param ctx Context.Common
 ---@param entity Component.Entity

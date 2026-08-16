@@ -116,7 +116,7 @@ local function MomsDressingTable_CustomExplosionDrops(slot, ctx, closure)
         )
 
         ---@cast collectible_entity Component.Entity.Pickup
-        IEntityPickup.SetAlternatePedestal(ctx, collectible_entity, PedestalType.MOMS_DRESSING_TABLE)
+        IEntityPickup.SetAlternatePedestal(collectible_entity, ctx, PedestalType.MOMS_DRESSING_TABLE)
         collectible_entity:Update(ctx)
         slot:Remove(ctx)
 

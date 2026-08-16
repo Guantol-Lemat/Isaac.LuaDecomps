@@ -104,10 +104,6 @@ function Stub.GetRoomDescriptorsOffsetsArrayForDimension(level, dimension) end
 ---@param Chance number
 function Stub.AddAngelRoomChance(level, Chance) end
 
----@param ctx Context.Common
----@return StbType | integer
-function Stub.GetStageID(ctx) end
-
 ---@param level Component.Level
 ---@return DoorSlot | integer
 function Stub.GetLeaveDoor(level) end
@@ -124,11 +120,10 @@ function Stub.GetGreedModeWave(level) end
 ---@param level Component.Level
 function Stub.destructor(level) end
 
----@param ctx Context.Common
 ---@param level Component.Level
----@param unused boolean
+---@param ctx Context.Common
 ---@return StbType | integer
-function Stub.GetStageID(ctx, level, unused) end
+function Stub.GetStageID(level, ctx) end
 
 ---@param ctx Context.Common
 ---@param level Component.Level
@@ -708,7 +703,6 @@ Interface.GetDungeonReturnRoomIndex = Stub.GetDungeonReturnRoomIndex
 Interface.GetDungeonPlacementSeed = Stub.GetDungeonPlacementSeed
 Interface.GetRoomDescriptorsOffsetsArrayForDimension = Stub.GetRoomDescriptorsOffsetsArrayForDimension
 Interface.AddAngelRoomChance = Stub.AddAngelRoomChance
-Interface.GetStageID = Stub.GetStageID
 Interface.GetLeaveDoor = Stub.GetLeaveDoor
 Interface.SaveBackwardsStage = Stub.SaveBackwardsStage
 Interface.GetGreedModeWave = Stub.GetGreedModeWave

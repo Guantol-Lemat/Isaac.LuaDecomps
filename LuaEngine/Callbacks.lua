@@ -39,6 +39,17 @@ end
 local function PostKnifeUpdate(knife)
 end
 
+---@param pickup Component.Entity.Pickup
+---@param variant integer
+---@param subtype integer
+---@return integer, integer
+local function PostPickupSelection(pickup, variant, subtype)
+end
+
+---@param pickup Component.Entity.Pickup
+local function PostPickupInit(pickup)
+end
+
 local Module = {}
 
 --#region Module
@@ -49,6 +60,8 @@ Module.PreUseItem = PreUseItem
 Module.UseCard = UseCard
 Module.SpawnClearAward = SpawnClearAward
 Module.PostKnifeUpdate = PostKnifeUpdate
+Module.PostPickupSelection = PostPickupSelection
+Module.PostPickupInit = PostPickupInit
 
 --#endregion
 

@@ -215,6 +215,10 @@ function Stub.TryForceTarget(npc, target, duration_qqq) end
 function Stub.get_time_scale(ctx, npc) end
 
 ---@param ctx Context.Common
+---@return StbType | integer
+function Stub.GetStageID(ctx) end
+
+---@param ctx Context.Common
 ---@param param_1_00 string
 ---@param param_2_00 string
 ---@param param_3 string
@@ -690,6 +694,7 @@ Interface.ClearReferences = Stub.ClearReferences
 Interface.CheckPlayerProximity = Stub.CheckPlayerProximity
 Interface.TryForceTarget = Stub.TryForceTarget
 Interface.get_time_scale = Stub.get_time_scale
+Interface.GetStageID = Stub.GetStageID
 Interface.translate_gfx_path_hell = Stub.translate_gfx_path_hell
 Interface.translate_gfx_path = Stub.translate_gfx_path
 Interface.try_load_alt_anim = Stub.try_load_alt_anim

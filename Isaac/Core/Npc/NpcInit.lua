@@ -68,7 +68,7 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     npc.m_stickyBombDeathSpawnRelated = 0
     npc.m_unkDeathSpawnChampionFlag = 0
 
-    IEntity.Init(ctx, npc, entityType, variant, subtype, seed);
+    IEntity.Init(npc, ctx, entityType, variant, subtype, seed);
 
     npc.m_flags = npc.m_flags | EntityFlag.FLAG_APPEAR
     npc.m_state = NpcState.STATE_APPEAR

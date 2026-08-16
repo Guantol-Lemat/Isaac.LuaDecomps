@@ -13,6 +13,7 @@
 ---@field m_wait integer : 0x490
 ---@field m_eternalChest_reCloseCountdown integer : 0x494
 ---@field m_stickyNickelRelated integer : 0x498
+---@field field_49c integer : 0x49c
 ---@field m_dropDelay integer : 0x4a0
 ---@field m_camoColor_qqq Color : 0x4a4
 ---@field m_state integer : 0x4d0

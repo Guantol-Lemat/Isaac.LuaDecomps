@@ -202,7 +202,7 @@ local SWITCH_SOLVE_PRIZE = {
             CollectibleType.COLLECTIBLE_DOLLAR, slot.m_dropRNG:Next()
         )
         ---@cast dollar Component.Entity.Pickup
-        IEntityPickup.SetAlternatePedestal(ctx, dollar, PedestalType.SLOT_MACHINE)
+        IEntityPickup.SetAlternatePedestal(dollar, ctx, PedestalType.SLOT_MACHINE)
         dollar:Update(ctx)
 
         slot.m_state = SlotState.IDLE

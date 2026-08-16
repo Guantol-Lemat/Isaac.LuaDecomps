@@ -15,7 +15,7 @@ local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
 local function Init(slot, ctx, entityType, variant, subType, seed)
     variant = ActorSlot.Effects_SelectSlotType(ctx, variant)
 
-    IEntity.Init(ctx, slot, entityType, variant, subType, seed)
+    IEntity.Init(slot, ctx, entityType, variant, subType, seed)
 
     local myConfig = slot.m_config
     if myConfig then

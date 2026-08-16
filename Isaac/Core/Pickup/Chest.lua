@@ -166,7 +166,7 @@ local Switch_ResolveLootEntry = {
                     and alternatePedestal[2]
                     or alternatePedestal[1]
 
-                IEntityPickup.SetAlternatePedestal(ctx, pickup, pedestalType)
+                IEntityPickup.SetAlternatePedestal(pickup, ctx, pedestalType)
             end
         end
 

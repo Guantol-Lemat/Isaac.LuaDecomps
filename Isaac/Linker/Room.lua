@@ -382,12 +382,12 @@ function Stub.SpawnGridEntity(room, ctx, GridIdx, Type, Variant, Seed, VarData) 
 ---@return boolean
 function Stub.SpawnGridEntityDesc(ctx, room, GridIndex, Desc) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param Seed integer
 ---@param NoDecrease boolean
 ---@return CollectibleType | integer
-function Stub.GetSeededCollectible(ctx, room, Seed, NoDecrease) end
+function Stub.GetSeededCollectible(room, ctx, Seed, NoDecrease) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -777,10 +777,10 @@ function Stub.DamageGrid(room, Index, Damage) end
 ---@return boolean
 function Stub.DestroyGrid(room, idx, damage, instant) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@return integer
-function Stub.GetFrameCount(ctx, room) end
+function Stub.GetFrameCount(room, ctx) end
 
 ---@param seed integer
 ---@return integer
@@ -790,14 +790,17 @@ function Stub.greed_random_shopitem(seed) end
 ---@param room Component.Room
 function Stub.init_shop(ctx, room) end
 
----@param ctx Context.Common
+---@class Room.IO.MakeShopItem
+---@field variant PickupVariant | integer
+---@field subtype integer
+---@field price PickupPrice | integer
+
 ---@param room Component.Room
----@param idx PickupVariant | integer
----@param subtype integer
----@param Price ShopItemPrice | integer
+---@param ctx Context.Common
+---@param out Room.IO.MakeShopItem
 ---@param seed integer
----@return integer
-function Stub.MakeShopItem(ctx, room, idx, subtype, Price, seed) end
+---@return integer idx
+function Stub.MakeShopItem(room, ctx, out, seed) end
 
 ---@param ctx Context.Common
 ---@param Index integer
@@ -806,13 +809,13 @@ function Stub.MakeShopItem(ctx, room, idx, subtype, Price, seed) end
 ---@param seed integer
 function Stub.GetShopItem(ctx, Index, retVariant, retSubtype, seed) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param entVariant PickupVariant | integer
 ---@param entSubtype integer
 ---@param shopItemID integer
----@return ShopItemPrice | integer
-function Stub.GetShopItemPrice(ctx, room, entVariant, entSubtype, shopItemID) end
+---@return PickupPrice | integer
+function Stub.GetShopItemPrice(room, ctx, entVariant, entSubtype, shopItemID) end
 
 ---@param room Component.Room
 ---@param param_1 unknown
@@ -832,12 +835,12 @@ function Stub.ShopRestockFull(ctx, room) end
 ---@param ReselectSaleItem boolean
 function Stub.ShopReshuffle(room, KeepCollectibleIdx, ReselectSaleItem) end
 
----@param ctx Context.Common
 ---@param room Component.Room
+---@param ctx Context.Common
 ---@param ShopItemIdx integer
----@param Price ShopItemPrice | integer
----@return ShopItemPrice | integer
-function Stub.TryGetShopDiscount(ctx, room, ShopItemIdx, Price) end
+---@param Price PickupPrice | integer
+---@return PickupPrice | integer
+function Stub.TryGetShopDiscount(room, ctx, ShopItemIdx, Price) end
 
 ---@param room Component.Room
 ---@param ctx Context.Common
@@ -1178,6 +1181,9 @@ function Stub.TrySpawnSpecialQuestDoor(room, ctx) end
 function Stub.IsMirrorWorld(ctx) end
 
 ---@param room Component.Room
+function Stub.TriggerDamoclesItemSpawned(room) end
+
+---@param room Component.Room
 ---@return boolean
 function Stub.HasCurseMist(room) end
 
@@ -1452,6 +1458,7 @@ Interface.IsBeastRoom = Stub.IsBeastRoom
 Interface.GetBeastRoomLavaHeight = Stub.GetBeastRoomLavaHeight
 Interface.TrySpawnSpecialQuestDoor = Stub.TrySpawnSpecialQuestDoor
 Interface.IsMirrorWorld = Stub.IsMirrorWorld
+Interface.TriggerDamoclesItemSpawned = Stub.TriggerDamoclesItemSpawned
 Interface.HasCurseMist = Stub.HasCurseMist
 Interface.IsBackwardsPathEntrance = Stub.IsBackwardsPathEntrance
 Interface.TrySpawnSanguineBondSpike = Stub.TrySpawnSanguineBondSpike

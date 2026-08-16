@@ -84,7 +84,7 @@ local function give_prize(slot, ctx, player)
             )
 
             ---@cast pedestal Component.Entity.Pickup
-            IEntityPickup.SetAlternatePedestal(ctx, pedestal, PedestalType.CONFESSIONAL)
+            IEntityPickup.SetAlternatePedestal(pedestal, ctx, PedestalType.CONFESSIONAL)
             pedestal:Update(ctx)
         end
 
