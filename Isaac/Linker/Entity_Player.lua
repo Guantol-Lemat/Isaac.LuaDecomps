@@ -1,5 +1,7 @@
 ---@class Interface.EntityPlayer
 local Interface = require("Isaac.Interface.Entity_Player")
+---@class Interface.EntityPlayer.TearParams
+local TearParamsInterface = Interface.TearParams
 
 local Events = require("Isaac.Core.Player.Events")
 
@@ -3043,3 +3045,15 @@ Interface.GetHeadColor = Stub.GetHeadColor
 Interface.GetNumGigaBombs = Stub.GetNumGigaBombs
 Interface.GetPoopSpell = Stub.GetPoopSpell
 Interface.GetModelingClayEffect = Stub.GetModelingClayEffect
+
+--#region TearParams Stub
+
+local TearParamsStub = {}
+
+---@return Component.Entity.Player.TearParams
+function TearParamsStub.New()
+end
+
+--#endregion
+
+TearParamsInterface.New = New

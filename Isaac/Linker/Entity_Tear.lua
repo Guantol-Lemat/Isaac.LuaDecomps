@@ -143,25 +143,25 @@ function Stub.handle_collision(ctx, tear, Collider, Low) end
 ---@param param_1 number
 function Stub.SetCollisionDamage(tear, param_1) end
 
----@param ctx Context.Common
 ---@param tear Component.Entity.Tear
----@param Height number
-function Stub.SetHeight(ctx, tear, Height) end
+---@param ctx Context.Common
+---@param height number
+function Stub.SetHeight(tear, ctx, height) end
 
 ---@param ctx Context.Common
 ---@param tear Component.Entity.Tear
 ---@return number
 function Stub.get_render_height(ctx, tear) end
 
----@param ctx Context.Common
 ---@param tear Component.Entity.Tear
+---@param ctx Context.Common
 ---@param Scale number
-function Stub.SetScale(ctx, tear, Scale) end
+function Stub.SetScale(tear, ctx, Scale) end
 
----@param ctx Context.Common
 ---@param tear Component.Entity.Tear
+---@param ctx Context.Common
 ---@param flags BitSet128
-function Stub.SetTearFlags(ctx, tear, flags) end
+function Stub.SetTearFlags(tear, ctx, flags) end
 
 ---@param ctx Context.Common
 ---@param tear Component.Entity.Tear

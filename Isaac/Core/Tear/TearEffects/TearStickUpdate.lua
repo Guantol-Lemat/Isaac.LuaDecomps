@@ -128,7 +128,7 @@ local function do_spore_explosion(ctx, tear, stickTarget)
         local subTear_entityTear = IEntity.ToTear(subTear_entity)
         assert(subTear_entityTear)
 
-        IEntityTear.SetHeight(ctx, subTear_entityTear, -23.75)
+        IEntityTear.SetHeight(subTear_entityTear, ctx, -23.75)
         local bannedFlags = TearFlags.TEAR_HYDROBOUNCE |
             TearFlags.TEAR_ABSORB | TearFlags.TEAR_BONE |
             TearFlags.TEAR_LUDOVICO | TearFlags.TEAR_SPLIT |
@@ -142,7 +142,7 @@ local function do_spore_explosion(ctx, tear, stickTarget)
         subTear_entityTear.m_tearFlags = flags
 
         local realScale = tear.m_baseScale * ctx.tear_scaleFactor
-        IEntityTear.SetScale(ctx, subTear_entityTear, realScale * 0.2)
+        IEntityTear.SetScale(subTear_entityTear, ctx, realScale * 0.2)
         subTear_entityTear:SetColor(ctx, tear.m_sprite.Color, -1, -1, false, true)
         IEntity.SetParent(subTear_entityTear, tear.m_parent.ref)
 

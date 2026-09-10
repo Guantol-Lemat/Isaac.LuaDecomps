@@ -69,7 +69,7 @@ local function collide_with_floor(ctx, tear)
 
     if tear.m_tearFlags & TearFlags.TEAR_HYDROBOUNCE ~= 0 then
         tear.m_fallingSpeed = tear.m_fallingSpeed * -1.6
-        IEntityTear.SetHeight(ctx, tear, -5.0)
+        IEntityTear.SetHeight(tear, ctx, -5.0)
     end
 
     tear.m_isDead = true

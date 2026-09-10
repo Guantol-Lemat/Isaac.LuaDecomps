@@ -19,5 +19,5 @@
 ---@field m_clearedRoomCount integer[] [30] : 0x44 -- room type to clearedCount
 ---@field m_sumClearedRooms integer : 0xbc
 ---@field m_visitedRoomCount integer[] [30] : 0xc0 -- room type to visitedCount
----@field m_bossesKilled? integer : 0x138
+---@field m_angelsKilled integer : 0x138
 ---@field m_encodedGameVersion integer : 0x13c

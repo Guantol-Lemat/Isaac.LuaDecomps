@@ -15,7 +15,7 @@
 ---@field m_isFlying boolean : 0x3b4
 ---@field m_isSwinging boolean : 0x3b5
 ---@field m_meleeSwingInputHeld_qqq boolean : 0x3b6
----@field m_unkBool boolean : 0x3b7
+---@field m_mainBone boolean : 0x3b7
 ---@field m_homingLaser Component.Laser.HomingLaser : 0x3b8
 ---@field m_unkFloat2 number : 0x410
 ---@field m_pathOffset number : 0x414

@@ -165,7 +165,7 @@ local function update_main_tear(ctx, tear, closure)
         IEntity.AddVelocity(child, child_addVelocity, false)
 
         -- update and sync other fields
-        IEntityTear.SetScale(ctx, child, tear.m_fScale * 0.5)
+        IEntityTear.SetScale(child, ctx, tear.m_fScale * 0.5)
         local color = tear.m_sprite.Color
         child:SetColor(ctx, color, -1, -1, false, true)
         child.m_tearFlags = tear.m_tearFlags & ~(TearFlags.TEAR_EXPLOSIVE)

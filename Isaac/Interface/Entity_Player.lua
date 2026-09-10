@@ -1,2 +1,7 @@
 ---@class Interface.EntityPlayer
-return {}
+local Interface = {
+    ---@class Interface.EntityPlayer.TearParams
+    TearParams = {}
+}
+
+return Interface

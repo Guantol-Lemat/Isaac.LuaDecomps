@@ -1,0 +1,12 @@
+---@class Component.Weapon
+---@field m_owner Component.Entity : 0x4
+---@field m_entity_qqq Component.EntityPtr : 0x8
+---@field m_fireDelay number : 0xc
+---@field m_maxFireDelay number : 0x10
+---@field m_charge number : 0x14
+---@field m_bufferDirection? Vector : 0x1c
+---@field m_targetPos? Vector : 0x24
+---@field m_weaponType WeaponType | integer : 0x2c
+---@field m_weaponModifier integer : 0x30
+---@field m_numFired integer : 0x34
+---@field m_bodyMoveDir_qqq Vector : 0x38

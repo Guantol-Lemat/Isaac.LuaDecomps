@@ -75,8 +75,8 @@ local function do_burst(ctx, tear, closure)
 
         -- init entity data
         local height = math.min(tear.m_height, -6)
-        IEntityTear.SetHeight(ctx, burst_entityTear, height)
-        IEntityTear.SetScale(ctx, burst_entityTear, tear.m_baseScale * 0.5)
+        IEntityTear.SetHeight(burst_entityTear, ctx, height)
+        IEntityTear.SetScale(burst_entityTear, ctx, tear.m_baseScale * 0.5)
         burst_entityTear.m_tearFlags = inheritedFlags
         burst_entityTear:SetCollisionDamage(ctx, tear.m_collisionDamage * 0.5)
         burst_entityTear:SetColor(ctx, tear.m_sprite.Color, -1, -1, false, true)
@@ -137,7 +137,7 @@ local function try_absorb(ctx, tear, closure)
         local scaleIncrease = MathUtils.Clamp(rawScaleIncrease, 0.2, 1.0)
 
         local newScale = math.min(baseScale + scaleIncrease, closure.burstScale)
-        IEntityTear.SetScale(ctx, absorber, newScale)
+        IEntityTear.SetScale(absorber, ctx, newScale)
         local tearCollisionDamage = math.max(tear.m_collisionDamage, closeTear.m_collisionDamage)
         absorber:SetCollisionDamage(ctx, closure.player_damage + tearCollisionDamage)
 
@@ -180,7 +180,7 @@ local function Update(ctx, tear)
     }
 
 
-    IEntityTear.SetHeight(ctx, tear, player_tearHeight)
+    IEntityTear.SetHeight(tear, ctx, player_tearHeight)
     tear.m_fallingAcceleration = 0.0
     tear.m_fallingSpeed = 0.0
 
