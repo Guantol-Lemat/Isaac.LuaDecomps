@@ -142,7 +142,7 @@ local function Beggar_PlayerInteraction(slot, ctx, player, interactSound, GetTar
     slot.m_donationValue = slot.m_donationValue + 1
 
     local targetDonationValue = GetTargetDonationValue(slot, ctx)
-    local prize = slot.m_donationValue <= targetDonationValue
+    local prize = slot.m_donationValue > targetDonationValue
 
     if not prize then
         Beggar_SetupNoPrize(slot)
