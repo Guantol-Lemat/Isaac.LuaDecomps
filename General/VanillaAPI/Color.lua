@@ -58,11 +58,54 @@ local function ApplyColorMod(color, colorMod)
     return KColor(r, g, b, a)
 end
 
+---@param color Color
+---@param other Color
+---@return Color
+local function MultiplyCompound(color, other)
+    color.R = color.R * other.R
+    color.G = color.G * other.G
+    color.B = color.B * other.B
+    color.A = color.A * other.A
+
+    color.RO = color.RO * other.RO
+    color.GO = color.GO * other.GO
+    color.BO = color.BO * other.BO
+
+    local colorize, otherColorize = color:GetColorize(), other:GetColorize()
+    if otherColorize.R + otherColorize.G + otherColorize.B ~= 0 then
+        local cr, cg, cb, ca = colorize.R, colorize.G, colorize.B, colorize.A
+        if cr + cg + cb == 0 then
+            colorize.R = otherColorize.R
+            colorize.G = otherColorize.G
+            colorize.B = otherColorize.B
+            colorize.A = otherColorize.A
+        else
+            colorize.R = (cr + otherColorize.R) * 0.5
+            colorize.G = (cg + otherColorize.G) * 0.5
+            colorize.B = (cb + otherColorize.B) * 0.5
+            colorize.A = (ca + otherColorize.A) * 0.5
+        end
+
+        color:SetColorize(colorize.R, colorize.G, colorize.B, colorize.A)
+    end
+
+    return color
+end
+
+---@param color Color
+---@param other Color
+---@return Color
+local function Multiply(color, other)
+    return MultiplyCompound(Copy(color), other)
+end
+
 --#region Module
 
 Module.Copy = Copy
 Module.KColor_Copy = KColor_Copy
 Module.ApplyColorMod = ApplyColorMod
+Module.Multiply = Multiply
+Module.MultiplyCompound = MultiplyCompound
 
 --#endregion
 

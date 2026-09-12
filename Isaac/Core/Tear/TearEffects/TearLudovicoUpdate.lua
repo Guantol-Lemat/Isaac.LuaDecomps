@@ -52,7 +52,7 @@ local function update_ludovico_effects(ctx, tear, closure, frameDelta)
     -- update tear params
     local spawner = tear.m_spawnerEntity.ref
     local tearParams = IEntityPlayer.GetTearHitParams(
-        ctx, player, WeaponType.WEAPON_LUDOVICO_TECHNIQUE,
+        player, ctx, WeaponType.WEAPON_LUDOVICO_TECHNIQUE,
         1.0, IsaacUtils.RandomInt(2) * 2 - 1, spawner
     )
 

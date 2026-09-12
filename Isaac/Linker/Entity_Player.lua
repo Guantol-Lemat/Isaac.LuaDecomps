@@ -1577,9 +1577,10 @@ function Stub.FireKnife(ctx, player, Parent, Variant, RotationOffset, CantOverwr
 ---@param player Component.Entity.Player
 ---@param parent Component.Entity
 ---@param variant integer
+---@param rotation number
 ---@param param_3 boolean
 ---@return Component.Entity.Knife
-function Stub.FireBoneClub(ctx, player, parent, variant, param_3) end
+function Stub.FireBoneClub(ctx, player, parent, variant, rotation, param_3) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -1726,14 +1727,14 @@ function Stub.RemoveBlueSpider(player) end
 ---@return integer
 function Stub.GetExtraLives(player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param WeaponType WeaponType | integer
 ---@param DamageScale number
 ---@param TearDisplacement integer
 ---@param Source Component.Entity?
 ---@return Component.Entity.Player.TearParams
-function Stub.GetTearHitParams(ctx, player, WeaponType, DamageScale, TearDisplacement, Source) end
+function Stub.GetTearHitParams(player, ctx, WeaponType, DamageScale, TearDisplacement, Source) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
@@ -2403,11 +2404,11 @@ function Stub.CanOverrideActiveItem(ctx, player, param_1) end
 ---@param param_2 boolean
 function Stub.spawn_clot_baby(ctx, player, pos, param_2) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
+---@param ctx Context.Common
 ---@param direction Vector
 ---@return boolean
-function Stub.TryForgottenThrow(ctx, player, direction) end
+function Stub.TryForgottenThrow(player, ctx, direction) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player

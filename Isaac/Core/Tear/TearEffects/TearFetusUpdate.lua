@@ -34,8 +34,8 @@ local function do_swing_attack(ctx, knife)
     local swingPitch = swingBasePitch * (IsaacUtils.RandomFloat() * 0.2 + 0.9)
     IManager.PlaySound(ctx, SoundEffect.SOUND_SHELLGAME, 1.0, 1, false, swingPitch)
 
-    IEntityKnife.PrepareSwing(knife, 1)
-    IEntityKnife.Swing(ctx, knife)
+    IEntityKnife.InitSwing(knife, 1)
+    IEntityKnife.Swing(knife, ctx)
 end
 
 ---@param ctx Context.Common

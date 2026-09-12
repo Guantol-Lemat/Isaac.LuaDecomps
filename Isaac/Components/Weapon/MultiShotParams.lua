@@ -1,0 +1,13 @@
+---@class Component.Weapon.MultiShotParams
+---@field m_numTears integer : 0x0
+---@field m_numLanesPerEye integer : 0x2
+---@field m_spreadAngleTears number : 0x4
+---@field m_spreadAngleLaser number : 0x8
+---@field m_spreadAngleTechX number : 0xc
+---@field m_spreadAngleKnives number : 0x10
+---@field m_numEyesActive integer : 0x14
+---@field m_multiEyeAngle number : 0x18
+---@field m_isCrossEyed boolean : 0x1c
+---@field m_isShootingBackwards boolean : 0x1d
+---@field m_isShootingSideways boolean : 0x1e
+---@field m_numRandomTears integer : 0x20

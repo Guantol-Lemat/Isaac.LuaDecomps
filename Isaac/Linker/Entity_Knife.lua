@@ -18,11 +18,8 @@ function Stub.GetKnifeVelocity(knife) end
 function Stub.SetRotation(knife, Rotation) end
 
 ---@param knife Component.Entity.Knife
----@param ll integer
----@param lh integer
----@param hl integer
----@param hh integer
-function Stub.SetTearFlags(knife, ll, lh, hl, hh) end
+---@param flags BitSet128 | TearFlags
+function Stub.SetTearFlags(knife, flags) end
 
 ---@param knife Component.Entity.Knife
 ---@return boolean
@@ -167,11 +164,11 @@ function Stub.GetPrimaryKnife(knife) end
 ---@return boolean
 function Stub.handle_collision(ctx, knife, Collider, Low) end
 
----@param ctx Context.Common
 ---@param knife Component.Entity.Knife
+---@param ctx Context.Common
 ---@param Charge number
 ---@param Range number
-function Stub.Shoot(ctx, knife, Charge, Range) end
+function Stub.Shoot(knife, ctx, Charge, Range) end
 
 ---@param ctx Context.Common
 ---@param knife Component.Entity.Knife
@@ -196,9 +193,9 @@ function Stub.Interpolate(knife) end
 ---@param knife Component.Entity.Knife
 function Stub.Reset(knife) end
 
----@param ctx Context.Common
 ---@param knife Component.Entity.Knife
-function Stub.Swing(ctx, knife) end
+---@param ctx Context.Common
+function Stub.Swing(knife, ctx) end
 
 ---@param ctx Context.Common
 ---@param knife Component.Entity.Knife
@@ -240,7 +237,7 @@ Interface.GetPrismApplied = Stub.GetPrismApplied
 Interface.SetRotationOffset = Stub.SetRotationOffset
 Interface.IsSwinging = Stub.IsSwinging
 Interface.GetIsMeleeSwingInputHeld_qqq = Stub.GetIsMeleeSwingInputHeld_qqq
-Interface.PrepareSwing = Stub.PrepareSwing
+Interface.InitSwing = Stub.PrepareSwing
 Interface.GetCharge = Stub.GetCharge
 Interface.SetCharge = Stub.SetCharge
 Interface.SetSwordCharged = Stub.SetSwordCharged

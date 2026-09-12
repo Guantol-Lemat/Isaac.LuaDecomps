@@ -101,23 +101,21 @@ function Stub.GetLaserColor(weapon, ctx) end
 function Stub.GetTimeScale(weapon) end
 
 ---@param weapon Component.Weapon
----@param __return_storage_ptr__ number
 ---@return number
-function Stub.GetChargeBarAmount(weapon, __return_storage_ptr__) end
+function Stub.GetChargeBarAmount(weapon) end
 
 ---@param weapon Component.Weapon
 ---@param ctx Context.Common
 ---@return Component.Weapon.MultiShotParams
 function Stub.GetMultiShotParams(weapon, ctx) end
 
----@param ret Component.PosVel
 ---@param idx integer
 ---@param WeaponType WeaponType | integer
 ---@param ShotDirection Component.XY
 ---@param ShotSpeed number
 ---@param Params Component.Weapon.MultiShotParams
----@return Component.PosVel
-function Stub.GetMultiShotPositionVelocity(ret, idx, WeaponType, ShotDirection, ShotSpeed, Params) end
+---@return PosVel
+function Stub.GetMultiShotPositionVelocity(idx, WeaponType, ShotDirection, ShotSpeed, Params) end
 
 ---@param weapon Component.Weapon
 ---@param ctx Context.Common
@@ -136,9 +134,7 @@ function Stub.PlayItemAnim(weapon, ctx, CollectibleType, itemAnim, Direction, po
 function Stub.SetItemAnimFrame(weapon, ctx, CollectibleType, param_2, param_3, param_4) end
 
 ---@param weapon Component.Weapon
----@param param_1 CollectibleType | integer
----@return Component.Entity.Player
-function Stub.ClearAllItemAnim(weapon, param_1) end
+function Stub.ClearAllItemAnim(weapon) end
 
 ---@param weapon Component.Weapon
 ---@param ctx Context.Common
@@ -219,11 +215,10 @@ function Stub.has_wizard_effect(weapon) end
 ---@param position Vector
 ---@param velocity Vector
 ---@param flags integer
----@param source Component.Entity
 ---@param damageMultiplier number
 ---@param offsetMultiplier number
 ---@return Component.Entity.Tear
-function Stub.FireTear(weapon, ctx, position, velocity, flags, source, damageMultiplier, offsetMultiplier) end
+function Stub.FireTear(weapon, ctx, position, velocity, flags, damageMultiplier, offsetMultiplier) end
 
 ---@param weapon Component.Weapon
 ---@param ctx Context.Common
@@ -282,9 +277,10 @@ function Stub.FireKnife(weapon, ctx, param_2, param_3, param_4, param_5) end
 ---@param ctx Context.Common
 ---@param parent Component.Entity
 ---@param variant integer
+---@param rotation number
 ---@param param_3 boolean
 ---@return Component.Entity.Knife
-function Stub.FireBoneClub(weapon, ctx, parent, variant, param_3) end
+function Stub.FireBoneClub(weapon, ctx, parent, variant, rotation, param_3) end
 
 ---@param weapon Component.Weapon
 ---@param ctx Context.Common
@@ -358,7 +354,7 @@ Interface.GetMultiShotParams = Stub.GetMultiShotParams
 Interface.GetMultiShotPositionVelocity = Stub.GetMultiShotPositionVelocity
 Interface.PlayItemAnim = Stub.PlayItemAnim
 Interface.SetItemAnimFrame = Stub.SetItemAnimFrame
-Interface.ClearAllItemAnim = Stub.ClearAllItemAnim
+Interface.ClearItemAnim_All = Stub.ClearAllItemAnim
 Interface.ClearItemAnim = Stub.ClearItemAnim
 Interface.IsItemAnimFinished = Stub.IsItemAnimFinished
 Interface.PlayItemBodySubAnim = Stub.PlayItemBodySubAnim
