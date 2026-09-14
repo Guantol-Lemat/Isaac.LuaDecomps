@@ -1,8 +1,8 @@
 ---@class Interface.RoomMechanics
 local Interface = require("Isaac.Interface.Custom.RoomMechanics")
 
-local Misc = require("Isaac.Mechanics.RoomMechanics.Misc")
-local Shop = require("Isaac.Mechanics.RoomMechanics.Shop")
+local Misc = require("Isaac.Content.RoomMechanics.Misc")
+local Shop = require("Isaac.Content.RoomMechanics.Shop")
 
 
 Interface.IsAmbushChallenge = Misc.IsAmbushChallenge

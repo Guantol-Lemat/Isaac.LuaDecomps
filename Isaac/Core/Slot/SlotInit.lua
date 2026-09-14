@@ -2,7 +2,7 @@
 
 local IEntity = require("Isaac.Interface.Entity")
 
-local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
+local ActorSlot = interface("Isaac.Content.ActorSlot")
 
 --#endregion
 

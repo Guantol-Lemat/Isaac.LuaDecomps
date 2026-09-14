@@ -1,10 +1,10 @@
 ---@class Interface.GameEffects
 local Interface = require("Isaac.Interface.Custom.GameEffects")
 
-local Achievement = require("Isaac.Mechanics.GameEffects.Achievement")
-local ItemBlock = require("Isaac.Mechanics.GameEffects.ItemBlock")
-local ItemExtraParams = require("Isaac.Mechanics.GameEffects.ItemExtraParams")
-local GFuel = require("Isaac.Mechanics.GameEffects.GFuel")
+local Achievement = require("Isaac.Content.GameEffects.Achievement")
+local ItemBlock = require("Isaac.Content.GameEffects.ItemBlock")
+local ItemExtraParams = require("Isaac.Content.GameEffects.ItemExtraParams")
+local GFuel = require("Isaac.Content.GameEffects.GFuel")
 
 Interface.Achievement_MemberCard = Achievement.MemberCard
 Interface.BlockItem_Mode = ItemBlock.BlockItem_Mode

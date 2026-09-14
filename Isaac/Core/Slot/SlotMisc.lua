@@ -7,7 +7,7 @@ local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local IsaacUtils = require("Isaac.Utils.Common")
 
 local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
-local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
+local ActorSlot = interface("Isaac.Content.ActorSlot")
 
 --#endregion
 

@@ -9,7 +9,7 @@ local IEntity = require("Isaac.Interface.Entity")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local Callbacks = require("LuaEngine.Callbacks")
 
-local PickupMechanics = interface("Isaac.Mechanics.PickupMechanics")
+local PickupMechanics = interface("Isaac.Content.PickupMechanics")
 local IEntityPtr = IEntity.EntityPtr
 
 --#endregion

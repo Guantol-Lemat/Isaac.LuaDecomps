@@ -1,12 +1,12 @@
 ---@class Interface.PlayerEffects
 local Interface = require("Isaac.Interface.Custom.PlayerEffects")
 
-local Interactions = require("Isaac.Mechanics.PlayerEffects.Interactions")
-local BlockItem = require("Isaac.Mechanics.PlayerEffects.ItemBlock")
-local WispAdd = require("Isaac.Mechanics.PlayerEffects.WispAdd")
-local LootModifiers = require("Isaac.Mechanics.PlayerEffects.LootModifiers")
-local Redemption = require("Isaac.Mechanics.PlayerEffects.Redemption")
-local Shop = require("Isaac.Mechanics.PlayerEffects.Shop")
+local Interactions = require("Isaac.Content.PlayerEffects.Interactions")
+local BlockItem = require("Isaac.Content.PlayerEffects.ItemBlock")
+local WispAdd = require("Isaac.Content.PlayerEffects.WispAdd")
+local LootModifiers = require("Isaac.Content.PlayerEffects.LootModifiers")
+local Redemption = require("Isaac.Content.PlayerEffects.Redemption")
+local Shop = require("Isaac.Content.PlayerEffects.Shop")
 
 Interface.CouponWisp_GetExtraShopCoins = Shop.CouponWisp_GetExtraShopCoins
 Interface.CouponWisp_GetExtraShopCoins_NoDecrease = Shop.CouponWisp_GetExtraShopCoins_NoDecrease

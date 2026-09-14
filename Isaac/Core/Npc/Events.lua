@@ -1,6 +1,6 @@
 --#region Dependencies
 
-local Actor_Gurdy = require("Isaac.Actor.Boss.Gurdy")
+local Actor_Gurdy = require("Isaac.Content.Actor.Boss.Gurdy")
 
 --#endregion
 

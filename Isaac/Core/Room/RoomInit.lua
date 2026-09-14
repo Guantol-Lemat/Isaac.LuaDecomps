@@ -26,7 +26,7 @@ local GridEntityMechanics = require("Isaac.Mechanics.GridEntity")
 local GameEffects = require("Isaac.Interface.Custom.GameEffects")
 local PlayerEffects = require("Isaac.Interface.Custom.PlayerEffects")
 
-local RoomShapeConfig = require("Isaac.Config.RoomShape")
+local RoomShapeConfig = require("Isaac.Content.Config.RoomShape")
 
 local IEntityPtr = IEntity.EntityPtr
 local IRoomConfigSpawn = IRoomConfig.Spawn

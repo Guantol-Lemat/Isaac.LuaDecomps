@@ -3,7 +3,7 @@
 local IEntity = require("Isaac.Interface.Entity")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 
-local ActorSlot = interface("Isaac.Mechanics.ActorSlot")
+local ActorSlot = interface("Isaac.Content.ActorSlot")
 
 --#endregion
 

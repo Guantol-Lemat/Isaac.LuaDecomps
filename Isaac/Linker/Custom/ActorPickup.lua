@@ -1,7 +1,7 @@
 ---@class Interface.Actor.Pickup
 local Interface = require("Isaac.Interface.Custom.ActorPickup")
 
-local Interactions = require("Isaac.Mechanics.Pickup.Interactions")
+local Interactions = require("Isaac.Content.Pickup.Interactions")
 
 Interface.NeedsFreePlayer = Interactions.NeedsFreePlayer
 Interface.HasCustomCollect = Interactions.HasCustomCollect
