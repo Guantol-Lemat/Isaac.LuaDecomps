@@ -29,6 +29,9 @@ local COLOR_RED = Color(1.0, 0.0, 0.0, 1.0)
 local TEAR_BROKEN_BONE_PATH = "gfx/tears_brokenbone.png"
 local SOUND_BRIMSTONE_BALL_SPAWN = SoundEffect.SOUND_BLOOD_LASER_LARGE
 local SOUND_BONE_SWING = SoundEffect.SOUND_SHELLGAME
+local SOUND_HOLD_BOMB = SoundEffect.SOUND_FETUS_FEET
+
+local NULL_LAYER_TIP = 0
 
 local KNIFE_BASE_ROTATION = {
     [1] = 0.0,
@@ -111,11 +114,11 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
         knifeVariant = KnifeVariant.NOTCHED_AXE
     end
 
-    local multiplier = (not modifier_cursedEye and not modifier_cSection) or modifier_chocolateMilk
+    local highChargeMultiplier = (not modifier_cursedEye and not modifier_cSection) or modifier_chocolateMilk
         and 3.0 or 2.0
 
-    local multipliedMaxFireDelay = multiplier * maxFireDelay
-    local minModifierCharge = maxFireDelay * 2.0
+    local highMaxCharge = highChargeMultiplier * maxFireDelay
+    local maxCharge = maxFireDelay * 2.0
 
     local function update_epic_fetus_target()
         ---@cast playerOwner Component.Entity.Player
@@ -366,7 +369,7 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
     end
 
     local weaponCharge = weapon.m_charge
-    local local_214 = weaponCharge
+    local newCharge = weaponCharge
 
     local function try_shoot_bone()
         if weaponCharge > 1.0 then -- minimum charge for shoot
@@ -425,11 +428,12 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
             and not modifier_cSection) -- is not c section
         if canShootBone then
             try_shoot_bone()
+            newCharge = 0
             return
         end
 
         if weaponCharge > 0.0 then
-            local_214 = 0
+            newCharge = 0
             if weapon.m_fireDelay >= 0.0 then
                 weapon.m_field_0x58 = 0
             end
@@ -442,10 +446,10 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
 
     if not condition_1_qqq then
         if modifier_rapidFire or modifier_cSection then
-            if isShooting and multipliedMaxFireDelay <= weaponCharge then
+            if isShooting and highMaxCharge <= weaponCharge then
                 isShooting = false
                 if weaponCharge > 0.0 then
-                    local_214 = 0
+                    newCharge = 0
                     if weapon.m_fireDelay >= 0.0 then
                         weapon.m_field_0x58 = 0
                     end
@@ -456,12 +460,12 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
         end
     else
         hasChargedAttack = false
-        local_214 = weaponCharge
+        newCharge = weaponCharge
         weapon.m_charge = 0.0
 
         if modifier_rapidFire then
             local_1f6 = true
-            local_214 = math.max(local_214, 1.0)
+            newCharge = math.max(newCharge, 1.0)
         end
     end
 
@@ -473,7 +477,7 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
             -- start at 1.0 charge when you have a charged attack
             if hasChargedAttack and weapon.m_charge < 1.0 then
                 weapon.m_charge = 1.0
-                local_214 = 1.0
+                newCharge = 1.0
             end
 
             shouldFire = not hasChargedAttack
@@ -586,7 +590,7 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
             damageMultiplier = math.max(weapon.m_charge / maxFireDelay, 1.0)
         end
 
-        if modifier_monstrosLung and weapon.m_charge >= minModifierCharge then
+        if modifier_monstrosLung and weapon.m_charge >= maxCharge then
             IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_MONSTROS_LUNG, ItemAnim.SHOOT, facingDirection, -1.0)
             local baseVelocity = facingDirection * 10.0
             local tearMovementInheritance = IWeapon.get_tear_movement_inheritance(weapon, ctx, baseVelocity)
@@ -652,7 +656,7 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
             end
         end
 
-        if modifier_brimstone and weapon.m_charge >= minModifierCharge then
+        if modifier_brimstone and weapon.m_charge >= maxCharge then
             assert(myPlayer)
 
             IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_BRIMSTONE, ItemAnim.SHOOT, facingDirection, -1.0)
@@ -703,7 +707,7 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
             IWeapon.SetBlinkTime(weapon, 36)
         end
 
-        if modifier_cSection and weapon.m_charge >= minModifierCharge then
+        if modifier_cSection and weapon.m_charge >= maxCharge then
             IWeapon.PlayItemBodySubAnim(weapon, ctx, CollectibleType.COLLECTIBLE_C_SECTION, ItemAnim.SHOOT, shootingInput, -1.0)
             local baseAngle = facingDirection:GetAngleDegrees()
 
@@ -859,9 +863,9 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
         end
 
         if hasChargedAttack then
-            local_214 = 0.0
+            newCharge = 0.0
         elseif not local_1f6 then
-            local_214 = 1.0
+            newCharge = 1.0
         elseif weapon.m_charge < 1.0 then
             weapon.m_charge = 1.0
         end
@@ -886,7 +890,219 @@ local function Fire(weapon, ctx, shootingInput, isShooting, isInterpolation)
         return
     end
 
-    
+    local chargeColor = Color(1.0, 1.0, 1.0, 0.0)
+    newCharge = MathUtils.Clamp(highMaxCharge, 0.001 + 1.0, newCharge + 1.0)
+
+    if playerOwner and (modifier_drFetus or modifier_epicFetus) and playerOwner.m_heldEntity.ref ~= nil then
+        local requiredCharge = 1.0
+        if hasChargedAttack then
+            requiredCharge = math.max(highMaxCharge - 30.0, 2.0)
+        end
+
+        ---@BUG: This may entirely prevent the synergy from being triggered
+        ---based on the player's maxFireDelay
+        if weapon.m_charge == requiredCharge then
+            if not modifier_epicFetus then
+                local bomb = IWeapon.FireBomb(weapon, ctx, playerOwner.m_position, VECTOR_ZERO)
+                IEntityPtr.SetReference(playerOwner.m_heldEntity, bomb)
+                bomb.m_flags = bomb.m_flags | (EntityFlag.FLAG_HELD | EntityFlag.FLAG_PERSISTENT)
+                bomb.m_explosionCountdown1 = 45
+                bomb.m_explosionCountdown2 = 45
+                bomb.m_entityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
+                bomb.m_gridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE
+                bomb.m_visible = false
+                bomb.m_rocketAngle = facingDirection:GetAngleDegrees()
+
+                if IEntityBomb.IsRocket(bomb) then
+                    bomb.m_sprite:Play("Idle", false)
+                    bomb.m_sprite.Rotation = 0.0
+                end
+            else
+                local rocket = IGame.Spawn(
+                    ctx, ctx.game,
+                    EntityType.ENTITY_EFFECT, EffectVariant.SMALL_ROCKET,
+                    playerOwner.m_position, VECTOR_ZERO, weapon.m_owner,
+                    0, IsaacUtils.Random()
+                )
+
+                IEntityPtr.SetReference(playerOwner.m_heldEntity, rocket)
+                rocket.m_flags = rocket.m_flags | EntityFlag.FLAG_PERSISTENT
+                rocket.m_visible = false
+            end
+
+            IManager.PlaySound(ctx, SOUND_HOLD_BOMB, 1.0, 2, false, 1.0)
+        end
+    end
+
+    local heldEntity = playerOwner and playerOwner.m_heldEntity.ref
+    if heldEntity then
+        heldEntity.m_position = VectorUtils.Copy(playerOwner.m_position)
+        heldEntity.m_velocity = VectorUtils.Copy(playerOwner.m_velocity)
+
+        local headDirection = playerOwner.m_headDirection
+        local xOffset = (headDirection % 2 == 0) and 8.0 or 12.0
+        local reverse = headDirection == Direction.UP or headDirection == Direction.RIGHT
+
+        if reverse then
+            local playerScale = playerOwner.m_sprite.Scale
+            heldEntity.m_positionOffset = playerOwner.m_sprite.Scale * Vector(-xOffset, -4.0)
+            heldEntity.m_renderZOffset = -1
+        else
+            local playerScale = playerOwner.m_sprite.Scale
+            heldEntity.m_positionOffset = playerOwner.m_sprite.Scale * Vector(xOffset, -4.0)
+            heldEntity.m_renderZOffset = 0
+        end
+
+        if heldEntity.m_type == EntityType.ENTITY_BOMB then
+            ---@cast heldEntity Component.Entity.Bomb
+            heldEntity.m_rocketAngle = facingDirection:GetAngleDegrees()
+        end
+    end
+
+    if modifier_cursedEye then
+        if weapon.m_charge >= highMaxCharge then
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_CURSED_EYE, ItemAnim.CHARGE_FULL, facingDirection, -1.0)
+            chargeColor.A = 1.0
+            chargeColor:SetOffset(0.2, 0.2, 0.2)
+            ColorUtils.MultiplyCompound(chargeColor, mainKnife.m_color)
+        else
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_CURSED_EYE, ItemAnim.CHARGE, facingDirection, 0.0)
+        end
+
+        IWeapon.SetBlinkTime(weapon, 1)
+
+        local numCursedEyeShots = math.floor((newCharge * 5.0) / highMaxCharge)
+        if newCharge > 1.0 and numCursedEyeShots == 0 then
+            numCursedEyeShots = 1
+        end
+        weapon.m_field_0x58 = numCursedEyeShots
+    end
+
+    if modifier_chocolateMilk then
+        local frame = weapon.m_charge < highMaxCharge
+            and (weapon.m_charge / highMaxCharge) * 18.0
+            or -1.0
+
+        local animation = weapon.m_charge < highMaxCharge
+            and ItemAnim.CHARGE
+            or ItemAnim.CHARGE_FULL
+
+        IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_CHOCOLATE_MILK, animation, facingDirection, frame)
+        IWeapon.SetBlinkTime(weapon, 1)
+
+        local chocoScale = (newCharge / maxFireDelay - 1.0) * 0.5 + 1.0
+        chocoScale = math.max(chocoScale, 1.0)
+        chocoScale = chocoScale * weaponScale
+        if mainKnife.m_isSwinging then
+            chocoScale = math.max(mainKnife.m_sprite.Scale.X, chocoScale)
+        end
+
+        for i = 1, 4, 1 do
+            local knife = weapon.m_knives[i].ref
+            if knife then
+                knife.m_sprite.Scale = VECTOR_ONE * chocoScale
+            end
+        end
+    end
+
+    if modifier_brimstone then
+        if not weapon.m_charge < maxCharge then
+            local frame = (weapon.m_charge / maxCharge) * 18.0
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_BRIMSTONE, ItemAnim.CHARGE, facingDirection, frame)
+        else
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_BRIMSTONE, ItemAnim.CHARGE_FULL, facingDirection, -1.0)
+            chargeColor = COLOR_RED
+            if myPlayer then
+                chargeColor = ColorUtils.Multiply(myPlayer.m_laserColor, chargeColor)
+            end
+
+            if IEntity.IsTimeScaledFrame(mainKnife, ctx, 2.0, 0.0) ~= 0 then -- spawn bubble
+                local tipHelper = SpriteUtils.GetNullFrameById(mainKnife.m_sprite, NULL_LAYER_TIP)
+                if tipHelper then
+                    local tipOffset = IsaacUtils.ScreenToWorldDistance(tipHelper:GetPos())
+                    tipOffset = tipOffset:Rotated(mainKnife.m_rotation) * 1.2
+                    local tipDirection = tipOffset:Rotated(90.0):Normalized()
+
+                    local scaleFactor = IsaacUtils.RandomFloat()
+                    local spreadFactor = IsaacUtils.RandomFloat()
+                    local bubblePosition = (spreadFactor * tipDirection * scaleFactor * mainKnife.m_sprite.Scale.Y * 10.0 + scaleFactor * tipOffset) + mainKnife.m_position
+
+                    local randomVectorMagnitude = IsaacUtils.RandomFloat()
+                    local myVelocity = weapon.m_owner
+                        and weapon.m_owner.m_velocity
+                        or VECTOR_ZERO
+
+                    local bubbleSeed = IsaacUtils.Random()
+                    local randomVelocity = (IsaacUtils.RandomVector() * randomVectorMagnitude) * 2
+                    local bubbleVelocity = (randomVelocity + myVelocity * 0.2) + Vector(0.0, -1.0)
+
+                    local bubble = IGame.Spawn(
+                        ctx, ctx.game,
+                        EntityType.ENTITY_EFFECT, EffectVariant.HAEMO_TRAIL,
+                        bubblePosition, bubbleVelocity, nil,
+                        0, bubbleSeed
+                    )
+
+                    if myPlayer then
+                        bubble:SetColor(ctx, myPlayer.m_laserColor, -1, -1, false, true)
+                    end
+
+                    local sizeFactor = IsaacUtils.RandomFloat() * 0.3 + 0.3
+                    bubble.m_sprite.Scale = mainKnife.m_sprite.Scale * sizeFactor
+                    bubble.m_positionOffset = VectorUtils.Copy(mainKnife.m_positionOffset)
+                    bubble.m_depthOffset = -100.0
+                end
+            end
+
+            IWeapon.SetBlinkTime(weapon, 1)
+        end
+    end
+
+    local defaultMaxChargeColor = not modifier_cursedEye
+        and not modifier_chocolateMilk
+        and not modifier_brimstone
+    if defaultMaxChargeColor and weapon.m_charge >= highMaxCharge then
+        chargeColor.A = 1.0
+        chargeColor:SetOffset(0.2, 0.2, 0.2)
+        ColorUtils.MultiplyCompound(chargeColor, mainKnife.m_color)
+    end
+
+    if modifier_monstrosLung then
+        if weapon.m_charge >= maxCharge then
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_MONSTROS_LUNG, ItemAnim.CHARGE_FULL, facingDirection, -1.0)
+            chargeColor.A = 1.0
+            chargeColor:SetOffset(0.2, 0.2, 0.2)
+            ColorUtils.MultiplyCompound(chargeColor, mainKnife.m_color)
+        else
+            local frame = (weapon.m_charge / maxCharge) * 18.0
+            IWeapon.PlayItemAnim(weapon, ctx, CollectibleType.COLLECTIBLE_MONSTROS_LUNG, ItemAnim.CHARGE, facingDirection, frame)
+        end
+
+        IWeapon.SetBlinkTime(weapon, 1)
+    end
+
+    if modifier_cSection then
+        if weapon.m_charge >= maxCharge then
+            IWeapon.PlayItemBodySubAnim(weapon, ctx, CollectibleType.COLLECTIBLE_C_SECTION, ItemAnim.CHARGE_FULL, facingDirection, -1.0)
+        elseif IWeapon.IsItemBodySubAnimFinished(weapon, ctx, CollectibleType.COLLECTIBLE_C_SECTION) then
+            local frame = (weapon.m_charge / maxCharge) * 18.0
+            IWeapon.PlayItemBodySubAnim(weapon, ctx, CollectibleType.COLLECTIBLE_C_SECTION, ItemAnim.CHARGE, facingDirection, frame)
+        end
+
+        IWeapon.SetBlinkTime(weapon, 1)
+    end
+
+    if IEntity.IsTimeScaledFrame(mainKnife, ctx, 4.0, 0.0) ~= 0 and chargeColor.A > 0.0 then
+        mainKnife:SetColor(ctx, chargeColor, 8, 1, true, true)
+    end
+
+    weapon.m_bufferDirection = IWeapon.GetLastBufferedDirection(weapon, ctx, facingDirection)
+
+    if mainKnife.m_isFlying then
+        IWeapon.SetHeadDirection(weapon, 2)
+    end
+
+    weapon.m_charge = newCharge
 end
 
 ---@class Weapon.Bone.Fire

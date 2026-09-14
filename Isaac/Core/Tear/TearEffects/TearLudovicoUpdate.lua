@@ -344,7 +344,7 @@ local function Update(ctx, tear)
         ctx.tear_scaleFactor = ctx.tear_scaleFactor * scaleFactor_speedComponent
     end
 
-    local effectsUpdate_deltaTime = IEntity.IsTimeScaledFrame(ctx, tear, player_maxFireDelay, 0.0)
+    local effectsUpdate_deltaTime = IEntity.IsTimeScaledFrame(tear, ctx, player_maxFireDelay, 0.0)
     if effectsUpdate_deltaTime ~= 0 then
         update_ludovico_effects(ctx, tear, closure, effectsUpdate_deltaTime)
     end

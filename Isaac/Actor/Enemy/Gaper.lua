@@ -530,8 +530,8 @@ end
 ---@param npc Component.Entity.Npc
 ---@param ctx Context.Common
 local function Cyclopia_UpdateSpawnCreep(npc, ctx)
-    local shouldSpawnCreep = IEntity.IsTimeScaledFrame(ctx, npc, 7, npc.m_index % 7)
-    if not shouldSpawnCreep then
+    local shouldSpawnCreep = IEntity.IsTimeScaledFrame(npc, ctx, 7, npc.m_index % 7)
+    if shouldSpawnCreep == 0 then
         return
     end
 

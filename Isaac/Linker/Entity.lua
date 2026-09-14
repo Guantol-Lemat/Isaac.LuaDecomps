@@ -533,12 +533,12 @@ function Stub.reset_color(entity) end
 ---@return boolean
 function Stub.IsFrame(ctx, entity, Frame, Offset) end
 
----@param ctx Context.Common
 ---@param entity Component.Entity
+---@param ctx Context.Common
 ---@param frame number
 ---@param offset number
----@return integer
-function Stub.IsTimeScaledFrame(ctx, entity, frame, offset) end
+---@return integer frameDelta
+function Stub.IsTimeScaledFrame(entity, ctx, frame, offset) end
 
 ---@param entity Component.Entity
 ---@return Direction | integer

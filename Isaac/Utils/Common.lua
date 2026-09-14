@@ -85,10 +85,16 @@ local function TimeScaledFriction(friction, timescale)
     return friction / ((friction + timescale) - friction * timescale)
 end
 
----@param position Vector
+---@param distance Vector
 ---@return Vector
-local function GetRenderDistance(position)
-    return position * 0.65
+local function GetRenderDistance(distance)
+    return distance * 0.65
+end
+
+---@param distance Vector
+---@return Vector
+local function ScreenToWorldDistance(distance)
+    return distance / 0.65
 end
 
 local function PushRenderTarget()
@@ -110,6 +116,8 @@ Module.RandomVector = RandomVector
 Module.RandomVector_Seed = RandomVector_Seed
 Module.TimeScaledFriction = TimeScaledFriction
 Module.GetRenderDistance = GetRenderDistance
+Module.WorldToScreenDistance = GetRenderDistance
+Module.ScreenToWorldDistance = ScreenToWorldDistance
 Module.PushRenderTarget = PushRenderTarget
 Module.PopRenderTarget = PopRenderTarget
 

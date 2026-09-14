@@ -1,5 +1,5 @@
 ---@class Component.Weapon
----@field m_owner Component.Entity : 0x4
+---@field m_owner Component.Entity? : 0x4
 ---@field m_entity_qqq Component.EntityPtr : 0x8
 ---@field m_fireDelay number : 0xc
 ---@field m_maxFireDelay number : 0x10
