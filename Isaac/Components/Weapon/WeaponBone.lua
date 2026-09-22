@@ -2,4 +2,4 @@
 ---@field m_knives Component.EntityPtr[] [4] : 0x40
 ---@field m_ludovicoTear Component.EntityPtr : 0x50
 ---@field m_epicFetusTarget Component.EntityPtr : 0x54
----@field m_field_0x58 integer : 0x58
+---@field m_cursedEyeNumShots integer : 0x58
