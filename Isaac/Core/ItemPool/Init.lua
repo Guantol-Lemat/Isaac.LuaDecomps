@@ -1,11 +1,12 @@
 --#region Dependencies
 
 local TableUtils = require("General.Table")
+local MTRNG = require("Isaac.Utils.MTRNG")
+local IsaacUtils = require("Isaac.Utils.Common")
 local IModManager = require("Isaac.Interface.ModManager")
 local IItemPool = require("Isaac.Interface.ItemPool")
 local ISoundEffects = require("Isaac.Interface.SoundEffects")
 local IItemConfig = require("Isaac.Interface.ItemConfig")
-local RNGUtils = require("General.RNG")
 local ItemPoolComponent = require("Isaac.Components.Game.ItemPoolComponent")
 
 --#endregion
@@ -23,11 +24,11 @@ local ONANS_STREAK_BANNED_COLLECTIBLES = {
 
 ---@param itemPool Component.ItemPool
 local function shuffle_pools(itemPool)
-    local rng = RNGUtils.MTRNG_New(itemPool.m_rng:GetSeed())
+    local rng = MTRNG.New(itemPool.m_rng:GetSeed())
 
     for i = 1, ItemPoolType.NUM_ITEMPOOLS, 1 do
         local pool = itemPool.m_pools[i]
-        RNGUtils.MTRNG_RandomShuffle(pool.m_itemList, rng)
+        IsaacUtils.RandomShuffle_MTRNG(pool.m_itemList, rng)
     end
 end
 
@@ -116,7 +117,7 @@ local function Init(itemPool, ctx, seed, xmlPath)
     for i = 1, PillColor.NUM_STANDARD_PILLS, 1 do
         pillColors[i] = i
     end
-    RNGUtils.RandomShuffle(pillColors, rng)
+    IsaacUtils.RandomShuffle(pillColors, rng)
     table.insert(pillColors, PillColor.PILL_GOLD)
 
     local pillPool = {}
@@ -128,7 +129,7 @@ local function Init(itemPool, ctx, seed, xmlPath)
             ISoundEffects.Preload(manager.m_sfxManager, ctx, pillEffect.m_announcerVoice)
         end
     end
-    RNGUtils.RandomShuffle(pillPool, rng)
+    IsaacUtils.RandomShuffle(pillPool, rng)
 
     for pillColor = 1, #pillColors, 1 do
         local specificClass = -1

@@ -1,3 +1,5 @@
+local MTRNG = require("Isaac.Utils.MTRNG")
+
 ---@class IsaacUtils
 local Module = {}
 
@@ -74,6 +76,34 @@ end
 local function RandomVector_Seed(seed)
 end
 
+---@generic T
+---@param tbl T[]
+---@param rng RNG
+local function RandomShuffle(tbl, rng)
+    for i = #tbl, 1, -1 do
+        local swapIdx = rng:RandomInt(i) + 1
+        if i ~= swapIdx then
+            local temp = tbl[swapIdx]
+            tbl[swapIdx] = tbl[i]
+            tbl[i] = temp
+        end
+    end
+end
+
+---@generic T
+---@param tbl T[]
+---@param rng Component.MTRNG
+local function RandomShuffle_MTRNG(tbl, rng)
+    for i = #tbl, 1, -1 do
+        local swapIdx = MTRNG.RandomInt(rng, i) + 1
+        if i ~= swapIdx then
+            local temp = tbl[swapIdx]
+            tbl[swapIdx] = tbl[i]
+            tbl[i] = temp
+        end
+    end
+end
+
 ---@param friction number
 ---@param timescale number
 ---@return number
@@ -114,6 +144,8 @@ Module.RandomInt = RandomInt
 Module.RandomFloat = RandomFloat
 Module.RandomVector = RandomVector
 Module.RandomVector_Seed = RandomVector_Seed
+Module.RandomShuffle = RandomShuffle
+Module.RandomShuffle_MTRNG = RandomShuffle_MTRNG
 Module.TimeScaledFriction = TimeScaledFriction
 Module.GetRenderDistance = GetRenderDistance
 Module.WorldToScreenDistance = GetRenderDistance

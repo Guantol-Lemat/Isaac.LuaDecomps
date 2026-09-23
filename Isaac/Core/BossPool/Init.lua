@@ -1,7 +1,8 @@
 --#region Dependencies
 
 local TableUtils = require("General.Table")
-local RNGUtils = require("General.RNG")
+local IsaacUtils = require("Isaac.Utils.Common")
+local MTRNG = require("Isaac.Utils.MTRNG")
 local IBossPool = require("Isaac.Interface.BossPool")
 local IModManager = require("Isaac.Interface.ModManager")
 
@@ -35,8 +36,8 @@ local function Init(bossPool, ctx, seed)
 
     for i = 1, numPools, 1 do
         local pool = pools[i]
-        local shuffleRng = RNGUtils.MTRNG_New(pool.m_rng:GetSeed())
-        RNGUtils.MTRNG_RandomShuffle(pool.m_bosses, shuffleRng)
+        local shuffleRng = MTRNG.New(pool.m_rng:GetSeed())
+        IsaacUtils.RandomShuffle_MTRNG(pool.m_bosses, shuffleRng)
     end
 end
 

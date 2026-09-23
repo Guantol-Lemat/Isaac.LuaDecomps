@@ -1,0 +1,2 @@
+---@class Interface.FXLayers
+return {}

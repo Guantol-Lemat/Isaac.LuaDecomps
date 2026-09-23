@@ -1,6 +1,9 @@
 ---@class Interface.HUD
 local Interface = require("Isaac.Interface.HUD")
 
+---@class Interface.HUD.PlayerHUD
+local Interface_PlayerHUD = Interface.PlayerHUD
+
 --#region Stub
 
 local Stub = {}
@@ -159,3 +162,101 @@ Interface.InvalidateItemHistory = Stub.InvalidateItemHistory
 Interface.RenderHealthBar = Stub.RenderHealthBar
 Interface.FlashRedHearts = Stub.FlashRedHearts
 Interface.AssignPlayerHUDs = Stub.AssignPlayerHUDs
+
+--#region PlayerHUD_Stub
+
+local PlayerHUD_Stub = {}
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param param_1 boolean
+function PlayerHUD_Stub.Free(playerHud, param_1) end
+
+---@return Component.HUD.PlayerHUD
+function PlayerHUD_Stub.constructor() end
+
+---@param playerHud Component.HUD.PlayerHUD
+function PlayerHUD_Stub.destructor(playerHud) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param right Component.HUD.PlayerHUD
+function PlayerHUD_Stub.copy_player(playerHud, right) end
+
+---@param playerHud Component.HUD.PlayerHUD
+function PlayerHUD_Stub.Reset(playerHud) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param param_1 Component.HUD.PlayerHUD.Heart
+---@param param_2 integer
+---@param param_3 Component.Entity.Player
+function PlayerHUD_Stub.UpdateHearts(playerHud, ctx, param_1, param_2, param_3) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+function PlayerHUD_Stub.Update(playerHud, ctx) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param param_1 Vector
+---@param HeartsSprite Sprite
+---@param param_3 Vector
+---@param param_4 number
+function PlayerHUD_Stub.RenderHearts(playerHud, ctx, param_1, HeartsSprite, param_3, param_4) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param slot integer
+---@param pos Vector
+---@param param_4 number
+---@param alpha number
+---@param param_6 boolean
+function PlayerHUD_Stub.RenderActiveItem(playerHud, ctx, slot, pos, param_4, alpha, param_6) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param slot integer
+---@param pos Vector
+---@param scale_qqq number
+function PlayerHUD_Stub.RenderTrinket(playerHud, ctx, slot, pos, scale_qqq) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param param_2 Vector
+---@param param_3 number
+---@param param_4 number
+function PlayerHUD_Stub.RenderPocketItems(playerHud, ctx, param_2, param_3, param_4) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param param_2 Vector
+---@param param_3 number
+function PlayerHUD_Stub.RenderInventory(playerHud, ctx, param_2, param_3) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param pos Vector
+---@param param_3 number
+function PlayerHUD_Stub.RenderCraftingTable(playerHud, ctx, pos, param_3) end
+
+---@param playerHud Component.HUD.PlayerHUD
+---@param ctx Context.Common
+---@param param_2 Vector
+---@param param_3 number
+function PlayerHUD_Stub.RenderSpellQueue(playerHud, ctx, param_2, param_3) end
+
+--#endregion
+
+Interface_PlayerHUD.Free = PlayerHUD_Stub.Free
+Interface_PlayerHUD.constructor = PlayerHUD_Stub.constructor
+Interface_PlayerHUD.destructor = PlayerHUD_Stub.destructor
+Interface_PlayerHUD.copy_player = PlayerHUD_Stub.copy_player
+Interface_PlayerHUD.Reset = PlayerHUD_Stub.Reset
+Interface_PlayerHUD.UpdateHearts = PlayerHUD_Stub.UpdateHearts
+Interface_PlayerHUD.Update = PlayerHUD_Stub.Update
+Interface_PlayerHUD.RenderHearts = PlayerHUD_Stub.RenderHearts
+Interface_PlayerHUD.RenderActiveItem = PlayerHUD_Stub.RenderActiveItem
+Interface_PlayerHUD.RenderTrinket = PlayerHUD_Stub.RenderTrinket
+Interface_PlayerHUD.RenderPocketItems = PlayerHUD_Stub.RenderPocketItems
+Interface_PlayerHUD.RenderInventory = PlayerHUD_Stub.RenderInventory
+Interface_PlayerHUD.RenderCraftingTable = PlayerHUD_Stub.RenderCraftingTable
+Interface_PlayerHUD.RenderSpellQueue = PlayerHUD_Stub.RenderSpellQueue
