@@ -118,9 +118,7 @@ local function render_game_state(manager)
         and (state == eState.STATE_GAME or state == eState.STATE_MENU)
         and manager.m_cursor_hideCountdown > 0
     if renderCursor then
-        local graphics = Engine.GraphicsManager
-        local screenPixelScale = Vector(G.WIDTH / graphics:GetWindowWidth(), G.HEIGHT / graphics:GetWindowHeight())
-        local position = screenPixelScale * manager.m_cursor_position
+        local position = IsaacUtils.WindowToScreen(Engine.GraphicsManager, manager.m_cursor_position)
         manager.m_cursor_sprite:Render(position, VECTOR_ZERO, VECTOR_ZERO)
     end
 end

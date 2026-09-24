@@ -70,3 +70,12 @@
 ---@field GetWindowedWidth fun(self: Engine.GraphicsManager): integer
 ---@field GetWindowedHeight fun(self: Engine.GraphicsManager): integer
 ---@field SetBlendMode_Type fun(self: Engine.GraphicsManager, blendMode: BlendType)
+
+---#region Custom Functions
+
+---@class Interface.Engine.GraphicsManager
+---@field GetOrthographicProjectionWidth fun(): number
+---@field GetOrthographicProjectionHeight fun(): number
+---@field SetOrthographicProjectionWidth fun(value: number)
+---@field SetOrthographicProjectionHeight fun(value: number)
+return {}

@@ -1,6 +1,7 @@
 ---@class Interface.Manager
 local Interface = require("Isaac.Interface.Manager")
 
+local Render = require("Isaac.Render")
 local StateSetup = require("Isaac.StateSetup")
 
 --#region Stub
@@ -101,10 +102,6 @@ function Stub.AssignTriggeredController(ctx) end
 ---@param ctx Context.Common
 ---@param manager Component.Manager
 function Stub.Update(ctx, manager) end
-
----@param ctx Context.Common
----@param manager Component.Manager
-function Stub.Render(ctx, manager) end
 
 ---@param ctx Context.Common
 ---@param param_1 ButtonAction | integer
@@ -281,7 +278,7 @@ Interface.GetLanguage = Stub.GetLanguage
 Interface.handle_hotkeys = Stub.handle_hotkeys
 Interface.AssignTriggeredController = Stub.AssignTriggeredController
 Interface.Update = Stub.Update
-Interface.Render = Stub.Render
+Interface.Render = Render.Render
 Interface.IsActionPressed = Stub.IsActionPressed
 Interface.IsActionTriggered = Stub.IsActionTriggered
 Interface.GetActionValue = Stub.GetActionValue

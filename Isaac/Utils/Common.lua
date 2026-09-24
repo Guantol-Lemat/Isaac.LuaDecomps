@@ -1,4 +1,5 @@
 local Engine = require("Engine.Global")
+local GraphicsManager = require("Engine.Interface.GraphicsManager")
 
 local G = require("Isaac.Global")
 local MTRNG = require("Isaac.Utils.MTRNG")
@@ -157,6 +158,21 @@ local function GetRenderPosition(position, snapToClosest)
     return renderPosition
 end
 
+---@param graphics Engine.GraphicsManager
+---@return Vector
+local function GetScreenPixelScale(graphics)
+    local scaleX = GraphicsManager.GetOrthographicProjectionWidth() / graphics:GetWindowWidth()
+    local scaleY = GraphicsManager.GetOrthographicProjectionHeight() / graphics:GetWindowHeight()
+    return Vector(scaleX, scaleY)
+end
+
+---@param graphics Engine.GraphicsManager
+---@param position Vector
+---@return Vector
+local function WindowToScreen(graphics, position)
+    return GetScreenPixelScale(graphics) * position
+end
+
 local function PushRenderTarget()
 end
 
@@ -186,6 +202,8 @@ Module.GetRenderDistance = GetRenderDistance
 Module.WorldToScreenDistance = GetRenderDistance
 Module.ScreenToWorldDistance = ScreenToWorldDistance
 Module.GetRenderPosition = GetRenderPosition
+Module.GetScreenPixelScale = GetScreenPixelScale
+Module.WindowToScreen = WindowToScreen
 Module.PushRenderTarget = PushRenderTarget
 Module.PopRenderTarget = PopRenderTarget
 Module.LoadShader = LoadShader
