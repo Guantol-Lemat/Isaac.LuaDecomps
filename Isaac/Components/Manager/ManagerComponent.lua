@@ -5,9 +5,9 @@
 ---@field m_currentSaveSlot integer : 0x10
 ---@field m_persistentGameData Component.PersistentGameData : 0x14
 ---@field m_gameState Component.GameState : 0xf34
----@field m_cutsceneManager CutsceneComponent : 0x20a00
+---@field m_cutsceneManager Component.Cutscene : 0x20a00
 ---@field m_nightmareScene Component.NightmareScene : 0x211bc
----@field m_achievementOverlay AchievementOverlayComponent : 0x217a8
+---@field m_achievementOverlay Component.AchievementOverlay : 0x217a8
 ---@field m_musicManager MusicManagerComponent : 0x29a78
 ---@field m_sfxManager Component.SoundEffects : 0x29de0
 ---@field m_options Component.Options : 0x29df8
@@ -67,9 +67,9 @@
 ---@field m_shouldCleanup_qqq boolean : 0x1ea838
 ---@field m_stageTransitionRelated boolean : 0x1ea83c
 ---@field m_stageTransitionSameStage boolean : 0x1ea83d
----@field m_CursorSprite Sprite : 0x1ea840
----@field m_cursorPos_qqq Vector : 0x1ea954
----@field m_cursorCountdown_qqq integer : 0x1ea95c
+---@field m_cursor_sprite Sprite : 0x1ea840
+---@field m_cursor_position Vector : 0x1ea954 -- window coordinates
+---@field m_cursor_hideCountdown integer : 0x1ea95c
 ---@field m_triggerWindowResize boolean : 0x1ea961
 ---@field m_isWindowFocused boolean : 0x1ea962
 ---@field m_unkVector Vector : 0x1ea964

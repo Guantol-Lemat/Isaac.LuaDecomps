@@ -1,7 +1,7 @@
 ---@class Engine.Image
 ---@field IsLoaded fun(self: Engine.Image): boolean
----@field Render_SourceDestQuad fun(self: Engine.Image, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): pointer?
----@field Render_SourceDestQuadFlatColor fun(self: Engine.Image, sourceQuad: SourceQuadComponent, destQuad: DestinationQuadComponent, color: KColor): pointer?
+---@field Render_SourceDestQuad fun(self: Engine.Image, sourceQuad: SourceQuad, destQuad: DestinationQuad, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): number[]?
+---@field Render_SourceDestQuadFlatColor fun(self: Engine.Image, sourceQuad: SourceQuad, destQuad: DestinationQuad, color: KColor): number[]?
 ---@field GetWidth fun(self: Engine.Image): integer
 ---@field GetHeight fun(self: Engine.Image): integer
 ---@field GetPaddedWidth fun(self: Engine.Image): integer

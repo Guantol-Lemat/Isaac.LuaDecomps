@@ -18,8 +18,7 @@ function Stub.destructor(modManager) end
 function Stub.LoadConfigs(modManager, ctx) end
 
 ---@param modManager Component.ModManager
----@param ctx Context.Common
-function Stub.RenderLoadingScreen(modManager, ctx) end
+function Stub.RenderLoadingScreen(modManager) end
 
 ---@param modManager Component.ModManager
 function Stub.LoadShaders(modManager) end

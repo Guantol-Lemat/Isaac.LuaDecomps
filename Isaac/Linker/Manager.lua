@@ -49,9 +49,8 @@ function Stub.constructor() end
 ---@param manager Component.Manager
 function Stub.destructor(manager) end
 
----@param ctx Context.Common
 ---@param manager Component.Manager
-function Stub.create_surfaces(ctx, manager) end
+function Stub.create_surfaces(manager) end
 
 ---@param ctx Context.Common
 ---@param manager Component.Manager

@@ -17,8 +17,7 @@ function Stub.Reset(nightmare) end
 function Stub.Update(nightmare, ctx) end
 
 ---@param nightmare Component.NightmareScene
----@param ctx Context.Common
-function Stub.Render(nightmare, ctx) end
+function Stub.Render(nightmare) end
 
 ---@param nightmare Component.NightmareScene
 ---@param ctx Context.Common

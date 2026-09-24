@@ -308,9 +308,8 @@ function Stub.ProcessInput(ctx, game) end
 ---@param game Component.Game
 function Stub.Update(ctx, game) end
 
----@param ctx Context.Common
 ---@param game Component.Game
-function Stub.Render(ctx, game) end
+function Stub.Render(game) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game

@@ -6,7 +6,7 @@ local Module = {}
 ---@enum eState
 Module.eState = {
     STATE_NULL = 0,
-    STaTE_MENU = 1,
+    STATE_MENU = 1,
     STATE_GAME = 2,
     STATE_CUTSCENE = 3,
     STATE_NIGHTMARE = 5,

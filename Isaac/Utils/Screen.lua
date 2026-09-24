@@ -12,7 +12,7 @@ local s_height = 0
 local s_pointScale = 2.0
 local s_displayPixelsPerPoint = 1.0
 
-local WORLD_VIEWPORT_SIZE = Vector(338.0, 182, 0)
+local WORLD_VIEWPORT_SIZE = Vector(338.0, 182)
 local WORLD_RENDER_ORIGIN = Vector(60.0, 140.0)
 local WORLD_TO_SCREEN_SCALE = 0.65
 

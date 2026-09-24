@@ -4,7 +4,7 @@
 ---@field m_sfxVolume number : 0x1c
 ---@field m_mapOpacity number : 0x20
 ---@field m_isFullscreen boolean : 0x24
----@field m_filter_enabled boolean : 0x25
+---@field m_filter_active boolean : 0x25
 ---@field m_gamma number : 0x28
 ---@field m_exposure number : 0x2c
 ---@field m_brightness number : 0x30
@@ -42,7 +42,7 @@
 ---@field m_lighting_enabled boolean : 0x7d
 ---@field m_shockwave_enabled boolean : 0x7e
 ---@field m_caustics_enabled boolean : 0x7f
----@field m_filter_enabledUnk boolean : 0x80
+---@field m_filter_enabled boolean : 0x80
 ---@field m_pixelation_enabled boolean : 0x81
 ---@field m_bloom_enabled boolean : 0x82
 ---@field m_waterSurface_enabled boolean : 0x83

@@ -62,3 +62,11 @@
 ---@field get_predefined_shader GraphicsManager.get_predefined_shader
 ---@field initialize_render_states GraphicsManager.initialize_render_states
 ---@field setup_viewport_screen GraphicsManager.setup_viewport_screen
+
+---@class Engine.GraphicsManager
+---@field IsFullScreenRendering fun(self: Engine.GraphicsManager): boolean
+---@field GetWindowWidth fun(self: Engine.GraphicsManager): integer
+---@field GetWindowHeight fun(self: Engine.GraphicsManager): integer
+---@field GetWindowedWidth fun(self: Engine.GraphicsManager): integer
+---@field GetWindowedHeight fun(self: Engine.GraphicsManager): integer
+---@field SetBlendMode_Type fun(self: Engine.GraphicsManager, blendMode: BlendType)
