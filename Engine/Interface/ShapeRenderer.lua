@@ -1,0 +1,2 @@
+---@class Engine.ShapeRenderer
+---@field FillQuad fun(self: Engine.ShapeRenderer, dest: DestinationQuad, color: KColor)

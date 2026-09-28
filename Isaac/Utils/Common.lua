@@ -2,6 +2,7 @@ local Engine = require("Engine.Global")
 local GraphicsManager = require("Engine.Interface.GraphicsManager")
 
 local G = require("Isaac.Global")
+local C = require("Isaac.Constants")
 local MTRNG = require("Isaac.Utils.MTRNG")
 
 ---@class IsaacUtils
@@ -184,6 +185,15 @@ local function LoadShader(shaderType)
     Engine.GraphicsManager:SetShader(G.Shaders[shaderType + 1])
 end
 
+---@param surface Engine.Image
+---@return number[]?
+local function RenderScreenSurface(surface)
+    local source = C.SOURCE_QUAD_FULL
+    local dest = DestinationQuad.NewFromRectangle(C.VECTOR_ZERO, G.WIDTH, G.HEIGHT)
+    local color = C.COLOR_WHITE
+    return surface:Render_SourceDestQuadFlatColor(source, dest, color)
+end
+
 --#region Module
 
 Module.GetDirectionToMoveAction = GetDirectionToMoveAction
@@ -207,6 +217,7 @@ Module.WindowToScreen = WindowToScreen
 Module.PushRenderTarget = PushRenderTarget
 Module.PopRenderTarget = PopRenderTarget
 Module.LoadShader = LoadShader
+Module.RenderScreenSurface = RenderScreenSurface
 
 --#endregion
 

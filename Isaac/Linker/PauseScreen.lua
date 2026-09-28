@@ -27,8 +27,7 @@ function Stub.ProcessInput(pauseScreen, ctx) end
 function Stub.Update(pauseScreen, ctx) end
 
 ---@param pauseScreen Component.PauseScreen
----@param ctx Context.Common
-function Stub.Render(pauseScreen, ctx) end
+function Stub.Render(pauseScreen) end
 
 ---@param pauseScreen Component.PauseScreen
 ---@param ctx Context.Common

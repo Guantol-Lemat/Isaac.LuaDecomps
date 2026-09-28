@@ -12,7 +12,7 @@ local IPlayerManager = require("Isaac.Interface.PlayerManager")
 local function IsIdleAppear(ctx)
     local level = ctx.game.m_level
     local room = level.m_room
-    return (not room.m_isFirstVisit and IRoom.GetFrameCount(room, ctx) <= 0)
+    return (not room.m_isFirstVisit and IRoom.GetFrameCount(room) <= 0)
         or (not room.m_isInitialized and ILevel.GetStageID(level, ctx) == StbType.HOME)
 end
 

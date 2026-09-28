@@ -106,7 +106,7 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     end
 
     npc.m_totalDamageTaken = 0.0
-    LuaCallbacks.PostNpcInit(npc)
+    LuaCallbacks.PostNPCInit(npc)
 end
 
 ---@param ctx Context.Common

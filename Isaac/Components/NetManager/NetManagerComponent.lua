@@ -1,0 +1,3 @@
+---@class Component.NetManager
+---@field m_inputDevices Component.NetInputDevice[] : 0x0
+---@field m_desync boolean : 0x15

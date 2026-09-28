@@ -1,2 +1,0 @@
----@class Component.NetManager
----@field m_inputDevices NetInputDeviceComponent[]

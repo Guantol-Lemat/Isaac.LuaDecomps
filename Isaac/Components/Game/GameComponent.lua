@@ -4,12 +4,12 @@
 ---@field m_preloader PreloaderComponent : 0x1a5c4
 ---@field m_itemPool Component.ItemPool : 0x1a5cc
 ---@field m_bossPool Component.BossPool : 0x1adf4
----@field m_roomTransition RoomTransitionComponent : 0x1b6c0
----@field m_stageTransition StageTransitionComponent : 0x1ba0c
+---@field m_roomTransition Component.RoomTransition : 0x1b6c0
+---@field m_stageTransition Component.StageTransition : 0x1ba0c
 ---@field m_fortuneRNG RNG : 0x1ba30
 ---@field m_playerManager Component.PlayerManager : 0x1ba40
 ---@field m_seeds Component.Seeds : 0x1bb04
----@field m_console ConsoleComponent : 0x1bb60
+---@field m_console Component.Console : 0x1bb60
 ---@field m_itemOverlay ItemOverlayComponent : 0x1bcc0
 ---@field m_bossOverlay BossOverlayComponent : 0x1cf20
 ---@field m_gameOver GameOverComponent : 0x1d154
@@ -28,13 +28,14 @@
 ---@field m_darknessModifier number : 0x1a30fc
 ---@field m_targetDarkness number : 0x1a3100
 ---@field m_fontDroid Font : 0x1a3104
----@field m_clickerImage_qqq Engine.Image : 0x1c3140
+---@field m_noiseImage Engine.Image : 0x1c3140
 ---@field m_bloom_countdown integer : 0x1c3148
----@field m_bloomInt_duration_qqq integer : 0x1c314c
----@field m_bloomStrength number : 0x1c3150
+---@field m_bloom_duration integer : 0x1c314c
+---@field m_bloom_strength number : 0x1c3150
 ---@field m_triggerWindowResize boolean : 0x1c3154
 ---@field m_hallucination_countdown integer : 0x1c3158
----@field m_hallucinationDuration integer : 0x1c315c
+---@field m_hallucination_duration integer : 0x1c315c
+---@field m_hallucination_snapshotState integer : 0x1c3160
 ---@field m_debugFlags eDebugFlags : 0x1c3164
 ---@field m_gameStateFlags GameStateFlag | integer : 0x1c3168
 ---@field m_debugCurses integer : 0x1c3170
@@ -60,7 +61,7 @@
 ---@field m_dailyChallenge Component.DailyChallenge : 0x1c3204
 ---@field m_scoreSheet Component.ScoreSheet : 0x1c32b8
 ---@field m_victoryRun_currentLap integer : 0x1c33f8
----@field m_victoryRun_prompt GenericPromptComponent : 0x1c33fc
+---@field m_victoryRun_prompt Component.GenericPrompt : 0x1c33fc
 ---@field m_lastLevelWithoutHalfHp integer : 0x24361c
 ---@field m_BASEMENTseedFloor integer : 0x243620
 ---@field m_difficulty Difficulty | integer : 0x243624
@@ -77,9 +78,9 @@
 ---@field m_currentGlowingHourglassStateSlot integer : 0x283b78
 ---@field m_playerManagerTriggerNewStageRelated integer : 0x283b7c
 ---@field m_colorModifier_approach boolean : 0x283b80
----@field m_colorModifier_current ColorModStateComponent : 0x283b84
----@field m_colorModifier_target ColorModStateComponent : 0x283b9c
----@field m_colorModifier_rate ColorModStateComponent : 0x283bb4
+---@field m_colorModifier_current Component.ColorModState : 0x283b84
+---@field m_colorModifier_target Component.ColorModState : 0x283b9c
+---@field m_colorModifier_rate Component.ColorModState : 0x283bb4
 ---@field m_debugRenderer DebugRendererComponent : 0x283bf8
 ---@field m_debugRendererRelated unknown : 0x283bfc
 ---@field m_lightning_strength number : 0x283c00
@@ -92,3 +93,11 @@
 ---@field m_ascentTimer integer : 0x283c50
 ---@field m_backwardsStageDesc BackwardsStageDescComponent[] [7] : 0x283c54
 ---@field m_deathCertificateLeaveCountdown integer : 0x285234
+
+---@class Component.ColorModState
+---@field R number : 0x0
+---@field G number : 0x4
+---@field B number : 0x8
+---@field A number : 0xc
+---@field brightness number : 0x10
+---@field contrast number : 0x14

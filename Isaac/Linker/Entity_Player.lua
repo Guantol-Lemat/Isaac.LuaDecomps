@@ -2105,10 +2105,9 @@ function Stub.TriggerPlayerTypeChanged(ctx, player, PlayerType) end
 ---@return boolean
 function Stub.IsLocalPlayer(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param param_1 Vector
-function Stub.RenderDebugInfo(ctx, player, param_1) end
+function Stub.RenderDebugInfo(player, param_1) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player

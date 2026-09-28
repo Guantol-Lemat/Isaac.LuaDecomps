@@ -1,0 +1,20 @@
+---@class Component.RoomTransition
+---@field m_mode integer : 0x0
+---@field m_timer_qqq integer : 0x4
+---@field m_unk2 integer : 0x8
+---@field m_alpha number : 0xc
+---@field m_direction Direction | integer : 0x10
+---@field m_index GridRooms | integer : 0x14
+---@field m_dimension Dimension | integer : 0x18
+---@field m_animation RoomTransitionAnim | integer : 0x1c
+---@field m_unkVector integer : 0x20
+---@field m_unkFlags integer : 0x24
+---@field m_oldRoomImage Engine.Image : 0x28
+---@field m_newRoomImage Engine.Image : 0x30
+---@field m_versusScreenSprite? Sprite : 0x38
+---@field m_unkStruct UnkRoomTransitionStruct[] [2] : 0x14c
+---@field m_playerExtraPortraitSprite Sprite : 0x224
+---@field m_unkVector_1 Vector : 0x338
+---@field m_player Component.Entity.Player : 0x340
+---@field m_unkPlayer_qqq Component.Entity.Player : 0x344
+---@field m_isBossTransition boolean : 0x348

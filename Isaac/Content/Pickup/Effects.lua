@@ -216,7 +216,7 @@ end
 ---@param seed integer
 local function CorruptedData_TryCorrupt(pickup, ctx, seed)
     local room = ctx.game.m_level.m_room
-    local hasCorruptedData = (not room.m_isInitialized or IRoom.GetFrameCount(room, ctx) < 2)
+    local hasCorruptedData = (not room.m_isInitialized or IRoom.GetFrameCount(room) < 2)
         and IPersistentData.Unlocked(ctx.manager.m_persistentGameData, ctx, Achievement.CORRUPTED_DATA)
 
     if not hasCorruptedData then

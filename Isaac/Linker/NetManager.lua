@@ -5,6 +5,11 @@ local Interface = require("Isaac.Interface.NetManager")
 
 local Stub = {}
 
+---@param netManager Component.NetManager
+---@return boolean
+function Stub.IsNetPlay(netManager)
+end
+
 ---@param manager Component.NetManager
 function Stub.Init(manager)
 end
@@ -20,6 +25,7 @@ end
 
 --#endregion
 
+Interface.IsNetPlay = Interface.IsNetPlay
 Interface.Init = Stub.Init
 Interface.Reset = Stub.Reset
 Interface.Update = Stub.Update

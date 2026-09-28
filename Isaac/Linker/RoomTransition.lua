@@ -69,6 +69,10 @@ function Stub.GetFadeColor(roomTransition) end
 ---@param roomTransition Component.RoomTransition
 function Stub.Render(roomTransition) end
 
+---@param roomTransition Component.RoomTransition
+---@return number
+function Stub.GetFadeValue(roomTransition) end
+
 --#endregion
 
 Interface.IsTeleportAnimation = Stub.IsTeleportAnimation
@@ -88,3 +92,4 @@ Interface.IsRenderingBossIntro = Stub.IsRenderingBossIntro
 Interface.GetAlpha = Stub.GetAlpha
 Interface.GetFadeColor = Stub.GetFadeColor
 Interface.Render = Stub.Render
+Interface.GetFadeValue = Stub.GetFadeValue

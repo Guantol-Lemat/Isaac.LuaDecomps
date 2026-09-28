@@ -61,6 +61,10 @@ function Stub.load_language_fonts(ctx, manager) end
 ---@param param_1 integer
 function Stub.InitLoadImage(ctx, param_1) end
 
+---@param manager Component.Manager
+---@param alpha number
+function Stub.RenderLoadImage(manager, alpha) end
+
 ---@param ctx Context.Common
 ---@param manager Component.Manager
 function Stub.Init(ctx, manager) end
@@ -268,6 +272,7 @@ Interface.destructor = Stub.destructor
 Interface.create_surfaces = Stub.create_surfaces
 Interface.load_language_fonts = Stub.load_language_fonts
 Interface.InitLoadImage = Stub.InitLoadImage
+Interface.RenderLoadImage = Stub.RenderLoadImage
 Interface.Init = Stub.Init
 Interface.LoadConfigs = Stub.LoadConfigs
 Interface.ReloadConfigs = Stub.ReloadConfigs

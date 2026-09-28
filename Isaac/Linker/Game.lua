@@ -3,6 +3,7 @@ local Interface = require("Isaac.Interface.Game")
 
 local GameMisc = require("Isaac.Core.Game.GameMisc")
 local GameStart = require("Isaac.Core.Game.Start")
+local GameRender = require("Isaac.Core.Game.Render")
 
 --#region Stub
 
@@ -199,9 +200,8 @@ function Stub.New(ctx) end
 ---@param game Component.Game
 function Stub.Destructor(ctx, game) end
 
----@param ctx Context.Common
----@return unknown
-function Stub.CreateSurfaces(ctx) end
+---@param game Component.Game
+function Stub.CreateSurfaces(game) end
 
 ---@param ctx Context.Common
 function Stub.PostLanguageSwitch(ctx) end
@@ -307,9 +307,6 @@ function Stub.ProcessInput(ctx, game) end
 ---@param ctx Context.Common
 ---@param game Component.Game
 function Stub.Update(ctx, game) end
-
----@param game Component.Game
-function Stub.Render(game) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
@@ -871,7 +868,7 @@ Interface.GetChestEnding = Stub.GetChestEnding
 Interface.Exit = Stub.Exit
 Interface.ProcessInput = Stub.ProcessInput
 Interface.Update = Stub.Update
-Interface.Render = Stub.Render
+Interface.Render = GameRender.Render
 Interface.IsPaused = Stub.IsPaused
 Interface.InterpolatePositions = Stub.InterpolatePositions
 Interface.StartRoomTransition = Stub.StartRoomTransition

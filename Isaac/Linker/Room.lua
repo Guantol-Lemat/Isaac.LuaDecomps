@@ -671,14 +671,11 @@ function Stub.render_entity_glow(ctx, room, entity, pos) end
 ---@param offset Vector
 function Stub.render_grid_light(ctx, room, grid, offset) end
 
----@param ctx Context.Common
 ---@param room Component.Room
-function Stub.PreRender(ctx, room) end
+function Stub.PreRender(room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
----@param param_1 Component.Room
-function Stub.Render(ctx, room, param_1) end
+function Stub.Render(room) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -778,7 +775,6 @@ function Stub.DamageGrid(room, Index, Damage) end
 function Stub.DestroyGrid(room, idx, damage, instant) end
 
 ---@param room Component.Room
----@param ctx Context.Common
 ---@return integer
 function Stub.GetFrameCount(room, ctx) end
 
@@ -1221,6 +1217,51 @@ function Stub.GetShopLevel(room) end
 ---@return number
 function Stub.GetEnemyDamageInflicted(room) end
 
+---@param room Component.Room
+function Stub.TriggerWindowResize(room) end
+
+---@param room Component.Room
+function Stub.DestroySurfaces(room) end
+
+---@param room Component.Room
+---@param effect Component.EntitySaveState
+function Stub.SaveEffect(room, effect) end
+
+---@param room Component.Room
+function Stub.reset_outputs(room) end
+
+---@param room Component.Room
+---@return boolean
+function Stub.TryTriggerShovelQuest(room) end
+
+---@return boolean
+function Stub.UseMirroredGraphics() end
+
+---@param room Component.Room
+function Stub.Interpolate(room) end
+
+---@param room Component.Room
+---@param param_1 Component.Entity
+function Stub.DeathListPickNext(room, param_1) end
+
+---@param room Component.Room
+---@param param_1 KColor
+---@param param_2 KColor
+---@param param_3 integer
+function Stub.FadeWaterColor(room, param_1, param_2, param_3) end
+
+---@param room Component.Room
+---@param value boolean
+function Stub.SetPacifist(room, value) end
+
+---@param room Component.Room
+---@param gridEntity Component.GridEntity
+function Stub.output_trigger_grid(room, gridEntity) end
+
+---@param room Component.Room
+---@param trigger Component.Entity.Pickup
+function Stub.TriggerGenesisItemPickedUp(room, trigger) end
+
 --#endregion
 
 Interface.GetWaterAmount = Stub.GetWaterAmount
@@ -1301,6 +1342,8 @@ Interface.SetPauseTimer = Stub.SetPauseTimer
 Interface.GetMusicPitch = Stub.GetMusicPitch
 Interface.GetTimeScale = Stub.GetTimeScale
 Interface.StopAmbientSounds = Stub.StopAmbientSounds
+Interface.TriggerWindowResize = Stub.TriggerWindowResize
+Interface.DestroySurfaces = Stub.DestroySurfaces
 Interface.CreateSurfaces = Stub.CreateSurfaces
 Interface.reset = Stub.reset
 Interface.PlayMusic = Stub.PlayMusic
@@ -1320,6 +1363,7 @@ Interface.save_entity = Stub.save_entity
 Interface.restore_entity = Stub.restore_entity
 Interface.SaveState = Stub.SaveState
 Interface.RestoreState = Stub.RestoreState
+Interface.SaveEffect = Stub.SaveEffect
 Interface.check_player_enter_door = Stub.check_player_enter_door
 Interface.GetGridCollisionAtPos = Stub.GetGridCollisionAtPos
 Interface.GetGridCollision = Stub.GetGridCollision
@@ -1331,6 +1375,7 @@ Interface.ReloadFX = Stub.ReloadFX
 Interface.GetDoorGridIndex = Stub.GetDoorGridIndex
 Interface.RecomputeRoomBounds = Stub.RecomputeRoomBounds
 Interface.Init = Stub.Init
+Interface.reset_outputs = Stub.reset_outputs
 Interface.GetDoorSlotPosition = Stub.GetDoorSlotPosition
 Interface.TrySpawnSecretExit = Stub.TrySpawnSecretExit
 Interface.TrySpawnSecretShop = Stub.TrySpawnSecretShop
@@ -1398,6 +1443,7 @@ Interface.GetNextShockwaveId = Stub.GetNextShockwaveId
 Interface.IsAmbushActive = Stub.IsAmbushActive
 Interface.GetLightingAlpha = Stub.GetLightingAlpha
 Interface.FindFreeTilePosition = RoomPosition.FindFreeTilePosition
+Interface.Interpolate = Stub.Interpolate
 Interface.TryMakeBridge = Stub.TryMakeBridge
 Interface.RemoveGridEntity = Stub.RemoveGridEntity
 Interface.RemoveGridEntityImmediate = Stub.RemoveGridEntityImmediate
@@ -1413,6 +1459,7 @@ Interface.GetLRoomTileDesc = Stub.GetLRoomTileDesc
 Interface.RespawnEnemies = Stub.RespawnEnemies
 Interface.TrySpawnBlueWombDoor = Stub.TrySpawnBlueWombDoor
 Interface.TrySpawnTheVoidDoor = Stub.TrySpawnTheVoidDoor
+Interface.TryTriggerShovelQuest = Stub.TryTriggerShovelQuest
 Interface.GetBossMusic = Stub.GetBossMusic
 Interface.GetBossVictoryJingle = Stub.GetBossVictoryJingle
 Interface.TrySpawnBrokenShovel = Stub.TrySpawnBrokenShovel
@@ -1421,10 +1468,14 @@ Interface.IsCurrentRoomLastBoss = Stub.IsCurrentRoomLastBoss
 Interface.MamaMegaExplosion = Stub.MamaMegaExplosion
 Interface.GetDungeonRockIdx = Stub.GetDungeonRockIdx
 Interface.TurnGold = Stub.TurnGold
+Interface.DeathListPickNext = Stub.DeathListPickNext
 Interface.WorldToScreenPosition = Stub.WorldToScreenPosition
 Interface.AddEnemyCorpse = Stub.AddEnemyCorpse
-Interface.pre_render_water = Stub.pre_render_water
+Interface.FadeWaterColor = Stub.FadeWaterColor
+Interface.SetPacifist = Stub.SetPacifist
 Interface.RemovePacifist = Stub.RemovePacifist
+Interface.pre_render_water = Stub.pre_render_water
+Interface.UseMirroredGraphics = Stub.UseMirroredGraphics
 Interface.render_water_surface = Stub.render_water_surface
 Interface.CheckGridPath = Stub.CheckGridPath
 Interface.CanSpawnObstacleAtPosition = Stub.CanSpawnObstacleAtPosition
@@ -1432,6 +1483,7 @@ Interface.add_output = Stub.add_output
 Interface.AddOutput = Stub.AddOutput
 Interface.init_outputs = Stub.init_outputs
 Interface.convert_entity_to_spawner = Stub.convert_entity_to_spawner
+Interface.output_trigger_grid = Stub.output_trigger_grid
 Interface.TriggerOutput = Stub.TriggerOutput
 Interface.ComputeColorModifier = Stub.ComputeColorModifier
 Interface.ProcessColorModifier = Stub.ProcessColorModifier
@@ -1458,6 +1510,7 @@ Interface.IsBeastRoom = Stub.IsBeastRoom
 Interface.GetBeastRoomLavaHeight = Stub.GetBeastRoomLavaHeight
 Interface.TrySpawnSpecialQuestDoor = Stub.TrySpawnSpecialQuestDoor
 Interface.IsMirrorWorld = Stub.IsMirrorWorld
+Interface.TriggerGenesisItemPickedUp = Stub.TriggerGenesisItemPickedUp
 Interface.TriggerDamoclesItemSpawned = Stub.TriggerDamoclesItemSpawned
 Interface.HasCurseMist = Stub.HasCurseMist
 Interface.IsBackwardsPathEntrance = Stub.IsBackwardsPathEntrance

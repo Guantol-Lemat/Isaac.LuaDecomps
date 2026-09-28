@@ -96,7 +96,7 @@ local function Start(game, ctx, playerType, challenge, seeds, difficulty)
 
     ILevel.Update(ctx, level)
 
-    LuaCallbacks.PostGameStarted(false)
+    LuaCallbacks.PostGameStart(false)
 end
 
 ---@class Gameplay.GameStart

@@ -22,8 +22,7 @@ function Stub.Initialize(prompt, ctx, SmallPrompt) end
 function Stub.Update(prompt, ctx, processInput) end
 
 ---@param prompt Component.GenericPrompt
----@param ctx Context.Common
-function Stub.Render(prompt, ctx) end
+function Stub.Render(prompt) end
 
 ---@param prompt Component.GenericPrompt
 ---@param ctx Context.Common

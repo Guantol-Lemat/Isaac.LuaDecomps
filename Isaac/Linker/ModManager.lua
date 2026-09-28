@@ -39,8 +39,7 @@ function Stub.ListMods(modManager, ctx) end
 function Stub.TriggerResize(modManager) end
 
 ---@param modManager Component.ModManager
----@param ctx Context.Common
-function Stub.ApplyShaders(modManager, ctx) end
+function Stub.ApplyShaders(modManager) end
 
 ---@param modManager Component.ModManager
 function Stub.CreateSurfaces(modManager) end
@@ -116,6 +115,9 @@ function Stub.workshop_update_thread(ctx, param_1) end
 ---@param ctx Context.Common
 function Stub.UpdateWorkshopMods(modManager, ctx) end
 
+---@param modManager Component.ModManager
+function Stub.PrepareShaders(modManager) end
+
 --#endregion
 
 --region ModEntry Stub
@@ -148,6 +150,7 @@ Interface.UnloadMods = Stub.UnloadMods
 Interface.TryRedirectPath = Stub.TryRedirectPath
 Interface.ListMods = Stub.ListMods
 Interface.TriggerResize = Stub.TriggerResize
+Interface.PrepareShaders = Stub.PrepareShaders
 Interface.ApplyShaders = Stub.ApplyShaders
 Interface.CreateSurfaces = Stub.CreateSurfaces
 Interface.DestroySurfaces = Stub.DestroySurfaces

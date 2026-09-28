@@ -125,7 +125,7 @@ local function collectible_appear(pickup, ctx, seed, ignoreModifiers)
         PickupMechanics.Effects_InitCollectibleModifiers(pickup, ctx, seed)
     end
 
-    local shouldAnimateAppear = room.m_isInitialized and IRoom.GetFrameCount(room, ctx) > 1
+    local shouldAnimateAppear = room.m_isInitialized and IRoom.GetFrameCount(room) > 1
 
     if shouldAnimateAppear then
         pickup.m_visible = false

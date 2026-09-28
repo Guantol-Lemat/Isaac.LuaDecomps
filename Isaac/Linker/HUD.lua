@@ -97,8 +97,7 @@ function Stub.ShowFortuneTextWrapped(hud, ctx, param_1) end
 function Stub.ShowFortuneText(hud, ctx, param_1) end
 
 ---@param hud Component.HUD
----@param ctx Context.Common
-function Stub.Render(hud, ctx) end
+function Stub.Render(hud) end
 
 ---@param hud Component.HUD
 ---@param ctx Context.Common

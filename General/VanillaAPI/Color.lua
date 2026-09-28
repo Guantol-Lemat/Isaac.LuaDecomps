@@ -99,6 +99,12 @@ local function Multiply(color, other)
     return MultiplyCompound(Copy(color), other)
 end
 
+---@param color Color
+---@param buffer number[]
+---@param image Engine.Image
+local function FillVertices(color, buffer, image)
+end
+
 --#region Module
 
 Module.Copy = Copy
@@ -106,6 +112,7 @@ Module.KColor_Copy = KColor_Copy
 Module.ApplyColorMod = ApplyColorMod
 Module.Multiply = Multiply
 Module.MultiplyCompound = MultiplyCompound
+Module.FillVertices = FillVertices
 
 --#endregion
 
