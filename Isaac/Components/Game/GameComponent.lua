@@ -10,10 +10,10 @@
 ---@field m_playerManager Component.PlayerManager : 0x1ba40
 ---@field m_seeds Component.Seeds : 0x1bb04
 ---@field m_console Component.Console : 0x1bb60
----@field m_itemOverlay ItemOverlayComponent : 0x1bcc0
----@field m_bossOverlay BossOverlayComponent : 0x1cf20
----@field m_gameOver GameOverComponent : 0x1d154
----@field m_leaderboard LeaderboardComponent : 0x3d5f0
+---@field m_itemOverlay Component.ItemOverlay : 0x1bcc0
+---@field m_bossOverlay Component.BossOverlay : 0x1cf20
+---@field m_gameOver Component.GameOver : 0x1d154
+---@field m_leaderboard Component.Leaderboard : 0x3d5f0
 ---@field m_hud Component.HUD : 0x3da4c
 ---@field m_pauseScreen Component.PauseScreen : 0x10203c
 ---@field m_minimap MinimapComponent : 0x1a2ab0
@@ -36,7 +36,7 @@
 ---@field m_hallucination_countdown integer : 0x1c3158
 ---@field m_hallucination_duration integer : 0x1c315c
 ---@field m_hallucination_snapshotState integer : 0x1c3160
----@field m_debugFlags eDebugFlags : 0x1c3164
+---@field m_debugFlags DebugFlag | integer : 0x1c3164
 ---@field m_gameStateFlags GameStateFlag | integer : 0x1c3168
 ---@field m_debugCurses integer : 0x1c3170
 ---@field m_lastDevilRoomStage LevelStage | integer : 0x1c3174
@@ -81,7 +81,7 @@
 ---@field m_colorModifier_current Component.ColorModState : 0x283b84
 ---@field m_colorModifier_target Component.ColorModState : 0x283b9c
 ---@field m_colorModifier_rate Component.ColorModState : 0x283bb4
----@field m_debugRenderer DebugRendererComponent : 0x283bf8
+---@field m_debugRenderer Component.DebugRenderer : 0x283bf8
 ---@field m_debugRendererRelated unknown : 0x283bfc
 ---@field m_lightning_strength number : 0x283c00
 ---@field m_dizzy_intensity number : 0x283c04

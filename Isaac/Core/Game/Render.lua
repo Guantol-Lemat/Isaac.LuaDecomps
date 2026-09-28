@@ -1,6 +1,7 @@
 --#region Dependencies
 
 local Engine = require("Engine.Global")
+local Lua = require("LuaEngine.Global")
 local G = require("Isaac.Global")
 local S = require("Isaac.Core.Game.Static")
 
@@ -22,6 +23,7 @@ local IGameOver = require("Isaac.Interface.GameOver")
 local ILeaderboard = require("Isaac.Interface.Leaderboard")
 local IEntityPlayer = require("Isaac.Interface.Entity_Player")
 local IGenericPrompt = require("Isaac.Interface.GenericPrompt")
+local ILuaEngine = require("LuaEngine.Interface")
 local LuaCallbacks = require("LuaEngine.Callbacks")
 
 local Fade = require("Isaac.Core.Manager.Fade")
@@ -200,7 +202,7 @@ local function Render(game)
         font:DrawStringScaled("DESYNCED", posX, 10.0, 2.0, 2.0, color, 0, true)
     end
 
-    ILuaEngine.DrawDebugMemoryUseage()
+    ILuaEngine.RenderDebugMemoryUsage(Lua.LuaEngine)
     IConsole.Render(game.m_console)
 end
 
