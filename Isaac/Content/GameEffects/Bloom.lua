@@ -24,10 +24,13 @@ local function Render(graphics, game, surface)
     local buffer = IsaacUtils.RenderScreenSurface(surface)
 
     if buffer then
+        local halfDuration = game.m_bloom_duration * 0.5
+        local t = 1.0 - ((math.abs(game.m_bloom_countdown - halfDuration)) / halfDuration)
+        local bloom = math.sin((t * 0.5) * math.pi) * game.m_bloom_strength
+
         local ratioX = 2.0 / surface:GetPaddedWidth()
         local ratioY = 2.0 / surface:GetPaddedHeight()
-        local halfDuration = game.m_bloom_duration * 0.5
-        local bloom = math.sin((1.0 - (math.abs(game.m_bloom_countdown - halfDuration)) / halfDuration) * math.pi * 0.5) * game.m_bloom_strength
+
 
         for i = 1, 4, 1 do
             local offset = (i - 1) * 12
