@@ -22,9 +22,8 @@ function Stub.Update(hellBackdrop, ctx) end
 function Stub.PreRenderLightOverlay(hellBackdrop, ctx) end
 
 ---@param hellBackdrop Component.HellBackdrop
----@param ctx Context.Common
----@param eHellLayer integer
-function Stub.RenderLayer(hellBackdrop, ctx, eHellLayer) end
+---@param layer integer
+function Stub.RenderLayer(hellBackdrop, layer) end
 
 --#endregion
 

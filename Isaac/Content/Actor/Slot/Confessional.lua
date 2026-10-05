@@ -145,7 +145,7 @@ local function Confessional_UpdateTimeoutPrize(slot, ctx, player)
     local event_choosePrize = mySprite:IsPlaying(ANIMATION_WIGGLE)
     if event_choosePrize then
         local chance = ctx.game.m_difficulty == Difficulty.DIFFICULTY_HARD and 0.25 or 0.3
-        if IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
+        if IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
             chance = chance * 1.5
         end
 

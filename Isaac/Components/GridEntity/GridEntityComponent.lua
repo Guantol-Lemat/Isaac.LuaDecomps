@@ -1,9 +1,9 @@
 ---@alias GridEntity.PostInit fun(gridEntity: Component.GridEntity, ctx: Context.Common)
 ---@alias GridEntity.Update fun(gridEntity: Component.GridEntity, ctx: Context.Common)
----@alias GridEntity.Render fun(gridEntity: Component.GridEntity, ctx: Context.Common, position: Vector)
+---@alias GridEntity.Render fun(gridEntity: Component.GridEntity, position: Vector)
 ---@alias GridEntity.Hurt fun(gridEntity: Component.GridEntity, ctx: Context.Common, damage: integer)
 ---@alias GridEntity.Destroy fun(gridEntity: Component.GridEntity, ctx: Context.Common)
----@alias GridEntity.GetWaterClipInfo fun(gridEntity: Component.GridEntity, ctx: Context.Common): Component.WaterClipInfo
+---@alias GridEntity.GetWaterClipInfo fun(gridEntity: Component.GridEntity): Component.WaterClipInfo
 ---@alias GridEntity.CanTakeDamageFromTearFlags fun(gridEntity: Component.GridEntity): boolean
 ---@alias GridEntity.BeginBatches fun(gridEntity: Component.GridEntity)
 ---@alias GridEntity.EndBatches fun(gridEntity: Component.GridEntity)
@@ -25,4 +25,4 @@
 ---@field m_spawnedFrame integer : 0x28
 ---@field m_rng RNG : 0x2c
 ---@field m_collisionClass EntityGridCollisionClass | integer : 0x3c
----@field m_sprite Sprite : 0x40
+---@field m_sprite Component.Sprite : 0x40

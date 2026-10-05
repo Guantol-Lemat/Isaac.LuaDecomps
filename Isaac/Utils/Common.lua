@@ -8,6 +8,9 @@ local MTRNG = require("Isaac.Utils.MTRNG")
 ---@class IsaacUtils
 local Module = {}
 
+---@type Engine.Shader[]
+local s_ShaderStack = {}
+
 local DIRECTION_UNIT_VECTOR = {
     [Direction.LEFT + 1] = Vector(-1.0, 0.0),
     [Direction.UP + 1] = Vector(0.0, -1.0),
@@ -121,7 +124,7 @@ local function TimeScaledFriction(friction, timescale)
 end
 
 local WORLD_RENDER_ORIGIN = Vector(60.0, 140.0)
-local WORLD_VIEWPORT_SIZE = Vector(338.0, 182)
+local WORLD_VIEWPORT_SIZE = Vector(338.0, 182.0)
 local WORLD_TO_SCREEN_SCALE = 0.65
 
 ---@param distance Vector
@@ -185,6 +188,18 @@ local function LoadShader(shaderType)
     Engine.GraphicsManager:SetShader(G.Shaders[shaderType + 1])
 end
 
+---@param shaderType ShaderType
+local function PushShader(shaderType)
+    local shader = G.Shaders[shaderType + 1] -- this seems wrong
+    table.insert(s_ShaderStack, shader)
+    Engine.GraphicsManager:SetShader(shader)
+end
+
+local function PopShader()
+    local shader = table.remove(s_ShaderStack, #s_ShaderStack)
+    Engine.GraphicsManager:SetShader(shader)
+end
+
 ---@param surface Engine.Image
 ---@return number[]?
 local function RenderScreenSurface(surface)
@@ -192,6 +207,10 @@ local function RenderScreenSurface(surface)
     local dest = DestinationQuad.NewFromRectangle(C.VECTOR_ZERO, G.WIDTH, G.HEIGHT)
     local color = C.COLOR_WHITE
     return surface:Render_SourceDestQuadFlatColor(source, dest, color)
+end
+
+---@param amount number
+local function SetSpritePixelationAmount(amount)
 end
 
 --#region Module
@@ -217,7 +236,10 @@ Module.WindowToScreen = WindowToScreen
 Module.PushRenderTarget = PushRenderTarget
 Module.PopRenderTarget = PopRenderTarget
 Module.LoadShader = LoadShader
+Module.PushShader = PushShader
+Module.PopShader = PopShader
 Module.RenderScreenSurface = RenderScreenSurface
+Module.SetSpritePixelationAmount = SetSpritePixelationAmount
 
 --#endregion
 

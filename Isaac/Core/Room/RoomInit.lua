@@ -534,8 +534,8 @@ local function Init(room, ctx, data, desc)
 
     IRoom.RecomputeRoomBounds(room, false)
     room.m_camera = ICamera.New(ctx, room)
-    room.m_shockwaveParams[1].m_durationOnRoomInit_qqq = room.m_shockwaveParams[1].m_duration_qqq
-    room.m_shockwaveParams[2].m_durationOnRoomInit_qqq = room.m_shockwaveParams[2].m_duration_qqq
+    room.m_shockwaveParams[1].m_progress = room.m_shockwaveParams[1].m_duration
+    room.m_shockwaveParams[2].m_progress = room.m_shockwaveParams[2].m_duration
     IBackdrop.LoadGraphics(room.m_backdrop, ctx)
 
     AnmCache.FreeUnreferencedImages()

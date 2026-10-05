@@ -2,7 +2,7 @@
 ---@alias Entity.PreUpdate fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Update fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Interpolate fun(self: Component.Entity, myContext: Context.Common)
----@alias Entity.Render fun(self: Component.Entity, myContext: Context.Common, offset: Vector)
+---@alias Entity.Render fun(self: Component.Entity, offset: Vector)
 ---@alias Entity.RenderShadowLayer fun(self: Component.Entity, myContext: Context.Common, position: Vector)
 ---@alias Entity.PostRender fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.TakeDamage fun(self: Component.Entity, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: Component.Entity.EntityRef, damageCountdown: integer)

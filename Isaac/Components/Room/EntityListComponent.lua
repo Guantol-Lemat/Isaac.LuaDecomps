@@ -1,0 +1,34 @@
+---@class Component.EntityList
+---@field m_familiarPartition Component.CellSpace : 0x0
+---@field m_tearPartition Component.CellSpace : 0x4
+---@field m_enemyPartition Component.CellSpace : 0x8
+---@field m_bulletPartition Component.CellSpace : 0xc
+---@field m_pickupPartition Component.CellSpace : 0x10
+---@field m_playerPartition Component.CellSpace : 0x14
+---@field m_unkPartition1 Component.CellSpace : 0x18
+---@field m_unkPartition2 Component.CellSpace : 0x1c
+---@field m_elMain Component.EntityList.EL : 0x20
+---@field m_elPersistent Component.EntityList.EL : 0x30
+---@field m_roomEL Component.EntityList.EL : 0x40
+---@field m_renderEL Component.EntityList.EL : 0x50
+---@field m_effectEL Component.EntityList.EL : 0x60
+---@field m_bufferEL Component.EntityList.EL : 0x70
+---@field m_bufferTemplateEL Component.EntityList.EL : 0x80
+---@field m_elWisp Component.EntityList.EL : 0x90
+---@field m_entitiesRendered? integer : 0xa0
+---@field m_renderMode RenderMode | integer : 0xa4
+---@field m_npcCount integer : 0xa8
+---@field m_enemyCount2 integer : 0xac
+---@field m_bossCount integer : 0xb0
+---@field m_bossCount2 integer : 0xb4
+---@field m_maxBossHealth number : 0xb8
+---@field m_enemyDamageInflicted number : 0xbc
+---@field m_enemyBaited boolean : 0xc0
+---@field m_collisionMap boolean[] : 0xc4
+---@field m_collidingEntitiesCount integer : 0xd4
+---@field m_shadowImage Engine.Image : 0xd8
+---@field m_queryCache unknown : 0xe0
+---@field m_checksum Component.Checksum : 0xe8
+---@field m_networdStruct Component.EntityList.NetMessage[] [32] : 0xf8
+---@field m_networkUpdate1 integer : 0x578
+---@field m_networkUpdateCountdown? integer : 0x57c

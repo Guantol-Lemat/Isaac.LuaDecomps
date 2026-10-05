@@ -7,10 +7,9 @@ local ActorSlot = interface("Isaac.Content.ActorSlot")
 --#endregion
 
 ---@param slot Component.Entity.Slot
----@param ctx Context.Common
 ---@param offset Vector
-local function Render(slot, ctx, offset)
-    IEntity.Render(ctx, slot, offset)
+local function Render(slot, offset)
+    IEntity.Render(slot, offset)
 
     if ActorSlot.IsShellGame(slot) then
         ActorSlot.ShellGame_PostRender(slot)

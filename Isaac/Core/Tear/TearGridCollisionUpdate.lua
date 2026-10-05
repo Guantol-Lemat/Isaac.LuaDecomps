@@ -80,7 +80,7 @@ local function collide_with_floor(ctx, tear)
     local parent = tear.m_parent.ref
     local parent_player = parent and IEntity.ToPlayer(parent)
     if parent_player and tear.m_deadEye_canEndStreak then
-        if IEntityPlayer.HasCollectible(ctx, parent_player, CollectibleType.COLLECTIBLE_DEAD_EYE, false) then
+        if IEntityPlayer.HasCollectible(parent_player, CollectibleType.COLLECTIBLE_DEAD_EYE, false) then
             IEntityPlayer.ClearDeadEyeCharge(ctx, parent_player)
         end
         IEntityPlayer.TriggerNonEnemyTearHit(ctx, parent_player)
@@ -140,7 +140,7 @@ local function try_collide_with_grid(ctx, tear)
         ---@cast parent_player Component.Entity.Player
         IEntityPlayer.TriggerNonEnemyTearHit(ctx, parent_player)
 
-        if IEntityPlayer.HasCollectible(ctx, parent_player, CollectibleType.COLLECTIBLE_DEAD_EYE, false) then
+        if IEntityPlayer.HasCollectible(parent_player, CollectibleType.COLLECTIBLE_DEAD_EYE, false) then
             IEntityPlayer.ClearDeadEyeCharge(ctx, parent_player)
         end
     end

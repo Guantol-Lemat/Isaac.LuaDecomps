@@ -36,10 +36,9 @@ function Stub.Destroy(ctx, gridRock, Immediate) end
 ---@param param_1 Vector
 function Stub.Render(ctx, gridRock, param_1) end
 
----@param ctx Context.Common
 ---@param gridRock Component.GridEntity.Rock
 ---@param Offset_qqq Vector
-function Stub.RenderTop(ctx, gridRock, Offset_qqq) end
+function Stub.RenderTop(gridRock, Offset_qqq) end
 
 ---@param ctx Context.Common
 ---@param gridRock Component.GridEntity.Rock

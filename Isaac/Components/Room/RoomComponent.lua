@@ -33,7 +33,7 @@
 ---@field m_lastDeathsListEnemyPos Vector : 0x1d2c
 ---@field m_backdrop Component.Backdrop : 0x1d34
 ---@field m_lightGradientSprite Sprite : 0x6d34
----@field m_spotlightSprite Sprite : 0x6e48
+---@field m_spotlightSprite Component.Sprite : 0x6e48
 ---@field m_shop_level integer : 0x6f5c
 ---@field m_shop_restockCountdown integer : 0x6f60
 ---@field m_shop_indexQueue integer[] : 0x6f64
@@ -55,7 +55,7 @@
 ---@field m_ambientSFX_animaRattle number : 0x6fb4
 ---@field m_shockwaveParams Component.ShockwaveParams[] [2] : 0x6fb8
 ---@field m_shockwaveRelated integer : 0x6ff0
----@field m_satanRadialANM2 Sprite : 0x6ff4
+---@field m_shockwaveRadialANM2 Sprite : 0x6ff4
 ---@field m_wallBloodDuration integer : 0x7108
 ---@field m_wallBloodCount integer : 0x710c
 ---@field field_0x7110 integer : 0x7110
@@ -108,12 +108,12 @@
 ---@field isFriendly boolean : 0x14
 
 ---@class Component.ShockwaveParams
----@field m_originPos Vector : 0x0
----@field m_speedRelated number : 0x8
----@field m_amplitude_qqq number : 0xc
----@field m_speed_qqq number : 0x10
----@field m_durationOnRoomInit_qqq integer : 0x14
----@field m_duration_qqq integer : 0x18
+---@field m_center Vector : 0x0
+---@field m_radius number : 0x8
+---@field m_distortionStrength number : 0xc
+---@field m_radiusSpeed number : 0x10
+---@field m_progress integer : 0x14
+---@field m_duration integer : 0x18
 
 ---@class Component.LRoomAreaDesc
 ---@field highTopLeft Vector : 0x0

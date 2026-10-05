@@ -25,6 +25,16 @@ local function KColor_Copy(color)
 end
 
 ---@param color KColor
+---@param other KColor
+---@return boolean
+local function KColor_Equals(color, other)
+    return color.Red == other.Red
+        and color.Green == other.Green
+        and color.Blue == other.Blue
+        and color.Alpha == other.Alpha
+end
+
+---@param color KColor
 ---@param colorMod Color
 ---@return KColor
 local function ApplyColorMod(color, colorMod)
@@ -109,6 +119,7 @@ end
 
 Module.Copy = Copy
 Module.KColor_Copy = KColor_Copy
+Module.KColor_Equals = KColor_Equals
 Module.ApplyColorMod = ApplyColorMod
 Module.Multiply = Multiply
 Module.MultiplyCompound = MultiplyCompound

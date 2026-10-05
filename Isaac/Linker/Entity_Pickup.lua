@@ -165,10 +165,9 @@ function Stub.Interpolate(ctx, pickup) end
 ---@param pickup Component.Entity.Pickup
 function Stub.Update(ctx, pickup) end
 
----@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup
 ---@param offset Vector
-function Stub.Render(ctx, pickup, offset) end
+function Stub.Render(pickup, offset) end
 
 ---@param ctx Context.Common
 ---@param pickup Component.Entity.Pickup

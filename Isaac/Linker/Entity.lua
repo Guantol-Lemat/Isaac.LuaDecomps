@@ -663,10 +663,9 @@ function Stub.GetRenderZ(ctx, entity) end
 ---@return boolean
 function Stub.CanOverwrite(entity) end
 
----@param ctx Context.Common
 ---@param entity Component.Entity
 ---@param offset Vector
-function Stub.Render(ctx, entity, offset) end
+function Stub.Render(entity, offset) end
 
 ---@param ctx Context.Common
 ---@param entity Component.Entity

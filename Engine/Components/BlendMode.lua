@@ -1,0 +1,1 @@
+---@alias Engine.BlendMode BlendMode

@@ -2,6 +2,7 @@
 local Interface = require("Isaac.Interface.Room")
 
 local RoomPosition = require("Isaac.Core.Room.PositionUtils")
+local RoomRender = require("Isaac.Core.Room.Render")
 
 --#region Stub
 
@@ -659,11 +660,10 @@ function Stub.TriggerClear(ctx, room, silent) end
 ---@param offset Vector
 function Stub.render_entity_light(ctx, room, ent, offset) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param entity Component.Entity
 ---@param pos Vector
-function Stub.render_entity_glow(ctx, room, entity, pos) end
+function Stub.render_entity_glow(room, entity, pos) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -675,12 +675,8 @@ function Stub.render_grid_light(ctx, room, grid, offset) end
 function Stub.PreRender(room) end
 
 ---@param room Component.Room
-function Stub.Render(room) end
-
----@param ctx Context.Common
----@param room Component.Room
 ---@param pos Vector
-function Stub.RenderDebugInformation(ctx, room, pos) end
+function Stub.RenderDebugInformation(room, pos) end
 
 ---@param room Component.Room
 ---@param Pos Vector
@@ -847,22 +843,20 @@ function Stub.RemoveDoor(room, ctx, Slot) end
 ---@param room Component.Room
 function Stub.SpawnGreedModeWave(ctx, room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param param_1 boolean
-function Stub.render_caustics(ctx, room, param_1) end
+function Stub.render_caustics(room, param_1) end
 
 ---@param room Component.Room
 ---@param id integer
 ---@param params Component.ShockwaveParams
 function Stub.SetShockwaveParam(room, id, params) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param pos Vector
 ---@param param_3 Engine.Image
 ---@return Vector
-function Stub.GetScreenUVPos(ctx, room, pos, param_3) end
+function Stub.GetScreenUVPos(room, pos, param_3) end
 
 ---@param room Component.Room
 ---@return integer
@@ -872,10 +866,9 @@ function Stub.GetNextShockwaveId(room) end
 ---@return boolean
 function Stub.IsAmbushActive(ctx) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@return number
-function Stub.GetLightingAlpha(ctx, room) end
+function Stub.GetLightingAlpha(room) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -915,10 +908,9 @@ function Stub.SetBrokenWatchState(ctx, room, State) end
 ---@param room Component.Room
 function Stub.make_walls(ctx, room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param param_1 Vector
-function Stub.RenderDebugGridInfo(ctx, room, param_1) end
+function Stub.RenderDebugGridInfo(room, param_1) end
 
 ---@param room Component.Room
 ---@return boolean
@@ -987,12 +979,10 @@ function Stub.GetDungeonRockIdx(ctx, room) end
 ---@param room Component.Room
 function Stub.TurnGold(ctx, room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
----@param screenWidth_qqq number
----@param screenHeight_qqq number
+---@param position Vector
 ---@return Vector
-function Stub.WorldToScreenPosition(ctx, room, screenWidth_qqq, screenHeight_qqq) end
+function Stub.WorldToScreenPosition(room, position) end
 
 ---@param room Component.Room
 ---@param entity Component.Entity.Npc
@@ -1005,10 +995,9 @@ function Stub.pre_render_water(ctx, room) end
 ---@param room Component.Room
 function Stub.RemovePacifist(room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param param_2 Vector
-function Stub.render_water_surface(ctx, room, param_2) end
+function Stub.render_water_surface(room, param_2) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -1406,7 +1395,7 @@ Interface.render_entity_light = Stub.render_entity_light
 Interface.render_entity_glow = Stub.render_entity_glow
 Interface.render_grid_light = Stub.render_grid_light
 Interface.PreRender = Stub.PreRender
-Interface.Render = Stub.Render
+Interface.Render = RoomRender.Render
 Interface.RenderDebugInformation = Stub.RenderDebugInformation
 Interface.GetGridPathFromPos = Stub.GetGridPathFromPos
 Interface.GetGridIndex = Stub.GetGridIndex

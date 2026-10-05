@@ -135,7 +135,7 @@ end
 local function CraneGame_OnSetPrizeCollectible(slot, ctx, collectible)
     local prizeSprite = slot.m_sprite
 
-    local curseOfBlind = ILevel.GetCurses(ctx, ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
+    local curseOfBlind = ILevel.GetCurses(ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
     IEntityPickup.SetupCollectibleGraphics(ctx, prizeSprite, LAYER_COLLECTIBLE, collectible, slot.m_dropRNG:GetSeed(), curseOfBlind)
     prizeSprite:LoadGraphics()
 end

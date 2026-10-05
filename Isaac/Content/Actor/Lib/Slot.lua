@@ -150,7 +150,7 @@ local function Beggar_PlayerInteraction(slot, ctx, player, interactSound, GetTar
     end
 
     local resetDonationValue = slot.m_dropRNG:RandomInt(2) + 2
-    if IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
+    if IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
         resetDonationValue = resetDonationValue + 1
     end
 

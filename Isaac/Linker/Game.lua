@@ -308,10 +308,9 @@ function Stub.ProcessInput(ctx, game) end
 ---@param game Component.Game
 function Stub.Update(ctx, game) end
 
----@param ctx Context.Common
 ---@param game Component.Game
 ---@return boolean
-function Stub.IsPaused(ctx, game) end
+function Stub.IsPaused(game) end
 
 ---@param ctx Context.Common
 ---@param game Component.Game
@@ -482,9 +481,8 @@ function Stub.ShakeScreen(game, ctx, timeout) end
 ---@param duration integer
 function Stub.MakeShockwave(ctx, game, pos, amplitude, speed, duration) end
 
----@param ctx Context.Common
 ---@return number
-function Stub.GetPixelationRenderAmount(ctx) end
+function Stub.GetPixelationRenderAmount() end
 
 ---@param game Component.Game
 ---@param time integer

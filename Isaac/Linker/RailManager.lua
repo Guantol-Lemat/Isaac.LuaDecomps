@@ -15,14 +15,12 @@ function Stub.GetRailVariant(ctx, param_1) end
 function Stub.Init(railManager, ctx) end
 
 ---@param railManager Component.RailManager
----@param ctx Context.Common
 ---@param Pos Vector
-function Stub.RenderGroundRails(railManager, ctx, Pos) end
+function Stub.RenderGroundRails(railManager, Pos) end
 
 ---@param railManager Component.RailManager
----@param ctx Context.Common
 ---@param Pos Vector
-function Stub.RenderPitRails(railManager, ctx, Pos) end
+function Stub.RenderPitRails(railManager, Pos) end
 
 ---@param railManager Component.RailManager
 ---@param param_1 integer

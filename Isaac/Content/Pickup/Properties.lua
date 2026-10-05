@@ -13,7 +13,7 @@ local function IsIdleAppear(ctx)
     local level = ctx.game.m_level
     local room = level.m_room
     return (not room.m_isFirstVisit and IRoom.GetFrameCount(room) <= 0)
-        or (not room.m_isInitialized and ILevel.GetStageID(level, ctx) == StbType.HOME)
+        or (not room.m_isInitialized and ILevel.GetStageID(level) == StbType.HOME)
 end
 
 ---@param pickup Component.Entity.Pickup

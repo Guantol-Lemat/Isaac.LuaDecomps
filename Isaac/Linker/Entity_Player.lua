@@ -839,12 +839,11 @@ function Stub.GetNPCTarget(player) end
 ---@param param_1 Vector
 function Stub.SetAimDirection(player, param_1) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param type CollectibleType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
-function Stub.HasCollectible(ctx, player, type, ignoreModifiers) end
+function Stub.HasCollectible(player, type, ignoreModifiers) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player

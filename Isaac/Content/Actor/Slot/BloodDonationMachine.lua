@@ -73,7 +73,7 @@ local function trigger_prize(slot, ctx, player, extraRng)
     end
 
     -- coin prize
-    local hasPhd = IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_PHD, false)
+    local hasPhd = IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_PHD, false)
     local lowCoin = IEntityPlayer.GetHealthType(player) == HealthType.COIN
     local coinCount
     local bonusCoin

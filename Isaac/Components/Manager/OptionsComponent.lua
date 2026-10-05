@@ -46,7 +46,7 @@
 ---@field m_pixelation_enabled boolean : 0x81
 ---@field m_bloom_enabled boolean : 0x82
 ---@field m_waterSurface_enabled boolean : 0x83
----@field m_waterSurface_unkEnabled boolean : 0x84
+---@field m_roomGfx_enabled boolean : 0x84
 ---@field m_colorModifier_enabled boolean : 0x85
 ---@field m_bossBar_onBottom boolean : 0x86
 ---@field m_announcerVoiceMode AnnouncerVoiceMode | integer : 0x88

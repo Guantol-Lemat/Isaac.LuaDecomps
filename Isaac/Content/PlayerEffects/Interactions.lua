@@ -40,7 +40,7 @@ local function CanCollectPickup(player, ctx, pickup)
 
     local duplicateBookOfBelial = pickup.m_variant == PickupVariant.PICKUP_COLLECTIBLE
         and pickup.m_subtype == CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL
-        and IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE, false)
+        and IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL_PASSIVE, false)
 
     if duplicateBookOfBelial then
         return false

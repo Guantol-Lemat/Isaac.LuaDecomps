@@ -251,7 +251,7 @@ local function SlotMachine_TrySetPrize(slot, ctx, player)
     end
 
     slot.m_prizeType = 0
-    local hasLuckyFoot = IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false)
+    local hasLuckyFoot = IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false)
     local prizePool = hasLuckyFoot and 15 or 21
     local prize = myRng:RandomInt(prizePool) + 3
 

@@ -11,7 +11,8 @@
 ---@alias GraphicsManager.Present fun(self: Engine.GraphicsManager)
 ---@alias GraphicsManager.GetFrameBufferWidth fun(self: Engine.GraphicsManager): number
 ---@alias GraphicsManager.GetFrameBufferHeight fun(self: Engine.GraphicsManager): number
----@alias GraphicsManager.SetBlendMode fun(self: Engine.GraphicsManager, blendMode: Engine.BlendMode)
+---@alias GraphicsManager.GetBlendMode fun(self: Engine.GraphicsManager): BlendMode
+---@alias GraphicsManager.SetBlendMode fun(self: Engine.GraphicsManager, blendMode: BlendMode)
 ---@alias GraphicsManager.SetShader fun(self: Engine.GraphicsManager, shader: Engine.Shader)
 ---@alias GraphicsManager.GetShader fun(self: Engine.GraphicsManager): Engine.Shader
 ---@alias GraphicsManager.CullOffscreenRendering fun(self: Engine.GraphicsManager, value: boolean)
@@ -44,6 +45,7 @@
 ---@field Present GraphicsManager.Present
 ---@field GetFrameBufferWidth GraphicsManager.GetFrameBufferWidth
 ---@field GetFrameBufferHeight GraphicsManager.GetFrameBufferHeight
+---@field GetBlendMode GraphicsManager.GetBlendMode
 ---@field SetBlendMode GraphicsManager.SetBlendMode
 ---@field SetShader GraphicsManager.SetShader
 ---@field GetShader GraphicsManager.GetShader

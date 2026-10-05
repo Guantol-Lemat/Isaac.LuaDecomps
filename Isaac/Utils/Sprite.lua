@@ -1,0 +1,118 @@
+---@class Component.Sprite
+---@field m_filename string : 0x0
+---@field m_animDefaultName string : 0x18
+---@field m_animState Component.Sprite.AnimationState[] : 0x30
+---@field m_overlayAnimState Component.Sprite.AnimationState[] : 0x50
+---@field m_overlayRenderFirst boolean : 0x70
+---@field m_animData Component.Sprite.AnimationData[] : 0x74
+---@field m_animCount integer : 0x78
+---@field m_layerState Component.Sprite.LayerState[] : 0x7c
+---@field m_layerCount integer : 0x80
+---@field m_nullLayerNames string : 0x84
+---@field m_nullLayerCount integer : 0x88
+---@field m_eventNames string : 0x8c
+---@field m_eventCount integer : 0x90
+---@field m_offset Vector : 0x94
+---@field m_scale Vector : 0x9c
+---@field m_rotation number : 0xa4
+---@field m_color Color : 0xa8
+---@field m_championColor_qqq Color : 0xd4
+---@field m_flipX boolean : 0x100
+---@field m_flipY boolean : 0x101
+---@field m_playbackSpeed number : 0x104
+---@field m_likelyUnkBool boolean : 0x108
+---@field m_loaded boolean : 0x109
+---@field m_shadowLayer integer : 0x10c
+---@field m_renderFlags AnimRenderFlags | integer : 0x110
+
+---@class Component.Sprite.AnimationState
+---@field m_animation Component.Sprite : 0x0
+---@field m_animData Component.Sprite.AnimationData : 0x4
+---@field m_layerFrames integer : 0x8
+---@field m_nullLayerFrames integer : 0xc
+---@field m_animFrame number : 0x10
+---@field m_isPlaying boolean : 0x14
+---@field m_currentlyTriggeredEvents integer : 0x18
+---@field m_previouslyTriggeredEvents integer : 0x1c
+
+---@class Component.Sprite.LayerState
+---@field m_layerData Component.Sprite.LayerData : 0x0
+---@field m_anm2 Component.Sprite : 0x4
+---@field m_spritesheetPath string : 0x8
+---@field m_minFilterMode integer : 0x20
+---@field m_magFilterMode integer : 0x24
+---@field m_wrapSMode integer : 0x28
+---@field m_wrapTMode integer : 0x2c
+---@field m_spriteSheetLoaded boolean : 0x30
+---@field m_unkBool2 boolean : 0x31
+---@field m_flipX boolean : 0x32
+---@field m_flipY boolean : 0x33
+---@field m_size Vector : 0x34
+---@field m_rotation number : 0x3c
+---@field m_pos Vector : 0x40
+---@field m_color Color : 0x48
+---@field m_isVisible boolean : 0x74
+---@field m_blendMode Engine.BlendMode : 0x78
+---@field m_bitFlags AnimRenderFlags | integer : 0x88
+---@field m_cropOffset Vector : 0x8c
+---@field m_spritesheet Engine.Image? : 0x94
+
+---@class Component.Sprite.AnimationData
+---@field m_name string : 0x0
+---@field m_animLayers Component.Sprite.AnimationLayer[] : 0x18
+---@field m_layerCount integer : 0x1c
+---@field m_nullLayers Component.Sprite.NullLayer[] : 0x20
+---@field m_nullLayerCount integer : 0x24
+---@field m_events Component.Sprite.Event[] : 0x28
+---@field m_eventCount integer : 0x2c
+---@field m_length integer : 0x30
+---@field m_loop boolean : 0x34
+---@field m_layerMap integer[] [64] : 0x38
+
+---@class Component.Sprite.AnimationLayer
+---@field m_layerID integer : 0x0
+---@field m_animFrames Component.Sprite.AnimationFrame[] : 0x4
+---@field m_frameCount integer : 0x8
+---@field m_visible boolean : 0xc
+
+---@class Component.Sprite.AnimationFrame
+---@field m_crop Vector : 0x0
+---@field m_width number : 0x8
+---@field m_height number : 0xc
+---@field m_pos Vector : 0x10
+---@field m_scale Vector : 0x18
+---@field m_pivot Vector : 0x20
+---@field m_duration integer : 0x28
+---@field m_visible boolean : 0x2c
+---@field m_color Color : 0x30
+---@field m_rotation number : 0x5c
+---@field m_interpolated boolean : 0x60
+---@field m_startFrame integer : 0x64
+---@field m_endFrame integer : 0x68
+
+---@class Component.Sprite.NullLayer
+---@field m_id integer : 0x0
+---@field m_enabled boolean : 0x4
+---@field m_frame Component.Sprite.NullFrame[] : 0x8
+---@field m_numFrames integer : 0xc
+
+---@class Component.Sprite.NullFrame
+---@field m_pos Vector : 0x0
+---@field m_duration integer : 0x8
+---@field m_isVisible boolean : 0xc
+---@field m_scale Vector : 0x10
+---@field m_color Color : 0x18
+---@field m_rotation number : 0x44
+---@field m_interpolated boolean : 0x48
+---@field m_startFrame integer : 0x4c
+---@field m_endFrame integer : 0x50
+
+---@class Component.Sprite.Event
+---@field m_eventId integer : 0x0
+---@field m_frame integer : 0x4
+
+---@class Component.Sprite.LayerData
+---@field m_layerID integer : 0x0
+---@field m_spriteSheetID integer : 0x4
+---@field m_layerName string : 0x8
+---@field m_defaultSpriteSheetPath string : 0x20

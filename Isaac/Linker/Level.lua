@@ -121,9 +121,8 @@ function Stub.GetGreedModeWave(level) end
 function Stub.destructor(level) end
 
 ---@param level Component.Level
----@param ctx Context.Common
 ---@return StbType | integer
-function Stub.GetStageID(level, ctx) end
+function Stub.GetStageID(level) end
 
 ---@param ctx Context.Common
 ---@param level Component.Level
@@ -343,10 +342,9 @@ function Stub.StoreGameState(level, state) end
 ---@return boolean
 function Stub.ForceHorsemanBoss(ctx, level, roomSeed) end
 
----@param ctx Context.Common
 ---@param level Component.Level
 ---@return LevelCurse | integer
-function Stub.GetCurses(ctx, level) end
+function Stub.GetCurses(level) end
 
 ---@param ctx Context.Common
 ---@param level Component.Level

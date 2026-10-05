@@ -2,12 +2,14 @@
 ---@field IsLoaded fun(self: Engine.Image): boolean
 ---@field Render_SourceDestQuad fun(self: Engine.Image, sourceQuad: SourceQuad, destQuad: DestinationQuad, colorTopLeft: KColor, colorTopRight: KColor, colorBottomLeft: KColor, colorBottomRight: KColor): number[]?
 ---@field Render_SourceDestQuadFlatColor fun(self: Engine.Image, sourceQuad: SourceQuad, destQuad: DestinationQuad, color: KColor): number[]?
+---@field Render_DestQuadFlatColor fun(self: Engine.Image, position: DestinationQuad, color: KColor): number[]
+---@field Render_PositionFlatColor fun(self: Engine.Image, position: Vector, color: KColor): number[]
 ---@field GetWidth fun(self: Engine.Image): integer
 ---@field GetHeight fun(self: Engine.Image): integer
 ---@field GetPaddedWidth fun(self: Engine.Image): integer
 ---@field GetPaddedHeight fun(self: Engine.Image): integer
 ---@field GetBytesPerPixel fun(self: Engine.Image): integer
----@field SetVertexFormat fun(self: Engine.Image, format: ) 
+---@field SetVertexFormat fun(self: Engine.Image, format: Engine.VertexAttributeDescriptor[]) 
 ---@field SetFilterMode fun(self: Engine.Image, minFilterMode: integer, magFilterMode: integer)
 ---@field SetWrapMode fun(self: Engine.Image, wrapSMode: integer, wrapTMode: integer)
 ---@field IsPalleted fun(self: Engine.Image): boolean

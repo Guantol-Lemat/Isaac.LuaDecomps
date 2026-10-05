@@ -1,6 +1,6 @@
 ---@class Component.Game
 ---@field m_level Component.Level : 0x0
----@field m_roomConfig RoomConfigComponent : 0x1879c
+---@field m_roomConfig Component.RoomConfig : 0x1879c
 ---@field m_preloader PreloaderComponent : 0x1a5c4
 ---@field m_itemPool Component.ItemPool : 0x1a5cc
 ---@field m_bossPool Component.BossPool : 0x1adf4

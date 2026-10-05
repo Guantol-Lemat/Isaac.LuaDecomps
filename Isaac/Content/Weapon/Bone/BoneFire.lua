@@ -98,8 +98,8 @@ local function prepare_blackboard(weapon, ctx)
     local modifier_drFetus = false
     local modifier_epicFetus = false
     if weaponType ~= WeaponType.WEAPON_NOTCHED_AXE and myPlayer then
-        modifier_epicFetus = IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_EPIC_FETUS, false)
-        modifier_drFetus = not modifier_epicFetus and IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_DR_FETUS, false)
+        modifier_epicFetus = IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_EPIC_FETUS, false)
+        modifier_drFetus = not modifier_epicFetus and IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_DR_FETUS, false)
     end
 
     local modifier_ludovico = weaponModifiers & WeaponModifier.LUDOVICO_TECHNIQUE ~= 0
@@ -118,7 +118,7 @@ local function prepare_blackboard(weapon, ctx)
 
     ---@type KnifeVariant
     local knifeVariant = KnifeVariant.BONE_CLUB
-    if myPlayer and IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_MOMS_KNIFE, false) then
+    if myPlayer and IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_MOMS_KNIFE, false) then
         knifeVariant = KnifeVariant.BONE_SCYTHE
     elseif modifier_berserk then
         knifeVariant = KnifeVariant.BERSERK_CLUB
@@ -192,9 +192,9 @@ local function get_weapon_scale(weapon, ctx, blackboard)
             weaponScale = weaponScale * 4.0
         end
 
-        if IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_POLYPHEMUS, false) then
+        if IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_POLYPHEMUS, false) then
             weaponScale = weaponScale * 2.0
-        elseif IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_HAEMOLACRIA, false) then
+        elseif IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_HAEMOLACRIA, false) then
             weaponScale = weaponScale * 1.5
         end
     end
@@ -236,8 +236,8 @@ local function update_held_bone_lifecycle(weapon, ctx, blackboard)
     local modifier_lokisHorns = false
     local modifier_momsEye = false
     if blackboard.weaponType ~= WeaponType.WEAPON_NOTCHED_AXE and blackboard.myPlayer then
-        modifier_lokisHorns = IEntityPlayer.HasCollectible(ctx, blackboard.myPlayer, CollectibleType.COLLECTIBLE_LOKIS_HORNS, false)
-        modifier_momsEye = IEntityPlayer.HasCollectible(ctx, blackboard.myPlayer, CollectibleType.COLLECTIBLE_MOMS_EYE, false)
+        modifier_lokisHorns = IEntityPlayer.HasCollectible(blackboard.myPlayer, CollectibleType.COLLECTIBLE_LOKIS_HORNS, false)
+        modifier_momsEye = IEntityPlayer.HasCollectible(blackboard.myPlayer, CollectibleType.COLLECTIBLE_MOMS_EYE, false)
     end
 
     for i = 1, 4, 1 do
@@ -387,7 +387,7 @@ local function try_shoot_bone(weapon, ctx, blackboard)
     local charge = math.min(weaponCharge, chargeCap)
     local shootCharge = math.max(charge / chargeCap, 0.2)
     local playerRange = myPlayer and myPlayer.m_range or 260.0
-    local playerRangeCap = myPlayer and IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_TINY_PLANET, false)
+    local playerRangeCap = myPlayer and IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_TINY_PLANET, false)
         and 100000.0
         or 300.0
 
@@ -678,8 +678,8 @@ local function EpicFetus_update_target(weapon, ctx, blackboard, player, shooting
         input:Resize(1.0)
     end
 
-    local hasWizControls = IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_THE_WIZ, false)
-        and not IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_20_20, false)
+    local hasWizControls = IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_THE_WIZ, false)
+        and not IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_20_20, false)
 
     if hasWizControls then
         input = input:Rotated(45)
@@ -753,13 +753,13 @@ local function MonstrosLung_try_fire(weapon, ctx, blackboard, multiShotParams)
     local baseNumTears = 12
 
     if myPlayer then
-        if IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_IPECAC, false) then
+        if IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_IPECAC, false) then
             baseVelocity = baseVelocity * IsaacUtils.RandomFloat() * 0.2 + 0.7
         end
 
-        if IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_HAEMOLACRIA, false) then
+        if IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_HAEMOLACRIA, false) then
             baseNumTears = 7
-            if IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_BRIMSTONE, false) then
+            if IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_BRIMSTONE, false) then
                 baseNumTears = baseNumTears - 2
             end
         end
@@ -767,7 +767,7 @@ local function MonstrosLung_try_fire(weapon, ctx, blackboard, multiShotParams)
 
     --- CRASH: myPlayer is not actually checked and used regardless of if it's nil or not
     ---@diagnostic disable-next-line: param-type-mismatch
-    if IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_DR_FETUS, false) then
+    if IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_DR_FETUS, false) then
         baseNumTears = 5
     end
 
@@ -792,7 +792,7 @@ local function MonstrosLung_try_fire(weapon, ctx, blackboard, multiShotParams)
             end
 
             local setFallPhysics = not myPlayer
-                or (not IEntityPlayer.HasCollectible(ctx, myPlayer, CollectibleType.COLLECTIBLE_IPECAC, false)
+                or (not IEntityPlayer.HasCollectible(myPlayer, CollectibleType.COLLECTIBLE_IPECAC, false)
                 and (tear.m_tearFlags & TearFlags.TEAR_HYDROBOUNCE) == BITSET_ZERO)
             if setFallPhysics then
                 --- this cannot crash as monstrosLung requires a player

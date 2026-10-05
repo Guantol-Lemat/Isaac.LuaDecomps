@@ -37,7 +37,7 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
     local myRng = slot.m_dropRNG
 
     local fortuneChance = ctx.game.m_difficulty == Difficulty.DIFFICULTY_HARD and 0.85 or 0.65
-    if IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
+    if IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false) then
         fortuneChance = fortuneChance * 0.46
     end
 

@@ -122,10 +122,9 @@ function Stub.LoadGraphics(backdrop, ctx) end
 function Stub.render_black_outside_rect(backdrop, ctx, param_1, param_2) end
 
 ---@param backdrop Component.Backdrop
----@param ctx Context.Common
 ---@param pos Vector
 ---@param color Color
-function Stub.RenderFloor(backdrop, ctx, pos, color) end
+function Stub.RenderFloor(backdrop, pos, color) end
 
 ---@param backdrop Component.Backdrop
 ---@param pos Vector
@@ -133,10 +132,9 @@ function Stub.RenderFloor(backdrop, ctx, pos, color) end
 function Stub.RenderFloor2(backdrop, pos, color) end
 
 ---@param backdrop Component.Backdrop
----@param ctx Context.Common
 ---@param pos Vector
 ---@param color Color
-function Stub.RenderWalls(backdrop, ctx, pos, color) end
+function Stub.RenderWalls(backdrop, pos, color) end
 
 ---@param backdrop Component.Backdrop
 ---@param ctx Context.Common

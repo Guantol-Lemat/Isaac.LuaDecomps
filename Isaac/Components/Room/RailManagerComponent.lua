@@ -1,0 +1,4 @@
+---@class Component.RailManager
+---@field m_Room Component.Room : 0x0
+---@field m_gridFlags integer[] [447] : 0x4
+---@field m_sprite Component.Sprite : 0x1c4

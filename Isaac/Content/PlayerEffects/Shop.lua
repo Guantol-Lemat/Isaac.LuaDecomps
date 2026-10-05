@@ -159,7 +159,7 @@ end
 ---@param ctx Context.Common
 ---@param spentCoins integer
 local function KeepersSack_AddSpentCoins(player, ctx, spentCoins)
-    if IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_KEEPERS_SACK, false) then
+    if IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_KEEPERS_SACK, false) then
         return
     end
 

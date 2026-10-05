@@ -4,6 +4,9 @@ local Interface = require("Isaac.Interface.RoomConfig")
 ---@class Interface.RoomConfig.Spawn
 local Interface_Spawn = Interface.Spawn
 
+---@class Interface.RoomConfig.Stage
+local Interface_Stage = Interface.Stage
+
 local RoomConfigMisc = require("Isaac.Core.RoomConfig.RoomConfigMisc")
 
 --#region Stub
@@ -127,6 +130,11 @@ function Stub.GetRandomRoomFromOptionalStage(roomConfig, ctx, seed, reduceWeight
 ---@param mode eMode | integer
 function Stub.GetRooms(roomConfig, ctx, result, stage, type, shape, minVariant, maxVariant, minDifficulty, maxDifficulty, doors, subtype, mode) end
 
+---@param roomConfig Component.RoomConfig
+---@param stageId StbType | integer
+---@param language Language | integer
+function Stub.GetStageName(roomConfig, stageId, language) end
+
 ---@param ctx Context.Common
 ---@param LevelStage LevelStage | integer
 ---@param StageType StageType | integer
@@ -184,6 +192,7 @@ Interface.GetRoom = Stub.GetRoom
 Interface.GetRandomRoom = Stub.GetRandomRoom
 Interface.GetRandomRoomFromOptionalStage = Stub.GetRandomRoomFromOptionalStage
 Interface.GetRooms = Stub.GetRooms
+Interface.GetStageName = Stub.GetStageName
 Interface.GetStageID = Stub.GetStageID
 Interface.ClearGeneratedRooms = Stub.ClearGeneratedRooms
 Interface.CreateMergedRoom = Stub.CreateMergedRoom
@@ -191,3 +200,22 @@ Interface.try_generate_merged_room = Stub.try_generate_merged_room
 Interface.CreateMirroredRoom = Stub.CreateMirroredRoom
 
 Interface_Spawn.PickEntry = RoomConfigMisc.Spawn_PickEntry
+
+--#region Stub Stage
+
+local Stub_Stage = {}
+
+---@param stage Component.RoomConfig.Stage
+---@param language integer
+---@return string
+function Stub_Stage.GetDisplayName(stage, language) end
+
+---@param stage Component.RoomConfig.Stage
+---@param mode integer
+---@return Component.RoomConfig.Stage.RoomSet
+function Stub_Stage.GetRoomSet(stage, mode) end
+
+--#endregion
+
+Interface_Stage.GetDisplayName = Stub_Stage.GetDisplayName
+Interface_Stage.GetRoomSet = Stub_Stage.GetRoomSet

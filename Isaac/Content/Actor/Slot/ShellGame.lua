@@ -115,7 +115,7 @@ end
 local function award_prize(slot, ctx, player)
     local myRng = slot.m_dropRNG
     local prize = myRng:RandomInt(3) == 0
-        or (IEntityPlayer.HasCollectible(ctx, player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false)
+        or (IEntityPlayer.HasCollectible(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT, false)
         and IEntityPlayer.GetCollectibleRNG(player, CollectibleType.COLLECTIBLE_LUCKY_FOOT):RandomInt(3) == 0)
 
     if not prize then
@@ -375,7 +375,7 @@ local ShellGame_OnDestroy = SlotLib.Beggar_Destroy
 local function HellGame_OnSetPrizeCollectible(slot, ctx, collectible)
     local prizeSprite = slot.m_shellGame_prizeSprite
 
-    local curseOfBlind = ILevel.GetCurses(ctx, ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
+    local curseOfBlind = ILevel.GetCurses(ctx.game.m_level) & LevelCurse.CURSE_OF_BLIND ~= 0
     IEntityPickup.SetupCollectibleGraphics(ctx, prizeSprite, LAYER_COLLECTIBLE, collectible, slot.m_dropRNG:GetSeed(), curseOfBlind)
     prizeSprite:LoadGraphics()
 end

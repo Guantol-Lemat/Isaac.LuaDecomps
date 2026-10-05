@@ -1,0 +1,3 @@
+---@class Component.WaterClipInfo
+---@field flags integer : 0x0
+---@field float number : 0x4

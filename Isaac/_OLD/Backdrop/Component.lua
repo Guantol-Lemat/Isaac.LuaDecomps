@@ -3,6 +3,7 @@
 ---@field m_wallSurface Engine.Image : 0x8
 ---@field m_floorSurface2 Engine.Image : 0x10
 ---@field m_tempBackdropSurface Engine.Image : 0x18
+---@field hasFloor2 boolean : 0x20
 ---@field m_image1 Engine.Image : 0x24
 ---@field m_waterImage Engine.Image : 0x2c
 ---@field m_image2 Engine.Image : 0x34
