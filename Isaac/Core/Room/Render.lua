@@ -7,6 +7,7 @@ local S = require("Isaac.Core.Room.Static")
 
 local MathUtils = require("General.Math")
 local IsaacUtils = require("Isaac.Utils.Common")
+local IGraphicsManager = require("Engine.Interface.GraphicsManager")
 local IBlendMode = require("Engine.Interface.BlendMode")
 local ISprite = require("Isaac.Interface.ANM2")
 local IBackdrop = require("Isaac.Interface.Backdrop")
@@ -24,13 +25,14 @@ local IRoomConfig = require("Isaac.Interface.RoomConfig")
 local GridEntityProperties = require("Isaac.Content.Grid.Properties")
 local RoomProperties = require("Isaac.Content.RoomMechanics.Properties")
 local GreedShopBackdrop = require("Isaac.Content.RoomMechanics.Backdrop.GreedShop")
-local NightLight = require("Isaac.Content.PlayerEffects.NightLight")
 local WaterOverlayGfx = require("Isaac.Content.RoomMechanics.Gfx.WaterOverlay")
 local HeatWaveGfx = require("Isaac.Content.RoomMechanics.Gfx.HeatWave")
 local ShockwaveGfx = require("Isaac.Content.RoomMechanics.Gfx.Shockwave")
 local DizzyGfx = require("Isaac.Content.RoomMechanics.Gfx.Dizzy")
 local DustOverlayGfx = require("Isaac.Content.RoomMechanics.Gfx.DustOverlay")
 local MirrorGfx = require("Isaac.Content.RoomMechanics.Gfx.Mirror")
+local NightLight = require("Isaac.Content.PlayerEffects.NightLight")
+local BackwardsPathEntrance = require("Isaac.Content.GameEffects.BackwardsPath.Entrance")
 
 local eShaderType = Renderer.ShaderType
 
@@ -39,6 +41,12 @@ local eShaderType = Renderer.ShaderType
 local COLOR_BLACK = C.COLOR_BLACK
 local COLOR_SHADOW_SURFACE = KColor(1.0, 1.0, 1.0, 0.24)
 local COLOR_ROOM_INFO = KColor(1.0, 1.0, 1.0, 128/255)
+
+---@return boolean
+local function render_caustics_in_light_overlay()
+    local game = G.Game
+    return game.m_darknessModifier > 0.0 or (ILevel.GetCurses(game.m_level) & LevelCurse.CURSE_OF_DARKNESS ~= 0)
+end
 
 ---@param room Component.Room
 ---@param filter function
@@ -95,6 +103,90 @@ local ROOM_TYPE_NAME = {
     [RoomType.ROOM_ULTRASECRET + 1] = "USecret",
 }
 
+---@param graphics Engine.GraphicsManager
+---@param room Component.Room
+local function prepare_shadow_texture(graphics, room)
+    IsaacUtils.PushRenderTarget()
+    graphics:SetRenderTargetTexture(S.ShadowSurface, false)
+    graphics:Clear()
+
+    IEntityList.RenderShadows(room.m_entityList, room.m_renderScrollOffset)
+
+    graphics:Present()
+    IsaacUtils.PopRenderTarget()
+end
+
+---@param graphics Engine.GraphicsManager
+---@param room Component.Room
+local function prepare_light_texture(graphics, room)
+    if not G.Manager.m_options.m_lighting_enabled then
+        return
+    end
+
+    IsaacUtils.PushRenderTarget()
+    graphics:SetRenderTargetTexture(S.LightOverlaySurface, true)
+
+    graphics:Clear()
+    local currentShader = graphics:GetShader()
+
+    local shadowColor = room.m_fxLayers.m_fxParams.m_shadowColor
+    local shadowAlpha = room.m_fxLayers.m_fxParams.m_shadowColor.Alpha
+    if (room.m_roomDescriptor.m_flags & RoomDescriptor.FLAG_PITCH_BLACK) ~= 0 then
+        shadowColor = C.COLOR_BLACK
+        shadowAlpha = 1.0
+    end
+
+    if shadowAlpha ~= 0.0 then
+        local dest = DestinationQuad.NewFromRectangle(C.VECTOR_ZERO, IGraphicsManager.GetOrthographicProjectionWidth(), IGraphicsManager.GetOrthographicProjectionHeight())
+        Engine.ShapeRenderer:FillQuad(dest, shadowColor)
+    end
+
+    graphics:SetBlendMode_Type(BlendType.ADDITIVE)
+    local renderOffset = G.Game.m_screenShake_offset + room.m_renderScrollOffset
+
+    if room.m_backdrop.m_type == BackdropType.DUNGEON_BEAST then
+        IHellBackdrop.PreRenderLightOverlay(room.m_hellBackdrop)
+    else
+        if (room.m_roomDescriptor.m_flags & RoomDescriptor.FLAG_PITCH_BLACK) == 0 then
+            local darknessIntensity = RoomProperties.GetDarknessIntensity(room)
+
+            local lightColor = ColorUtils.KColor_Copy(room.m_fxLayers.m_fxParams.m_lightColor)
+            lightColor.Red = MathUtils.Lerp(lightColor.Red, shadowColor.Red, darknessIntensity)
+            lightColor.Green = MathUtils.Lerp(lightColor.Green, shadowColor.Green, darknessIntensity)
+            lightColor.Blue = MathUtils.Lerp(lightColor.Blue, shadowColor.Blue, darknessIntensity)
+
+            graphics:SetShader(currentShader)
+            IFXLayers.RenderLighting(room.m_fxLayers, lightColor)
+        end
+    end
+
+    room.m_entityLightRelated = {}
+
+    local entities = room.m_entityList.m_roomEL
+    for i = 1, entities, 1 do
+        local entity = entities[i]
+        IRoom.render_entity_light(room, entity, renderOffset)
+    end
+
+    local gridSize = room.m_gridWidth * room.m_gridHeight
+    for i = 1, gridSize, 1 do
+        local idx = i - 1
+        local gridEntity = IRoom.GetGridEntity(room, idx)
+        if gridEntity then
+            IRoom.render_grid_light(room, gridEntity, renderOffset)
+        end
+    end
+
+    BackwardsPathEntrance.RenderDadsNoteLight(room)
+
+    if G.Manager.m_options.m_caustics_enabled and render_caustics_in_light_overlay() then
+        IRoom.render_caustics(room, true)
+    end
+
+    graphics:Present()
+    IsaacUtils.PopRenderTarget()
+end
+
 ---@param room Component.Room
 ---@param roomTopLeftPosition Vector
 local function render_background_layer(room, roomTopLeftPosition)
@@ -122,7 +214,7 @@ local function render_ground_layer(room, roomTopLeftPosition)
 
     render_grids(room, GridEntityProperties.IsGroundLayer)
 
-    if room.m_backdrop.m_type == BackdropType.MINES and (room.m_roomDescriptor.m_flags & RoomDescriptor.FLAG_HAS_WATER) ~= 0 then
+    if RoomProperties.HasTexturedPit(room) then
         IRoom.render_pit_surface(room, roomTopLeftPosition)
 
         local gridSize = room.m_gridWidth * room.m_gridHeight
@@ -232,6 +324,24 @@ local function render_debug_room_info(room)
     local font = manager.m_font_2
     local stringWidth = font:GetStringWidth(str)
     font:DrawStringScaled(str, G.WIDTH * 0.5 - stringWidth, G.HEIGHT - 12.0, 1.0, 1.0, COLOR_ROOM_INFO, 0, false)
+end
+
+---@param room Component.Room
+local function PreRender(room)
+    local graphics = Engine.GraphicsManager
+
+    prepare_shadow_texture(graphics, room)
+
+    prepare_light_texture(graphics, room)
+
+    IRoom.pre_render_dust(room)
+
+    if room.m_shouldPreRenderPits then
+        room.m_shouldPreRenderPits = false
+        IRoom.pre_render_pits(room)
+    end
+
+    IRoom.pre_render_water(room)
 end
 
 ---@param room Component.Room
@@ -346,10 +456,7 @@ local function Render(room)
     if not IRoom.IsDungeon(room) then
         IBackdrop.RenderWalls(room.m_backdrop, roomTopLeftPosition, room.m_wallColor)
 
-        local shouldRenderCaustics = manager.m_options.m_caustics_enabled
-            and (game.m_darknessModifier <= 0.0 and (ILevel.GetCurses(game.m_level) & LevelCurse.CURSE_OF_DARKNESS == 0))
-
-        if shouldRenderCaustics then
+        if manager.m_options.m_caustics_enabled and not render_caustics_in_light_overlay() then
             graphics:SetBlendMode_Type(BlendType.ADDITIVE)
             IRoom.render_caustics(room, false)
             graphics:SetBlendMode(originalBlendMode)
@@ -393,7 +500,7 @@ local function Render(room)
         WaterOverlayGfx.Render(graphics, room, S.WaterOverlaySurface)
     end
 
-    room.m_lightGradientSprite.Color:Reset()
+    room.m_lightGradientSprite.m_color:Reset()
     room.m_entityLightRelated = {}
 
     for i = 1, #room.m_entityList.m_roomEL, 1 do
@@ -477,6 +584,7 @@ local Module = {}
 
 --#region Module
 
+Module.PreRender = PreRender
 Module.Render = Render
 
 --#endregion

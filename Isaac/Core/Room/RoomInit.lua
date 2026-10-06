@@ -4,6 +4,8 @@ local Globals = require("Isaac.Global")
 local LuaEngine = require("LuaEngine.Misc")
 
 local Enums = require("Isaac.Enums")
+local ISprite = require("Isaac.Interface.ANM2")
+local ILayerState = ISprite.LayerState
 local IEntityConfig = require("Isaac.Interface.EntityConfig")
 local IRoomConfig = require("Isaac.Interface.RoomConfig")
 local IGame = require("Isaac.Interface.Game")
@@ -186,25 +188,25 @@ local function Init(room, ctx, data, desc)
     room.m_gridWidth = data.m_width + 2
     room.m_gridHeight = data.m_height + 2
 
-    if not room.m_lightGradientSprite:IsLoaded() then
+    if not ISprite.IsLoaded(room.m_lightGradientSprite) then
         local sprite = room.m_lightGradientSprite
-        sprite:Load("gfx/LightGradient.anm2", true)
-        local layer = sprite:GetLayer(0)
-        ---@cast layer LayerState
-        SpriteUtils.LayerState_SetMinFilterMode(layer, 1)
-        SpriteUtils.LayerState_SetMagFilterMode(layer, 1)
-        sprite:Play(sprite:GetDefaultAnimationName(), false)
-        SpriteUtils.LayerState_SetBlendMode(layer, BlendMode.NewFromType(BlendType.NORMAL))
+        ISprite.Load(sprite, "gfx/LightGradient.anm2", true)
+        local layer = ISprite.GetLayer_Idx(sprite, 0)
+        ---@cast layer Component.Sprite.LayerState
+        layer.m_minFilterMode = 1
+        layer.m_magFilterMode = 1
+        ISprite.Play_Name(sprite, ISprite.GetDefaultAnimationName(sprite), false)
+        ILayerState.SetBlendMode(layer, BlendMode.NewFromType(BlendType.NORMAL))
     end
 
-    if not room.m_spotlightSprite:IsLoaded() then
+    if not ISprite.IsLoaded(room.m_spotlightSprite) then
         local sprite = room.m_spotlightSprite
-        sprite:Load("gfx/SpotLight.anm2", true)
-        local layer = sprite:GetLayer(0)
-        ---@cast layer LayerState
-        SpriteUtils.LayerState_SetMinFilterMode(layer, 1)
-        SpriteUtils.LayerState_SetMagFilterMode(layer, 1)
-        sprite:Play(sprite:GetDefaultAnimationName(), false)
+        ISprite.Load(sprite, "gfx/SpotLight.anm2", true)
+        local layer = ISprite.GetLayer_Idx(sprite, 0)
+        ---@cast layer Component.Sprite.LayerState
+        layer.m_minFilterMode = 1
+        layer.m_magFilterMode = 1
+        ISprite.Play_Name(sprite, ISprite.GetDefaultAnimationName(sprite), false)
     end
 
     local doorsGridIdx = room.m_doorsGridIdx
@@ -219,7 +221,7 @@ local function Init(room, ctx, data, desc)
     room.m_bossId = 0
     room.m_secondBossId = 0
     IRailManager.Init(room.m_railManager, ctx)
-    IHellBackdrop.Init(room.m_hellBackdrop, ctx)
+    IHellBackdrop.Init(room.m_hellBackdrop)
 
     -- init boss id
     if room.m_type == RoomType.ROOM_BOSS then

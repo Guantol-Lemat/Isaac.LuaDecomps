@@ -654,25 +654,20 @@ function Stub.Update(ctx, room) end
 ---@param silent boolean
 function Stub.TriggerClear(ctx, room, silent) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param ent Component.Entity
 ---@param offset Vector
-function Stub.render_entity_light(ctx, room, ent, offset) end
+function Stub.render_entity_light(room, ent, offset) end
 
 ---@param room Component.Room
 ---@param entity Component.Entity
 ---@param pos Vector
 function Stub.render_entity_glow(room, entity, pos) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@param grid Component.GridEntity
 ---@param offset Vector
-function Stub.render_grid_light(ctx, room, grid, offset) end
-
----@param room Component.Room
-function Stub.PreRender(room) end
+function Stub.render_grid_light(room, grid, offset) end
 
 ---@param room Component.Room
 ---@param pos Vector
@@ -688,9 +683,9 @@ function Stub.GetGridPathFromPos(room, Pos) end
 ---@return integer
 function Stub.GetGridIndex(room, Pos) end
 
----@param ctx Context.Common
+---@param room Component.Room
 ---@return Vector
-function Stub.GetCenterPos(ctx) end
+function Stub.GetCenterPos(room) end
 
 ---@param room Component.Room
 ---@param Pos Vector
@@ -844,8 +839,8 @@ function Stub.RemoveDoor(room, ctx, Slot) end
 function Stub.SpawnGreedModeWave(ctx, room) end
 
 ---@param room Component.Room
----@param param_1 boolean
-function Stub.render_caustics(room, param_1) end
+---@param isLightOverlay boolean
+function Stub.render_caustics(room, isLightOverlay) end
 
 ---@param room Component.Room
 ---@param id integer
@@ -988,9 +983,8 @@ function Stub.WorldToScreenPosition(room, position) end
 ---@param entity Component.Entity.Npc
 function Stub.AddEnemyCorpse(room, entity) end
 
----@param ctx Context.Common
 ---@param room Component.Room
-function Stub.pre_render_water(ctx, room) end
+function Stub.pre_render_water(room) end
 
 ---@param room Component.Room
 function Stub.RemovePacifist(room) end
@@ -1115,14 +1109,11 @@ function Stub.PickupGridEntity(ctx, room, GridIndex, param_2, Sprite) end
 ---@return Component.Entity.Effect
 function Stub.PickupGridEntity_Idx(ctx, room, GridIndex) end
 
----@param ctx Context.Common
 ---@param room Component.Room
----@param param_1 boolean
-function Stub.pre_render_dust(ctx, room, param_1) end
+function Stub.pre_render_dust(room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
-function Stub.pre_render_pits(ctx, room) end
+function Stub.pre_render_pits(room) end
 
 ---@param room Component.Room
 ---@param offset Vector
@@ -1172,10 +1163,9 @@ function Stub.TriggerDamoclesItemSpawned(room) end
 ---@return boolean
 function Stub.HasCurseMist(room) end
 
----@param ctx Context.Common
 ---@param room Component.Room
 ---@return boolean
-function Stub.IsBackwardsPathEntrance(ctx, room) end
+function Stub.IsBackwardsPathEntrance(room) end
 
 ---@param ctx Context.Common
 ---@param room Component.Room
@@ -1394,7 +1384,7 @@ Interface.TriggerClear = Stub.TriggerClear
 Interface.render_entity_light = Stub.render_entity_light
 Interface.render_entity_glow = Stub.render_entity_glow
 Interface.render_grid_light = Stub.render_grid_light
-Interface.PreRender = Stub.PreRender
+Interface.PreRender = RoomRender.PreRender
 Interface.Render = RoomRender.Render
 Interface.RenderDebugInformation = Stub.RenderDebugInformation
 Interface.GetGridPathFromPos = Stub.GetGridPathFromPos

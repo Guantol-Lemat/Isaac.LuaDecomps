@@ -10,16 +10,13 @@ local Stub = {}
 function Stub.ScrollRelatedMethod(hellBackdrop) end
 
 ---@param hellBackdrop Component.HellBackdrop
----@param ctx Context.Common
-function Stub.Init(hellBackdrop, ctx) end
+function Stub.Init(hellBackdrop) end
 
 ---@param hellBackdrop Component.HellBackdrop
----@param ctx Context.Common
-function Stub.Update(hellBackdrop, ctx) end
+function Stub.Update(hellBackdrop) end
 
 ---@param hellBackdrop Component.HellBackdrop
----@param ctx Context.Common
-function Stub.PreRenderLightOverlay(hellBackdrop, ctx) end
+function Stub.PreRenderLightOverlay(hellBackdrop) end
 
 ---@param hellBackdrop Component.HellBackdrop
 ---@param layer integer

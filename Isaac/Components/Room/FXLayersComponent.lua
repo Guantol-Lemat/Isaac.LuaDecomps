@@ -1,0 +1,30 @@
+---@class Component.FXLayers
+---@field m_averagePlayerPos Vector : 0x0
+---@field m_loaded? boolean : 0x8
+---@field m_levelStage LevelStage | integer : 0xc
+---@field m_stageType StageType | integer : 0x10
+---@field m_backdropType BackdropType | integer : 0x14
+---@field m_fxLayers Component.FXLayers.FX[] : 0x18
+---@field m_rayGroups Component.FXLayers.RayGroup[] : 0x24
+---@field m_poopFxCountdown integer : 0x34
+---@field m_pooCloudImage_qqq Engine.Image : 0x3c
+---@field m_pooPointer integer : 0x44
+---@field m_poopFXRelated_qqq integer : 0x50
+---@field m_poopFXFloats number[] [4] : 0x54
+---@field m_poopFxColor Color : 0x84
+---@field m_bottomRight_qqq Vector : 0xb0
+---@field m_topLeft_qqq Vector : 0xb8
+---@field m_veins Component.FXLayers.Vein[] [10] : 0xc0
+---@field m_veinANM2 Component.Sprite[] [2] : 0x2c8
+---@field m_veinPosRelated Vector : 0x4f0
+---@field m_fxParams Component.FXLayers.FXParams : 0x4f8
+
+---@class Component.FXLayers.FXParams
+---@field m_roomColor Component.FXLayers.ColorModState : 0x0
+---@field m_useWaterV2 boolean : 0x18
+---@field m_waterColor KColor : 0x1c
+---@field m_waterColorMultiplier KColor : 0x2c
+---@field m_shadowAlpha number : 0x3c
+---@field m_shadowColor KColor : 0x40
+---@field m_lightColor KColor : 0x50
+---@field m_waterEffectColor Color : 0x60

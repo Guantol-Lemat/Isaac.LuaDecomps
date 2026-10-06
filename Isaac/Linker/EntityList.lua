@@ -47,10 +47,9 @@ local function RenderEnd(entityList, offset, renderSlice) end
 ---@param renderOffset Vector
 function Stub.RenderSlice(entityList, zOffset, renderOffset) end
 
----@param ctx Context.Common
 ---@param entityList Component.EntityList
 ---@param offset Vector
-function Stub.RenderShadows(ctx, entityList, offset) end
+function Stub.RenderShadows(entityList, offset) end
 
 ---@param ctx Context.Common
 ---@param entityList Component.EntityList
