@@ -507,10 +507,6 @@ function Stub.WillPlayerCollideWithGrid(ctx, entity, pos) end
 function Stub.PlayerCollideWithGrid(ctx, entity, forceNoCollide) end
 
 ---@param entity Component.Entity
----@return boolean
-function Stub.IsEnemy(entity) end
-
----@param entity Component.Entity
 ---@param targetee_qqq Component.Entity?
 ---@return boolean
 function Stub.IsVulnerableEnemy(entity, targetee_qqq) end
@@ -518,10 +514,6 @@ function Stub.IsVulnerableEnemy(entity, targetee_qqq) end
 ---@param entity Component.Entity
 ---@return boolean
 function Stub.IsObstacle(entity) end
-
----@param entity Component.Entity
----@return boolean
-function Stub.IsFlying(entity) end
 
 ---@param entity Component.Entity
 function Stub.reset_color(entity) end
@@ -653,11 +645,6 @@ function Stub.Update(ctx, entity) end
 ---@param ctx Context.Common
 ---@param entity Component.Entity
 function Stub.Interpolate(ctx, entity) end
-
----@param ctx Context.Common
----@param entity Component.Entity
----@return integer
-function Stub.GetRenderZ(ctx, entity) end
 
 ---@param entity Component.Entity
 ---@return boolean
@@ -851,10 +838,6 @@ function Stub.apply_null_transform(entity) end
 ---@param multiplier number
 ---@return Vector
 function Stub.get_predicted_target_pos(entity, target, multiplier) end
-
----@param entity Component.Entity
----@return Component.WaterClipInfo
-function Stub.GetWaterClipInfo(entity) end
 
 ---@param ctx Context.Common
 ---@param entity Component.Entity
@@ -1056,10 +1039,10 @@ Interface.CollideWithGrid = Stub.CollideWithGrid
 Interface.WillPlayerCollideWithGrid = Stub.WillPlayerCollideWithGrid
 Interface.PlayerCollideWithGrid = Stub.PlayerCollideWithGrid
 Interface.SetSize = EntityProperties.SetSize
-Interface.IsEnemy = Stub.IsEnemy
+Interface.IsEnemy = EntityProperties.IsEnemy
 Interface.IsVulnerableEnemy = Stub.IsVulnerableEnemy
 Interface.IsObstacle = Stub.IsObstacle
-Interface.IsFlying = Stub.IsFlying
+Interface.IsFlying = EntityProperties.IsFlying
 Interface.reset_color = Stub.reset_color
 Interface.IsFrame = Stub.IsFrame
 Interface.IsTimeScaledFrame = Stub.IsTimeScaledFrame
@@ -1084,7 +1067,7 @@ Interface.RemoveStatusEffects = Stub.RemoveStatusEffects
 Interface.PreUpdate = Stub.PreUpdate
 Interface.Update = Stub.Update
 Interface.Interpolate = Stub.Interpolate
-Interface.GetRenderZ = Stub.GetRenderZ
+Interface.GetRenderZ = EntityProperties.GetRenderZ
 Interface.CanOverwrite = Stub.CanOverwrite
 Interface.Render = Stub.Render
 Interface.PostRender = Stub.PostRender
@@ -1120,7 +1103,7 @@ Interface.get_null_offset = Stub.get_null_offset
 Interface.get_null_capsule = Stub.get_null_capsule
 Interface.apply_null_transform = Stub.apply_null_transform
 Interface.get_predicted_target_pos = Stub.get_predicted_target_pos
-Interface.GetWaterClipInfo = Stub.GetWaterClipInfo
+Interface.GetWaterClipInfo = EntityProperties.GetWaterClipInfo
 Interface.AddMagnetized = Stub.AddMagnetized
 Interface.AddBaited = Stub.AddBaited
 Interface.AddWeakness = Stub.AddWeakness

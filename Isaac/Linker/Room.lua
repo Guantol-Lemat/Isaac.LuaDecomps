@@ -1152,9 +1152,8 @@ function Stub.GetBeastRoomLavaHeight(room) end
 ---@return boolean
 function Stub.TrySpawnSpecialQuestDoor(room, ctx) end
 
----@param ctx Context.Common
 ---@return boolean
-function Stub.IsMirrorWorld(ctx) end
+function Stub.IsMirrorWorld(room) end
 
 ---@param room Component.Room
 function Stub.TriggerDamoclesItemSpawned(room) end
