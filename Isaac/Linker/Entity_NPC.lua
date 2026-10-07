@@ -3,8 +3,8 @@ local Interface = require("Isaac.Interface.Entity_NPC")
 
 --#region
 
-local NpcInit = require("Isaac.Core.Npc.NpcInit")
-local NpcEvents = require("Isaac.Core.Npc.Events")
+local NpcInit = require("Isaac.Core.Entity.Npc.NpcInit")
+local NpcEvents = require("Isaac.Core.Entity.Npc.Events")
 
 --#endregion
 

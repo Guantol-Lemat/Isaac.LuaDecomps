@@ -1,13 +1,13 @@
 ---@class Interface.Entity_Pickup
 local Interface = require("Isaac.Interface.Entity_Pickup")
 
-local Global = require("Isaac.Core.Pickup.Global")
+local Global = require("Isaac.Core.Entity.Pickup.Global")
 local Component = require("Isaac.Components.Entity.PickupComponent")
-local PickupProperties = require("Isaac.Core.Pickup.Properties")
-local PickupLootList = require("Isaac.Core.Pickup.LootList")
-local PickupChest = require("Isaac.Core.Pickup.Chest")
-local ShopItem = require("Isaac.Core.Pickup.ShopItem")
-local Collision = require("Isaac.Core.Pickup.Collision")
+local PickupProperties = require("Isaac.Core.Entity.Pickup.Properties")
+local PickupLootList = require("Isaac.Core.Entity.Pickup.LootList")
+local PickupChest = require("Isaac.Core.Entity.Pickup.Chest")
+local ShopItem = require("Isaac.Core.Entity.Pickup.ShopItem")
+local Collision = require("Isaac.Core.Entity.Pickup.Collision")
 
 --#region Stub
 

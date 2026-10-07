@@ -3,7 +3,7 @@ local Interface = require("Isaac.Interface.Entity_Player")
 ---@class Interface.EntityPlayer.TearParams
 local TearParamsInterface = Interface.TearParams
 
-local Events = require("Isaac.Core.Player.Events")
+local Events = require("Isaac.Core.Entity.Player.Events")
 
 --#region Stub
 
