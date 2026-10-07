@@ -7,7 +7,7 @@ local Interface_EntityRef = Interface.EntityRef
 ---@class Interface.EntityPtr
 local Interface_EntityPtr = Interface.EntityPtr
 
-local EntityData = require("Isaac.Core.Entity.Data")
+local EntityProperties = require("Isaac.Core.Entity.Properties")
 local EntityRefComponent = require("Isaac.Components.Entity.EntityRefComponent")
 
 --#region Stub
@@ -852,10 +852,9 @@ function Stub.apply_null_transform(entity) end
 ---@return Vector
 function Stub.get_predicted_target_pos(entity, target, multiplier) end
 
----@param ctx Context.Common
 ---@param entity Component.Entity
 ---@return Component.WaterClipInfo
-function Stub.GetWaterClipInfo(ctx, entity) end
+function Stub.GetWaterClipInfo(entity) end
 
 ---@param ctx Context.Common
 ---@param entity Component.Entity
@@ -1056,7 +1055,7 @@ Interface.AddHealth = Stub.AddHealth
 Interface.CollideWithGrid = Stub.CollideWithGrid
 Interface.WillPlayerCollideWithGrid = Stub.WillPlayerCollideWithGrid
 Interface.PlayerCollideWithGrid = Stub.PlayerCollideWithGrid
-Interface.SetSize = EntityData.SetSize
+Interface.SetSize = EntityProperties.SetSize
 Interface.IsEnemy = Stub.IsEnemy
 Interface.IsVulnerableEnemy = Stub.IsVulnerableEnemy
 Interface.IsObstacle = Stub.IsObstacle

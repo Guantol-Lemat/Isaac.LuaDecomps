@@ -27,28 +27,7 @@
 ---@field Bind fun(self: Engine.Image)
 ---@field ApplyPallette fun(self: Engine.Image)
 ---@field apply_image fun(self: Engine.Image)
----@field m_uvScale Vector
----@field m_flags eImageFlags | integer
----@field m_predefinedShader ePredefinedShader | integer
----@field m_pixelFormat ePixelFormat
----@field m_pixelData pointer -- pointer containing raw pixel data
----@field m_minFilterMode integer
----@field m_magFilterMode integer
----@field m_wrapSMode integer
----@field m_wrapTMode integer
----@field m_vertexAttributesFormat pointer
----@field m_vertexAttributesCount integer
----@field m_vertexStride integer
----@field m_name string
----@field m_opaqueBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
----@field m_lastRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
----@field m_reusableTransparentRenderBatches RenderBatchComponent[] -- should be treated as a table indexed by {BlendMode, Shader, ShaderState}
----@field m_lastTransparentRenderBatch RenderBatchComponent? -- used to quickly find commonly indexed batches
----@field m_quadBatch RenderBatchComponent? -- the current batch in which to submit quads
----@field m_quadBatchRenderingOffset Vector
----@field m_quadBatchPixelScale number
----@field m_quadBatchChangedBlend boolean
----@field m_quadBatchIsTransparent boolean
----@field m_lastRenderTimeStamp integer
+---@field BeginBatch fun(self: Engine.Image, transparent: boolean)
+---@field EndBatch fun(self: Engine.Image)
 
 ---@class Engine.ProceduralImage : Engine.Image

@@ -1,6 +1,8 @@
 ---@class Interface.EntityList
 local Interface = require("Isaac.Interface.EntityList")
 
+local EntityListRender = require("Isaac.Core.EntityList.Render")
+
 --#region Stub
 
 local Stub = {}
@@ -32,15 +34,6 @@ function Stub.Update(ctx, entityList, isTransition) end
 ---@param ctx Context.Common
 ---@param entityList Component.EntityList
 function Stub.rendersort(ctx, entityList) end
-
----@param entityList Component.EntityList
----@param renderMode RenderMode | integer
-local function RenderStart(entityList, renderMode) end
-
----@param entityList Component.EntityList
----@param offset Vector
----@param renderSlice boolean
-local function RenderEnd(entityList, offset, renderSlice) end
 
 ---@param entityList Component.EntityList
 ---@param zOffset integer
@@ -125,10 +118,10 @@ Interface.Add = Stub.Add
 Interface.CountEntity = Stub.CountEntity
 Interface.Update = Stub.Update
 Interface.rendersort = Stub.rendersort
-Interface.RenderStart = Stub.RenderStart
-Interface.RenderEnd = Stub.RenderEnd
-Interface.RenderSlice = Stub.RenderSlice
-Interface.RenderShadows = Stub.RenderShadows
+Interface.RenderStart = EntityListRender.RenderStart
+Interface.RenderEnd = EntityListRender.RenderEnd
+Interface.RenderSlice = EntityListRender.RenderSlice
+Interface.RenderShadows = EntityListRender.RenderShadows
 Interface.collide = Stub.collide
 Interface.QueryRadius = Stub.QueryRadius
 Interface.QueryCapsule = Stub.QueryCapsule

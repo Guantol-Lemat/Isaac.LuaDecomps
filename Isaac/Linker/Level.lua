@@ -583,10 +583,9 @@ function Stub.TriggerRailButton(ctx, level) end
 ---@return boolean
 function Stub.HasMirrorDimension(ctx, level) end
 
----@param ctx Context.Common
 ---@param level Component.Level
 ---@return boolean
-function Stub.HasAbandonedMineshaft(ctx, level) end
+function Stub.HasAbandonedMineshaft(level) end
 
 ---@param ctx Context.Common
 ---@param level Component.Level

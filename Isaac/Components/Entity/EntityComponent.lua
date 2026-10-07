@@ -3,13 +3,13 @@
 ---@alias Entity.Update fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Interpolate fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Render fun(self: Component.Entity, offset: Vector)
----@alias Entity.RenderShadowLayer fun(self: Component.Entity, myContext: Context.Common, position: Vector)
----@alias Entity.PostRender fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.RenderShadowLayer fun(self: Component.Entity, offset: Vector)
+---@alias Entity.PostRender fun(self: Component.Entity)
 ---@alias Entity.TakeDamage fun(self: Component.Entity, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: Component.Entity.EntityRef, damageCountdown: integer)
 ---@alias Entity.Kill fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Remove fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.TriggerGlowingHourglass fun(self: Component.Entity, myContext: Context.Common)
----@alias Entity.GetRenderZ fun(self: Component.Entity, myContext: Context.Common): integer
+---@alias Entity.GetRenderZ fun(self: Component.Entity): integer
 ---@alias Entity.CanOverwrite fun(self: Component.Entity, myContext: Context.Common): boolean
 ---@alias Entity.SetColor fun(self: Component.Entity, myContext: Context.Common, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
 ---@alias Entity.SetCollisionDamage fun(self: Component.Entity, myContext: Context.Common, collisionDamage: number)
@@ -61,7 +61,7 @@
 ---@field m_spawnerVariant integer : 0x38
 ---@field m_sprite Sprite : 0x3c
 ---@field m_shadowSize number : 0x150
----@field m_shadowRelated Vector : 0x154
+---@field m_shadowOffset Vector : 0x154
 ---@field m_flags EntityFlag | integer : 0x160
 ---@field m_valid boolean : 0x168
 ---@field m_visible boolean : 0x169
