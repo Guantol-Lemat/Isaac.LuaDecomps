@@ -343,7 +343,7 @@ local function ShellGame_PlayerInteraction(slot, ctx, player, collider)
             or SHELL_GAME_PRIZE_POOL[prizeIdx]
 
         local heartBlock = prizeType == PickupVariant.PICKUP_HEART
-            and IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+            and IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
             and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL))
 
         if heartBlock then

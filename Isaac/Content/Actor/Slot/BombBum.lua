@@ -119,7 +119,7 @@ local function BombBum_UpdatePrize(slot, ctx, player, extraRng)
 
     -- other pickup prizes
     local heartPrize = prizeType == PRIZE_HEART
-        and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+        and not (IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
         and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     local pickupVariant = heartPrize and PickupVariant.PICKUP_HEART or PickupVariant.PICKUP_COIN

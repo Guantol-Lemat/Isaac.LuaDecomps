@@ -326,7 +326,7 @@ local function Update(ctx, tear)
     }
 
     local shouldDisableFlatTear = tear.m_tearFlags & TearFlags.TEAR_FLAT ~= 0 and
-        (player ~= nil or not IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_FLAT_WORM, false)) -- The playerOwner check is wrong and leads to a crash
+        (player ~= nil or not IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_FLAT_WORM, false)) -- The playerOwner check is wrong and leads to a crash
 
     if shouldDisableFlatTear then
         tear.m_sizeMulti = Vector(1, 1)

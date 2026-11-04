@@ -108,7 +108,7 @@ local function FortuneTellingMachine_UpdatePrize(slot, ctx, player, extraRng)
     end
 
     local soulHeartPrize = myRng:RandomInt(3) == 0
-        and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+        and not (IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
         and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if soulHeartPrize then

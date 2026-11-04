@@ -21,7 +21,7 @@ local function YourSoul_Pay(player, ctx)
     local players = ctx.game.m_playerManager.m_players
     for i = 1, #players, 1 do
         player = players[i]
-        if player.m_variant == PlayerVariant.PLAYER and IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_YOUR_SOUL, false) then
+        if player.m_variant == PlayerVariant.PLAYER and IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_YOUR_SOUL, false) then
             IEntityPlayer.TryRemoveTrinket(player, ctx, TrinketType.TRINKET_YOUR_SOUL)
             break
         end
@@ -269,7 +269,7 @@ local function StoreCredit_Pay(player, ctx, blackboard)
     end
 
     local owner = player
-    if not IEntityPlayer.HasTrinket(ctx, owner, TrinketType.TRINKET_STORE_CREDIT, false) then
+    if not IEntityPlayer.HasTrinket(owner, TrinketType.TRINKET_STORE_CREDIT, false) then
         owner = IPlayerManager.FirstTrinketOwner(ctx.game.m_playerManager, ctx, TrinketType.TRINKET_STORE_CREDIT, false)
     end
 

@@ -12,7 +12,7 @@ local SOUND_WISP_SPAWN = SoundEffect.SOUND_CANDLE_LIGHT
 ---@param ctx Context.Common
 ---@param beggar Component.Entity.Slot
 local function BethsEssence_OnBeggarPay(player, ctx, beggar)
-    if not IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_BETHS_ESSENCE, false) then
+    if not IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_BETHS_ESSENCE, false) then
         return
     end
 

@@ -857,12 +857,11 @@ function Stub.NumCollectibleHeld(ctx, player, Type, OnlyCountTrueItems) end
 ---@return boolean
 function Stub.VoidHasCollectible(player, param_1) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param Type TrinketType | integer
 ---@param ignoreModifiers boolean
 ---@return boolean
-function Stub.HasTrinket(ctx, player, Type, ignoreModifiers) end
+function Stub.HasTrinket(player, Type, ignoreModifiers) end
 
 ---@param player Component.Entity.Player
 ---@param ctx Context.Common
@@ -1832,10 +1831,9 @@ function Stub.AddDeadEyeCharge(ctx, player) end
 ---@param player Component.Entity.Player
 function Stub.ClearDeadEyeCharge(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@return CollectibleType | integer
-function Stub.GetZodiacEffect(ctx, player) end
+function Stub.GetZodiacEffect(player) end
 
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player

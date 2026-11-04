@@ -144,7 +144,7 @@ local function DonationMachine_UpdatePrize(slot, ctx, player, extraRng)
         IEntityPlayer.DonateLuck(ctx, player, 1)
     end
 
-    local karmaPrize = IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_KARMA, false)
+    local karmaPrize = IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_KARMA, false)
         and myRng:RandomInt(3) == 0
 
     if karmaPrize then

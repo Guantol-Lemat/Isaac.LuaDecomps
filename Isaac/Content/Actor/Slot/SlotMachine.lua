@@ -267,7 +267,7 @@ local function SlotMachine_TrySetPrize(slot, ctx, player)
     end
 
     local blockHeart = (prize == PRIZE_HEART_1 or prize == PRIZE_HEART_2)
-        and IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+        and IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
         and IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL):RandomInt(5) ~= 0
 
     if blockHeart then

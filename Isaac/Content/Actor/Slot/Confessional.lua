@@ -100,7 +100,7 @@ local function give_prize(slot, ctx, player)
     end
 
     local addSoulHearts = myRng:RandomInt(2) == 0
-        and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+        and not (IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
         and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if addSoulHearts then
@@ -111,7 +111,7 @@ local function give_prize(slot, ctx, player)
     end
 
     local addEternalHeart = myRng:RandomInt(16) == 0
-        and not (IEntityPlayer.HasTrinket(ctx, player, TrinketType.TRINKET_DAEMONS_TAIL, false)
+        and not (IEntityPlayer.HasTrinket(player, TrinketType.TRINKET_DAEMONS_TAIL, false)
         and PlayerEffects.TryDaemonsTailBlock(IEntityPlayer.GetTrinketRNG(player, TrinketType.TRINKET_DAEMONS_TAIL)))
 
     if addEternalHeart then
