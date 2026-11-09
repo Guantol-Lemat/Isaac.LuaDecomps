@@ -962,11 +962,10 @@ function Stub.control_movement(ctx, player) end
 ---@param player Component.Entity.Player
 function Stub.control_shooting(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param param_2 boolean
 ---@return BitSet128
-function Stub.GetBombFlags(ctx, player, param_2) end
+function Stub.GetBombFlags(player, param_2) end
 
 ---@param player Component.Entity.Player
 ---@param TearFlags BitSet128
@@ -2437,10 +2436,9 @@ function Stub.TriggerEchoChamber(ctx, player, pocketItemType, cardOrPillColor) e
 ---@return integer
 function Stub.GetGFuelAmount(ctx, player) end
 
----@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@return integer
-function Stub.GetGFuelWeaponType(ctx, player) end
+function Stub.GetGFuelWeaponType(player) end
 
 ---@param player Component.Entity.Player
 ---@return string
@@ -3053,4 +3051,4 @@ end
 
 --#endregion
 
-TearParamsInterface.New = New
+TearParamsInterface.New = TearParamsStub.New

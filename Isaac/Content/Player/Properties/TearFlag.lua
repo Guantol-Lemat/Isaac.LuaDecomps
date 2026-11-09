@@ -198,7 +198,7 @@ local function EvaluateTearFlags(player)
     LuaCallbacks.PostEvaluateItems(player, CacheFlag.CACHE_TEARFLAG)
 end
 
----@class Content.Player.Stat.TearFlags
+---@class Content.Player.Properties.TearFlags
 local Module = {}
 
 --#region Module

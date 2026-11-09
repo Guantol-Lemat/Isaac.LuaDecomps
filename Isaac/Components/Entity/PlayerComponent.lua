@@ -88,7 +88,7 @@ local SpriteUtils = require("General.Sprite")
 ---@field m_tearFallingSpeed number : 0x13c0
 ---@field m_tearFallingAcceleration number : 0x13c4
 ---@field m_range number : 0x13c8
----@field m_tearFlags TearFlags | BitSet128 : 0x13d0
+---@field m_tearFlags BitSet128 : 0x13d0
 ---@field m_tearColor Color : 0x13e0
 ---@field m_laserColor Color : 0x140c
 ---@field m_spriteScale_qqq Vector : 0x1438

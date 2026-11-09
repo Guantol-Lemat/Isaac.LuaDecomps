@@ -10,5 +10,5 @@
 ---@field knockback number : 0x54
 ---@field height number : 0x58
 ---@field speed number : 0x5c
----@field unk3 integer : 0x60
+---@field tearDisplacement integer : 0x60
 ---@field velocityMult number : 0x64

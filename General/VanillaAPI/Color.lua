@@ -110,6 +110,20 @@ local function Multiply(color, other)
 end
 
 ---@param color Color
+---@param other Color
+local function SetColorTint(color, other)
+    local tint = other:GetTint()
+    color:SetTint(tint.R, tint.G, tint.B, tint.A)
+end
+
+---@param color Color
+---@param other Color
+local function SetColorOffset(color, other)
+    local offset = other:GetOffset()
+    color:SetOffset(offset.R, offset.G, offset.B)
+end
+
+---@param color Color
 ---@param buffer number[]
 ---@param image Engine.Image
 local function FillVertices(color, buffer, image)
@@ -123,6 +137,8 @@ Module.KColor_Equals = KColor_Equals
 Module.ApplyColorMod = ApplyColorMod
 Module.Multiply = Multiply
 Module.MultiplyCompound = MultiplyCompound
+Module.SetColorTint = SetColorTint
+Module.SetColorOffset = SetColorOffset
 Module.FillVertices = FillVertices
 
 --#endregion
