@@ -177,16 +177,21 @@ end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.AlmondMilk_ApplyTearScale(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_ALMOND_MILK) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_ALMOND_MILK)
+    if condition then
         ops.scale_multiply(ctx, 0.7)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
+---@return boolean
 function Modifiers.SoyMilk_ApplyTearScale(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_SOY_MILK) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_SOY_MILK)
+    if condition then
         ops.scale_multiply(ctx, 0.5)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
@@ -582,7 +587,8 @@ end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.WeaponTear_Haemolacria_ApplyTearHitParams(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_HAEMOLACRIA) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+    if condition then
         ops.set_tear_variant(ctx, TearVariant.BALLOON)
 
         if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_BRIMSTONE) or ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_TECHNOLOGY) or ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_TECH_X) then
@@ -594,6 +600,7 @@ function Modifiers.WeaponTear_Haemolacria_ApplyTearHitParams(ctx)
         ops.scale_multiply(ctx, 1.71)
         ops.set_flags(ctx, TearFlags.TEAR_BURSTSPLIT)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
@@ -605,9 +612,12 @@ end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.WeaponTear_PlayerForgotten_ApplyTearHitParams(ctx)
-    if (ops.is_player_type(ctx, PlayerType.PLAYER_THEFORGOTTEN) or ops.is_player_type(ctx, PlayerType.PLAYER_THEFORGOTTEN_B)) and not ops.is_tear_variant(ctx, TearVariant.SCHYTHE) then
+    local condition = (ops.is_player_type(ctx, PlayerType.PLAYER_THEFORGOTTEN) or ops.is_player_type(ctx, PlayerType.PLAYER_THEFORGOTTEN_B))
+        and not ops.is_tear_variant(ctx, TearVariant.SCHYTHE)
+    if condition then
         ops.set_tear_variant(ctx, TearVariant.BONE)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
@@ -678,16 +688,20 @@ Modifiers.BloodBaby_ApplyTearHitParams = BloodBaby.ApplyTearHitParams
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.AlmondMilk_ApplyKnockback(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_ALMOND_MILK) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_ALMOND_MILK)
+    if condition then
         ops.knockback_multiply(ctx, 0.3)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.SoyMilk_ApplyKnockback(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_SOY_MILK) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_SOY_MILK)
+    if condition then
         ops.knockback_multiply(ctx, 0.2)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
@@ -701,16 +715,21 @@ end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.HighHeight(ctx)
-    if ops.has_trinket(ctx, TrinketType.TRINKET_BLISTER) then
+    local condition = ops.has_trinket(ctx, TrinketType.TRINKET_BLISTER)
+    if condition then
         ops.set_height(ctx, 3.0)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams
 function Modifiers.MediumHeight(ctx)
-    if ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_8_INCH_NAILS) or ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_TERRA) then
+    local condition = ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_8_INCH_NAILS)
+        or ops.has_collectible(ctx, CollectibleType.COLLECTIBLE_TERRA)
+    if condition then
         ops.set_height(ctx, 2.0)
     end
+    return condition
 end
 
 ---@param ctx Player.Blackboard.GetTearHitParams

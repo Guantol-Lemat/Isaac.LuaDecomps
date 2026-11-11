@@ -1,6 +1,8 @@
 ---@class Interface.Entity_Tear
 local Interface = require("Isaac.Interface.Entity_Tear")
 
+local Properties = require("Isaac.Core.Entity.Tear.Properties")
+
 --#region Stub
 
 local Stub = {}
@@ -268,10 +270,6 @@ function Stub.TearSplashDamage(ctx, param_1, param_2, param_3, param_4, param_5)
 ---@return boolean
 function Stub.damage_grid(ctx, tear, position) end
 
----@param variant TearVariant | integer
----@return TearVariant | integer
-function Stub.GetBloodTearVariant(variant) end
-
 ---@param tear Component.Entity.Tear
 function Stub.set_unk_bool_true(tear) end
 
@@ -337,6 +335,6 @@ Interface.ApplyTearFlagEffects = Stub.ApplyTearFlagEffects
 Interface.ApplyTearFlagModifiers = Stub.ApplyTearFlagModifiers
 Interface.TearSplashDamage = Stub.TearSplashDamage
 Interface.damage_grid = Stub.damage_grid
-Interface.GetBloodTearVariant = Stub.GetBloodTearVariant
+Interface.GetBloodTearVariant = Properties.GetBloodTearVariant
 Interface.set_unk_bool_true = Stub.set_unk_bool_true
 Interface.SetParentOffset = Stub.SetParentOffset

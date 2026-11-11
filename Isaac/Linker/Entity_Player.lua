@@ -4,6 +4,7 @@ local Interface = require("Isaac.Interface.Entity_Player")
 local TearParamsInterface = Interface.TearParams
 
 local Events = require("Isaac.Core.Entity.Player.Events")
+local Stats = require("Isaac.Core.Entity.Player.Stats")
 
 --#region Stub
 
@@ -1724,15 +1725,6 @@ function Stub.RemoveBlueSpider(player) end
 ---@return integer
 function Stub.GetExtraLives(player) end
 
----@param player Component.Entity.Player
----@param ctx Context.Common
----@param WeaponType WeaponType | integer
----@param DamageScale number
----@param TearDisplacement integer
----@param Source Component.Entity?
----@return Component.Entity.Player.TearParams
-function Stub.GetTearHitParams(player, ctx, WeaponType, DamageScale, TearDisplacement, Source) end
-
 ---@param ctx Context.Common
 ---@param player Component.Entity.Player
 ---@param param_2 integer
@@ -2532,7 +2524,6 @@ function Stub.GetModelingClayEffect(player) end
 
 --#endregion
 
-Interface.IsEntityTypePlayer = Stub.IsEntityTypePlayer
 Interface.IsActive = Stub.IsActive
 Interface.SetValid = Stub.SetValid
 Interface.GetMainTwin = Stub.GetMainTwin
@@ -2872,7 +2863,7 @@ Interface.AddBlueSpider = Stub.AddBlueSpider
 Interface.ThrowBlueSpider = Stub.ThrowBlueSpider
 Interface.RemoveBlueSpider = Stub.RemoveBlueSpider
 Interface.GetExtraLives = Stub.GetExtraLives
-Interface.GetTearHitParams = Stub.GetTearHitParams
+Interface.GetTearHitParams = Stats.GetTearHitParams
 Interface.GetTearFlagScale = Stub.GetTearFlagScale
 Interface.Debug_SetHighLuck = Stub.Debug_SetHighLuck
 Interface.get_glitch_baby_subtype = Stub.get_glitch_baby_subtype
