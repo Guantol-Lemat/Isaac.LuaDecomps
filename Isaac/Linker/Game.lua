@@ -461,12 +461,11 @@ function Stub.GetGreedWavesNum(game) end
 ---@return integer
 function Stub.GetGreedBossWaveNum(game) end
 
----@param ctx Context.Common
+---@param game Component.Game
 ---@param pos Vector
 ---@param color KColor
 ---@param text string
----@param size integer
-function Stub.DebugText(ctx, pos, color, text, size) end
+function Stub.DebugText(game, pos, color, text) end
 
 ---@param game Component.Game
 ---@param ctx Context.Common

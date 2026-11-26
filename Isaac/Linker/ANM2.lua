@@ -4,6 +4,9 @@ local Interface = require("Isaac.Interface.ANM2")
 ---@class Interface.Sprite.LayerState
 local Interface_LayerState = Interface.LayerState
 
+---@class Interface.Sprite.AnimationState
+local Interface_AnimationState = Interface.AnimationState
+
 --#region Stub
 
 local Stub = {}
@@ -470,7 +473,21 @@ function Stub_LayerState.SetBlendMode(layerState, value) end
 
 --#endregion
 
+--#region Stub AnimationState
+
+local Stub_AnimationState = {}
+
+---@param animationState Component.Sprite.AnimationState
+---@param Position Vector
+---@param TopLeftClamp Vector
+---@param BottomRightClamp Vector
+function Stub_AnimationState.Render(animationState, Position, TopLeftClamp, BottomRightClamp) end
+
+--#endregion
+
 Interface_LayerState.SetSize = Stub_LayerState.SetSize
 Interface_LayerState.SetPosition = Stub_LayerState.SetPosition
 Interface_LayerState.SetColor = Stub_LayerState.SetColor
 Interface_LayerState.SetBlendMode = Stub_LayerState.SetBlendMode
+
+Interface_AnimationState.Render = Stub_AnimationState.Render

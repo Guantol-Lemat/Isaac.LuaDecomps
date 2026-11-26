@@ -1,7 +1,7 @@
 ---@class Interface.Entity_Tear
 local Interface = require("Isaac.Interface.Entity_Tear")
 
-local Properties = require("Isaac.Core.Entity.Tear.Properties")
+local Properties = require("Isaac.Core.Entity_Tear.Properties")
 
 --#region Stub
 

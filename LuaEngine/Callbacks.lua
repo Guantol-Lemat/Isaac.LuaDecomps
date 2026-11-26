@@ -148,7 +148,8 @@ end
 local function PostTearUpdate()
 end
 
-local function PostTearRender()
+---@param offset Vector
+local function PostTearRender(offset)
 end
 
 local function PreTearCollision()
@@ -162,7 +163,8 @@ end
 local function PostFamiliarUpdate(familiar)
 end
 
-local function PostFamiliarRender()
+---@param offset Vector
+local function PostFamiliarRender(offset)
 end
 
 local function PreFamiliarCollision()
@@ -174,7 +176,8 @@ end
 local function PostBombUpdate()
 end
 
-local function PostBombRender()
+---@param offset Vector
+local function PostBombRender(offset)
 end
 
 local function PreBombCollision()
@@ -187,7 +190,8 @@ end
 local function PostPickupUpdate()
 end
 
-local function PostPickupRender()
+---@param offset Vector
+local function PostPickupRender(offset)
 end
 
 local function PrePickupCollision()
@@ -206,7 +210,8 @@ end
 local function PostLaserUpdate()
 end
 
-local function PostLaserRender()
+---@param offset Vector
+local function PostLaserRender(offset)
 end
 
 local function PostKnifeInit()
@@ -216,7 +221,8 @@ end
 local function PostKnifeUpdate(knife)
 end
 
-local function PostKnifeRender()
+---@param offset Vector
+local function PostKnifeRender(offset)
 end
 
 local function PreKnifeCollision()
@@ -228,7 +234,8 @@ end
 local function PostProjectileUpdate()
 end
 
-local function PostProjectileRender()
+---@param offset Vector
+local function PostProjectileRender(offset)
 end
 
 local function PreProjectileCollision()
@@ -245,7 +252,8 @@ end
 local function PostNPCUpdate(npc)
 end
 
-local function PostNPCRender()
+---@param offset Vector
+local function PostNPCRender(offset)
 end
 
 local function PostNPCDeath()
@@ -260,7 +268,8 @@ end
 local function PostEffectUpdate()
 end
 
-local function PostEffectRender()
+---@param offset Vector
+local function PostEffectRender(offset)
 end
 
 ---@class LuaCallbacks

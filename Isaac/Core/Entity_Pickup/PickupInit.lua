@@ -142,7 +142,7 @@ end
 local function Init(pickup, ctx, type, variant, subtype, seed)
     local ignoreModifiers = IEntityPickup.IgnoreModifiers()
 
-    pickup.m_isSpriteBatched_qqq = true
+    pickup.m_blockSpriteBatch = true
     pickup.m_coopExtra_collectedItems = -1
     pickup.m_price = 0
     pickup.m_shopItemId = 0
@@ -165,8 +165,8 @@ local function Init(pickup, ctx, type, variant, subtype, seed)
         IEntityPtr.SetReference(pickup.m_pickupGhost_qqq, nil)
     end
 
-    IEntityPtr.SetReference(pickup.m_megaChestCollectible[1], nil)
-    IEntityPtr.SetReference(pickup.m_megaChestCollectible[2], nil)
+    IEntityPtr.SetReference(pickup.m_megaChestCollectible_parent, nil)
+    IEntityPtr.SetReference(pickup.m_megaChestCollectible_child, nil)
 
     pickup.m_throw_height = 0.0
     pickup.m_throw_speed = 0.0

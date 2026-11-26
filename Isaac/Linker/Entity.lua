@@ -7,7 +7,7 @@ local Interface_EntityRef = Interface.EntityRef
 ---@class Interface.EntityPtr
 local Interface_EntityPtr = Interface.EntityPtr
 
-local EntityProperties = require("Isaac.Core.Entity.Properties")
+local EntityProperties = require("Isaac.Core.Entity.Misc")
 local EntityRefComponent = require("Isaac.Components.Entity.EntityRefComponent")
 
 --#region Stub
@@ -86,9 +86,8 @@ function Stub.IsBomb(entity) end
 function Stub.EntityIsTypeVarSubtype(entity, type, variant, subtype) end
 
 ---@param entity Component.Entity
----@param l EntityFlags | integer
----@param h EntityFlags | integer
-function Stub.AddEntityFlags(entity, l, h) end
+---@param value EntityFlag | integer
+function Stub.AddEntityFlags(entity, value) end
 
 ---@param entity Component.Entity
 ---@param flags integer
@@ -99,10 +98,9 @@ function Stub.ClearEntityFlags(entity, flags) end
 function Stub.GetEntityFlags(entity) end
 
 ---@param entity Component.Entity
----@param flagsL EntityFlags | integer
----@param flagsH EntityFlags | integer
+---@param value EntityFlag | integer
 ---@return boolean
-function Stub.HasEntityFlags(entity, flagsL, flagsH) end
+function Stub.HasEntityFlags(entity, value) end
 
 ---@param entity Component.Entity
 ---@return boolean
@@ -477,10 +475,9 @@ function Stub.load_entity_config(ctx, entity) end
 ---@return Component.Capsule
 function Stub.GetCollisionCapsule(entity, offset_qqq) end
 
----@param ctx Context.Common
 ---@param entity Component.Entity
 ---@return integer
-function Stub.GetFrameCount(ctx, entity) end
+function Stub.GetFrameCount(entity) end
 
 ---@param entity Component.Entity
 ---@return boolean

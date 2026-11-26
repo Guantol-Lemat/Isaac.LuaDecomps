@@ -1,17 +1,17 @@
----@alias Entity.Init fun(self: Component.Entity, myContext: Context.Common, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
+---@alias Function.Entity.Init fun(self: Component.Entity, myContext: Context.Common, type: EntityType | integer, variant: integer, subtype: integer, seed: integer)
 ---@alias Entity.PreUpdate fun(self: Component.Entity, myContext: Context.Common)
----@alias Entity.Update fun(self: Component.Entity, myContext: Context.Common)
+---@alias Function.Entity.Update fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.Interpolate fun(self: Component.Entity, myContext: Context.Common)
----@alias Entity.Render fun(self: Component.Entity, offset: Vector)
+---@alias Function.Entity.Render fun(self: Component.Entity, offset: Vector)
 ---@alias Entity.RenderShadowLayer fun(self: Component.Entity, offset: Vector)
 ---@alias Entity.PostRender fun(self: Component.Entity)
----@alias Entity.TakeDamage fun(self: Component.Entity, myContext: Context.Common, damage: number, flags: DamageFlag | integer, source: Component.Entity.EntityRef, damageCountdown: integer)
----@alias Entity.Kill fun(self: Component.Entity, myContext: Context.Common)
----@alias Entity.Remove fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.TakeDamage fun(self: Component.Entity, damage: number, flags: DamageFlag | integer, source: Component.Entity.EntityRef, damageCountdown: integer)
+---@alias Entity.Kill fun(self: Component.Entity)
+---@alias Entity.Remove fun(self: Component.Entity)
 ---@alias Entity.TriggerGlowingHourglass fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.GetRenderZ fun(self: Component.Entity): integer
 ---@alias Entity.CanOverwrite fun(self: Component.Entity, myContext: Context.Common): boolean
----@alias Entity.SetColor fun(self: Component.Entity, myContext: Context.Common, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
+---@alias Entity.SetColor fun(self: Component.Entity, color: Color, duration: integer, priority: integer, fadeout: boolean, shared: boolean)
 ---@alias Entity.SetCollisionDamage fun(self: Component.Entity, myContext: Context.Common, collisionDamage: number)
 ---@alias Entity.ClearReferences fun(self: Component.Entity, myContext: Context.Common)
 ---@alias Entity.CanShutDoors fun(self: Component.Entity) : boolean
@@ -21,15 +21,15 @@
 ---@alias Entity.GetForwardVector fun(self: Component.Entity, myContext: Context.Common): Vector
 ---@alias Entity.HandleCollision fun(self: Component.Entity, myContext: Context.Common, collider: Component.Entity, low: boolean): boolean
 ---@alias Entity.ResetColor fun(self: Component.Entity)
----@alias Entity.LoadEntityConfig fun(self: Component.Entity, myContext: Context.Common)
+---@alias Entity.LoadEntityConfig fun(self: Component.Entity)
 
 ---@class Component.Entity
 ---@field Free fun(self: Component.Entity, myContext: Context.Common)
----@field Init Entity.Init
+---@field Init Function.Entity.Init
 ---@field PreUpdate Entity.PreUpdate
----@field Update Entity.Update
+---@field Update Function.Entity.Update
 ---@field Interpolate Entity.Interpolate
----@field Render Entity.Render
+---@field Render Function.Entity.Render
 ---@field RenderShadowLayer Entity.RenderShadowLayer
 ---@field PostRender Entity.PostRender
 ---@field TakeDamage Entity.TakeDamage
@@ -49,7 +49,7 @@
 ---@field HandleCollision Entity.HandleCollision
 ---@field ResetColor Entity.ResetColor
 ---@field LoadEntityConfig Entity.LoadEntityConfig
----@field m_damage_entries Component.DamageEntry[] : 0x8
+---@field m_damage_entries Component.Entity.DamageEntry[] : 0x8
 ---@field m_damage_damageTaken number : 0x14
 ---@field m_damage_flagsTaken DamageFlag | integer : 0x18
 ---@field m_index integer : 0x20
@@ -59,7 +59,7 @@
 ---@field m_subtype integer : 0x30
 ---@field m_spawnerType EntityType | integer : 0x34
 ---@field m_spawnerVariant integer : 0x38
----@field m_sprite Sprite : 0x3c
+---@field m_sprite Component.Sprite : 0x3c
 ---@field m_shadowSize number : 0x150
 ---@field m_shadowOffset Vector : 0x154
 ---@field m_flags EntityFlag | integer : 0x160
@@ -69,7 +69,7 @@
 ---@field m_isDead boolean : 0x16b
 ---@field m_unkBool boolean : 0x16c
 ---@field m_interpolated boolean : 0x16d
----@field m_isSpriteBatched_qqq boolean : 0x16e
+---@field m_blockSpriteBatch boolean : 0x16e
 ---@field m_removedByFactoryCreate boolean : 0x16f
 ---@field m_gridCollisionPoints Vector[] : 0x170
 ---@field m_gridCollisionClass EntityGridCollisionClass | integer : 0x17c
@@ -79,7 +79,7 @@
 ---@field m_velocityOnGridCollide Vector : 0x18c
 ---@field m_gridCollisionDirection Vector : 0x194
 ---@field m_screenPosition Vector : 0x19c
----@field m_colorMask ColorMaskComponent : 0x1a4
+---@field m_temporaryColors Component.Entity.TemporaryColor[] : 0x1a4
 ---@field m_color Color : 0x1b0
 ---@field m_splatColor Color : 0x1dc
 ---@field m_fireDamageCountdown integer : 0x208
@@ -100,11 +100,11 @@
 ---@field m_bleedDamageDistance_qqq number : 0x244
 ---@field m_magnetizedCountdown integer : 0x248
 ---@field m_baitedCountdown integer : 0x24c
----@field m_knockbackCountdown integer : 0x250
+---@field m_knockback_countdown integer : 0x250
 ---@field m_weaknessCountdown integer : 0x254
 ---@field m_iceCountdown integer : 0x258
 ---@field m_brimstoneMarkCountdown integer : 0x25c
----@field m_knockbackDirection Vector : 0x260
+---@field m_knockback_velocity Vector : 0x260
 ---@field m_magnetizedPullingEffect Component.EntityPtr : 0x268
 ---@field m_unkVector2 Vector : 0x26c
 ---@field m_pauseTimer integer : 0x274
@@ -136,8 +136,8 @@
 ---@field m_localFrame number : 0x2fc -- local "Time" for the entity, affected by timeScale
 ---@field m_slowStatusFrictionMult_qqq number : 0x304
 ---@field m_invincible boolean : 0x308
----@field m_defaultSpriteScale_qqq number : 0x30c
----@field m_usedInShrinkStatus2 number : 0x310
+---@field m_shrink_scale number : 0x30c
+---@field m_shrink_targetScale number : 0x310
 ---@field m_parent Component.EntityPtr : 0x314
 ---@field m_child Component.EntityPtr : 0x318
 ---@field m_target Component.EntityPtr : 0x31c
@@ -147,15 +147,21 @@
 ---@field m_bishopRelated Component.EntityPtr : 0x330
 ---@field m_dropRNG RNG : 0x334
 ---@field m_initSeed integer : 0x344
----@field m_childTimescale_qqq integer : 0x348
----@field m_childRelated Vector : 0x34c
+---@field m_stop_countdown integer : 0x348
+---@field m_stop_position Vector : 0x34c
 ---@field m_pitfallState integer : 0x354
 ---@field m_pitfallRelated integer : 0x358
 ---@field m_luaData table : 0x35c -- the lua table returned by GetData()
 
----@class Component.DamageEntry
+---@class Component.Entity.DamageEntry
 ---@field damage number : 0x0
 ---@field damageFlags DamageFlag | integer : 0x8
----@field source Component.EntityRef : 0x10
+---@field source Component.Entity.EntityRef : 0x10
 
----@class ColorMaskComponent
+---@class Component.Entity.TemporaryColor
+---@field priority integer : 0x0
+---@field color Color : 0x4
+---@field totalDuration integer : 0x30
+---@field countdown integer : 0x34
+---@field fadeout boolean : 0x38
+---@field shared boolean :0x39

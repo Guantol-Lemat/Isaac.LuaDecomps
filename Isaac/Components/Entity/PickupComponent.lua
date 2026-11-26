@@ -1,5 +1,5 @@
 ---@class Component.Entity.Pickup : Component.Entity
----@field m_priceANM2 Sprite : 0x360
+---@field m_priceANM2 Component.Sprite : 0x360
 ---@field m_charge integer : 0x474
 ---@field m_optionsPickupIndex integer : 0x478
 ---@field m_touched boolean : 0x47c
@@ -20,13 +20,14 @@
 ---@field m_coopExtra_collectedItems integer : 0x4d4
 ---@field m_unkEntRef3_qqq Component.EntityPtr : 0x4d8
 ---@field m_pickupGhost_qqq Component.EntityPtr : 0x4dc
----@field m_megaChestCollectible Component.EntityPtr[] [2] : 0x4e0
+---@field m_megaChestCollectible_parent Component.EntityPtr : 0x4e0
+---@field m_megaChestCollectible_child Component.EntityPtr : 0x4e4
 ---@field m_activeVarData integer : 0x4e8
 ---@field m_cycle_collectibleList integer[] [8] : 0x4ec
 ---@field m_cycle_cycleNum integer : 0x50c
 ---@field m_visibilityDelayTimer_qqq integer : 0x510
 ---@field m_flip_saveState Component.EntitySaveState? : 0x514
----@field m_flip_collectibleSprite Sprite : 0x51c
+---@field m_flip_collectibleSprite Component.Sprite : 0x51c
 ---@field m_throw_height number : 0x630
 ---@field m_throw_speed number : 0x630
 

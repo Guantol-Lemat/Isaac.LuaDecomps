@@ -2,12 +2,12 @@
 local Interface = require("Isaac.Interface.Entity_Slot")
 
 local SlotComponent = require("Isaac.Components.Entity.SlotComponent")
-local SlotInit = require("Isaac.Core.Entity.Slot.SlotInit")
-local SlotUpdate = require("Isaac.Core.Entity.Slot.SlotUpdate")
-local SlotRender = require("Isaac.Core.Entity.Slot.SlotRender")
-local SlotCollision = require("Isaac.Core.Entity.Slot.SlotCollision")
-local SlotDamage = require("Isaac.Core.Entity.Slot.SlotDamage")
-local SlotMisc = require("Isaac.Core.Entity.Slot.SlotMisc")
+local SlotInit = require("Isaac.Core.Entity_Slot.SlotInit")
+local SlotUpdate = require("Isaac.Core.Entity_Slot.SlotUpdate")
+local SlotRender = require("Isaac.Core.Entity_Slot.SlotRender")
+local SlotCollision = require("Isaac.Core.Entity_Slot.SlotCollision")
+local SlotDamage = require("Isaac.Core.Entity_Slot.SlotDamage")
+local SlotMisc = require("Isaac.Core.Entity_Slot.SlotMisc")
 
 Interface.New = SlotComponent.New
 Interface.RandomCoinJamAnim = SlotMisc.RandomCoinJamAnim

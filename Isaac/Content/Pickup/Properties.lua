@@ -2,6 +2,7 @@
 
 local ILevel = require("Isaac.Interface.Level")
 local IRoom = require("Isaac.Interface.Room")
+local EntityProperty = require("Isaac.Core.Entity.Misc")
 local IEntityPickup = require("Isaac.Interface.Entity_Pickup")
 local IPlayerManager = require("Isaac.Interface.PlayerManager")
 
@@ -24,6 +25,12 @@ local function ItemShouldDuplicate(pickup, ctx)
         and IPlayerManager.AnyoneHasCollectible(ctx.game.m_playerManager, ctx, CollectibleType.COLLECTIBLE_DAMOCLES_PASSIVE)
 end
 
+---@param pickup Component.Entity.Pickup
+---@return boolean
+local function ShouldRender(pickup)
+    return EntityProperty.ShouldRender(pickup) and pickup.m_dropDelay < 1
+end
+
 ---@class Mechanics.Pickups.Properties
 local Module = {}
 
@@ -31,6 +38,7 @@ local Module = {}
 
 Module.IsIdleAppear = IsIdleAppear
 Module.ItemShouldDuplicate = ItemShouldDuplicate
+Module.ShouldRender = ShouldRender
 
 --#endregion
 

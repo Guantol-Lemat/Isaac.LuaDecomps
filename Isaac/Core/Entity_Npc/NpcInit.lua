@@ -86,14 +86,14 @@ local function Init(ctx, npc, entityType, variant, subtype, seed)
     npc.m_V2 = Vector(0, 0)
     npc.m_championRegenTimer = 0
     npc.m_onDeathEnemySpawnCount = 0
-    npc.m_childTimescale_qqq = 0
+    npc.m_stop_countdown = 0
     npc.m_I1 = 0
     npc.m_I2 = 0
     npc.m_entityRef = nil
     npc.m_projectileCooldown = 0
     npc.m_projectileDelay = -1
     npc.m_championProjectileCooldown_qqq = 0
-    npc.m_childRelated = Vector(0, 0)
+    npc.m_stop_position = Vector(0, 0)
     npc.field_0xbb1 = 0
     npc.m_camoColor = Color()
     npc.m_hitList.m_list = {}

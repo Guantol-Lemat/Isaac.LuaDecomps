@@ -5,16 +5,136 @@ local G = require("Isaac.Global")
 local MathUtils = require("General.Math")
 local TableUtils = require("General.Table")
 local VectorUtils = require("General.Math.VectorUtils")
+local IsaacUtils = require("Isaac.Utils.Common")
 local IRoom = require("Isaac.Interface.Room")
 local WaterClipInfo = require("Isaac.Content.Entity.Properties.WaterClipInfo")
 
 --#endregion
 
 ---@param entity Component.Entity
+---@return Vector
+local function GetSpriteScale(entity)
+    return entity.m_sprite.m_scale
+end
+
+---@param entity Component.Entity
+---@param value Vector
+local function SetSpriteScale(entity, value)
+    entity.m_sprite.m_scale = VectorUtils.Copy(value)
+end
+
+---@param entity Component.Entity
+---@param value Vector
+local function SetSpriteOffset(entity, value)
+    entity.m_sprite.m_offset = VectorUtils.Copy(value)
+end
+
+---@param entity Component.Entity
 ---@return boolean
-local function IsEnemy(entity)
-    local entType = entity.m_type
-    return 10 <= entType and entType < 1000
+local function GetFlipX(entity)
+    return entity.m_sprite.m_flipX
+end
+
+---@param entity Component.Entity
+---@param value number
+local function SetSpriteRotation(entity, value)
+    entity.m_sprite.m_rotation = value
+end
+
+---@param entity Component.Entity
+---@return integer
+local function GetDropSeed(entity)
+    return entity.m_dropRNG:GetSeed()
+end
+
+---@param entity Component.Entity
+---@return BossType | integer
+local function GetBossID(entity)
+    return entity.m_config.bossID
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function HasMinecart(entity)
+    return entity.m_minecart ~= nil
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function HasMortalDamage(entity)
+    return entity.m_health <= entity.m_damage_damageTaken
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function HasFullHealth(entity)
+    return entity.m_health >= entity.m_maxHealth
+end
+
+---@param entity Component.Entity
+---@return integer
+local function GetFrameCount(entity)
+    return g_Game.m_frameCount - entity.m_spawnFrame
+end
+
+---@param entity Component.Entity
+---@return integer
+local function GetFrameDelta(entity)
+    return math.floor(entity.m_localFrame) - math.floor(entity.m_lastLocalFrame)
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function IsFriendly(entity)
+    return (entity.m_flags & EntityFlag.FLAG_FRIENDLY) ~= 0
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function CanOverwrite(entity)
+    return (entity.m_flags & EntityFlag.FLAG_DONT_OVERWRITE) == 0
+end
+
+---@param entity Component.Entity
+local function Die(entity)
+    entity.m_isDead = true
+end
+
+---@param entity Component.Entity
+---@param value number
+local function MultiplyFriction(entity, value)
+    entity.m_friction = entity.m_friction * value
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function CanDevolve(entity)
+    return #entity.m_config.devolve > 0
+end
+
+---@param entity Component.Entity
+---@return Component.Entity
+local function GetLastParent(entity)
+    local lastParent = entity
+    local parent = lastParent.m_parent.ref
+    while parent ~= nil do
+        lastParent = parent
+        parent = lastParent.m_parent.ref
+    end
+
+    return lastParent
+end
+
+---@param entity Component.Entity
+---@return boolean
+local function ShouldRender(entity)
+    return entity.m_exists and entity.m_visible
+end
+
+---@param entity Component.Entity
+---@param offset Vector
+local function InitScreenPosition(entity, offset)
+    entity.m_screenPosition = IsaacUtils.GetRenderPosition(entity.m_position + entity.m_positionOffset, true) + offset
 end
 
 local FLYING_COLLISION_CLASS = TableUtils.CreateDictionary({
@@ -115,6 +235,7 @@ Module.IsFlying = IsFlying
 Module.SetSize = SetSize
 Module.GetRenderZ = GetRenderZ
 Module.GetWaterClipInfo = WaterClipInfo.GetWaterClipInfo
+Module.ShouldRender = ShouldRender
 
 --#endregion
 

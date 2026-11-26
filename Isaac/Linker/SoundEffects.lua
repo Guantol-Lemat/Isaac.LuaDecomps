@@ -16,14 +16,13 @@ function Stub.Preload(sfx, ctx, Id) end
 function Stub.LoadConfig(sfx, filename, ismod) end
 
 ---@param sfx Component.SoundEffects
----@param ctx Context.Common
 ---@param ID SoundEffect | integer
 ---@param Volume number
 ---@param FrameDelay integer
 ---@param Loop boolean
 ---@param Pitch number
 ---@param Pan number
-function Stub.Play(sfx, ctx, ID, Volume, FrameDelay, Loop, Pitch, Pan) end
+function Stub.Play(sfx, ID, Volume, FrameDelay, Loop, Pitch, Pan) end
 
 ---@param sfx Component.SoundEffects
 ---@param ctx Context.Common
